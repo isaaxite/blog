@@ -1,0 +1,61 @@
+/*!
+ * Completer v@VERSION
+ * https://github.com/fengyuanchen/completer
+ *
+ * Copyright (c) 2014-@YEAR Fengyuan Chen
+ * Released under the MIT license
+ *
+ * Date: @DATE
+ */
+
+.completer-container {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: normal;
+
+  position: absolute;
+
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  border: 1px solid #ccc;
+  border-bottom-color: #39f;
+  background-color: #fff;
+}
+
+.completer-container li {
+  overflow: hidden;
+
+  margin: 0;
+  padding: .5em .8em;
+
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+}
+
+.completer-container .completer-selected,
+.completer-container li:hover {
+  margin-left: -1px;
+
+  border-left: 1px solid #39f;
+  background-color: #eee;
+}
+// 自动补全样式修改
+.completer-container{
+	overflow: auto;
+	border: none;
+	box-shadow: 0 0 10px rgb(180,180,180);
+	max-height: 250px;
+}
+.completer-container li{
+	text-align: left;
+}

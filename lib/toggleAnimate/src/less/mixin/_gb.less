@@ -1,0 +1,250 @@
+.box(@pack:center, @align:center, @orient:horizontal){
+	display: -webkit-box;
+	-webkit-box-pack: @pack;
+	-webkit-box-align: @align;
+	-webkit-box-orient: @orient;
+}
+.box-sizing(@sender){
+	-webkit-box-sizing: @sender;
+	     -moz-box-sizing: @sender;
+	          box-sizing: @sender;
+}
+.box-shadow(@style: ~"1px 1px 10px rgb(180,180,180)"){
+	outline: none;
+	box-shadow: @style;
+}
+
+.border-radius(@radius){
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius;
+
+}
+
+
+.appearance(@sender){
+	appearance: @sender;
+	-moz-appearance: @sender;
+	-webkit-appearance: @sender;
+}
+.tap-highlight-color(@sender: ~"rgba(180,180,180,0.5)"){
+	tap-highlight-color: @sender;
+	-webkit-tap-highlight-color: @sender;
+}
+
+
+.inline-box(@pack:center, @align:center, @orient:horizontal){
+	display: -webkit-inline-box;
+	-webkit-box-pack: @pack;
+	-webkit-box-align: @align;
+	-webkit-box-orient: @orient;
+}
+
+.ellipsis(){
+	text-overflow: ellipsis;
+	overflow-x: hidden;
+	white-space: nowrap; 
+}
+
+.absolute(@top:auto, @right:auto, @bottom:auto, @left:auto){
+	position: absolute;
+	top: @top;
+	right: @right;
+	bottom: @bottom;
+	left: @left;
+}
+
+.fixed(@top:auto, @right:auto, @bottom:auto, @left:auto){
+	position: fixed;
+	top: @top;
+	right: @right;
+	bottom: @bottom;
+	left: @left;
+}
+
+.rotate(@deg:0deg){
+	-webkit-transform-origin:center;
+	-webkit-transform:rotate(@deg);
+	transform-origin:center;
+	transform:rotate(@deg);
+}
+.origin(@sender){
+	transform-origin: @sender;
+	-webkit-transform-origin: @sender;
+	-moz-transform-origin: @sender;
+	-ms-transform-origin: @sender;
+}
+
+.transition(@prop:all, @time:0.3s, @func:ease-in-out, @delay:0s){
+	-webkit-transition:@prop @time @func @delay;
+	transition:@prop @time @func @delay;
+}
+
+.translate(@x:0, @y:0){
+	-webkit-transform:translate(@x,@y);
+	transform:translate(@x,@y);
+}
+
+.animation(@name, @time:0.3s, @func:ease-in-out, @delay:0s, @count:1, @dir:normal){
+	-webkit-animation:@name @time @func @delay @count @dir;
+	animation:@name @time @func @delay @count @dir;
+}
+
+.scale(@x:1, @y:1){
+	-webkit-transform:scale(@x,@y);
+	transform:scale(@x,@y);
+}
+.box{ 
+	display: flex;justify-content: space-between;align-items: center;
+	&>.item{ flex: 1;text-align: center; }
+}
+.triangle(@direction:top, @weight:6px, @color:#666){
+	display: inline-block;
+	width: 0;
+	height: 0;
+	font-size: 0;
+	overflow: hidden;
+	content: '';
+	& when (@direction = top) {
+		border-top:0;
+		border-bottom:@weight solid @color;
+		border-left:@weight dashed transparent;
+		border-right:@weight dashed transparent;
+	} 
+	& when (@direction = right) {
+		border-right:0;
+		border-left:@weight solid @color;
+		border-top:@weight dashed transparent;
+		border-bottom:@weight dashed transparent;
+	} 
+	& when (@direction = bottom) {
+		border-bottom:0;
+		border-top:@weight solid @color;
+		border-left:@weight dashed transparent;
+		border-right:@weight dashed transparent;
+	} 
+	& when (@direction = left) {
+		border-left:0;
+		border-right:@weight solid @color;
+		border-top:@weight dashed transparent;
+		border-bottom:@weight dashed transparent;
+	}
+}
+.appearance(@sender){
+	appearance: @sender;
+	-moz-appearance: @sender;
+	-webkit-appearance: @sender;
+}
+.tap-highlight-color(@sender: ~"rgba(180,180,180,0.5)"){
+	tap-highlight-color: @sender;
+	-webkit-tap-highlight-color: @sender;
+}
+
+@-webkit-keyframes loading{
+	100% { 
+		transform: rotate(360deg);
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+.gb-fixedCenter{
+	.fixed(50%,auto,auto,50%);
+	.translate(-50%,-50%);
+}
+.gradient(@sender){
+	background: -webkit-linear-gradient(@sender);
+  background: -o-linear-gradient(@sender);
+  background: -moz-linear-gradient(@sender);
+  background: linear-gradient(@sender);
+}
+
+.gb-hide{
+	display:none!important;
+}
+
+.gb-show{
+	display:block!important;
+}
+
+.gb-clearfix {
+	&:before,&:after{
+		content: '';
+		display: block;
+		height: 0;
+		overflow: hidden;
+	}
+	&:after{
+		clear: both;
+	}
+}
+
+.gb-loading-mask{
+	.fixed(0, 0, 0, 0);
+}
+.gb-loading{
+	.animation(loading, 0.7s, ease-in-out, 0s, infinite, normal);
+	width: 30px;
+	height: 30px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -10px 0 0 -10px;
+	z-index: 100;
+	&:before{
+		content: '';
+		.absolute(0, auto, auto, 0);
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background-color: #999;
+	}
+	&:after{
+		content: '';
+		.absolute(auto, 0, 0, auto);
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background-color: #999;
+	}
+}
+
+.gb-pop{
+	.box;
+	.fixed(0,0,0,0);
+	z-index: 99;
+	background-color: rgba(0,0,0,0.7);
+	&>* {
+		display: block;
+		width: 90%;
+		min-height: 100px;
+		background-color: #fff;
+		border-radius: 4px;
+	}
+}
+
+.gb-alert{
+	.gb-pop;
+	&>.gb-cell{
+		.box;
+		min-height: 80px;
+	}
+	&>.gb-cell>p{
+		font-size: 16px;
+		text-align: center;
+		padding: 20px;
+	}
+}
+
+.gb-ajaxLoading{
+	height: 20px; font-size: 12px; background-color: #efefef; opacity: 0.8; text-align: center; line-height: 20px; position:fixed; width: 100%; left: 0; bottom: 0;
+}
+
+.gb-preload{
+	&.hide{.transition(opacity); opacity: 0;}
+	.fixed(0,0,0,0); width: 100%; height: 100%; background-color: #000; .box; color: #fff; z-index: 10000;
+}
+.gb-table{
+	display: table;width: 100%;
+	&>.row{ display: table-row; }
+	.cell{ display: table-cell;vertical-align: middle;text-align: center; }
+}
