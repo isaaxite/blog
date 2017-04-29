@@ -319,8 +319,8 @@
         enterDelay = $enterDelay.val(),
         leaveDelay = $leaveDelay.val();
     $text.toggleAnimate({
-      enterDelay: enterDelay+"s",
-      leaveDelay: leaveDelay+"s",
+      enterDelay: enterDelay,
+      leaveDelay: leaveDelay,
       enterClass: enterClass,
       leaveClass: leaveClass,
       enterCallback: function(){
@@ -334,5 +334,6 @@
       },
     });
   });
+
 </script>
 </html>
