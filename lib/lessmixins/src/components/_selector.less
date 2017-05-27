@@ -12,8 +12,10 @@
 		.box-shadow(0 0 5px rgb(180,180,180));
 		height: 0;
 	}
-	.options>li{
-		cursor: pointer;.gb-ellipsis();
-		&:hover{ background-color: rgba(180,180,180, 0.2); }
+	.options{
+		&>li{ cursor: pointer;.gb-ellipsis(); }
+		&>li:hover{ background-color: rgba(180,180,180, 0.2); }
+		&>.title{ cursor: default;font-weight: bold; }
+		&>.title:hover{ background-color: transparent; }
 	}
 }

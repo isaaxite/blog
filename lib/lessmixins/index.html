@@ -6,150 +6,112 @@
   <meta name="author" content="issac_宝华, issaxite@gmail.com"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
   <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
-  <link rel="stylesheet" type="text/css" href="main.css">
-  <script type="text/javascript" src="zepto.min.js"></script>
-  <script type="text/javascript" src="./tool/components.js"></script>
+  <link rel="stylesheet" type="text/css" href="./dist/main.css">
+  <script type="text/javascript" src="./statics/zepto.min.js"></script>
+  <script type="text/javascript" src="./statics/vue.min.js"></script>
+  <script type="text/javascript" src="./dist/components.js"></script>
 </head>
-<style type="text/css">
-	body{
-		padding: 30px 50px;
-	}
-</style>
 <body>
-	<h3>按钮：</h3>
-	<hr>
-	<a class="gb-btn danger block" href="">submit</a><br>
-	<button class="gb-btn primary block">submit</button>
-	<br><br>
-	<h3>下拉菜单组件</h3>
-	<hr>
-	<div id="select-1" class="dropmenu gb-selector">
-		<dl class="input"><input type="text" disabled value="这是一段非常非常非常非常非常非常非常非常非常长的item" placeholder="自定义的selector"><i></i></dl>
-		<ul class="options">
-			<li title="这是一段非常非常非常非常非常非常非常非常非常长的item">这是一段非常非常非常非常非常非常非常非常非常长的item</li>
-			<li>2</li>
-			<li>3</li>
+	<div id="app" class="container">
+		<h3>按钮：</h3>
+		<hr>
+		<a class="gb-btn danger block" href="">submit</a><br>
+		<button class="gb-btn primary block">submit</button>
+		<br><br>
+
+		<h3>Float Box</h3>
+		<hr>
+		<ul class="float-cards gb-floatBox">
+			<li v-for="i in 4" class="item gb-col-6">
+				<ul class="card">
+					<li class="text">item{{ i }}</li>
+				</ul>
+			</li>
 		</ul>
-	</div>
-	<div id="select-2" class="dropmenu gb-selector">
-		<dl class="input"><input type="text" disabled value="这是一段非常非常非常非常非常非常非常非常非常长的item" placeholder="自定义的selector"><i></i></dl>
-		<ul class="options">
-			<li title="这是一段非常非常非常非常非常非常非常非常非常长的item">这是一段非常非常非常非常非常非常非常非常非常长的item</li>
-			<li>2</li>
-			<li>3</li>
+		<br><br>
+
+		<h3 class="table-box-h">TABLE Box</h3>
+		<small>不适合使用margin拉伸容器，TABLE Box只有容器左边被拉伸，右边无效。</small>
+		<hr>
+		<ul class="table-cards gb-tableBox">
+			<li v-for="i in 4" class="cell gb-col-3">
+				<ul class="card">
+					<li class="text">cell{{ i }}</li>
+				</ul>
+			</li>
 		</ul>
-	</div>
-	<script type="text/javascript">
-		Dropmenu();
-	</script>
-	<br>
-	<br>
-	<h3>Float Box</h3>
-	<hr>
-	<style type="text/css">
-		.float-cards{
-			margin-left: -30px;
-		}
-		.float-cards .card{ margin-left: 30px;border: 1px solid;margin-top: 15px;margin-bottom: 15px; }
-		.float-cards .card img{ width: 100%; }
-	</style>
-	<ul class="float-cards gb-floatBox">
-		<li class="item gb-col-6">
-			<ul class="card">
-				<li class="pic">
-				</li>
-				<li class="text">
-					安达市多
-				</li>
-			</ul>
-		</li>
-		<li class="item gb-col-6">
-			<ul class="card">
-				<li class="pic">
-				</li>
-				<li class="text">
-					安达市多
-				</li>
-			</ul>
-		</li>
-	</ul>
-	<br><br>
+		<br><br>
 
-	<h3>TABLE Box</h3>
-	<small>不适合使用margin拉伸容器，TABLE Box只有容器左边被拉伸，右边无效。</small>
-	<hr>
-	<style type="text/css">
-		.table-cards{
-		}
-		.table-cards .card{ margin:0 15px;border: 1px solid;margin-top: 15px;margin-bottom: 15px; }
-		.table-cards .card img{ width: 100%; }
-		small{ font-size: 12px;color: gray; }
-	</style>
-	<ul class="table-cards gb-tableBox">
-		<li class="cell gb-col-6">
-			<ul class="card">
-				<li class="pic">
-				</li>
-				<li class="text">
-					安达市多
-				</li>
-			</ul>
-		</li>
-		<li class="cell gb-col-6">
-			<ul class="card">
-				<li class="pic">
-				</li>
-				<li class="text">
-					安达市多
-				</li>
-			</ul>
-		</li>
-	</ul>
-	<br><br>
+		<h3>INLINE Box</h3>
+		<hr>
+		<ul class="inline-cards gb-inlineBox">
+			<li v-for="i in 4" class="item gb-col-6">
+				<ul class="card">
+					<li class="text">item{{ i }}</li>
+				</ul>
+			</li>
+		</ul>
+		<br><br>
 
-	<h3>INLINE Box</h3>
-	<hr>
-	<style type="text/css">
-		.inline-cards{
-			margin: 0 -15px;
+		<h3>三角形/BORDER</h3>
+		<hr>
+		<template v-for="item in triangles">
+		<div :class="'triangle-'+item[0]"></div>
+		<div :class="'triangle-'+item[1]"></div>
+		&nbsp;
+		</template>
+		<br><br>
+		<div id="dropmenu">
+			<h3>下拉菜单组件</h3>
+			<hr>
+			<div v-for="i in 4" :id="'select-'+i" class="dropmenu gb-selector">
+				<dl class="input"><input type="text" disabled value="这是一段非常非常非常非常非常非常非常非常非常长的item" placeholder="自定义的selector"><i></i></dl>
+				<ul class="options">
+					<li class="title">title</li>
+					<li title="这是一段非常非常非常非常非常非常非常非常非常长的item">这是一段非常非常非常非常非常非常非常非常非常长的item</li>
+					<li>2</li>
+					<li>3</li>
+				</ul>
+			</div>
+		</div>
+		<br><br>
+		<h3>悬停菜单组件</h3>
+		<hr>
+		<div v-for="(item, index) in hoverMenus" class="a-menu gb-hoverMenu">
+			<a href="">menu item{{ index }}</a>
+			<dl class="options">
+				<i v-if="item.triange"><!-- 气泡triangle --></i>
+				<dd class="body" :class="{radius: item.radius, shadow: item.shadow}">
+					<label class="title">title</label>
+					<template v-for="i in 4">
+						<a href="">item{{ i }}</li>
+					</template>
+				</dd>
+			</dl>
+		</div>
+	</div>	
+<br><br><br><br><br><br><br>												
+<script type="text/javascript">
+	Dropmenu();
+	var app = new Vue({
+		el: '#app',
+		data: {
+			triangles: [
+				['top-1', 'top-2'], ['right-1', 'right-2'],
+				['bottom-1', 'bottom-2'], ['left-1', 'left-2'],
+			],
+			hoverMenus: [
+				{ shadow: true, triange: true, radius: true,  },
+				{ shadow: true, triange: true, radius: false,  },
+				{ shadow: true, triange: false, radius: true,  },
+				{ shadow: true, triange: false, radius: false,  },
+				{ shadow: false, triange: true, radius: true,  },
+				{ shadow: false, triange: true, radius: false,  },
+				{ shadow: false, triange: false, radius: true,  },
+				{ shadow: false, triange: false, radius: false,  }
+			]
 		}
-		.inline-cards .card{ margin:0 15px;border: 1px solid;margin-top: 15px;margin-bottom: 15px;font-size: 16px; }
-		.inline-cards .card img{ width: 100%; }
-	</style>
-	<ul class="inline-cards gb-inlineBox">
-		<li class="item gb-col-6">
-			<ul class="card">
-				<li class="pic">
-				</li>
-				<li class="text">
-					安达市多
-				</li>
-			</ul>
-		</li>
-		<li class="item gb-col-6">
-			<ul class="card">
-				<li class="pic">
-				</li>
-				<li class="text">
-					安达市多
-				</li>
-			</ul>
-		</li>
-	</ul>
-	<br><br>
-
-	<h3>三角形/BORDER</h3>
-	<hr>
-	<div class="triangle-top-1"></div>
-	<div class="triangle-top-2"></div>
-	&nbsp;
-	<div class="triangle-right-1"></div>
-	<div class="triangle-right-2"></div>
-	&nbsp;
-	<div class="triangle-bottom-1"></div>
-	<div class="triangle-bottom-2"></div>
-	&nbsp;
-	<div class="triangle-left-1"></div>
-	<div class="triangle-left-2"></div>
+	})
+</script>
 </body>
 </html>
