@@ -1,0 +1,19 @@
+.gb-selector{
+	display: inline-block;position: relative;
+	.input{ position: relative;z-index: 2;cursor: pointer;position: relative; }
+	.input>i{
+		.triangle(bottom);.absolute(@top: 50%,@right: 10px);
+	}
+	input{ outline: none;padding-left: 5px;cursor: pointer;width: 100%;padding-right: 26px;.gb-ellipsis(); }
+	&>.options{ 
+		background-color: #FFFFFF;width: 100%;overflow: hidden;
+		position: absolute;z-index: 1;overflow: auto;
+		.transition(all, 0.25s, ease-in-out);
+		.box-shadow(0 0 5px rgb(180,180,180));
+		height: 0;
+	}
+	.options>li{
+		cursor: pointer;.gb-ellipsis();
+		&:hover{ background-color: rgba(180,180,180, 0.2); }
+	}
+}
