@@ -1,6 +1,3 @@
-*{ .box-sizing(border-box); }
-html,body{ height: 100% }
-a{ text-decoration: none;color: currentColor; }
 .gb-ellipsis{
 	text-overflow: ellipsis;
 	overflow-x: hidden;
@@ -17,30 +14,49 @@ a{ text-decoration: none;color: currentColor; }
 		clear: both;
 	}
 }
-.mixin-col(12);
 
-.gb-flexBox{
-	display: flex;display: -webkit-flex;justify-content: space-between;align-items: center;
-	&.inline.inline{ display: inline-flex;display: -webkit-inline-flex; }
-	&>.item{ flex: 1;text-align: center; }
+.gb-flexFlow, .gb-flexBox{
+	display: flex;
+	display: -webkit-flex;
+	&.inline.inline{ 
+		display: inline-flex;
+		display: -webkit-inline-flex; }
 }
-.gb-tableBox{
+.gb-flexBox{
+	align-items: center;justify-content: space-between;justify-content: center;
+	&>.item{ flex: 0 1 auto;text-align: center; }
+	&.start{ justify-content: flex-start; }
+	&.center{ justify-content: flex-start; }
+	&.end{ justify-content: flex-start; }
+	&.between{ justify-content: space-between; }
+	&.around{ justify-content: space-around; }
+}
+.gb-flexFlow{
+	flex-wrap: wrap;align-items: flex-start;justify-content: flex-start;align-content: flex-start;
+	.item{ .gb-flexBox; }
+}
+.gb-tableFlow, .gb-tableBox{
 	display: table;width: 100%;
 	&>.row{ display: table-row; }
-	.cell{ display: table-cell;vertical-align: middle;text-align: center; }
+	.cell{ display: table-cell;vertical-align: middle; }
 	.cell.left{ text-align: left; }
 	.cell.center{ text-align: center; }
 	.cell.right{ text-align: right; }
 }
-.gb-floatBox{
+.gb-tableBox{ 
+	.cell{ text-align: center; }
+}
+.gb-floatFlow{
 	.gb-clearfix();display: block;
 	&>.item{ float: left; }
 }
 
-.gb-inlineBox{
+.gb-inlineFlow{
 	display: block;font-size: 0;
 	&>.item{ display: inline-block;text-align: top; }
 }
+
+.mixin-col(12);
 
 .gb-fixedCenter{
 	.fixed(50%,auto,auto,50%);
@@ -103,3 +119,20 @@ a{ text-decoration: none;color: currentColor; }
     &:hover{ background-color: #c9302c;border-color: #761c19; }
 	}
 }
+
+
+.gb-mash{ .fixed(0,0,0,0);background-color: rgba(0,0,0,0.2);z-index: 9; }
+.gb-loadingSpinner{
+  &{ display: block;text-align: center;.fixed(50%, 50%);z-index: 10; }
+  .temp(){ width: 18px;height: 18px;background-color: #333;border-radius: 100%;display: inline-block;
+	  .animation(bouncedelay, 1.4s, @count: infinite, @dir: both); }
+  
+  &>i,&::after, &::before{ .temp();content: ""; }
+  &>i{ .animation-delay(-0.16s); }
+  &::before{ .relative(@right: 10px);.animation-delay(-0.32s); }
+  &::after{ .relative(@left: 10px); }
+}
+
+
+
+

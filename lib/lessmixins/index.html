@@ -19,9 +19,9 @@
 		<button class="gb-btn primary block">submit</button>
 		<br><br>
 
-		<h3>Float Box</h3>
+		<h3>Float Flow</h3>
 		<hr>
-		<ul class="float-cards gb-floatBox">
+		<ul class="float-cards gb-floatFlow">
 			<li v-for="i in 4" class="item gb-col-6">
 				<ul class="card">
 					<li class="text">item{{ i }}</li>
@@ -30,10 +30,10 @@
 		</ul>
 		<br><br>
 
-		<h3 class="table-box-h">TABLE Box</h3>
+		<h3 class="table-box-h">TABLE Flow</h3>
 		<small>不适合使用margin拉伸容器，TABLE Box只有容器左边被拉伸，右边无效。</small>
 		<hr>
-		<ul class="table-cards gb-tableBox">
+		<ul class="table-cards gb-tableFlow">
 			<li v-for="i in 4" class="cell gb-col-3">
 				<ul class="card">
 					<li class="text">cell{{ i }}</li>
@@ -42,12 +42,38 @@
 		</ul>
 		<br><br>
 
-		<h3>INLINE Box</h3>
+		<h3>INLINE Flow</h3>
 		<hr>
-		<ul class="inline-cards gb-inlineBox">
+		<ul class="inline-cards gb-inlineFlow">
 			<li v-for="i in 4" class="item gb-col-6">
 				<ul class="card">
 					<li class="text">item{{ i }}</li>
+				</ul>
+			</li>
+		</ul>
+		<br><br>
+		<h3>FLEX Flow</h3>
+		<hr>
+		<ul class="flex-cards gb-flexFlow">
+			<li v-for="i in 4" class="item gb-flexCol-6">item{{ i }}</li>
+		</ul>
+		<br><br>
+
+		<ul class="type-box gb-floatFlow">
+			<li class="item gb-col-6" style="padding-right: 10px;">
+				<h3>Flex Box</h3>
+				<hr>
+				<div class="flex-box gb-flexBox">
+					i am flexBox
+				</div>
+			</li>
+			<li class="item gb-col-6" style="padding-left: 10px;">
+				<h3>Table Box</h3>
+				<hr>
+				<ul class="table-box gb-tableBox">
+					<li class="cell">
+						i am tablebox
+					</li>
 				</ul>
 			</li>
 		</ul>
@@ -89,8 +115,20 @@
 				</dd>
 			</dl>
 		</div>
-	</div>	
-<br><br><br><br><br><br><br>												
+		<br><br>
+		<br><br>
+		<h3>Loading Animate</h3>
+		<hr>
+		<button id="btn-loading-1">loading-1</button>
+		<button id="btn-loading-2">loading-2</button>
+
+		<div id="loading-1" class="gb-mash gb-hide"><div class="gb-loading"></div></div>
+
+		<div id="loading-2" class="gb-mash gb-hide"><div class="gb-loadingSpinner"><i></i></div></div>
+
+
+		<br><br><br><br><br><br><br><br><br><br><br><br>
+	</div>												
 <script type="text/javascript">
 	Dropmenu();
 	var app = new Vue({
@@ -111,7 +149,17 @@
 				{ shadow: false, triange: false, radius: false,  }
 			]
 		}
+	});
+	$(document)
+	.on('click', '#btn-loading-1', function(){
+		$("#loading-1").removeClass('gb-hide');
 	})
+	.on('click', '#btn-loading-2', function(){
+		$("#loading-2").removeClass('gb-hide');
+	})
+	.on('click', '.gb-mash', function(){
+		$(".gb-mash").addClass('gb-hide');
+	});
 </script>
 </body>
 </html>

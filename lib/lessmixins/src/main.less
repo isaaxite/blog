@@ -5,20 +5,28 @@ body{
 .container{ height: 100%;padding-bottom: 200px; }
 .float-cards{
 	margin-left: -30px;
-	.card{ margin-left: 30px;border: 1px solid;margin-top: 15px;margin-bottom: 15px; }
+	.card{ margin-left: 30px;border: 1px solid;margin-top: 15px;margin-bottom: 15px;height: 50px; }
 	.float-cards .card img{ width: 100%; }
 }
 
 .table-box-h + small{ font-size: 12px;color: gray; }
 .table-cards .card{ 
-	margin:0 15px;border: 1px solid;margin-top: 15px;margin-bottom: 15px; 
+	margin:0 15px;border: 1px solid;margin-top: 15px;margin-bottom: 15px;height: 50px; 
 	img{ width: 100%; }
 }
 
 .inline-cards{
 	margin: 0 -15px;
-	.card{ margin:0 15px;border: 1px solid;margin-top: 15px;margin-bottom: 15px;font-size: 16px; }
+	.card{ margin:0 15px;border: 1px solid;margin-top: 15px;margin-bottom: 15px;font-size: 16px;height: 50px; }
 	.card img{ width: 100%; }
+}
+
+.flex-cards{
+	.item{ border: 1px solid gray;height: 50px; }
+}
+.type-box{
+
+	.flex-box,.table-box{ border: 1px solid;height: 50px; }
 }
 
 .triangle-top-1{
@@ -47,9 +55,9 @@ body{
 }
 
 .a-menu{
-	margin: 0 15px;
+	margin: 0 15px;position: relative;
 	.options{ 
-		width: 200%;.relative(@left: -50%); 
+		width: 200%;background-color: #FFFFFF;left: -50%;
 		label,a{ line-height: 30px;padding: 0 10px; }
 	}
 }
@@ -58,3 +66,16 @@ body{
 	input{ height: 40px; }
 	.options>li{ line-height: 30px;padding: 0 10px; }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
