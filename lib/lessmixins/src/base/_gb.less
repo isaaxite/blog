@@ -68,32 +68,6 @@
 .gb-show{
 	display:block!important;
 }
-.gb-loading{
-	.animation(loading, 0.7s, ease-in-out, 0s, infinite, normal);
-	width: 30px;
-	height: 30px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	margin: -10px 0 0 -10px;
-	z-index: 100;
-	&:before{
-		content: '';
-		.absolute(0, auto, auto, 0);
-		width: 12px;
-		height: 12px;
-		border-radius: 50%;
-		background-color: #999;
-	}
-	&:after{
-		content: '';
-		.absolute(auto, 0, 0, auto);
-		width: 12px;
-		height: 12px;
-		border-radius: 50%;
-		background-color: #999;
-	}
-}
 .gb-fullWidth{ width: 100%; }
 .gb-fullHeight{ height: 100%; }
 .gb-btn{
@@ -122,15 +96,31 @@
 
 
 .gb-mash{ .fixed(0,0,0,0);background-color: rgba(0,0,0,0.2);z-index: 9; }
-.gb-loadingSpinner{
+.gb-loadingBounce{
   &{ display: block;text-align: center;.fixed(50%, 50%);z-index: 10; }
-  .temp(){ width: 18px;height: 18px;background-color: #333;border-radius: 100%;display: inline-block;
+  .temp(){ width: 26px;height: 26px;background-color: #333;border-radius: 100%;display: inline-block;
 	  .animation(bouncedelay, 1.4s, @count: infinite, @dir: both); }
   
   &>i,&::after, &::before{ .temp();content: ""; }
   &>i{ .animation-delay(-0.16s); }
   &::before{ .relative(@right: 10px);.animation-delay(-0.32s); }
   &::after{ .relative(@left: 10px); }
+}
+
+.gb-loadingDot{
+	display: block;width: 70px;height: 70px;text-align: center;
+  .fixed(50%, 50%);z-index: 100; 
+  .animation(rotate, 2.0s, linear, @count: infinite);
+ 
+	&::before, &::after{
+		content: "";display: inline-block;width: 60%;height: 60%;background-color: currentColor;
+	  .absolute(0);.border-radius(50%);
+	  .animation(bounce, 2.0s, ease-in-out, @count: infinite);
+	}
+	 
+	&::after{
+	  top: auto;bottom: 0;.animation-delay(-1.0s);
+	}
 }
 
 

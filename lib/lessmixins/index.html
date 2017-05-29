@@ -87,6 +87,7 @@
 		&nbsp;
 		</template>
 		<br><br>
+		<br><br>
 		<div id="dropmenu">
 			<h3>下拉菜单组件</h3>
 			<hr>
@@ -122,13 +123,27 @@
 		<button id="btn-loading-1">loading-1</button>
 		<button id="btn-loading-2">loading-2</button>
 
-		<div id="loading-1" class="gb-mash gb-hide"><div class="gb-loading"></div></div>
+		<div id="loading-1" class="gb-mash gb-hide"><i class="gb-loadingDot"></i>	</div>
 
-		<div id="loading-2" class="gb-mash gb-hide"><div class="gb-loadingSpinner"><i></i></div></div>
+		<div id="loading-2" class="gb-mash gb-hide"><div class="gb-loadingBounce"><i></i></div></div>
 
-
+		<br><br>
+		<br><br>
+		<h3>Router</h3>
+		<small>可以打开console查看路由的结果</small>
+		<hr>
+		<ul class="router">
+			<li><a href="#">/#</a></li>
+			<li><a href="#one">/#one</a></li>
+			<li><a href="#one?a=1&b=2">/#one?a=1&b=2</a></li>
+			<li><a href="#two">/#two</a></li>
+			<li><a href="#two?b=2&c=3">/#two?b=2&c=3</a></li>
+			<li><a href="#three">/#three</a></li>
+			<li><a href="#three?c=3&d=4">/#three?c=3&d=4</a></li>
+		</ul>
 		<br><br><br><br><br><br><br><br><br><br><br><br>
-	</div>												
+	</div>
+											
 <script type="text/javascript">
 	Dropmenu();
 	var app = new Vue({
@@ -161,5 +176,22 @@
 		$(".gb-mash").addClass('gb-hide');
 	});
 </script>
+<script type="text/javascript">
+
+	Router({
+		'#': function(params) {
+			console.log(params);
+		},
+		'#one': function(params) {
+			console.log(params);
+		},
+		'#two': function(params) {
+			console.log(params);
+		},
+		'#three': function(params) {
+			console.log(params);
+		}
+	});
+</script>		
 </body>
 </html>
