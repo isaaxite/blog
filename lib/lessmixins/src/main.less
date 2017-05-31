@@ -1,6 +1,6 @@
 @import "_tool";
 body{
-	padding: 30px 50px;
+	padding: 30px 50px;overflow-x: hidden;
 }
 .container{ height: 100%;padding-bottom: 200px; }
 .float-cards{
@@ -73,17 +73,17 @@ h3 + small{ font-size: 12px;color: gray; }
 
 form{
 	margin-top: 15px;border: 1px solid #DDDDDD;padding: 40px 30px;
-	input[type='text']{ height: 40px;width: 450px;padding-left: 5px; }
-	textarea{ width: 450px; }
+	input[type='text']{ height: 40px;width: 100%;max-width: 450px;padding-left: 5px; }
+	textarea{ width: 100%;max-width: 450px; }
 	.form-group{ margin-bottom: 15px; }
 	select{
-		width: 450px;
+		width: 100%;max-width: 450px;
 		height: 40px;
 	}
 }
 
 .radio,.radio1{
-	.item{ border: 1px solid transparent;margin: 0 15px;text-align: center;.box-shadow(0 0 0 1px rgba(0,0,0,0.1));height: 50px;.user-select(none); }
+	.item{ border: 1px solid transparent;margin: 0 15px;text-align: center;.box-shadow(0 0 0 1px rgba(0,0,0,0.1));width: 100px;height: 50px;.user-select(none); }
 	li.active{ background-color: #DDDDDD; }
 	button{ cursor: pointer; }
 }
