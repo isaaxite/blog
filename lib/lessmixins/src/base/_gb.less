@@ -59,7 +59,7 @@
 .mixin-col(12);
 
 .gb-fixedCenter{
-	.fixed(50%,auto,auto,50%);
+	.fixed(@top: 50%, @left: 50%);
 	.translate(-50%,-50%);
 }
 .gb-hide{
@@ -97,7 +97,7 @@
 
 .gb-mash{ .fixed(0,0,0,0);background-color: rgba(0,0,0,0.2);z-index: 9; }
 .gb-loadingBounce{
-  &{ display: block;text-align: center;.fixed(50%, 50%);z-index: 10; }
+  &{ display: block;text-align: center;.gb-fixedCenter();z-index: 100; }
   .temp(){ width: 26px;height: 26px;background-color: #333;border-radius: 100%;display: inline-block;
 	  .animation(bouncedelay, 1.4s, @count: infinite, @dir: both); }
   
@@ -108,13 +108,14 @@
 }
 
 .gb-loadingDot{
-	display: block;width: 70px;height: 70px;text-align: center;
-  .fixed(50%, 50%);z-index: 100; 
+	@size: 70px;
+	display: block;width: @size;height: @size;text-align: center;
+  .fixed(@top: 50%, @left: 50%);z-index: 100; 
   .animation(rotate, 2.0s, linear, @count: infinite);
  
 	&::before, &::after{
 		content: "";display: inline-block;width: 60%;height: 60%;background-color: currentColor;
-	  .absolute(0);.border-radius(50%);
+	  .absolute(@top: 0, @left: @size/2);.border-radius(50%);
 	  .animation(bounce, 2.0s, ease-in-out, @count: infinite);
 	}
 	 
