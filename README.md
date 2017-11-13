@@ -1,3 +1,30 @@
-# issaxite.github.io
-![](https://www.google.co.kr/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwishO-ruovXAhXKTbwKHcTTB_4QjRwIBw&url=http%3A%2F%2Fdev.dafan.info%2Fdetail%2F392831%3Fp%3D55-41&psig=AOvVaw2wdaUr9PLUZjEKw58r-zZ4&ust=1509009946598453)
+# a
 
+> A Vue.js project
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+
+# run unit tests
+npm run unit
+
+# run e2e tests
+npm run e2e
+
+# run all tests
+npm test
+```
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
