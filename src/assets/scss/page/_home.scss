@@ -29,7 +29,9 @@
 
     &>ul{ background: #ffffff;min-height: 100%; }
 
-    li{ padding: 50px;border-bottom: 1px solid #f2f2f2;padding-right: 23%;position: relative;transition: all 0.35s ease-in-out;top: 0;left: 0; }
+    li{ 
+      &{ padding: 50px;border-bottom: 1px solid #f2f2f2;padding-right: 23%;position: relative;transition: all 0.35s ease-in-out;top: 0;left: 0;min-height: 220px; }
+    }
     
     li:hover{ box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.8);top: 5px;left: 5px; }
 
