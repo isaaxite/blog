@@ -1,6 +1,5 @@
 <template>
-  <div id="home" class="route">
-    <dl class="loading fh5co-loader" v-show="isLoading"></dl>
+  <div id="home" class="route" v-show="!isLoading">
     <dl class="side">
       <div class="featured">
 				<span>Bio</span>
@@ -11,7 +10,7 @@
       <ul>
         <li v-if="list.length" v-for="(item, index) in list">
           <i></i>
-          <span class="fh5co-post-date">{{ formatDate(item.created_at) }}</span>
+          <span class="date">{{ formatDate(item.created_at) }}</span>
           <h2><a :href="item.html_url">{{ item.title }}</a></h2>
           <p>{{ formatAbstract(item.body, index) }}</p>
         </li>
@@ -37,7 +36,7 @@ export default {
     return {
       page: 1,
       isLoading: true,
-      per_page: 30,
+      per_page: 10,
       list: [],
       defaultCovers: [
         'http://sl-cdn.hingyin.com/o_1busqiknpfda5r42194bvo7ac.jpg',
@@ -48,7 +47,7 @@ export default {
         'http://sl-cdn.hingyin.com/o_1busr400r1b0qq93edomltm6210.jpeg',
         'http://sl-cdn.hingyin.com/o_1busr5hou1p7n1ijd1hbk1sh7mu915.png'
       ],
-      month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     }
   },
   methods: {
@@ -69,8 +68,10 @@ export default {
       });
     },
     formatDate(time) {
+      const self = this;
       const date = new Date(time);
-      return `${this.month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+      console.log(self.months[date.getMonth()]);
+      return `${self.months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
     },
     formatAbstract(text, index) {
       const self = this;
