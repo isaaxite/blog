@@ -2,9 +2,11 @@
 #home{
   $sizeWidth: 38%;
   $borderColor: rgba(0, 0, 0, 0.5);
-  &{ border: 1px solid $borderColor;box-shadow: 0 0 3px rgba(225, 225, 225, 0.8); }
+  $minWidth: 1200px;
+
+  &{ border: 1px solid $borderColor;box-shadow: 0 0 3px rgba(225, 225, 225, 0.8);min-width: $minWidth; }
   .side{ 
-    &{ @include backgroundImg('http://demo.cssmoban.com/cssthemes4/ft5_71_story/images/image_1.jpg');background-size: cover;position: absolute;top: 0;bottom: 0;left: 0;width: $sizeWidth; }
+    &{ @include backgroundImg('http://sl-cdn.hingyin.com/o_1but067rl5a7onvjfh1b2q1qqf7.jpeg');background-size: cover;position: absolute;top: 0;bottom: 0;left: 0;width: $sizeWidth; }
 
     &::before{
       content: "";display: block;position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 10;background: rgba(0, 0, 0, 0.5);
@@ -32,7 +34,6 @@
     }
   }
   .list{
-
     &{ padding-left: $sizeWidth;height: 100%;overflow: auto;-webkit-overflow-scrolling: touch; }
 
     &>ul{ background: #ffffff;min-height: 100%; }
