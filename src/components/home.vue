@@ -1,9 +1,12 @@
 <template>
   <div id="home" class="route" v-show="!isLoading">
     <dl class="side">
+      <transition-group tag="ul" class="poster" name="fade">
+        <li v-for="(item, index) in posters" v-show="item.status" :style="{backgroundImage: `url(${item.src})`}" :key="index"></li>
+      </transition-group>
       <div class="featured">
 				<span>Bio</span>
-				<h2>I'm Isaac_宝华 </h2>
+				<h2>I'm isaac_宝华 </h2>
 			</div>
     </dl>
     <dl class="list" @scroll="listenScroll">
@@ -35,6 +38,15 @@ export default {
     setTimeout(function() {
       self.isLoading = false;
     }, 1500);
+
+      let index = 0;
+      const len = self.posters.length;
+      setInterval(() => {
+        let oldOne = index % len;
+        let newOne = ++index % len;
+        self.posters[oldOne].status = false;
+        self.posters[newOne].status = true;
+      }, 8000);
   },
   data() {
     return {
@@ -50,6 +62,28 @@ export default {
         'http://sl-cdn.hingyin.com/o_1busqtur7ctd156d1h7ah01cikr.jpg',
         'http://sl-cdn.hingyin.com/o_1busr400r1b0qq93edomltm6210.jpeg',
         'http://sl-cdn.hingyin.com/o_1busr5hou1p7n1ijd1hbk1sh7mu915.png'
+      ],
+      posters: [
+        { 
+          status: true, 
+          src: 'http://sl-cdn.hingyin.com/o_1but067rl5a7onvjfh1b2q1qqf7.jpeg' 
+        },
+        { 
+          status: false, 
+          src: 'http://sl-cdn.hingyin.com/o_1butfcgaa10pg19q1f8hj711v1b7.png'
+        },
+        { 
+          status: false, 
+          src: 'http://sl-cdn.hingyin.com/o_1butfk3u23nf1pt33tib154odc.png'
+        },
+        { 
+          status: false, 
+          src: 'http://sl-cdn.hingyin.com/o_1butfnvtsos5vteu0vkpr1fpqm.jpeg'
+        },
+        {
+          status: false,
+          src: 'http://sl-cdn.hingyin.com/o_1butfugpt57i1m871jsn1ka59kp7.png'
+        }
       ],
       months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     }

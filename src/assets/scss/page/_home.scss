@@ -6,9 +6,15 @@
 
   &{ border: 1px solid $borderColor;box-shadow: 0 0 3px rgba(225, 225, 225, 0.8);min-width: $minWidth; }
   .side{ 
-    &{ @include backgroundImg('http://sl-cdn.hingyin.com/o_1but067rl5a7onvjfh1b2q1qqf7.jpeg');background-size: cover;position: absolute;top: 0;bottom: 0;left: 0;width: $sizeWidth; }
+    &{ position: absolute;top: 0;bottom: 0;left: 0;width: $sizeWidth;overflow: hidden; }
 
-    &::before{content: "";display: block;position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 10;background: rgba(0, 0, 0, 0.5); }
+    &::before{content: "";display: block;position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 10;background: rgba(0, 0, 0, 0.3); }
+
+    &>.poster{
+      &{ position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 9; }
+      
+      li{ background: center center no-repeat;background-size: cover;position: absolute;;top: 0;right: 0;bottom: 0;left: 0; }
+    }
 
     &>.featured{
       &{ z-index: 12;position: absolute;bottom: 0;padding: 30px; }
@@ -50,5 +56,19 @@
     img{ width: 24px; }
 
     &.active{ opacity: 1;visibility: visible; }
+  }
+
+  @keyframes fadeIn{
+    from{ opacity: 0; }
+    to{ opacity: 1; }
+  }
+  @keyframes fadeOut{
+    from{ opacity: 1; }
+    to{ opacity: 0; }
+  }
+
+  .fade{
+    &-enter-active { animation: fadeIn 2s linear; }
+    &-leave-active { animation: fadeOut 2s linear; }
   }
 }
