@@ -31,7 +31,10 @@ import axios from 'axios';
 export default {
   beforeMount () {
     const self = this;
-    self.listData();
+    self.listData()
+    .then(resp => {
+      self.list = resp.data;
+    });
   },
   mounted () {
     const self = this;
@@ -52,6 +55,7 @@ export default {
     return {
       page: 1,
       isLoading: true,
+      isMore: true,
       per_page: 10,
       list: [],
       defaultCovers: [
@@ -97,10 +101,7 @@ export default {
     },
     listData() {
       const self = this;
-      axios.get(`https://api.github.com/repos/issaxite/issaxite.github.io/issues?page=${self.page}&per_page=${self.per_page}`)
-      .then(resp => {
-        self.list = resp.data;
-      });
+      return axios.get(`https://api.github.com/repos/issaxite/issaxite.github.io/issues?page=${self.page}&per_page=${self.per_page}`);
     },
     formatDate(time) {
       const self = this;
@@ -128,6 +129,20 @@ export default {
       const isNTop = distance > 0;
       const toTopBtn = document.querySelector("button[title='to-top']");
       isNTop ? toTopBtn.classList.add('active') : toTopBtn.classList.remove('active');
+
+      const list = document.querySelector('#home .list');
+      const isBottom = list.scrollHeight - list.clientHeight === distance;
+
+      if(isBottom && self.isMore) {
+        self.page = self.page + 1;
+        self.listData()
+        .then(resp => {
+          self.isMore = resp.data.length;
+          if(self.isMore) {
+            self.list = self.list.concat(resp.data);
+          }
+        });
+      }
     },
     toTop() {
       const list = document.querySelector('#home .list');
