@@ -21,11 +21,11 @@
 
       span{ display: block;color: rgba(255, 255, 255, 0.5);text-transform: uppercase;font-size: 15px;letter-spacing: .05em;margin-bottom: 10px; }
 
-      h2{ color: #fff;font-size: 30px;font-weight: 300;margin: 0 0 30px 0; }
+      h2{ color: #fff;font-size: 30px;font-weight: 100;margin: 0 0 30px 0; }
     }
   }
   .list{
-    &{ padding-left: $sizeWidth;height: 100%;overflow: auto;-webkit-overflow-scrolling: touch; }
+    &{ padding-left: $sizeWidth;height: 100%;overflow: auto;-webkit-overflow-scrolling: touch;padding-bottom: 30px; }
 
     &>ul{ background: #ffffff;min-height: 100%; }
 

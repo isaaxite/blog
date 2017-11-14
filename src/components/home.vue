@@ -10,16 +10,15 @@
 			</div>
     </dl>
     <dl class="list" @scroll="listenScroll">
-      <ul>
-        <li v-if="list.length" v-for="(item, index) in list">
+      <ul v-if="list.length">
+        <li v-for="(item, index) in list">
           <i></i>
           <span class="date">{{ formatDate(item.created_at) }}</span>
-          <h2><a :href="item.html_url">{{ item.title }}</a></h2>
+          <h2><a :href="item.html_url" :title="item.title">{{ item.title }}</a></h2>
           <p>{{ formatAbstract(item.body, index) }}</p>
         </li>
       </ul>
     </dl>
-
     <button title="to-top" @click="toTop">
       <img src="http://sl-cdn.hingyin.com/o_1but94ecln0s1vi910fgq6s1ed77.png">
     </button>
@@ -112,14 +111,16 @@ export default {
       const self = this;
       const pattern = /\!\[.*\]\(.*\)/;
       text = text.slice(0, 200);
-      const defaultCoverIndex = Math.floor(Math.random() * self.defaultCovers.length);
+      const defaultCoverIndex = index % self.defaultCovers.length;
       const defaultCover = self.defaultCovers[defaultCoverIndex];
       let cover = text.match(pattern);
       cover = cover ? cover[0].match(/\(.*(?=\))/)[0].slice(1) : defaultCover;
-      setTimeout(() => {
-        let covers = document.querySelectorAll("#home .list li i");
-        covers[index].style.backgroundImage = `url(${cover})`;
-      }, 500);
+      (index => {
+        setTimeout(() => {
+          let covers = document.querySelectorAll("#home .list li i");
+          covers[index].style.backgroundImage = `url(${cover})`;
+        }, 500);
+      })(index);
 
       return text;
     },
