@@ -8,27 +8,12 @@
   .side{ 
     &{ @include backgroundImg('http://sl-cdn.hingyin.com/o_1but067rl5a7onvjfh1b2q1qqf7.jpeg');background-size: cover;position: absolute;top: 0;bottom: 0;left: 0;width: $sizeWidth; }
 
-    &::before{
-      content: "";display: block;position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 10;background: rgba(0, 0, 0, 0.5);
-    }
+    &::before{content: "";display: block;position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 10;background: rgba(0, 0, 0, 0.5); }
 
     &>.featured{
-      z-index: 12;
-      position: absolute;
-      bottom: 0;
-      padding: 30px;
-      font-family: "Work Sans", Arial, sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.7;
-      color: #828282;
+      &{ z-index: 12;position: absolute;bottom: 0;padding: 30px; }
 
-      span{ display: block;
-        color: rgba(255, 255, 255, 0.5);
-        text-transform: uppercase;
-        font-size: 15px;
-        letter-spacing: .05em;
-        margin-bottom: 10px; }
+      span{ display: block;color: rgba(255, 255, 255, 0.5);text-transform: uppercase;font-size: 15px;letter-spacing: .05em;margin-bottom: 10px; }
 
       h2{ color: #fff;font-size: 30px;font-weight: 300;margin: 0 0 30px 0; }
     }
@@ -57,5 +42,13 @@
       a:hover{ color: #FC5185; }
     }
     li>p{ font-size: 18px;line-height: 38px;font-weight: 400;font-size: 16px;color: #828282; }
+  }
+
+  button[title='to-top']{ 
+    &{ position: fixed;bottom: 20px;right: 20px;z-index: 999;opacity: 0;visibility: hidden;transition: all 0.5s;width: 50px;height: 50px;display: flex;align-items: center;justify-content: center;background: rgba(0, 0, 0, 0.5);border-radius: 4px;border: none;cursor: pointer;outline: none;box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.8); }
+
+    img{ width: 24px; }
+
+    &.active{ opacity: 1;visibility: visible; }
   }
 }

@@ -6,7 +6,7 @@
 				<h2>I'm Isaac_宝华 </h2>
 			</div>
     </dl>
-    <dl class="list">
+    <dl class="list" @scroll="listenScroll">
       <ul>
         <li v-if="list.length" v-for="(item, index) in list">
           <i></i>
@@ -16,6 +16,10 @@
         </li>
       </ul>
     </dl>
+
+    <button title="to-top" @click="toTop">
+      <img src="http://sl-cdn.hingyin.com/o_1but94ecln0s1vi910fgq6s1ed77.png">
+    </button>
   </div>
 </template>
 <script>
@@ -53,24 +57,20 @@ export default {
   methods: {
     prev() {
       this.page = this.page > 1 ? this.page - 1 : 1;
-      console.log(this.page);
     },
     next() {
       this.page = this.page + 1;
-      console.log(this.page);
     },
     listData() {
       const self = this;
       axios.get(`https://api.github.com/repos/issaxite/issaxite.github.io/issues?page=${self.page}&per_page=${self.per_page}`)
       .then(resp => {
-        console.log(resp.data);
         self.list = resp.data;
       });
     },
     formatDate(time) {
       const self = this;
       const date = new Date(time);
-      console.log(self.months[date.getMonth()]);
       return `${self.months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
     },
     formatAbstract(text, index) {
@@ -87,11 +87,30 @@ export default {
       }, 500);
 
       return text;
+    },
+    listenScroll(e) {
+      const self = this;
+      let distance = e.target.scrollTop;
+      const isNTop = distance > 0;
+      const toTopBtn = document.querySelector("button[title='to-top']");
+      isNTop ? toTopBtn.classList.add('active') : toTopBtn.classList.remove('active');
+    },
+    toTop() {
+      const list = document.querySelector('#home .list');
+      const space = 60;
+      const delay = 1000 / 60;
+      let scroll = list.scrollTop;
+      const timer = setInterval(function() {
+        scroll -= space;
+        scroll = scroll < 0 ? 0 : scroll;
+        list.scrollTop = scroll;
+        if(!scroll) { clearInterval(timer); }
+      }, delay);
     }
   },
   watch: {
     page() {
-      this.listData();
+      // this.listData();
     }
   }
 }
