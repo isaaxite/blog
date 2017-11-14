@@ -2,7 +2,8 @@
 a{ text-decoration: none;color: currentcolor; }
 html,body{ height: 100%; }
 html{ font-size: $rem; }
-body{ font-size: 16px;font-family: "Work Sans", Arial, sans-serif;background: rgba(0, 0, 0, 0.8); }
+body{ font-size: 16px;font-family: "Work Sans", Arial, sans-serif; }
+body::before{ content: "";position: fixed;top: 0;left: 0;bottom: 0;right: 0;background: url('http://demo.cssmoban.com/cssthemes4/ft5_71_story/images/loader.gif') center center no-repeat;background-size: 80px 80px; }
 
 .float-flow{
   &::before, &::after{ content: '';display: block;height: 0;clear: both; }
