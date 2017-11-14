@@ -1,0 +1,35 @@
+@mixin backgroundImg($url, $size: contain) {
+  background: url($url) center center no-repeat;background-size: unquote($size);
+}
+
+@mixin columns() {
+  $width: 1/12;
+  @for $i from 1 through 12 {
+    .col-#{$i} {
+      width: percentage($i * $width);
+    }
+  } 
+}
+
+@mixin font-family($family: '', $important: '') {
+  @if $family == '' {
+    $family: $defaultFamily;
+  }
+  @else {
+    $family: unquote($family) + ',' + $defaultFamily;
+  }
+  font-family: $family + ' ' + $important;
+}
+
+@mixin ellipsis(){
+  text-overflow: ellipsis;
+	overflow-x: hidden;
+	white-space: nowrap; 
+}
+
+@mixin routerPos{
+  position: absolute;top: 0;right: 0;bottom: 0;left: 0;
+}
+@mixin posFull{
+  @include routerPos();
+}

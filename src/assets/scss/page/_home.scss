@@ -1,0 +1,76 @@
+#home{
+  $sizeWidth: 38%;
+  $borderColor: rgba(0, 0, 0, 0.5);
+  &{ border: 1px solid $borderColor;box-shadow: 0 0 3px rgba(225, 225, 225, 0.8); }
+  .side{ 
+    &{ @include backgroundImg('http://demo.cssmoban.com/cssthemes4/ft5_71_story/images/image_1.jpg');background-size: cover;position: absolute;top: 0;bottom: 0;left: 0;width: $sizeWidth; }
+
+    &::before{
+      content: "";display: block;position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 10;background: rgba(0, 0, 0, 0.5);
+    }
+
+    &>.featured{
+      z-index: 12;
+      position: absolute;
+      bottom: 0;
+      padding: 30px;
+      font-family: "Work Sans", Arial, sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #828282;
+
+      span{ display: block;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        font-size: 15px;
+        letter-spacing: .05em;
+        margin-bottom: 10px; }
+
+      h2{ color: #fff;font-size: 30px;font-weight: 300;margin: 0 0 30px 0; }
+    }
+  }
+  .list{
+    ul{ background: #ffffff;min-height: 100%; }
+    &{ padding-left: $sizeWidth;height: 100%;overflow: auto;-webkit-overflow-scrolling: touch; }
+
+    li{ padding: 50px;border-bottom: 1px solid #f2f2f2;padding-right: 23%;position: relative; }
+    .fh5co-post-date {
+      color: #b3b3b3;
+      margin-bottom: 10px;
+      display: block;
+      text-transform: uppercase;
+      font-weight: 100;
+      letter-spacing: .05em;
+    }
+    i{ width: 10%;display: inline-block;border-radius: 50%;position: absolute;top: 50px;right: 50px;background: center center no-repeat;background-size: cover;background-color: rgba(180, 180, 180, 0.6);box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);border: 1px solid #ffffff; }
+
+    i::before{ content: "";padding-top: 100%;display: inline-block; }
+    h2{
+      font-size: 24px;
+      margin-bottom: 10px;
+      font-weight: 100;
+      color: #000;
+      font-family: "Work Sans", Arial, sans-serif;
+
+      a{ 
+        &{ color: #000; }
+        &:hover{ color: #FC5185; }
+      }
+    }
+    p{ font-size: 18px;line-height: 38px;font-family: "Work Sans", Arial, sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      color: #828282; }
+  }
+
+  .fh5co-loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('http://demo.cssmoban.com/cssthemes4/ft5_71_story/images/loader.gif') center no-repeat #fff;
+  }
+}

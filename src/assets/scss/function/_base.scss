@@ -1,0 +1,14 @@
+@function px2rem($px) {
+  $temp: '';
+  $len: length($px);
+  @each $item in $px {
+    $i: index($px, $item);
+    $flag: ' ';
+    @if $i == $len { $flag: ''; }
+    @if $item != 0 {
+      $item: $item / $rem + rem
+    }
+    $temp: $temp + $item + $flag;
+  }
+  @return unquote($temp);
+}

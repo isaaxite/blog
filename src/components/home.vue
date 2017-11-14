@@ -1,0 +1,98 @@
+<template>
+  <div id="home" class="route">
+    <dl class="loading fh5co-loader" v-show="isLoading"></dl>
+    <dl class="side">
+      <div class="featured">
+				<span>Bio</span>
+				<h2>I'm Isaac_宝华 </h2>
+			</div>
+    </dl>
+    <dl class="list">
+      <ul>
+        <li v-if="list.length" v-for="(item, index) in list">
+          <i></i>
+          <span class="fh5co-post-date">{{ formatDate(item.created_at) }}</span>
+          <h2><a :href="item.html_url">{{ item.title }}</a></h2>
+          <p>{{ formatAbstract(item.body, index) }}</p>
+        </li>
+      </ul>
+    </dl>
+  </div>
+</template>
+<script>
+import axios from 'axios';
+
+export default {
+  beforeMount () {
+    const self = this;
+    self.listData();
+  },
+  mounted () {
+    const self = this;
+    setTimeout(function() {
+      self.isLoading = false;
+    }, 1500);
+  },
+  data() {
+    return {
+      page: 1,
+      isLoading: true,
+      per_page: 30,
+      list: [],
+      defaultCovers: [
+        'http://sl-cdn.hingyin.com/o_1busqiknpfda5r42194bvo7ac.jpg',
+        'http://sl-cdn.hingyin.com/o_1busqkkjh1r7k1cli5nqeqh1sbfh.jpg',
+        'http://sl-cdn.hingyin.com/o_1busomv9q19m058jfe11b551fd57.jpg',
+        'http://sl-cdn.hingyin.com/o_1busqt6k91hugn4fp84u32ba0m.jpg',
+        'http://sl-cdn.hingyin.com/o_1busqtur7ctd156d1h7ah01cikr.jpg',
+        'http://sl-cdn.hingyin.com/o_1busr400r1b0qq93edomltm6210.jpeg',
+        'http://sl-cdn.hingyin.com/o_1busr5hou1p7n1ijd1hbk1sh7mu915.png'
+      ],
+      month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    }
+  },
+  methods: {
+    prev() {
+      this.page = this.page > 1 ? this.page - 1 : 1;
+      console.log(this.page);
+    },
+    next() {
+      this.page = this.page + 1;
+      console.log(this.page);
+    },
+    listData() {
+      const self = this;
+      axios.get(`https://api.github.com/repos/issaxite/issaxite.github.io/issues?page=${self.page}&per_page=${self.per_page}`)
+      .then(resp => {
+        console.log(resp.data);
+        self.list = resp.data;
+      });
+    },
+    formatDate(time) {
+      const date = new Date(time);
+      return `${this.month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    },
+    formatAbstract(text, index) {
+      const self = this;
+      const pattern = /\!\[.*\]\(.*\)/;
+      text = text.slice(0, 200);
+      const defaultCoverIndex = Math.floor(Math.random() * self.defaultCovers.length);
+      const defaultCover = self.defaultCovers[defaultCoverIndex];
+      let cover = text.match(pattern);
+      cover = cover ? cover[0].match(/\(.*(?=\))/)[0].slice(1) : defaultCover;
+      setTimeout(() => {
+        let covers = document.querySelectorAll("#home .list li i");
+        covers[index].style.backgroundImage = `url(${cover})`;
+      }, 500);
+
+      return text;
+    }
+  },
+  watch: {
+    page() {
+      this.listData();
+    }
+  }
+}
+</script>
+
