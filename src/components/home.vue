@@ -10,12 +10,22 @@
 			</div>
     </dl>
     <dl class="list" @scroll="listenScroll">
+      <ul class="list-loading" v-if="isLoadingList">
+        <li v-for="i in 5" class="loading">
+          <span></span>
+          <p v-for="p in 5"></p>
+        </li>
+      </ul>
       <ul v-if="list.length">
         <li v-for="(item, index) in list">
           <i></i>
           <span class="date">{{ formatDate(item.created_at) }}</span>
           <h2><a :href="item.html_url" :title="item.title">{{ item.title }}</a></h2>
           <p>{{ formatAbstract(item.body, index) }}</p>
+        </li>
+        <li class="loading" v-if="isLoadingMore">
+          <span></span>
+          <p v-for="p in 5"></p>
         </li>
       </ul>
     </dl>
@@ -33,6 +43,9 @@ export default {
     self.listData()
     .then(resp => {
       self.list = resp.data;
+      setTimeout(function() {
+        self.isLoadingList = false;
+      }, 4000);
     });
   },
   mounted () {
@@ -41,20 +54,22 @@ export default {
       self.isLoading = false;
     }, 1500);
 
-      let index = 0;
-      const len = self.posters.length;
-      setInterval(() => {
-        let oldOne = index % len;
-        let newOne = ++index % len;
-        self.posters[oldOne].status = false;
-        self.posters[newOne].status = true;
-      }, 8000);
+    let index = 0;
+    const len = self.posters.length;
+    setInterval(() => {
+      let oldOne = index % len;
+      let newOne = ++index % len;
+      self.posters[oldOne].status = false;
+      self.posters[newOne].status = true;
+    }, 8000);
   },
   data() {
     return {
       page: 1,
       isLoading: true,
+      isLoadingList: true,
       isMore: true,
+      isLoadingMore: false,
       per_page: 10,
       list: [],
       defaultCovers: [
@@ -135,12 +150,20 @@ export default {
       const isBottom = list.scrollHeight - list.clientHeight === distance;
 
       if(isBottom && self.isMore) {
+        const delay = 1400;
+        self.isLoadingMore = true;
         self.page = self.page + 1;
         self.listData()
         .then(resp => {
           self.isMore = resp.data.length;
           if(self.isMore) {
-            self.list = self.list.concat(resp.data);
+            setTimeout(function() {
+              self.list = self.list.concat(resp.data);
+            }, delay);
+          } else {
+            setTimeout(function() {
+              self.isLoadingMore = false;
+            }, delay);
           }
         });
       }
