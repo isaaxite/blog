@@ -25,7 +25,7 @@
     }
   }
   .list{
-    &{ padding-left: $sizeWidth;height: 100%;overflow: auto;-webkit-overflow-scrolling: touch;padding-bottom: 30px;background: #ffffff; }
+    &{ padding-left: $sizeWidth;height: 100%;overflow-x: hidden;overflow-y: auto;-webkit-overflow-scrolling: touch;padding-bottom: 30px;background: #ffffff; }
 
     &>ul{ background: #ffffff;min-height: 100%; }
     &>.list-loading{ position: absolute;top: 0;right: 0;bottom: 0;left: $sizeWidth;overflow: hidden;z-index: 1000; }
