@@ -20,7 +20,7 @@
         <li v-for="(item, index) in list">
           <i></i>
           <span class="date">{{ formatDate(item.created_at) }}</span>
-          <h2><a :href="item.html_url" :title="item.title">{{ item.title }}</a></h2>
+          <h2><a href="javascript:;" :title="item.title" data-type="title" @click="forward(item.html_url, item.title)">{{ item.title }}</a></h2>
           <p>{{ formatAbstract(item.body, index) }}</p>
         </li>
         <li class="loading" v-if="isLoadingMore">
@@ -179,6 +179,30 @@ export default {
         list.scrollTop = scroll;
         if(!scroll) { clearInterval(timer); }
       }, delay);
+    },
+    forward(link, label) {
+      console.log(link, label);
+      const overtime = 1000;
+      let isFrowarded = false;
+      let _forward = function(link) {
+        if(!isFrowarded) {
+          isFrowarded = true;
+          location.href = link;
+        }
+      };
+
+      setTimeout(function(){
+        _forward(link);
+      }, overtime);
+
+      ga('send', 'event', {
+        eventCategory: 'Outbound Link',
+        eventAction: 'click',
+        eventLabel: label,
+        hitCallback: function() {
+          _forward(link);
+        }
+      });
     }
   },
   watch: {
