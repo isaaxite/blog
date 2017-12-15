@@ -62,6 +62,9 @@ export default {
       self.posters[oldOne].status = false;
       self.posters[newOne].status = true;
     }, 8000);
+
+
+    ga('set', 'userId', Math.floor(Math.random() * 100000000));
   },
   data() {
     return {
