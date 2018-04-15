@@ -283,7 +283,8 @@ $_SESSION['name'] = "isaac";
 > `Failed to load http://php.cn/cors.php?fn=getData: The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'. Origin 'http://dev.github.io' is therefore not allowed access. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.`
 
 
-#写在最后
+# 写在最后
+
 看得多了，不如试试？！
 
 
