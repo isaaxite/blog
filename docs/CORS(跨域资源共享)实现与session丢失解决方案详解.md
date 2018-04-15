@@ -14,7 +14,7 @@
 6. 跨域资源共享;
 7. ...
 
-其中我实践过得有1、4、5、6，常用的是4，最近面试的时候被问到CORS，引申出很多知识，比如其中问到了**复杂请求和简单请求**，我对CORS并没有太多深入，接下来你懂的……
+其中我实践过得有1、4、5、6，常用的是4，最近XXX的时候被问到CORS，引申出很多知识，比如其中问到了**复杂请求和简单请求**，我对CORS并没有太多深入，接下来你懂的……
 
 
 
@@ -42,7 +42,7 @@ CORS需要服务器端及客户端双方面的更改支持。本编主要基于j
 
 #CORS实现跨域
 
-- 前端
+- 客服端（Client）
 
   封装一个ajax函数：
 
@@ -96,7 +96,7 @@ CORS需要服务器端及客户端双方面的更改支持。本编主要基于j
 
 
 
-- 后端
+- 服务端（Server）
 
   path：`http://php.cn/cors.php`
 
@@ -281,6 +281,10 @@ $_SESSION['name'] = "isaac";
 对比第一次实现CORS，你会发现第二次实现CORS的时候，在服务端，没有再用通配符`*`来配置`Access-Control-Allow-Origin`而是直接指定为：`http://dev.github.io`，这也是一个注意点，要发送cookie就必须明确指明可跨域域名，不可以使用通配符，不然则会抛出如下异常：
 
 > `Failed to load http://php.cn/cors.php?fn=getData: The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'. Origin 'http://dev.github.io' is therefore not allowed access. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.`
+
+#写在最后
+看得多了，不如试试？！
+
 
 [同源策略的存在意义]: https://www.zhihu.com/question/31459669
 
