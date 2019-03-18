@@ -1,0 +1,21 @@
+{
+  "name": "icsdr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "icsdr": "./icsdr.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "commander": "^2.19.0",
+    "iconv-lite": "^0.4.24"
+  },
+  "dependencies": {}
+}
