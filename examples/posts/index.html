@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=375, , initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>posts</title>
+  <title>五四青年节</title>
   <link rel="stylesheet" href="./src/reset.css">
   <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.3/weui.min.css">
   <link rel="stylesheet" href="./src/style.css">
@@ -128,6 +128,7 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
 <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.4/weui.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
   var fontSize = 10;
   var multiple = 2;
@@ -161,7 +162,7 @@
     {
       name: 'qrCode',
       src: './asset/555.png',
-      pos: [278 * multiple, 575 * multiple, 80 * multiple, 80 * multiple]
+      pos: [20 * multiple, 555 * multiple, 100 * multiple, 100 * multiple]
     }
   ];
 
@@ -216,21 +217,35 @@
     var dr = dw / dh;
     var sr = img.width / img.height;
     if (sr > dr) {
-      var h = img.height / (img.width/defaultPos[2]);
+      var h = img.height / (img.width/dw);
       stampLlayer.pos[2] = dw;
       stampLlayer.pos[3] = h;
       stampLlayer.pos[1] = dy + (dh - h) / 2;
     } else {
-      var w = dw / (img.height / dh);
+      var w = img.width / (img.height / dh);
       stampLlayer.pos[2] = w;
       stampLlayer.pos[3] = dh;
       stampLlayer.pos[0] = dx + (dw - w) / 2;
     }
   }
 
+  function toBase64(src, callback) {
+    var img = new Image();
+    img.onload = function(){
+      var canvas = document.createElement("canvas");
+      var ctx = canvas.getContext("2d");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+      callback && callback(canvas.toDataURL());
+    }
+    img.src = src;
+  }
+
   var vm = new Vue({
     el: '#app',
     data: {
+      isDev: true,
       name: '',
       address: '',
       isActiveUpload: false,
@@ -325,13 +340,51 @@
 
       handleDraw() {
         if (this.uploadedImage && this.isValidAddresAndName) {
-          // console.log(12312312);
           this.activeTab = -1;
         }
       },
 
       handleDrawConfirm() {
+        var ctx = this;
         this.loading = weui.loading('生成中');
+        ctx.sumitData(function() {
+          ctx.drawCard(function() {
+            ctx.loading.hide();
+          });
+        });
+      },
+
+      sumitData(callback) {
+        var ctx = this;
+        var name = this.name;
+        var address = this.address;
+        var cover = this.covers[this.activeCover].src;
+        var text = this.texts[this.activeText].src;
+        var uploadedImage = this.uploadedImage;
+        toBase64(cover, function(coverData) {
+          toBase64(text, function(textData) {
+            if (ctx.isDev) {
+              callback && callback();
+              return ;
+            }
+            axios.post('https://github.com/axios/axios', {
+              name: name,
+              address: address,
+              cover: coverData,
+              text: textData,
+              stamp: uploadedImage
+            }).then((resp) => {
+              // console.log(resp);
+              callback && callback(resp);
+            }).catch((e) => {
+              console.log(e.message);
+            })
+          });
+        });
+      },
+
+      drawCard(callback) {
+        this.sumitData();
         var curCtx = this;
         var res = this.createCanvas();
         var ctx = res.ctx;
@@ -394,8 +447,8 @@
                   drawCanvas(ctx, layers[5].src, function(img) {
                     ctx.drawImage(img, ...layers[5].pos);
                     curCtx.isDrawFinish = true;
-                    curCtx.loading.hide();
                     curCtx.drawedPic =canvas.toDataURL();
+                    callback && callback();
                   });
                 });
               });
@@ -403,7 +456,7 @@
           });
         });
       }
-    },
+    }
   });
 </script>
 </html>
