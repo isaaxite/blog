@@ -297,7 +297,7 @@
       },
 
       isValidAddresAndName() {
-        return this.address && this.name;
+        return this.address && this.name && this.uploadedImage;
       }
     },
 
@@ -339,7 +339,7 @@
       },
 
       handleDraw() {
-        if (this.uploadedImage && this.isValidAddresAndName) {
+        if (this.isValidAddresAndName) {
           this.activeTab = -1;
         }
       },
