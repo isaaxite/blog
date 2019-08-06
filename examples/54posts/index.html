@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=375, , initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>五四青年节</title>
+  <link rel="stylesheet" href="./src/reset.css">
+  <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.3/weui.min.css">
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="layer" :style="{ height: viewHeight }">
+      <img src="./asset/icon-beijin@2x.png" style="z-index: 10" class="layer__item"/>
+      <img src="./asset/iocn-wenan@2x.png" style="z-index: 20" class="layer__item"/>
+      <div class="layer__main">
+        <div class="layer__item-cover">
+          <img v-show="covers[activeCover].src" :src="covers[activeCover].src">
+        </div>
+        <div class="layer__item-envelope">
+          <img src="./asset/icon-mingxpian@2x.png">
+        </div>
+        <div v-show="uploadedImage" class="layer__item-stamp">
+          <img  :src="uploadedImage"/>
+        </div>
+
+        <div class="layer__item-address">
+          <dl class="address__item address__item-name">{{ name.slice(0, 13) }}</dl>
+          <dl class="address__item address__item-text">{{ address.slice(0, 26) }}</dl>
+        </div>
+
+        <div class="layer__item-text">
+          <img :src="texts[activeText].src">
+        </div>
+      </div>
+    </div>
+
+    <div v-show="isDrawFinish" class="layer__item-canvas-image">
+      <dl><img :src="drawedPic" alt=""></dl>
+    </div>
+
+    <div class="operation">
+      <div class="operation__tabs" :class="{
+        'operation__tabs--active': activeTab !== -1
+      }">
+        <span
+          v-for="(tab, index) in tabs"
+          class="tabs__item"
+          :class="{ 'tabs__item--active': index === activeTab }"
+          @click="activeTab = index"
+        >{{ tab }}</span>
+      </div>
+
+      <div class="operation__body">
+        <dl class="poster" :class="{ 'poster--active': activeTab === 0 }">
+          <span
+            class="poster__item"
+            :class="{ 'poster__item--active': activeCover === index }"
+            :key="index"
+            v-for="(item, index) in covers"
+            @click="activeCover = index"
+          >
+            <img :src="item.thumbnail"/>
+          </span>
+        </dl>
+
+        <dl class="poster" :class="{ 'poster--active': activeTab === 1 }">
+          <span
+            class="poster__item"
+            :class="{ 'poster__item--active': activeText === index }"
+            :key="index"
+            v-for="(item, index) in texts"
+            @click="activeText = index"
+          >
+            <img :src="item.thumbnail"/>
+          </span>
+        </dl>
+
+        <dl class="uploader"  :class="{ 'poster--active': activeTab === 2 }">
+          <div class="uploader__area">
+            <a href="javascript:;" @click="handleUploadImage(false)">
+              <i v-show="!uploadedImage"></i>
+              <span v-show="!uploadedImage">上传照片</span>
+              <input
+                ref="uploadImage"
+                type="file"
+                accept="image/*"
+                @change="handleImageChange"/>
+              <img :src="uploadedImage">
+            </a>
+          </div>
+          <div class="uploader__operation" :class="{ 'uploader__operation--active': uploadedImage }">
+            <span class="uploader__operation-left" @click="handleUploadImage(true)">重新拍</span>
+            <span class="uploader__operation-right" @click="handleConfirmUpload">确定</span>
+          </div>
+        </dl>
+
+        <dl class="address" :class="{ 'poster--active': activeTab === 3 }">
+          <div class="address__item">
+            <input type="text" placeholder="填写姓名" v-model="name">
+          </div>
+          <div class="address__item">
+            <input type="text" placeholder="填写地址" v-model="address">
+          </div>
+          <div class="address__item address__item-button"
+            :class="{ 'address__item-button--active': isValidAddresAndName }"
+          >
+            <span @click="handleDraw">确定</span>
+          </div>
+        </dl>
+
+        <dl class="draw-operation" :class="{
+          'poster--active': activeTab === -1
+        }">
+          <div v-show="!isDrawFinish">
+            <span class="draw-operation__item draw-operation-left" @click="activeTab = 0">重新选择</span>
+            <span class="draw-operation__item draw-operation-right" @click="handleDrawConfirm">确定</span>
+          </div>
+          <div class="draw-finish__tip" v-show="isDrawFinish">
+            <span>长按保存图片</span><br>
+            <span>分享给您的小伙伴</span>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.4/weui.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+  var fontSize = 10;
+  var multiple = 2;
+  var layers = [
+    {
+      name: 'background',
+      src: './asset/444.png',
+      pos: [0,0, 375 * multiple, 667 * multiple]
+    },
+    {
+      name: 'header',
+      src: './asset/iocn-wenan@2x.png',
+      pos: [0,0, 375 * multiple, 667 * multiple]
+    },
+    {
+      name: 'cover',
+      src: './asset/11.png',
+      pos: [20 * multiple,166 * multiple, 335 * multiple, 187 * multiple]
+    },
+    {
+      name: 'stamp',
+      src: './asset/11.png',
+      pos: [204 * multiple, 384 * multiple, 137 * multiple, 58 * multiple],
+      defaultPos: [204 * multiple, 384 * multiple, 137 * multiple, 58 * multiple]
+    },
+    {
+      name: 'textPic',
+      src: './asset/333.png',
+      pos: [40 * multiple, 410 * multiple, 137 * multiple, 58 * multiple]
+    },
+    {
+      name: 'qrCode',
+      src: './asset/555.png',
+      pos: [20 * multiple, 555 * multiple, 100 * multiple, 100 * multiple]
+    }
+  ];
+
+  function drawCanvas(ctx, src, callback) {
+    var img = new Image();
+    img.onload = function(){
+      callback && callback(img);
+    }
+    img.src = src;
+  }
+
+  function getOrigin(pos) {
+    return [pos[0] + pos[2] / 2, pos[1] + pos[3] / 2];
+  }
+
+  function drawName(ctx, name) {
+    ctx.save();
+    ctx.rotate(5 * Math.PI / 180);
+    // ctx.font = 44 * multiple +'px';
+    ctx.fillStyle = 'rgb(127, 127, 127)';
+    ctx.font=fontSize * multiple + "px Verdana";
+    ctx.fillText(name, 244 * multiple, 436 * multiple, 132 * multiple);
+    ctx.restore();
+  }
+
+  function drawText(ctx, text) {
+    const textMaxCount = 13;
+    ctx.save();
+    ctx.rotate(5 * Math.PI / 180);
+    ctx.fillStyle = 'rgb(127, 127, 127)';
+    ctx.font=fontSize * multiple + "px Verdana";
+    ctx.fillText(text.slice(0 , textMaxCount), 244 * multiple, 460 * multiple, 132 * multiple);
+    if (text.length > textMaxCount) {
+      ctx.fillText(text.slice(textMaxCount, 2 * textMaxCount), 244 * multiple, 480 * multiple, 132 * multiple);
+    }
+    ctx.restore();
+  }
+
+  function rotate(ctx, deg, origin) {
+    ctx.translate(origin[0], origin[1]);
+    ctx.rotate(deg * Math.PI / 180);
+    ctx.translate(-origin[0], -origin[1]);
+  }
+
+  function updateStampPos(img, stampLlayer) {
+    var pos = stampLlayer.pos;
+    var defaultPos = stampLlayer.defaultPos;
+    var dx = defaultPos[0];
+    var dy = defaultPos[1];
+    var dw =  defaultPos[2];
+    var dh =  defaultPos[3];
+    var dr = dw / dh;
+    var sr = img.width / img.height;
+    if (sr > dr) {
+      var h = img.height / (img.width/dw);
+      stampLlayer.pos[2] = dw;
+      stampLlayer.pos[3] = h;
+      stampLlayer.pos[1] = dy + (dh - h) / 2;
+    } else {
+      var w = img.width / (img.height / dh);
+      stampLlayer.pos[2] = w;
+      stampLlayer.pos[3] = dh;
+      stampLlayer.pos[0] = dx + (dw - w) / 2;
+    }
+  }
+
+  function toBase64(src, callback) {
+    var img = new Image();
+    img.onload = function(){
+      var canvas = document.createElement("canvas");
+      var ctx = canvas.getContext("2d");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+      callback && callback(canvas.toDataURL());
+    }
+    img.src = src;
+  }
+
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      isDev: true,
+      name: '',
+      address: '',
+      isActiveUpload: false,
+      tabs: ['海报', '祝福', '拍照', '分享'],
+      activeTab: 0,
+      scale: 375/667,
+      uploadedImage: '',
+      activeCover: 0,
+      activeText: 0,
+      covers: [
+        {
+          src: './asset/11.png',
+          thumbnail: './asset/11.png'
+        },
+        {
+          src: './asset/333.png',
+          thumbnail: './asset/333.png'
+        },
+        {
+          src: './asset/11.png',
+          thumbnail: './asset/11.png'
+        }
+      ],
+      texts: [
+        {
+          src: './asset/333.png',
+          thumbnail: './asset/333.png'
+        },
+        {
+          src: './asset/11.png',
+          thumbnail: './asset/11.png'
+        },
+        {
+          src: './asset/333.png',
+          thumbnail: './asset/333.png'
+        }
+      ],
+      loading: '',
+      isDrawFinish: false,
+      
+      canvas: null,
+      ctx: null,
+      drawedPic: ''
+    },
+
+    computed: {
+      viewHeight() {
+        return (document.body.offsetWidth / this.scale) + 'px';
+      },
+
+      isValidAddresAndName() {
+        return this.address && this.name && this.uploadedImage;
+      }
+    },
+
+    methods: {
+      createCanvas() {
+        this.canvas = document.createElement("canvas");
+        this.ctx = this.canvas.getContext("2d");
+        this.canvas.width = 375 * multiple;
+        this.canvas.height = 667 * multiple;
+
+        return {
+          ctx: this.ctx,
+          canvas: this.canvas
+        }
+      },
+
+      handleImageChange() {
+        var ctx = this;
+        var reader = new FileReader();
+        reader.readAsDataURL(this.$refs.uploadImage.files[0]);
+        reader.onload = function(e){
+          ctx.uploadedImage = this.result;
+        }
+      },
+
+      handleUploadImage(isReset) {
+        if (
+          (isReset && this.uploadedImage)
+          || !isReset
+        ) {
+          this.$refs.uploadImage.click();
+        }
+      },
+
+      handleConfirmUpload() {
+        if (this.uploadedImage) {
+          this.activeTab += 1;
+        }
+      },
+
+      handleDraw() {
+        if (this.isValidAddresAndName) {
+          this.activeTab = -1;
+        }
+      },
+
+      handleDrawConfirm() {
+        var ctx = this;
+        this.loading = weui.loading('生成中');
+        ctx.sumitData(function() {
+          ctx.drawCard(function() {
+            ctx.loading.hide();
+          });
+        });
+      },
+
+      sumitData(callback) {
+        var ctx = this;
+        var name = this.name;
+        var address = this.address;
+        var cover = this.covers[this.activeCover].src;
+        var text = this.texts[this.activeText].src;
+        var uploadedImage = this.uploadedImage;
+        toBase64(cover, function(coverData) {
+          toBase64(text, function(textData) {
+            if (ctx.isDev) {
+              callback && callback();
+              return ;
+            }
+            axios.post('https://github.com/axios/axios', {
+              name: name,
+              address: address,
+              cover: coverData,
+              text: textData,
+              stamp: uploadedImage
+            }).then((resp) => {
+              // console.log(resp);
+              callback && callback(resp);
+            }).catch((e) => {
+              console.log(e.message);
+            })
+          });
+        });
+      },
+
+      drawCard(callback) {
+        this.sumitData();
+        var curCtx = this;
+        var res = this.createCanvas();
+        var ctx = res.ctx;
+        var canvas = res.canvas;
+        // cover
+        layers[2].src = this.covers[this.activeCover].src;
+        // stamp
+        layers[3].src = this.uploadedImage;
+        // textPic
+        layers[4].src = this.texts[this.activeText].src;
+
+        drawCanvas(ctx, layers[0].src, function(img) {
+          ctx.drawImage(img, ...layers[0].pos);
+          
+          drawCanvas(ctx, layers[1].src, function(img) {
+            ctx.drawImage(img, ...layers[1].pos);
+        
+            const pos = layers[2].pos;
+            const origin = getOrigin(pos);
+            ctx.save();
+            ctx.shadowColor = 'rgba(51, 51, 51, 0.6)';
+            ctx.shadowBlur = 4 * multiple;
+            ctx.translate(origin[0], origin[1]);
+            ctx.rotate(-3*Math.PI/180);
+            ctx.translate(-origin[0], -origin[1]);
+            ctx.rect(16 * multiple, 162 * multiple, 343 * multiple, 195 * multiple);
+            ctx.fillStyle="#FFFFFF";
+            ctx.fill();
+            
+            drawCanvas(ctx, layers[2].src, function(img) {
+              ctx.drawImage(img, ...layers[2].pos);
+              ctx.restore();
+              
+              drawCanvas(ctx, layers[3].src, function(img) {
+                updateStampPos(img, layers[3]);
+                const pos = layers[3].pos;
+                const origin = getOrigin(pos);
+                ctx.save();
+                ctx.translate(...origin);
+                ctx.rotate(5*Math.PI/180);
+                ctx.translate(-origin[0], -origin[1]);
+                ctx.shadowColor = 'rgba(51, 51, 51, 0.6)';
+                ctx.shadowBlur = 2 * multiple;
+                ctx.drawImage(img, ...pos);
+                ctx.restore();
+
+                drawCanvas(ctx, layers[4].src, function(img) {
+                  const pos = layers[4].pos;
+                  const origin = getOrigin(pos);
+                  ctx.save();
+                  ctx.translate(...origin);
+                  ctx.rotate(5*Math.PI/180);
+                  ctx.translate(-origin[0], -origin[1]);
+                  ctx.drawImage(img, ...pos);
+                  ctx.restore();
+
+                  drawName(ctx, curCtx.name);
+                  drawText(ctx, curCtx.address);
+
+                  drawCanvas(ctx, layers[5].src, function(img) {
+                    ctx.drawImage(img, ...layers[5].pos);
+                    curCtx.isDrawFinish = true;
+                    curCtx.drawedPic =canvas.toDataURL();
+                    callback && callback();
+                  });
+                });
+              });
+            });
+          });
+        });
+      }
+    }
+  });
+</script>
+</html>

@@ -1,0 +1,229 @@
+// $element-separator: '__';
+// $modifier-separator: '--';
+// $state-prefix: 'is-';
+
+// $map: (
+//   name: 2
+// );
+
+
+// /* BEM support Func
+//  -------------------------- */
+//  @function selectorToString($selector) {
+//   $selector: inspect($selector);
+//   $selector: str-slice($selector, 2, -2);
+//   @return $selector;
+// }
+
+// @function containsModifier($selector) {
+//   $selector: selectorToString($selector);
+
+//   @if str-index($selector, $modifier-separator) {
+//     @return true;
+//   } @else {
+//     @return false;
+//   }
+// }
+
+// @function containWhenFlag($selector) {
+//   $selector: selectorToString($selector);
+
+//   @if str-index($selector, '.' + $state-prefix) {
+//     @return true;
+//   } @else {
+//     @return false;
+//   }
+// }
+
+// @function containPseudoClass($selector) {
+//   $selector: selectorToString($selector);
+
+//   @if str-index($selector, ':') {
+//     @return true;
+//   } @else {
+//     @return false;
+//   }
+// }
+
+// @function hitAllSpecialNestRule($selector) {
+
+//   @return containsModifier($selector) or containWhenFlag($selector) or containPseudoClass($selector);
+// }
+
+// @function is-map($map) {
+//   $map-spe: "()";
+//   $str: inspect($map);
+//   $str: str-slice($str, 1, 1) + str-slice($str, -1);
+//   @return $str == $map-spe;
+// }
+
+// @function block-name($block) {
+//   @return '.' + $BLOCK;
+// }
+
+// @function element-name($args...) {
+//   $block: $BLOCK;
+//   $element: nth($args, 1);
+//   @if length($args) > 1 {
+//   $block: $namespace + '-' + nth($args, 1);
+//   $element: nth($args, 2);
+//   }
+//   $ELEMENT: $element !global;
+//   $currentSelector: "";
+//   @each $unit in $element {
+//     $currentSelector: #{$currentSelector + "." + $block + $element-separator + $unit + ","};
+//   }
+
+//   @return $currentSelector;
+// }
+
+// @function modifier-name($args...) {
+//   $prefix: '.' + $namespace + '-';
+//   $args-len: length($args);
+//   $selector: '';
+//   $modifier: nth($args, 1);
+//   @if $args-len == 2 {
+//     $selector: $prefix + nth($args, 1);
+//     $modifier: nth($args, 2);
+//   } @else if $args-len == 3 {
+//     $selector: $prefix + nth($args, 1) + $element-separator + nth($args, 2);
+//     $modifier: nth($args, 3);
+//   }
+
+//   @return $selector + $modifier-separator + $modifier;
+// }
+
+// // $current-blcok: '' !global;
+// // @mixin block($rest...) {
+// //   $name: nth($rest, 1);
+// //   $last: nth($rest, length($rest));
+// //   $old-block: $current-blcok;
+// //   $current-blcok: $name !global;
+// //   @if is-map($last) {
+
+// //   }
+// //   .#{$name} {
+// //     @content;
+// //   }
+// //   $current-blcok: $old-block !global;
+// // }
+
+// /* BEM
+//  -------------------------- */
+//  $namespace: 'ic-';
+//  $BLOCK: '' !global;
+//  $--EXTEND: null !global;
+//  $--EXTEND-NAMESPACE: $namespace + '-extra-';
+
+
+//  @mixin extend($name: null) {
+//  $--EXTEND: $--EXTEND-NAMESPACE !global;
+//    @if $name {
+//    $--EXTEND: '.' + $--EXTEND-NAMESPACE + $name !global;
+//    }
+//    @content;
+//    $--EXTEND: null !global;
+//  }
+  
+//  @mixin block($block) {
+//    $old-block: $BLOCK;
+//    $BLOCK: $namespace + $block !global;
+//    $selector: '.' + $BLOCK;
+//    @if & == null {
+//       @if $--EXTEND {
+//         $--EXTEND: '.' + $--EXTEND + $block !global;
+//         $selector: $--EXTEND + $selector;
+//       }
+//       @at-root #{$selector} {
+//         @content;
+//       }
+//    } @else {
+//     #{$selector} {
+//       @content;
+//     }
+//    }
+//    $BLOCK: $old-block !global;
+//  }
+ 
+//  @mixin element($args...) {
+//    $block: $BLOCK;
+//    $element: nth($args, 1);
+//    @if length($args) > 1 {
+//    $block: $namespace + '-' + nth($args, 1);
+//    $element: nth($args, 2);
+//    }
+//    $ELEMENT: $element !global;
+//    $selector: &;
+//    $currentSelector: "";
+//    @each $unit in $element {
+//      $currentSelector: #{$currentSelector + "." + $block + $element-separator + $unit + ","};
+//    }
+ 
+//    @if hitAllSpecialNestRule($selector) OR length($args) > 1 {
+//      @debug 12312321;
+//      @at-root {
+//        #{$selector} {
+//          #{$currentSelector} {
+//            @content;
+//          }
+//        }
+//      }
+//    } @else {
+//      @at-root {
+//        @if $--EXTEND {
+//          $currentSelector: $--EXTEND + ' ' + $currentSelector;
+//        }
+//        #{$currentSelector} {
+//          @content;
+//        }
+//      }
+//    }
+//  }
+  
+//  @mixin modifier($args...) {
+//    $prefix: ' .' + $namespace + '-';
+//    $args-len: length($args);
+//    $selector: &;
+//    $modifier: nth($args, 1);
+//    @if $args-len == 2 {
+//      $selector: $selector + $prefix + nth($args, 1);
+//      $modifier: nth($args, 2);
+//    } @else if $args-len == 3 {
+//      $selector: $selector + $prefix + nth($args, 1) + $element-separator + nth($args, 2);
+//      $modifier: nth($args, 3);
+//    }
+//    $currentSelector: "";
+//    @each $unit in $modifier {
+//      $currentSelector: #{$currentSelector + $selector + $modifier-separator + $unit + ","};
+//    }
+ 
+//    @at-root {
+//      #{$currentSelector} {
+//        @content;
+//      }
+//    }
+//  }
+
+// @include block(test) {
+//   & {
+//     content: 'test';
+//   }
+
+//   @include element(header) {
+//     content: 'test__header';
+//   }
+
+//   @include block(foo) {
+//     & {
+//       content: 'foo';
+//     }
+
+//     @include element(header) {
+//       content: 'foo__header';
+//     }
+//   }
+
+//   @include element(footer) {
+//     content: 'assdsd';
+//   }
+// }
