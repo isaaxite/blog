@@ -7,7 +7,7 @@ const SPE_NEWLINE = '\r\n';
 const docsDir = path.resolve('./src/docs');
 const conf = {
   showCount: 3,
-  excludeCate: ['asset', 'dependencies'],
+  excludeCate: ['asset', 'dependencies', 'Recommend'],
   excludeFile: ['.conf', 'README.md']
 };
 
@@ -24,13 +24,19 @@ function getDocsData() {
         name: dirName,
         dir: dirPath,
         href: `./src/docs/${dirName}`,
-        list: []
+        list: [],
+        conf: []
       });
     }
 
     docsData.forEach((it) => {
       const srcDir = path.join(it.dir, SRC_DIR);
-      const originalDirList = fs.readdirSync(srcDir);
+      let originalDirList;
+      try {
+        originalDirList = fs.readdirSync(srcDir);
+      } catch (error) {
+        originalDirList = [];
+      }
       originalDirList.forEach((fileName) => {
         const filePath = path.join(srcDir, fileName);
         const stat = fs.statSync(filePath);
@@ -62,7 +68,7 @@ const noRepeat = [];
 function initMdData(_docsData) {
   const topping = _docsData.map((it) => {
     const cache = new Set();;
-    cache.add(`## [${it.name}](${it.href})`);
+    cache.add(`## ${it.name}`);
     for (let i = 0, len = it.list.length; i < len; i +=1) {
       const text = it.list[i];
       cache.add(`- [${text.name}](${text.href})`)
@@ -82,18 +88,21 @@ function generateTopping(_docsData, _mdData) {
     toppingConf.push(...cache);
   });
   if (toppingConf.length) {
+    const href = './src/docs/Recommend';
     const titles = toppingConf.map((it) => `${it.name}.md`);
-    const toppingMdList = [`## [推荐]()`];
+    const toppingMdList = [`## Recommend`];
     _mdData.forEach((it) => {
       it.forEach((text) => {
         const props = text.match(/\[(.*)\]\(.*\)/);
-        if (titles.includes(props[1]) && !noRepeat.includes(props[1])) {
+        if (props && titles.includes(props[1]) && !noRepeat.includes(props[1])) {
           toppingMdList.push(text);
           noRepeat.push(props[1]);
         }
       });
     })
+    toppingMdList.push(`- [更多](${href})`);
     _mdData.unshift(toppingMdList);
+    // console.log(_mdData[0])
   }
 
   return _mdData;
@@ -110,13 +119,13 @@ function homeCate(_mdData) {
 }
 
 function childCate(_mdData) {
-  _mdData.forEach((it) => {
-    const cate = it[0];
+  _mdData.forEach((it, index) => {
+    const cate = it.pop();
     const props = cate.match(/\[.*\]\((.*)\)/);
     const dirPath = props[1];
     if (dirPath) {
       const filePath = path.join(dirPath, 'README.md');
-      const innerText = it.slice(0, -1).join(SPE_NEWLINE) + SPE_NEWLINE;
+      const innerText = it.join(SPE_NEWLINE) + SPE_NEWLINE;
       fs.writeFileSync(filePath, innerText);
     }
   });

@@ -1,4 +1,4 @@
-## [数据结构](./src/docs/数据结构)
+## 数据结构
 - [javascript__快速排序（Quick_Sort）.md](./src/docs/数据结构/src/javascript__快速排序（Quick_Sort）.md)
 - [二叉树的javascript实现.md](./src/docs/数据结构/src/二叉树的javascript实现.md)
 - [二叉树遍历的javascript实现.md](./src/docs/数据结构/src/二叉树遍历的javascript实现.md)

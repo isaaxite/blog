@@ -1,4 +1,4 @@
-## [javascript](./src/docs/javascript)
+## javascript
 - [ES5：实现继承的多种方法（上）.md](./src/docs/javascript/src/ES5：实现继承的多种方法（上）.md)
 - [Element.hasAttribute()注意事项之一.md](./src/docs/javascript/src/Element.hasAttribute()注意事项之一.md)
 - [JavaScript__关于继承多种实现的笔记.md](./src/docs/javascript/src/JavaScript__关于继承多种实现的笔记.md)

@@ -1,4 +1,4 @@
-## [others](./src/docs/others)
+## others
 - [&lt;el&gt;_nth[-last]-of-type和&lt;el.class&gt;_nth[-last]-of-type的区别.md](./src/docs/others/src/&lt;el&gt;_nth[-last]-of-type和&lt;el.class&gt;_nth[-last]-of-type的区别.md)
 - [Generator关键说明.md](./src/docs/others/src/Generator关键说明.md)
 - [JavaScript对象的深复制.md](./src/docs/others/src/JavaScript对象的深复制.md)
