@@ -7,7 +7,7 @@ const docsDir = path.resolve('./docs');
 const conf = {
   showCount: 3,
   excludeCate: ['asset', 'dependencies'],
-  excludeFile: ['.conf', 'readme.md']
+  excludeFile: ['.conf', 'README.md']
 };
 
 function getDocsData() {

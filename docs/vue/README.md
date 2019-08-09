@@ -1,5 +1,4 @@
 ## [vue](./docs/vue)
-- [README.md](./docs/vue/README.md)
 - [Vue：watch-deep的用法.md](./docs/vue/Vue：watch-deep的用法.md)
 - [element-ui__checkbox如何传入value（老年痴呆系列）.md](./docs/vue/element-ui__checkbox如何传入value（老年痴呆系列）.md)
 - [vue__filters中this指针指向window.md](./docs/vue/vue__filters中this指针指向window.md)

@@ -3,7 +3,6 @@
 - [Composition实现科学文字计数器.md](./docs/Topping/Composition实现科学文字计数器.md)
 - [JavaScript__关于继承多种实现的笔记.md](./docs/Topping/JavaScript__关于继承多种实现的笔记.md)
 - [JavaScript__创建对象的多种模式.md](./docs/Topping/JavaScript__创建对象的多种模式.md)
-- [README.md](./docs/Topping/README.md)
 - [Re__从零开始的【comic_spider】《最简单的实现》(上).md](./docs/Topping/Re__从零开始的【comic_spider】《最简单的实现》(上).md)
 - [canvas实现圆框图片.md](./docs/Topping/canvas实现圆框图片.md)
 - [css3弹性伸缩盒实践.md](./docs/Topping/css3弹性伸缩盒实践.md)

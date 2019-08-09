@@ -3,7 +3,6 @@
 - [Composition实现科学文字计数器.md](./docs/FE/Composition实现科学文字计数器.md)
 - [Css利器calc()方法.md](./docs/FE/Css利器calc()方法.md)
 - [Node.js读写文件.md](./docs/FE/Node.js读写文件.md)
-- [README.md](./docs/FE/README.md)
 - [async_await使用记录.md](./docs/FE/async_await使用记录.md)
 - [canvas实现圆框图片.md](./docs/FE/canvas实现圆框图片.md)
 - [canva绘图导出base64格式记录.md](./docs/FE/canva绘图导出base64格式记录.md)

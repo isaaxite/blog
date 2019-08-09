@@ -1,5 +1,4 @@
 ## [转载](./docs/转载)
 - [Node.js读写文件.md](./docs/转载/Node.js读写文件.md)
-- [README.md](./docs/转载/README.md)
 - [关于内存的堆和栈.md](./docs/转载/关于内存的堆和栈.md)
 - [原创_进程和线程的区别.md](./docs/转载/原创_进程和线程的区别.md)

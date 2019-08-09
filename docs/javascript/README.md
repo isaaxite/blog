@@ -5,7 +5,6 @@
 - [JavaScript__创建对象的多种模式.md](./docs/javascript/JavaScript__创建对象的多种模式.md)
 - [Node.js读写文件.md](./docs/javascript/Node.js读写文件.md)
 - [Promise怎么实现递归.md](./docs/javascript/Promise怎么实现递归.md)
-- [README.md](./docs/javascript/README.md)
 - [Re__从零开始的【comic_spider】《最简单的实现》(上).md](./docs/javascript/Re__从零开始的【comic_spider】《最简单的实现》(上).md)
 - [async_await使用记录.md](./docs/javascript/async_await使用记录.md)
 - [canvas画布宽高描述的不可缺失.md](./docs/javascript/canvas画布宽高描述的不可缺失.md)

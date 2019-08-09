@@ -5,7 +5,6 @@
 - [JavaScript对象的深复制.md](./docs/others/JavaScript对象的深复制.md)
 - [JavaScript：函数的两个非继承来的方法apply()、call()，以及ES5的bind().md](./docs/others/JavaScript：函数的两个非继承来的方法apply()、call()，以及ES5的bind().md)
 - [Promise注意事项.md](./docs/others/Promise注意事项.md)
-- [README.md](./docs/others/README.md)
 - [Some Different between inner-join and left-join.md](./docs/others/Some Different between inner-join and left-join.md)
 - [Vue：不能检测到Object_Array更新的情况.md](./docs/others/Vue：不能检测到Object_Array更新的情况.md)
 - [[转]Alpha、Beta、RC、GA版本的区别.md](./docs/others/[转]Alpha、Beta、RC、GA版本的区别.md)
