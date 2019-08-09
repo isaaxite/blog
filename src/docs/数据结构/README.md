@@ -1,6 +1,6 @@
 ## 数据结构
-- [javascript__快速排序（Quick_Sort）.md](./src/docs/数据结构/src/javascript__快速排序（Quick_Sort）.md)
-- [二叉树的javascript实现.md](./src/docs/数据结构/src/二叉树的javascript实现.md)
-- [二叉树遍历的javascript实现.md](./src/docs/数据结构/src/二叉树遍历的javascript实现.md)
-- [图的javascript实现.md](./src/docs/数据结构/src/图的javascript实现.md)
-- [🖖我不知道的hash表.md](./src/docs/数据结构/src/🖖我不知道的hash表.md)
+- [javascript__快速排序（Quick_Sort）.md](/src/docs/数据结构/src/javascript__快速排序（Quick_Sort）.md)
+- [二叉树的javascript实现.md](/src/docs/数据结构/src/二叉树的javascript实现.md)
+- [二叉树遍历的javascript实现.md](/src/docs/数据结构/src/二叉树遍历的javascript实现.md)
+- [图的javascript实现.md](/src/docs/数据结构/src/图的javascript实现.md)
+- [🖖我不知道的hash表.md](/src/docs/数据结构/src/🖖我不知道的hash表.md)

@@ -71,7 +71,7 @@ function initMdData(_docsData) {
     cache.add(`## ${it.name}`);
     for (let i = 0, len = it.list.length; i < len; i +=1) {
       const text = it.list[i];
-      cache.add(`- [${text.name}](${text.href})`)
+      cache.add(`- [${text.name}](${text.href.slice(1)})`)
     }
     cache.add(`- [更多](${it.href})`);
     return Array.from(cache);
