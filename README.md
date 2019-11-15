@@ -1,3 +1,7 @@
+<p align="center">
+  <img height="250" src="https://sdtimes.com/wp-content/uploads/2014/11/1126.sdt-github.png"/>
+</p>
+
 ## [精选](https://github.com/isaaxite/blog/issues?q=is%3Aissue+is%3Aopen+label%3ATopping)
 
 - [我不知道的hash表](https://github.com/isaaxite/blog/issues/225)
