@@ -1,0 +1,1014 @@
+# 大纲
+
+- [计算属性的初始化过程](#计算属性的初始化过程)
+- [计算属性被访问时的运行机制](#计算属性被访问时的运行机制)
+- [计算属性的更新机制](#计算属性的更新机制)
+- [计算属性如何收集依赖](#计算属性如何收集依赖)
+- [总结](#总结)
+
+
+&nbsp;
+
+[回到顶部](#大纲)
+
+# 计算属性的初始化过程
+
+在创建Vue实例时调用`this._init`初始化。
+
+其中就有调用`initState`初始化
+
+```js
+export function initState (vm: Component) {
+  // ...
+  if (opts.computed) initComputed(vm, opts.computed)
+ 	// ...
+}
+```
+
+initState会初始化计算属性：调用`initComputed`
+
+```js
+const computedWatcherOptions = { lazy: true }
+function initComputed (vm: Component, computed: Object) {
+  // ...
+  for (const key in computed) {
+    if (!isSSR) {
+      watchers[key] = new Watcher(
+        vm,
+        getter || noop,
+        noop,
+        computedWatcherOptions
+      )
+    }
+    // ...
+    if (!(key in vm)) {
+      defineComputed(vm, key, userDef)
+    } else if (process.env.NODE_ENV !== 'production') {
+      // ...
+    }
+  }
+}
+```
+
+遍历computed
+
+先创建计算属性的watcher实例，留意`computedWatcherOptions`这个option决定了计算属性的watcher和普通watcher的不同
+
+然后定义计算属性的属性的getter和setter
+
+
+
+- 再来看看watcher的创建
+
+```typescript
+export default class Watcher {
+  // ...
+
+  constructor (
+    vm: Component,
+    expOrFn: string | Function,
+    cb: Function,
+    options?: ?Object,
+    isRenderWatcher?: boolean
+  ) {
+    // ...
+    if (options) {
+    	// ...
+    	this.lazy = !!options.lazy
+      // ...
+    }
+    this.dirty = this.lazy // for lazy watchers
+      
+    if (typeof expOrFn === 'function') {
+      this.getter = expOrFn
+    } else {
+      this.getter = parsePath(expOrFn)
+      if (!this.getter) {
+        this.getter = noop
+        process.env.NODE_ENV !== 'production' && warn(
+          `Failed watching path: "${expOrFn}" ` +
+          'Watcher only accepts simple dot-delimited paths. ' +
+          'For full control, use a function instead.',
+          vm
+        )
+      }
+    }
+    this.value = this.lazy
+      ? undefined
+      : this.get()
+  }
+  // ...
+}
+```
+
+1. `watcher.lazy = true`;
+2. `watcher.dirty = true`;
+3. `watcher.getter = typeof userDef === 'function' ? userDef : userDef.get`
+4. 不会在构造函数内调用watcher.get()`(非计算属性的watcher/lazy watcher会在创建watcher实例时调用)
+
+
+
+- 再来看计算属性defineProperty的定义
+
+```js
+const sharedPropertyDefinition = {
+  enumerable: true,
+  configurable: true,
+  get: noop,
+  set: noop
+}
+export function defineComputed (
+  target: any,
+  key: string,
+  userDef: Object | Function
+) {
+  const shouldCache = !isServerRendering()
+  if (typeof userDef === 'function') {
+    sharedPropertyDefinition.get = shouldCache
+      ? createComputedGetter(key)
+      : createGetterInvoker(userDef)
+    sharedPropertyDefinition.set = noop
+  } else {
+    sharedPropertyDefinition.get = userDef.get
+      ? shouldCache && userDef.cache !== false
+        ? createComputedGetter(key)
+        : createGetterInvoker(userDef.get)
+      : noop
+    sharedPropertyDefinition.set = userDef.set || noop
+  }
+  // ...
+  Object.defineProperty(target, key, sharedPropertyDefinition)
+}
+```
+
+`shouldCache`，浏览器渲染都是 `shouldCache = true`
+
+那么gtter就是由`createComputedGetter`方法创建
+
+```js
+function createComputedGetter (key) {
+  return function computedGetter () {
+    const watcher = this._computedWatchers && this._computedWatchers[key]
+    if (watcher) {
+      if (watcher.dirty) {
+        watcher.evaluate()
+      }
+      if (Dep.target) {
+        watcher.depend()
+      }
+      return watcher.value
+    }
+  }
+}
+```
+
+以上就是计算属性的的初始化过程。
+
+
+
+&nbsp;&nbsp;
+
+
+[回到顶部](#大纲)
+
+# 计算属性被访问时的运行机制
+
+如上，假设计算属性当前被调用
+
+就是触发计算属性的getter，再次强调：计算属性的getter不是用户定义的回调，而是由`createComputedGetter `返回的函数（详细参考[计算属性的初始化过程]的最后一段代码）。
+用户定义的回调则是在计算属性getter的逻辑中进行调用。
+
+计算属性getter中主要由两个if控制流，
+这个两个if组合起来就可能由四种可能，
+对于第二个控制流的逻辑`watcher.depend`，如果有看到Vue的Dep的功能的话，可以推测这段代码是用于收集依赖，
+结合以上可以如下推测：
+
+| 序号 | `if (watcher.dirty)` | `if (Dep.target)` | 功能 |
+| --- |----| ---------------------------------------- | ----- |
+| 1 | N | N | 返回旧值 |
+| 2 | N | Y | 收集依赖 |
+| 3 | Y | N | 更新计算属性值（watcher.value） |
+| 4 | Y | Y | 收集依赖，并更新计算属性值（watcher.value） |
+
+目前掌握的信息有：
+1. 计算属性的getter是核心功能就是获取计算属性的值，而getter返回的是`watcher.value`，说明计算属性的值保存在`watcher.value`；
+2. evaluate可能是用于更新watcher.value;
+3. watcher.depend可能是用于收集依赖，不清楚收集什么；
+
+我们先来看第一个控制流：
+```js
+// watcher.dirty = true
+if (watcher.dirty) {
+  watcher.evaluate()
+}
+```
+
+根据[计算属性的初始化过程]中创建计算属性watcher实例时就可以看出，第一次调用watcher.dirty肯定是`true`。
+
+但不论watcher.dirty是不是“真”，我们都要去看看“evaluate ”时何方神圣，而且肯定会有访问它的时候。
+
+```js
+evaluate () {
+  this.value = this.get()
+  this.dirty = false
+}
+```
+
+显然，evaluate确实是用于更新计算属性值（watcher.value）的。
+
+另外，你可以发现在`this.value = this.get()`执行完后，还执行了一句代码：`this.dirty = false`。
+
+然后你会发现一个逻辑：
+1. 初始化计算属性时，watcher.dirty = true；
+2. 执行evaluate更新后，watcher.dirty = false；
+3. watcher.dirty = false 时不会去更新计算属性的值。
+
+一切说明计算属性是懒加载的，在访问时根据状态值来判断使用缓存数据还是重新计算。
+
+再者，我们还可以再总结一下dirty和lazy的信息：
+
+对比普通的watcher实例创建：
+
+构造函数中的逻辑
+
+| normal                                   | computed |
+|----| ---------------------------------------- |
+|`this.value = this.get()` | `this.value = undefined` |
+|`this.lazy = false` | `this.lazy = true` |
+|`this.dirty = false` | `this.dirty = true` |
+
+ 综上，可以看出
+lazy的意思
+
+- 实例化Watcher时调用get就是非lazy
+
+- 非实例化Watcher时调用get就是lazy
+
+
+
+dirty（脏值）的意思
+
+- `watcher.value`还是`undefined（或者还不是最新值时）`就是dirty
+- `watcher.value`已经存有当前计算的实际值就不是dirty
+
+lazy属性只是一个说明性的标志位，主要用来表明当前watcher是惰性模式的。
+而dirty则是对lazy的实现，作为状态为表示当前是不是脏值状态。
+
+再来看看`watcher.get()`的调用，其内部的动作
+
+```js
+import Dep, { pushTarget, popTarget } from './dep'
+
+export default class Watcher {
+  // ...
+  get () {
+    pushTarget(this)
+    let value
+    const vm = this.vm
+    try {
+      value = this.getter.call(vm, vm)
+    } catch (e) {
+      if (this.user) {
+        handleError(e, vm, `getter for watcher "${this.expression}"`)
+      } else {
+        throw e
+      }
+    } finally {
+      // "touch" every property so they are all tracked as
+      // dependencies for deep watching
+      if (this.deep) {
+        traverse(value)
+      }
+      popTarget()
+      this.cleanupDeps()
+    }
+    return value
+  }
+  // ...
+}
+```
+
+在get()函数开头的地方调用`pushTarget`函数，为了接下来的内容，有必要先说明下`pushTarget`和结尾处的`popTarget`，根据字面意思就知道是对什么进行入栈出栈。
+
+你可以看到是该方法来自于dep，具体函数实现如下：
+
+```js
+Dep.target = null
+const targetStack = []
+
+export function pushTarget (target: ?Watcher) {
+  targetStack.push(target)
+  Dep.target = target
+}
+
+export function popTarget () {
+  targetStack.pop()
+  Dep.target = targetStack[targetStack.length - 1]
+}
+```
+显然，pushTarget和popTarget操作的对象是Watcher，存放在全局变量`targetStack`中。每次出栈入栈都会更新Dep.target的值，而它值由上可知是targetStack的栈顶元素。
+
+现在就知道`pushTarget(this)`的意思是：将当前的watcher入栈，并设置Dep.Target为当前watcher。
+
+然后就是执行：
+
+```js
+value = this.getter.call(vm, vm)
+```
+
+计算属性watcher的getter是什么？
+
+```js
+watcher.getter = typeof userDef === 'function' ? userDef : userDef.get
+```
+
+是用户定义的回调函数，计算属性的回调函数。
+回顾这一节开头的结论：
+
+> 用户定义的回调则是在计算属性getter的逻辑中进行调用。
+
+到此，我们就可以清晰知道：用户定义的getter是在computedWatcher.get()中调用！
+用一段伪代码表示：
+```js
+computedGetter() {
+  computedWatcher.evaluate() {
+    computedWatcher.value = computedWatcher.get() {
+      return 用户定义的getter();
+    }
+  }
+}
+```
+
+调用完getter算是完事没有呢？没有，这里还有一层隐藏的逻辑！
+
+我们知道一般计算属性都依赖于`$data`的属性，而调用计算属性的回调函数就会访问这些属性，就会触发这些属性的getter。
+
+这些基础属性的getter就是隐藏的逻辑，如果你有看过基础属性的数据劫持就知道他们的getter都是有收集依赖的逻辑。
+
+这些基本属性的getter都是在数据劫持的时候定义的，我们去看看会发生什么！
+
+```js
+Object.defineProperty(obj, key, {
+  // ...
+  get: function reactiveGetter () {
+    const value = getter ? getter.call(obj) : val
+    if (Dep.target) {
+      dep.depend()
+      // ...
+    }
+    return value
+  },
+  // ...
+}
+```
+
+记得刚刚调用了`pushTarget`吧，现在`Dep.target`已经不为空，并且`Dep.target`就是当前计算属性的watcher。
+
+则会执行`dep.depend()`，dep是每个`$data`属性关联的（通过闭包关联）。
+
+dep是依赖收集器，收集watcher，用一个数组（dep.subs）存放watcher，
+
+而执行`dep.depend()`，除了执行其他逻辑，里面还有一个关键逻辑就是将`Dep.target`push到当前属性关联的dep.subs，言外之意就是，计算属性的访问在条件适合的情况下是会让计算属性所依赖的属性收集它的wathcer，而这个收集操作的作用且听下回分解。
+
+
+### 小结
+
+1. 计算watcher.value：computed-watcher.evaluate()，访问计算属性时，若当前计算属性是脏值状态则调用evaluate计算计算属性的真实值；
+2. 在计算计算属性真实值时，合乎条件下会触发它依赖的基础属性收集它的watcher。
+
+
+
+[计算属性的初始化过程]: #计算属性的初始化过程
+
+
+&nbsp;
+
+[回到顶部](#大纲)
+
+# 计算属性的更新机制
+
+### 如何通知变动
+
+计算属性所依赖属性的dep收集computed-watcher的意义何在呢？
+
+假如现在更新计算属性依赖的任一个属性，会发生什么？
+
+更新依赖的属性，当然是触发对应属性的setter，首先来看看基础属性setter的定义。
+
+```js
+Object.defineProperty(obj, key, {
+  // ...
+  set: function reactiveSetter (newVal) {
+    // ...
+    dep.notify()
+  }
+})
+```
+首先是在setter里面调用`dep.notify()`，通知变动。dep当然就是与属性关联的依赖收集器，notfiy必然是去通知订阅者它们订阅的数据之一已经发生变动。
+
+
+```js
+export default class Dep {
+  // ...
+
+  notify () {
+    const subs = this.subs.slice()
+    for (let i = 0, l = subs.length; i < l; i++) {
+      subs[i].update()
+    }
+  }
+}
+```
+在notify方法里面可以看出，遍历了当前收集里面所有（订阅者）watcher，并且调用了他们的update方法。
+
+在[计算属性被访问时的运行机制]已经知道，计算属性的watcher是会被它所依赖属性的dep收集的。因此，`notify`中的`subs`肯定也包含了计算属性的watcher。
+
+所以，计算属性所依赖属性变动是通过调用计算属性watcher的update方法通知计算属性的。
+
+接下来，在深入去看看watcher.update是怎么更新计算属性的。
+
+```typescript
+export default class Watcher {
+  update () {
+    /* istanbul ignore else */
+    if (this.lazy) {
+      this.dirty = true
+    } else if (this.sync) {
+      this.run()
+    } else {
+      queueWatcher(this)
+    }
+  }
+}
+```
+在[计算属性被访问时的运行机制]中就知道，计算属性watcher是lazy的，所以，comuptedWatcher.update的对应逻辑就是下面这一句：
+```js
+this.dirty = true
+```
+再回想一下[计算属性被访问时的运行机制]中计算属性getter调用evalute()的控制流逻辑（`if(watcher.dirty)`），这下计算属性的访问和他的被动更新就形成闭环！
+
+**每次变化通知都是只更新脏值状态，真是计算还是访问的时候再计算**
+
+### 计算属性如何被更新
+
+从上面我们就知道通知计算属性“变化”是不会直接引发计算属性的更新！
+
+那么问题就来了，现实我们看到的是：绑定的视图上的计算属性的值，只要它所依赖的属性值更新，会直接响应到视图上。
+
+那就说明在通知完之后，立即访问了计算属性，引起了计算属性值的更新，并且更新了视图。
+
+对于，不是绑定在视图上的计算属性很好理解，毕竟我们也是在有需要的时候才会去访问他，相当于即时计算了（假如是脏值），因此不论是不是即时更新都无所谓，只要在访问时可以拿到最新的实际值就好。
+
+但是对于视图却不一样，要即时反映出来，所以肯定是还有更新视图这一步的，我们现在需要做的测试找出vue是怎么做的。
+
+其实假如你有去看过vue数据劫持的逻辑就知道：**在访问属性时，只要当前的Dep.target（订阅者的引用）不为空，与这个属性关联的dep就会收集这个订阅者**
+
+这个订阅者之一是“render-watcher”，它是视图对应的watcher，只要在视图上绑定了的属性都会收集这个render-watcher，所以每个属性的`dep.subs`都有一个render-watcher。
+
+没错，就是这个render-watcher完成了对计算属性的访问与视图的更新。
+
+到这里我们就可以小结一下计算属性对所依赖属性的响应机制：
+所依赖属性更新，会通知该属性收集的所有watcher，调用update方法，其中就包含计算属性的watcher（computed-watcher），如果计算属性绑定在视图上，则还包含render-watcher，computed-watcher负责更新计算属性的脏值状态，render-watcher负责更新访问计算属性和更新视图。
+
+**但是这里又引出了一个问题！**
+
+*假设现在计算属性就绑定在视图上，那么现在计算属性响应更新就需要两个watcher，分别是computed-watcher和render-watcher。*
+
+*你细心点就会发现，要达到预期的效果，对这两个watcher.update()的调用顺序是有要求的！*
+
+必须要先调用computed-watcher.update()更新脏值状态，然后再调用render-watcher.update()去访问计算属性，才会去重新算计算属性的值，否者只会直接缓存的值watcher.value。
+
+比如说有模板是
+
+```vue
+<span>{{ attr }}<span>
+<span>{{ computed }}<span>
+```
+
+attr的dep.subs中的watcher顺序就是
+
+情况1：
+
+```js
+[render-watcher, computed-watcher]
+```
+
+反之就是
+
+情况2：
+
+```js
+[computed-watcher, render-watcher]
+```
+
+我们知道deo.notify的逻辑遍历调用subs里面的每个watcher.update
+
+假如这个遍历的顺序是按照subs数组的顺序来更新的话，情况1就会有问题
+
+情况1
+
+是先触发视图watcher的更新，他会更新视图上所有绑定的属性，不论属性有没有更新过
+
+然而此时`computed-watcher`的属性`dirty` 还是 `false`，这意味这着这个计算属性不会重新计算，而是使用已有的挂在`watcher.value`的旧值。
+
+如果真是如此，之后在调用computred-watcher的update也没有意义了，除非重新调用render-watcher的update方法。
+
+很明显，vue不可能那么蠢，肯定会做控制更新顺序的逻辑
+
+我们看看notify方法的逻辑：
+
+```js
+notify (key) {
+  const subs = this.subs.slice()
+  if (process.env.NODE_ENV !== 'production' && !config.async) {
+    // subs aren't sorted in scheduler if not running async
+    // we need to sort them now to make sure they fire in correct
+    // order
+    subs.sort((a, b) => a.id - b.id)
+  }
+  for (let i = 0, l = subs.length; i < l; i++) {
+    subs[i].update()
+  }
+}
+```
+
+你可以看到控制流里面确实做了顺序控制
+
+但是`process.env.NODE_ENV !== 'production' && !config.async` 的输出是false呢
+
+很直观，在生成环境就进不了这个环境！
+
+
+
+然而，现实表现出来的结果是，就算没有进入这个控制流里面，视图还是正确更新了
+
+更令人惊异的是：更新的遍历顺序确实是按着`[render-watcher, computed-watcher]`进行的
+
+![image](https://user-images.githubusercontent.com/25907273/62833220-cbe8ce80-bc6d-11e9-9d4b-47d855bead48.png)
+
+你可以看到是先遍历了`render-watcher`(render-watcher的id肯定是最大的，越往后创建的watcher的id越大，计算属性是在渲染前创建，而render-watcher则是在渲染时)
+
+
+
+但是如果你细心的话你可以发现，render-watcher更新回调是在遍历完所有的watcher之后才执行的（白色框）
+
+![image](https://user-images.githubusercontent.com/25907273/62833231-ee7ae780-bc6d-11e9-9904-5e14647aa79a.png)
+
+我们再来看看`watcher.update`的内部逻辑
+
+```typescript
+update () {
+  /* istanbul ignore else */
+  console.log(
+    'watcher.id:', this.id
+  );
+  if (this.lazy) {
+    this.dirty = true
+    console.log(`update with lazy`)
+  } else if (this.sync) {
+    console.log(`update with sync`)
+    this.run()
+  } else {
+    console.log(`update with queueWatcher`)
+    queueWatcher(this)
+  }
+  console.log(
+    'update finish',
+    this.lazy ? `this.dirty = ${this.dirty}` : ''
+  )
+}
+```
+
+根据打印的信息，可以看到render-watcher进入了else的逻辑，调用`queueWatcher(this)`
+
+```typescript
+export function queueWatcher (watcher: Watcher) {
+  const id = watcher.id
+  if (has[id] == null) {
+    has[id] = true
+    if (!flushing) {
+      queue.push(watcher)
+    } else {
+      // if already flushing, splice the watcher based on its id
+      // if already past its id, it will be run next immediately.
+      let i = queue.length - 1
+      while (i > index && queue[i].id > watcher.id) {
+        i--
+      }
+      queue.splice(i + 1, 0, watcher)
+    }
+    console.log('queueWatcher:', queue)
+    // queue the flush
+    if (!waiting) {
+      waiting = true
+
+      if (process.env.NODE_ENV !== 'production' && !config.async) {
+        flushSchedulerQueue()
+        return
+      }
+      nextTick(flushSchedulerQueue)
+    }
+  }
+}
+```
+
+根据函数名，可以知道是个watcher的队列
+
+has是一个用于判断待处理watcher是否存在于队列中，并且在队中的每个watcher处理完都会将当前has[watcher.id] = null
+
+flushing这个变量是一个标记：是否正在处理队列
+
+```js
+if (!flushing) {
+  queue.push(watcher)
+} else {
+  let i = queue.length - 1
+  while (i > index && queue[i].id > watcher.id) {
+    i--
+  }
+  queue.splice(i + 1, 0, watcher)
+}
+```
+
+以上是不同的将待处理watcher推入队列的方式。
+
+
+
+然后接下来的逻辑，才是处理watcher队列
+
+`waitting`和`flushing`这两个标志标量大致相同，他们都会在watcher队列处理完之后重置为false
+
+而不同的是waitting在最开始就会置为true，而flushing则是在调用`flushSchedulerQueue`函数的时候才会置为`true`
+
+
+
+```js
+nextTick(flushSchedulerQueue)
+```
+
+这一句是关键，nextTick，可以理解为一个微任务，即会在主线程任务调用完毕之后才会执行回调，
+
+此时回调即是`flushSchedulerQueue`。
+
+关于nextTick可以参考[Vue：深入nextTick的实现]
+
+这样就可以解析：
+
+> 更令人惊异的是：更新的遍历顺序确实是按着`[render-watcher, computed-watcher]`进行的
+>
+> 但是如果你细心的话你可以发现，render-watcher更新回调是在遍历完所有的watcher之后才执行的（白色框）
+
+### 小结
+- 通过遍历调用dep.subs里的watcher.update方法（其中就包含computed-watcher）来通知计算属性基础属性已经更新，在下次访问计算属性时就是做脏值检测，然后重新计算计算属性。绑定在视图上的计算属性的即时更新是通过调用render-watcher的update方法达到，它会访问计算属性，并更新整个视图。
+- 绑定在视图上的计算属性，它所依赖属性的dep.subs中，computed-watcher和render-watcher的顺序不会影响计算属性在视图上的正常更新，因为render-watcher的update方法的主体逻辑是放在微任务中执行，因此render-watcher.update()总是会在computed-watcher.update()之后执行。
+
+
+[计算属性被访问时的运行机制]: #计算属性被访问时的运行机制
+[Vue：深入nextTick的实现]: #
+
+
+&nbsp;
+
+
+[回到顶部](#大纲)
+
+# 计算属性如何收集依赖
+
+在[计算属性的更新机制]中我们知道了计算属性所依赖属性的dep是会收集computed-watcher的，目的是为了通知计算属性当前依赖的属性已经发生变化。
+
+*那么计算属性为什么要收集依赖？是如何收集依赖的？*
+
+“计算属性所依赖属性的dep具体怎么收集computed-watcher”并没有展开详细说。现在我们来详细看看这部分逻辑。那就必然要从第一次访问计算属性开始， 第一次访问必然会调用`watcher.evaluate`去算计算属性的值，那就是必然会调用`computed-watcher.get()`，然后在get方法里面去调用用户定义的回调函数，算计算属性的值，调用用户定义的回调函数就必然会访问计算属性所依赖属性，那就必然触发他们的getter，没错我们就是要从这里开始看详细的逻辑，也是从这里开始收集依赖：
+```js
+Object.defineProperty(obj, key, {
+  enumerable: true,
+  configurable: true,
+  get: function reactiveGetter () {
+    const value = getter ? getter.call(obj) : val
+    if (Dep.target) {
+      dep.depend()
+      // ...
+    }
+    return value
+  },
+  // ...
+}
+```
+计算属性依赖的属性通过`dep.depend()`收集`computed-watcher`，展开`dep.depend()`看看详细逻辑：
+```js
+// # dep.js
+depend () {
+  if (Dep.target) {
+    Dep.target.addDep(this)
+  }
+}
+```
+很显然现在的全局watcher就是computed-watcher，而`this`则是当前计算属性所依赖属性的dep（下面简称：`prop-dep`），继续展开`computed-watcher.addDep(prop-dep)`。
+```js
+// # watcher.js
+addDep (dep: Dep) {
+  const id = dep.id
+  if (!this.newDepIds.has(id)) {
+    this.newDepIds.add(id)
+    this.newDeps.push(dep)
+    if (!this.depIds.has(id)) {
+      dep.addSub(this)
+    }
+  }
+}
+```
+在dep收集watcher的之前（dep.addSub(this)），watcher也在收集dep。
+```js
+`this.newDeps.push(dep)`
+```
+
+watcher收集dep就是接下来我们要说的点之一！
+
+另外，上面的代码中还包含了之前没见过的三个变量`this.newDepIds`，`this.newDeps`，`this.depIds`
+
+先看看他们的声明：
+```js
+export default class Watcher {
+  // ...
+  deps: Array<Dep>;
+  newDeps: Array<Dep>;
+  depIds: SimpleSet;
+  newDepIds: SimpleSet;
+	// ...
+
+  constructor (
+    vm: Component,
+    expOrFn: string | Function,
+    cb: Function,
+    options?: ?Object,
+    isRenderWatcher?: boolean
+  ) {
+    // ...
+    this.deps = []
+    this.newDeps = []
+    this.depIds = new Set()
+    this.newDepIds = new Set()
+    // ...
+  }
+```
+
+`depIds`和`newDepIds`都是Set的数据结构，结合`if (!this.newDepIds.has(id))`和`!this.depIds.has(id)`就可以推断他们的功能是防止重复操作的。
+
+到此，我们知道了*计算属性是如何收集依赖的*！并且，从上面知道了所收集的依赖是不重复的。
+
+但是，到这里还没有结束！
+
+这个`newDeps`并不是最终存放存放点，真实的dep存放点是deps，在上面声明你就可以看见它。
+
+在调用`computed-watcher.get()`的过程中还有一个比较关键的方法没有给出：
+```js
+get () {
+  // ...
+  // 在最后调用
+  this.cleanupDeps()
+}
+```
+形如其名，就是用来清除dep的，清除newDeps，并且转移newDeps到Deps上。
+```js
+cleanupDeps () {
+  let i = this.deps.length
+  // 遍历deps，对比newDeps，看看哪些dep已经没有被当前的watcher收集
+  // 如果没有，同样也解除dep对当前watcher的收集
+  while (i--) {
+    const dep = this.deps[i]
+    if (!this.newDepIds.has(dep.id)) {
+      dep.removeSub(this)
+    }
+  }
+  // 转存newDepIds到depIds
+  let tmp = this.depIds
+  this.depIds = this.newDepIds
+  this.newDepIds = tmp
+  this.newDepIds.clear()
+  
+  // 转存newDeps到Deps
+  tmp = this.deps
+  this.deps = this.newDeps
+  this.newDeps = tmp
+  this.newDeps.length = 0
+}
+```
+下面是执行完`computed-watcher.get()`后的打印信息：
+![](https://user-images.githubusercontent.com/25907273/62833255-53ced880-bc6e-11e9-8c07-722e85c93e62.png)
+
+从上面的分析我们可以知道：*计算属性的watcher会在计算值（watcher.evalute()）时，收集每个它依赖属性的dep，并最后存放在`watcher.deps`中*
+
+
+接下来再来探究*计算属性为什么要收集依赖*。
+
+还记得计算属性的getter中的另一个控制流，一直没有展开细说。
+
+```js
+if (Dep.target) {
+  watcher.depend()
+}
+```
+从这段代码可以知道，只有全局watcher（Dep.target）不为空，才会执行`watcher.depend()`，这就是要想的第一个问题：什么情况下全局watcher是不为空？
+
+首先来确认下全局watcher的update机制：
+
+- pushTarget和popTarget是成对出现的；
+- 只有在watcher.get方法中才会入栈非空的watcher；
+- 在执行watcher.get的开头pushTarget(this)，在结尾popTarget()，意味着在get方法调用完成后，全局watcher就变回调用get方法前的全局watcher。
+
+还记得computed的getter的逻辑吧！
+```js
+if (watcher.dirty) {
+  watcher.evaluate()
+}
+if (Dep.target) {
+  watcher.depend()
+}
+```
+在脏值状态下会执行`watcher.evaluate()`，执行完已经完成watcher.get()的调用，所以watcher.evaluate不会影响到下面的`if (Dep.target)`判断。
+
+ pushTarget和popTarget是成对出现的，显然只有在调用完`pushTarget`后，且未调用popTarget这个时间段内调用计算属性才会执行`watcher.depend()`。另外，只有watcher.get()才会入栈非空的watcher，所以我们就可以再次缩小范围到：*在调用watcher.get()的过程中访问了计算属性*！
+
+记得在[计算属性被访问时的运行机制]中有用表格对比过新建普通watcher和计算属性watcher实例的异同，其中普通watcher的创建就会在实例化的时候调用`this.get()`。
+
+此刻让我想到了`render-watcher`，它就是一个普通的watcher，而且render-watcher是会访问绑定在视图上的所用属性，而且它访问视图上属性的过程就是在get方法里面的getter的调用中。
+```js
+get () {
+  // 那么全局watcer就是render-watcher了
+  pushTarget(this)
+  // ...
+  try {
+    // 视图上的所有属性都在getter方法被访问，包括计算属性
+    value = this.getter.call(vm, vm)
+  } catch (e) {
+    // ...
+  } finally {
+    // ...
+    popTarget()
+    this.cleanupDeps()
+  }
+  return value
+}
+```
+
+接下展开watcher.depend看看：
+```js
+depend () {
+  let i = this.deps.length
+  while (i--) {
+    this.deps[i].depend()
+  }
+}
+```
+已经很明了，上面已经说过this.deps是计算属性收集的dep（它所依赖的dep），然后现在遍历deps，调用`dep.depend()`，上面也同样已经说过`dep.depend()`的功能是收集全局watcher。
+
+所以，`watcher.depend()`的功能就是让计算属性收集的deps去收集当前的全局watcher。
+而现在的全局watcher就是render-watcher！
+
+现在我们知道`watcher.depend`的功能是让prop-dep去收集全局watcher，但是为什么要这么做？
+不放将问题细化到render-watcher的场景上。为什么prop-watcher要去收集render-watcher？
+
+首先，我要再次强调：*一个绑定在视图上的计算属性要即时响应所依赖属性的更新，那么这些依赖属性的dep.subs就必须包含`computed-watcher`和`render-watcher`，前者是用来更新计算属性的脏值状态，后者用来访问计算属性，让计算属性重新计算。并更新视图。*
+
+*计算属性所依赖属性的dep.subs中肯定会包含`computed-watcher`*，这一点不需要质疑，上面已经证明分析过！
+
+但是，是否会包含`render-watcher`就不一定了！首先上面也有间接地提过，*绑定在视图上的属性，它的dep会收集到render-watcher*。那么，计算属性所依赖的属性，有可能存在一些是没有绑定在视图上，而是直接定义在`data`上而已，对于这些属性，它的dep.subs是肯定没有`render-watcher`的了。没有`render-watcher`意味着没有更新视图的能力。那么怎么办？那当然就是去保证它！
+
+而`watcher.depend()`就起到了这个作用！它让计算属性所依赖的属性
+
+对于这个推测
+> 绑定在视图上的属性，它的dep会收集到render-watcher
+
+我们可以探讨一下。
+
+要一个vue.$data属性的dep去收集dep.subs没有的watcher需要具备两个条件：
+- 访问这个属性；
+- 全局watcher（Dep.target）不为空;
+
+而没有绑定在视图上的属性，在render-watcher.get()调用的过程中就没有访问，没有访问就不会调用`dep.depend()`去收集`render-watcher`!
+
+可能有人会问，在访问计算属性的时候不是有调用用户定义的回调吗？不就访问了这些依赖的属性？
+
+是！确实是访问了，那个时候的Dep.target是computed-watcher。
+
+ok，render-watcher这个场景也差不多了。我们该抽离表象看本质！
+
+首先想想属性dep为什么要收集依赖（订阅者），因为有函数依赖了这个属性，希望这个属性在更新的时候通知订阅者。可以以此类比一下计算属性，计算属性的deps为什么需要收集依赖（订阅者），是不是也是因为有函数依赖了计算属性，希望计算属性在更新时通知订阅者，在想深一层：怎么样才算是计算属性更新？不就是它所依赖的属性发生变动吗？计算属性所依赖属性更新 = 计算属性更新，计算属性更新就要通知依赖他的订阅者！再想想，计算属性所依赖属性更新就可以直接通知依赖计算属性的订阅者了，那么计算属性所依赖属性的dep直接收集依赖计算属性的订阅者就好了！这不就是`watcher.depend()`在做的事情吗？！
+
+本质我们知道了，但是怎么才可以实现依赖计算属性！
+
+首先全局watcher不为空！
+怎么才会让Dep.target不为空！只有一个方法：调用`watcher.get()`，在vue里面只有这个方法会入栈非空的watcher，另外我们知道pushTarget和popTarget是成对出现的，即要在未调用popTarget前访问计算属性，怎么访问呢？pushTarget和popTarget分别在get方法的一头一尾，中间可以用户定义的只有一个地方！
+```js
+get () {
+  pushTarget(this)
+  // ...
+  value = this.getter.call(vm, vm)
+  // ...
+  popTarget()
+}
+```
+就是getter，getter是可以由用户定义的~
+
+再来getter具体存储的是什么
+```js
+export default class Watcher {
+  // ...
+  constructor (
+    vm: Component,
+    expOrFn: string | Function,
+    cb: Function,
+    options?: ?Object,
+    isRenderWatcher?: boolean
+  ) {
+    // ...
+    // parse expression for getter
+    if (typeof expOrFn === 'function') {
+      this.getter = expOrFn
+    } else {
+      this.getter = parsePath(expOrFn)
+      if (!this.getter) {
+        this.getter = noop
+        // ...
+      }
+    }
+    // ...
+  }
+```
+由上可以知道，一个有效的getter是有expOrFn决定，expOrFn如果是`Function`则getter就是用户传入的函数！如果是`String`则由parsePath进行构造：
+```js
+// 返回一个访问vm属性（包含计算属性）的函数
+export function parsePath (path: string): any {
+  // 判断是否是一个有效的访问vm属性的路径
+  if (bailRE.test(path)) {
+    return
+  }
+  const segments = path.split('.')
+  return function (obj) {
+    for (let i = 0; i < segments.length; i++) {
+      if (!obj) return
+      obj = obj[segments[i]]
+    }
+    return obj
+  }
+}
+```
+由上可知，我们有两种手段可以让getter访问计算属性：
+并且在此我不做说明，直接说结论，watch一个属性（包含计算属性），包括使用`$watch`都是会创建一个watcher实例的，而且是普通的watcher，即会在构造函数直接调用`watcher.get()`。
+
+- 直接watch计算属性
+```js
+const vm = new Vue({
+  data: {
+    name: 'isaac'
+  },
+  computed: {
+    msg() { return this.name; }
+  }
+  watch: {
+    msg(val) {
+      console.log(`this is computed property ${val}`);
+    }
+  }
+}).$mount('#app');
+```
+这种方法就是在创建实例时传进了一个路径，这个路径就是`msg`，即expOrFn是`String`，然后由`parsePath`构造getter，从而访问到计算属性。
+
+- 使用`$watch`监听一个函数，函数中包含计算属性
+$watch的用法可以参考[vm.$watch](https://cn.vuejs.org/v2/api/#vm-watch)
+```js
+vm.$watch(function() {
+  return this.msg;
+}, function(val) {
+  console.log(`this is computed property ${val}`);
+});
+```
+这种方法直接就传入一个函数，即expOrFn是`Function`，就是`$watch`的第一个参数！同样在getter中访问了计算属性。
+
+上面两种都是在getter中访问了计算属性，从而让deps收集订阅者，计算属性的变动（当然并非真的更新了值，只是进入脏值状态）就会通知依赖他的订阅者，调用`watcher.update()`，如果没有传入什么特殊的参数，就会调用watch的回调函数，如果在回调函数中有访问计算属性就会重新计算计算属性，更新状态为非脏值！
+
+### 小结
+
+- 计算属性所依赖的属性的dep会收集computed-watcher，存放在`prop-dep.subs`中；
+- computed-watcher也会收集它所依赖的dep，存放在`computed-watcher.deps`中，为了确保计算属性获得通知依赖他的订阅者可以监听到他的变化，通过`watcher.depend()`来收集依赖它的订阅者。
+
+[img_watcher_depend]:https://user-images.githubusercontent.com/25907273/62956123-e913cd80-be24-11e9-9557-698457d10090.png
+[计算属性的更新机制]: #计算属性的更新机制
+[计算属性被访问时的运行机制]: #计算属性被访问时的运行机制
+
+&nbsp;
+
+[回到顶部](#大纲)
+
+# 总结
+
+- 计算属性在initState阶段初始化；
+- 计算属性也是会使用defineProperty进行计算属性劫持；
+- 每个计算属性都会关联一个特殊的watcher（lazy）。存放在一个对象中，以计算属性的名字作为键值，挂载在vm._computedWatchers_；
+- 通过让计算属性所依赖属性的dep收集计算属性watcher的行为实现“依赖属性的变动通知计算属性”；
+- 计算属性的watcher是lazy的，不会在创建实例时计算自身的值（即不会调用watcher.get()）；
+- 计算属性是lazy的，调用计算属性的watcher.update不会直接计算值，只是更新标志位（this.dirty = true），直到计算属性被访问才会计算值；
+- dep（依赖收集器）会收集watcher（订阅者），watcher也会收集dep；
+- 计算属性通过watcher.value对其值进行缓存，不会每次访问都从新计算；
+- 计算属性通过`watcher.depend()`来收集依赖它的订阅者
+  
