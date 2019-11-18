@@ -4,8 +4,10 @@
 
 ## [Vue源码学习](https://github.com/isaaxite/blog/issues?q=is%3Aissue+is%3Aopen+label%3ATopping)
 
-- [Vue：v-for的原理分析](./docs/vue-analysis/Vue：v-for的原理分析.md)
-- [Vue：多角度剖析计算属性的运行机制](./docs/vue-analysis/Vue：多角度剖析计算属性的运行机制.md)
+- [数组变异方法的实现原理.md](./docs/vue-analysis/数组变异方法的实现原理.md)
+- [$set和$del方法的实现原理](./docs/vue-analysis/$set和$del方法的实现原理.md)
+- [v-for的原理分析](./docs/vue-analysis/v-for的原理分析.md)
+- [多角度剖析计算属性的运行机制](./docs/vue-analysis/多角度剖析计算属性的运行机制.md)
 
 
 ## [数据结构](https://github.com/isaaxite/blog/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
