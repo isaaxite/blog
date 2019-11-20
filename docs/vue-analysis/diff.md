@@ -61,3 +61,18 @@ new Watcher(vm, updateComponent, noop, {
   }
 }, true /* isRenderWatcher */)
 ```
+
+这是render-watcher的update方法，vnode是每次都生成的
+```typescript
+updateComponent = () => {
+  const vnode = vm._render();
+  vm._update(vnode, hydrating)
+}
+```
+
+```typescript
+// 更新视图
+vm.$el = vm.__patch__(prevVnode, vnode)
+```
+
+[vnode的实现](https://blog.csdn.net/violetjack0808/article/details/79354852)
