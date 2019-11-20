@@ -76,3 +76,25 @@ vm.$el = vm.__patch__(prevVnode, vnode)
 ```
 
 [vnode的实现](https://blog.csdn.net/violetjack0808/article/details/79354852)
+```typescript
+function sameVnode (a, b) {
+  return (
+    a.key === b.key && (
+      (
+        a.tag === b.tag &&
+        a.isComment === b.isComment &&
+        isDef(a.data) === isDef(b.data) &&
+        sameInputType(a, b)
+      ) || (
+        isTrue(a.isAsyncPlaceholder) &&
+        a.asyncFactory === b.asyncFactory &&
+        isUndef(b.asyncFactory.error)
+      )
+    )
+  )
+}
+```
+
+![](https://segmentfault.com/img/bVs5U9)
+
+- 只会做同级比较，不做跨级比较
