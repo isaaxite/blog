@@ -194,6 +194,95 @@ function sameVnode (a, b) {
 }
 ```
 
+
+```typescript
+function patch (oldVnode, vnode, hydrating, removeOnly) {
+  // 新增节点
+  if (isUndef(oldVnode)) {
+    // ...
+  }
+  // 更新节点
+  else {
+    // 旧节点时有效的元素
+    const isRealElement = isDef(oldVnode.nodeType)
+    if (!isRealElement && sameVnode(oldVnode, vnode)) {
+      // ...
+    } else {
+      // 新旧元素不相同
+      const oldElm = oldVnode.elm
+      const parentElm = nodeOps.parentNode(oldElm)
+      createElm(
+        vnode,
+        insertedVnodeQueue,
+        // extremely rare edge case: do not insert if old element is in a
+        // leaving transition. Only happens when combining transition +
+        // keep-alive + HOCs. (#4590)
+        oldElm._leaveCb ? null : parentElm,
+        nodeOps.nextSibling(oldElm)
+      )
+      // ...
+    }
+  }
+}
+export function parentNode (node: Node): ?Node {
+  return node.parentNode
+}
+```
+
+```typescript
+function patch (oldVnode, vnode, hydrating, removeOnly) {
+  // 新增节点
+  if (isUndef(oldVnode)) {
+    // ...
+  }
+  // 更新节点
+  else {
+    // 旧节点时有效的元素
+    const isRealElement = isDef(oldVnode.nodeType)
+    if (!isRealElement && sameVnode(oldVnode, vnode)) {
+      // ...
+    } else {
+      // 新旧元素不相同
+      if (isDef(vnode.parent)) {
+        let ancestor = vnode.parent
+        const patchable = isPatchable(vnode)
+        while (ancestor) {
+          for (let i = 0; i < cbs.destroy.length; ++i) {
+            cbs.destroy[i](ancestor)
+          }
+          ancestor.elm = vnode.elm
+          if (patchable) {
+            for (let i = 0; i < cbs.create.length; ++i) {
+              cbs.create[i](emptyNode, ancestor)
+            }
+            // #6513
+            // invoke insert hooks that may have been merged by create hooks.
+            // e.g. for directives that uses the "inserted" hook.
+            const insert = ancestor.data.hook.insert
+            if (insert.merged) {
+              // start at index 1 to avoid re-invoking component mounted hook
+              for (let i = 1; i < insert.fns.length; i++) {
+                insert.fns[i]()
+              }
+            }
+          } else {
+            registerRef(ancestor)
+          }
+          ancestor = ancestor.parent
+        }
+      }
+    }
+  }
+}
+
+function isPatchable (vnode) {
+  while (vnode.componentInstance) {
+    vnode = vnode.componentInstance._vnode
+  }
+  return isDef(vnode.tag)
+}
+```
+vnode的`.componentInstance._vnode`是什么？
 ![](https://segmentfault.com/img/bVs5U9)
 
 - 只会做同级比较，不做跨级比较
