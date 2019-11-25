@@ -194,6 +194,26 @@ function sameVnode (a, b) {
 }
 ```
 
+一般的视图更新：
+
+1. 文本值的修改；
+```html
+<span>{{price}}</span>
+```
+sameVnode = true
+
+2. 属性值修改；
+```html
+<span data-attr="price">{{price}}</span>
+```
+sameVnode = true
+
+3. v-show/v-if
+
+4. 列表更新
+
+ps: 每次调用 patch 函数，vnode都是渲染的app元素，然后逐层向下比较
+
 
 ```typescript
 function patch (oldVnode, vnode, hydrating, removeOnly) {
@@ -287,3 +307,27 @@ vnode的`.componentInstance._vnode`是什么？
 
 - 只会做同级比较，不做跨级比较
 1. 在tag不是input且操作的属性不是type的轻快下，属性个数增减，属性值的更新都还不算是变更，前后两个节点还是相同的
+
+```typescript
+if (!prevVnode) {
+  // initial render
+  vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */)
+} else {
+  // updates
+  vm.$el = vm.__patch__(prevVnode, vnode)
+}
+```
+
+`hydrating` 默认是 `fasle`
+```typescript
+Vue.prototype.$mount = function (
+  el?: any,
+  hydrating?: boolean
+): Component {
+  return mountComponent(
+    this,
+    el && query(el, this.$document),
+    hydrating
+  )
+}
+```
