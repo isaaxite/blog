@@ -329,5 +329,123 @@ Vue.prototype.$mount = function (
     el && query(el, this.$document),
     hydrating
   )
+
+## patchVnode函数
+
+```typescript
+function patchVnode (
+  oldVnode,
+  vnode,
+  insertedVnodeQueue,
+  ownerArray,
+  index,
+  removeOnly
+) {
+  // ...
+}
+```
+
+
+```typescript
+if (oldVnode === vnode) {
+  return
+}
+```
+
+```typescript
+if (isDef(vnode.elm) && isDef(ownerArray)) {
+  // clone reused vnode
+  vnode = ownerArray[index] = cloneVNode(vnode)
+}
+```
+
+```typescript
+if (isTrue(oldVnode.isAsyncPlaceholder)) {
+  if (isDef(vnode.asyncFactory.resolved)) {
+    hydrate(oldVnode.elm, vnode, insertedVnodeQueue)
+  } else {
+    vnode.isAsyncPlaceholder = true
+  }
+  return
+}
+```
+
+```typescript
+// reuse element for static trees.
+// note we only do this if the vnode is cloned -
+// if the new node is not cloned it means the render functions have been
+// reset by the hot-reload-api and we need to do a proper re-render.
+/**
+ * 对静态树重用元素。注意，我们只在克隆vnode时才执行此操作。
+ * 如果未克隆新节点，则表示渲染函数已由热重新加载api重置，我们需要执行正确的重新渲染。
+ */
+if (isTrue(vnode.isStatic) &&
+  isTrue(oldVnode.isStatic) &&
+  vnode.key === oldVnode.key &&
+  (isTrue(vnode.isCloned) || isTrue(vnode.isOnce))
+) {
+  vnode.componentInstance = oldVnode.componentInstance
+  return
+}
+```
+
+```typescript
+let i
+const data = vnode.data
+if (isDef(data) && isDef(i = data.hook) && isDef(i = i.prepatch)) {
+  i(oldVnode, vnode)
+}
+```
+
+```typescript
+const oldCh = oldVnode.children
+const ch = vnode.children
+if (isDef(data) && isPatchable(vnode)) {
+  for (i = 0; i < cbs.update.length; ++i) cbs.update[i](oldVnode, vnode)
+  if (isDef(i = data.hook) && isDef(i = i.update)) i(oldVnode, vnode)
+}
+```
+
+```typescript
+if (isUndef(vnode.text)) {
+  if (isDef(oldCh) && isDef(ch)) {
+    if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)
+  }
+  // 新的虚拟节点有孩子节点，旧的虚拟节点没有孩子节点
+  else if (isDef(ch)) {
+    if (process.env.NODE_ENV !== 'production') {
+      checkDuplicateKeys(ch)
+    }
+    if (isDef(oldVnode.text)) nodeOps.setTextContent(elm, '')
+    addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue)
+  }
+  // 新节点没有孩子节点 => 删除孩子
+  else if (isDef(oldCh)) {
+    removeVnodes(oldCh, 0, oldCh.length - 1)
+  } else if (isDef(oldVnode.text)) {
+    nodeOps.setTextContent(elm, '')
+  }
+}
+```
+
+```typescript
+if (isUndef(vnode.text)) {
+  // ...
+} else {
+  nodeOps.setTextContent(elm, vnode.text)
+}
+```
+
+```typescript
+if (isDef(data)) {
+  if (isDef(i = data.hook) && isDef(i = i.postpatch)) i(oldVnode, vnode)
+}
+```
+
+
+## diff算法的核心
+
+```typescript
+function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
 }
 ```
