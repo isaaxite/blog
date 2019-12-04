@@ -172,7 +172,7 @@ export class EditCategortDto {
   @IsString({ message: '分类名必须是字符串' })
   name: string;
 
-  @ValidateIf((req) => typeof req.parent || req.parent === 0)
+  @ValidateIf((req) => typeof req.parent !== 'undefined' || req.parent === 0)
   @NotEqualDtoAtrr('id', { message: '父分类标签不能与子分类标签id相同' })
   @IsInt({ message: '分类标签id必须是大于0的自然数' })
   @Min(1, { message: '分类标签id必须是大于0的自然数' })
@@ -184,3 +184,11 @@ export class EditCategortDto {
   faqType?: string | number;
 }
 ```
+
+上面我们使用`class-validator`自带的校验的装饰器和一个自定的校验的装饰器对`EditCategortDto`的成员属性定义了校验规则，注意，只是定义了每个属性对应的校验的规则，并没有做校验！
+
+接下来就是要使用这些校验的规则校验请求数据！
+
+1. 将请求传送过来的参数，格式化成DTO类的实例
+   1. 请求的参数
+   2. DTO类型，怎么拿？

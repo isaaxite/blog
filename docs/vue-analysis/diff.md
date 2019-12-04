@@ -445,6 +445,65 @@ if (isDef(data)) {
 
 ## diff算法的核心
 
+新旧children（`Array<Vnode>`）的比对，比对是为了让新的vnode复用旧元素，降低消耗。比对使用的是diff算法。
+
+设置4个指针，分别指向新children的头部（newStartVnode）、尾部vnode（newEndVnode）、旧children的头部（oldStartVnode）、尾部vnode（oldEndVnode）。这四个指针的指向，只要有他们分别对应的数组位置定义，这些位置分别是：newStartIdx、newEndIdx、oldStartIdx和oldEndIdx。
+
+比对使用的`sameVnode`方法：
+
+```typescript
+function sameVnode (a, b) {
+  return (
+    a.key === b.key && (
+      (
+        // 标签相同
+        a.tag === b.tag &&
+
+        // 都是注释元素, 或都不是
+        a.isComment === b.isComment &&
+
+        // idDef = (v) => v !== undefined && v !== null
+        // 都定义了，或都没有定义
+        isDef(a.data) === isDef(b.data) &&
+
+        // a = { data: { atttrs: { type: 'xxx' } } }
+        // 1. 两节点的type相同，
+        //   i. type存在, 且相同；
+        //   ii. 两个type都没有定义，都是undefined；a、b都算是通过
+        // 2. a、b节点type都是'text,number,password,search,email,tel,url'中之一
+        // 换言之 a.type = text, b.type = password，也可以说两个input节点相同
+        // 3. a不是input标签
+        sameInputType(a, b)
+      ) || (
+        isTrue(a.isAsyncPlaceholder) &&
+        a.asyncFactory === b.asyncFactory &&
+        isUndef(b.asyncFactory.error)
+      )
+    )
+  )
+}
+// makeMap是个工厂函数，生成 isTextInputType = (key) => {
+//  const map = { text: true, ..., url: true };
+//  return map[key];
+// }
+// 类似于 (val) => [text,number,password,search,email,tel,url].include(val);
+const isTextInputType = makeMap('text,number,password,search,email,tel,url')
+function sameInputType (a, b) {
+  if (a.tag !== 'input') return true
+  let i
+  const typeA = isDef(i = a.data) && isDef(i = i.attrs) && i.type
+  const typeB = isDef(i = b.data) && isDef(i = i.attrs) && i.type
+  return typeA === typeB || isTextInputType(typeA) && isTextInputType(typeB)
+}
+```
+
+1. newStartVnode未定义（undefined），newStartIdx++，右移头vnode；
+2. newStartVnode未定义（undefined），newStartIdx++，右移头vnode；
+3. 两个children的头部vnode对比，`sameVnode(oldStartVnode, newStartVnode)`，
+4. 两个children的尾部vnode的对比，`sameVnode(oldEndVnode, newEndVnode)`，
+5. 旧children的头部vnode和新children的尾部vnode对比，`sameVnode(oldStartVnode, newEndVnode)`，
+6. 旧children的尾部vnode和新children的头部vnode的对比，`sameVnode(oldEndVnode, newStartVnode`，
+7. 以上6种情况都不符合，那么有可能就是新vnode与旧children非两头范围内的元素相同（sameVnode结果是true），也可能不相等。所以接下第一步就是在旧children中找与新vnode相等的旧vnode!怎么找？两种方式：a 构建oldVnode.key => idxInOldChildren的映射表oldKeyToIdx，用newVnode.key去oldKeyToIdx找idx，存在即大概率存在相同的vnode；b 在newVnode没有定义key的情况下，只能遍历oldChildren，让这些旧的vnode与新vnode用sameVnoe进行比对
 ```typescript
 function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
 }
