@@ -503,8 +503,10 @@ function sameInputType (a, b) {
 4. 两个children的尾部vnode的对比，`sameVnode(oldEndVnode, newEndVnode)`，
 5. 旧children的头部vnode和新children的尾部vnode对比，`sameVnode(oldStartVnode, newEndVnode)`，
 6. 旧children的尾部vnode和新children的头部vnode的对比，`sameVnode(oldEndVnode, newStartVnode`，
-7. 以上6种情况都不符合，那么有可能就是新vnode与旧children非两头范围内的元素相同（sameVnode结果是true），也可能不相等。所以接下第一步就是在旧children中找与新vnode相等的旧vnode!怎么找？两种方式：a 构建oldVnode.key => idxInOldChildren的映射表oldKeyToIdx，用newVnode.key去oldKeyToIdx找idx，存在即大概率存在相同的vnode；b 在newVnode没有定义key的情况下，只能遍历oldChildren，让这些旧的vnode与新vnode用sameVnoe进行比对
+7. 以上6种情况都不符合，那么有可能就是新vnode与旧children非两头范围内的元素相同（sameVnode结果是true），也可能不相等。所以接下第一步就是在旧children中找与新vnode相等的旧vnode!怎么找？两种方式：a 构建oldVnode.key => idxInOldChildren的映射表oldKeyToIdx，用newVnode.key去oldKeyToIdx找idx，idx存在至少存在key与之相同的vnode；b 在newVnode没有定义key的情况下，只能遍历oldChildren，让这些旧的vnode与新vnode用sameVnoe进行比对，有相同的就返回对应的index
 ```typescript
 function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
 }
 ```
+
+`v-for`标签定义`key`的优点
