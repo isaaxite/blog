@@ -373,7 +373,7 @@ function updateChildren (/* */) {
 
 ## while中的控制流顺序
 
-上面为了突出重点去讲，没有按while中控制流的顺序书写，是while块总各控制流的顺序：
+上面为了突出重点去讲，没有按while中控制流的顺序书写，以下是while块总各控制流的顺序：
 
 ```typescript
 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
@@ -399,4 +399,78 @@ while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
 留意while的循环条件：`oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx`，只要`oldStartIdx`大于`oldEndIdx`或`newStartIdx`大于`newEndIdx`就会结束循环！换言之，只要遍历完新旧children任意一个就会结束循环！
 
 a. 先遍历完旧children就说明**新children新增了vnode**，那么就要创建与这些vnodes对应的elm；
-b. 先遍历完新children就说明**新children删除了vnode**，那么就要删除多出的vnodes。
+b. 先遍历完新children就说明**新children删除了一些vnode**，那么就要删除多出的vnodes。
+
+```typescript
+if (oldStartIdx > oldEndIdx) {
+  // 会用调用node.insertBefore插入新元素，现在就是找引用元素，在refElm前面插入新元素
+  refElm = isUndef(newCh[newEndIdx + 1])
+    /**
+     * 新的children没有新增元素（newStartIdx > newEndIdx） 
+     * 或 后面新增了vnode（newStartIdx <= newEndIdx）
+     * */
+    ? null
+    /**
+     * newStartIdx <= newEndIdx
+     * 新的children新增了元素，但不是在后面！
+     * 可能是中间！
+     * 也可能是在前面
+     * */
+    : newCh[newEndIdx + 1].elm
+
+  // 循环调用 createElm
+  addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue)
+} else if (newStartIdx > newEndIdx) {
+  removeVnodes(oldCh, oldStartIdx, oldEndIdx)
+}
+```
+
+因为在循环遍历children的时候，startIdx（newStartIdx或oldStartIdx）和endIdx分别会向左和右移动。下面是四个索引移动的情况：
+
+- newStartIdx右移：[1.新头与旧头垂直对比]、[4.新头与旧尾交叉对比]、[5.当前新vnode与旧头尾之间的vnode对比]；
+
+- newEndIdx左移：[2.新尾与旧尾垂直对比]、[3.新尾与旧头交叉对比]；
+
+- oldStartIdx右移：[-1.跳过左边已经复用的vnode]、[1.新头与旧头垂直对比]、[3.新尾与旧头交叉对比]；
+
+- ildEndIdx左移：[0.跳过右边已经复用的vnode]、[2.新尾与旧尾垂直对比]、[4.新头与旧尾交叉对比]；
+
+
+## 新children新增了vnode
+
+根据newStartIdx和newEndIdx的移动情况
+
+1.newStartIdx一直右移，由于新增的vnode都在后面，可以服用的vnode都在前面了，newEndIdx会保持不变，直到遍历完旧children：
+<img src="./asset/add-in-after.png" width="100%" alt="vue中的diff算法实现"/>
+&nbsp;
+
+2.newStartIdx右移，newEndIdx左移，直到遍历完旧children：
+<img src="./asset/add-in-middle.png" width="100%" alt="vue中的diff算法实现"/>
+
+3.新增的vnode都在前面了，由于是新的节点所以存在“newStartIdx右移”的情况，newStartIdx就保持不变了，而可复用的vnode在右边，随着一次次循环，newEndIdx则会左移：
+<img src="./asset/add-in-before.png" width="100%" alt="vue中的diff算法实现"/>
+
+新children删除了vnode的情况就不赘述，情况可以从上面的解析类推！
+
+
+# 新旧vnode与真实元素elm的关系
+
+vnode是和elm一一对应的，vnode的顺序和elm保持这一直，vnode上的属性也是与对应的elm的属性对应。所以，在patch（给oldVnode打补丁）前，可以认为oldVnode树与页面上elm树是对应的！
+
+
+1.oldVnode.children中vnode的顺序和oldVnode.elm.children(oldVnode对应的elm的子元素列表)的顺序是保持一致的、elm上的属性也是保持一致；
+
+2.diff算法通过对比oldVnode.children与newVnode.children的vnode，找到可以复用的elm，并改变elm的位置，使之与newVnode.children的顺序保持一致！
+
+
+
+
+
+[-1.跳过左边已经复用的vnode]: #-1跳过左边已经复用的vnode
+[0.跳过右边已经复用的vnode]: #0跳过右边已经复用的vnode
+[1.新头与旧头垂直对比]: #1新头与旧头垂直对比
+[2.新尾与旧尾垂直对比]: #2新尾与旧尾垂直对比
+[3.新尾与旧头交叉对比]: #3新尾与旧头交叉对比
+[4.新头与旧尾交叉对比]: #4新头与旧尾交叉对比
+[5.当前新vnode与旧头尾之间的vnode对比]: #5当前新vnode与旧头尾之间的vnode对比
+
