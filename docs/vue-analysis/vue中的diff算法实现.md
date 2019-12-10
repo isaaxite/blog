@@ -1,4 +1,4 @@
-## 前言
+# 前言
 
 每次更新视图前都会根据视图模板生成vnode（虚拟的节点树），vnode类似dom树，但更简陋，每个vnode都与页面的上的元素html元素一一对应！为了更好的性能，因此要复用元素。那么就要知道怎么复用！就要对比newVnode（当前生成的vnode）和oldVnode（上次生成的vnode），对比完之后才知道那些是要删除，那些是需要重新创建，那些需要移动、移动到哪里！？
 而diff算法则是对比的一种比较好的方式，更好的更快地对比，谁被谁复用！
@@ -8,7 +8,7 @@ newVnode和oldVnode的比对仅限于同层级之间对比，兄弟之间相互�
 <img src="./asset/diff-vnode.png" width="100%" alt="vue中的diff算法实现"/>
 
 
-## diff算法是什么
+# diff算法是什么
 
 
 diff算法不是一种对比的方法，而是一种寻找与当前节点匹配可复用节点的方法；寻找oldVnode.children中那个成员与newVnode.children中那个成员相同。
@@ -42,7 +42,7 @@ function updateChildren (
 ```
 建立四个指针`oldStartVnode`、`oldEndVnode`、`newStartVnode`、`newEndVnode`，由`updateChildren`中的定义可以知道：开始时，他们分别指向`oldVnode.children`的头部、`oldVnode.children`的尾部、`newVnode.children`的头部、`newVnode.children`的尾部。然后，这四个指针的指向也不是固定的，在循环遍历的过程中，他们的指向也会变动，他们指向会因为以下索引的变动而变动，`oldStartIdx`、`oldEndIdx`、`newStartIdx`、`newEndIdx`。
 
-#### 1.新头与旧头垂直对比
+## 1.新头与旧头垂直对比
 
 ```typescript
 function updateChildren (/* */) {
@@ -62,7 +62,7 @@ function updateChildren (/* */) {
 }
 ```
 
-#### 2.新尾与旧尾垂直对比
+## 2.新尾与旧尾垂直对比
 
 ```typescript
 function updateChildren (/* */) {
@@ -82,7 +82,7 @@ function updateChildren (/* */) {
 }
 ```
 
-#### 3.新尾与旧头交叉对比
+## 3.新尾与旧头交叉对比
 
 ```typescript
 function updateChildren (/* */) {
@@ -110,7 +110,7 @@ function updateChildren (/* */) {
 }
 ```
 
-#### 4.新头与旧尾交叉对比
+## 4.新头与旧尾交叉对比
 
 ```typescript
 function updateChildren (/* */) {
@@ -132,13 +132,13 @@ function updateChildren (/* */) {
 }
 ```
 
-#### 5.当前新vnode与旧头尾之间的vnode对比
+## 5.当前新vnode与旧头尾之间的vnode对比
 
 在本次循环中，前4种控制流都没有进入，就说明一头一尾、两次交叉对比都没有找到可复用的节点！但这并非代表旧children中无可复用，因为头与尾之间的元素还没有比对过，第5种方式即是如此！这第5种方式在有定义`key`(`v-for`指令中的`key`)或没有的情况下又是不同的表现！
 
 **注意：在此情况下，是用新头去旧children的头尾之间寻找可复用元素**
 
-###### 5-1.构建oldCildren映射表(key => idx)
+### 5-1.构建oldCildren映射表(key => idx)
 
 从oldChildren构建一个映射表(key => idx)，这样就可以通过key，结合这个映射表快速找到匹配的可复用的元素。时间复杂度就是`O(1)`！
 
@@ -177,7 +177,7 @@ function createKeyToOldIdx (children, beginIdx, endIdx) {
 }
 ```
 
-###### 5-2.根据5-1的映射表找到可复用vnode的索引
+### 5-2.根据5-1的映射表找到可复用vnode的索引
 
 列表渲染中不一定会定义`key`，如果没有定义那么`5-1`的映射表就没有用了。那么就需要遍历旧children节点寻找与新头匹配的元素（详见下面代码的`findIdxInOld`方法）！那么时间复杂度就上来了，不再是使用映射表时的`O(1)`，而是`O(n)`。由此也可以知道使用`key`的性能优化优越之所在！
 
@@ -217,7 +217,7 @@ function findIdxInOld (node, oldCh, start, end) {
 }
 ```
 
-###### 5-3.无可复用旧元素
+### 5-3.无可复用旧元素
 
 在旧children可能会找到也可能找不到可复用的元素，没有找到是什么情况？如图：
 
@@ -258,13 +258,13 @@ function updateChildren (/* */) {
 }
 ```
 
-###### 5-4.复用旧元素
+### 5-4.复用旧元素
 
 5-3和5-4是互斥的，进入5-4控制流就表示5-2中返回的`idxInOld`不为空，旧children中存在这匹配的vnode。虽然存在可用的vnode，但如果`key`并不可信呢？比如`v-for="(item, index) in items"`中的索引被用作`key`！！！因此有了下面的5-4-1和5-4-2。
 
-###### 5-4-1.确实可复用
+#### 5-4-1.确实可复用
 
-使用sameVnode方法二次确认vnodeToMove（在旧children中找到的vnode）时可用的！接下就是类似的操作。但比较明显的不同是：其他都是递增或递减新旧索引，但在5-4-1中则是递增newStartIdx，然后旧vnode置为null(`oldCh[idxInOld] = undefined`)，这是设计的巧妙之处，当前还没有感受到，再看下-1和0中的内容就会豁然开朗！
+使用sameVnode方法二次确认vnodeToMove（在旧children中找到的vnode）时可用的！接下就是类似的操作。但比较明显的不同是：其他都是递增或递减新旧索引，但在5-4-1中则是递增newStartIdx，然后旧vnode置为null(`oldCh[idxInOld] = undefined`)，这是设计的巧妙之处，当前还没有感受到，再看下[-1.跳过左边已经复用的vnode](#-1跳过左边已经复用的vnode)和[0.跳过右边已经复用的vnode](#0跳过右边已经复用的vnode)中的内容就会豁然开朗！
 
 ```typescript
 function updateChildren (/* */) {
@@ -298,7 +298,7 @@ function updateChildren (/* */) {
 }
 ```
 
-###### 5-4-2.虚假的可复用
+#### 5-4-2.虚假的可复用
 
 5-4-1与5-4-2是互斥的，既然没有元素可以复用到`newStartVnode`中，那么只能像5-3中那样创建与`newStartVnode`对应的html元素！！！
 
@@ -332,7 +332,10 @@ function updateChildren (/* */) {
 }
 ```
 
-###### -1.
+## -1.跳过左边已经复用的vnode
+
+我们知道`oldStartVnode`这个指针是不断地右移，从下面的代码中的`isUndef(oldStartVnode)`知道，一旦碰到未定的vnode就会右移一个单位，继续循环比对后面的vnode。为什么会有未定义的vnode？正常来说应该存在，因为vnode都是与页面上的html元素一一对应的！在[5-4-1.确实可复用](#5-4-1确实可复用)中，vue确实地将旧children中存在可复用elm的vnode手动置为了undefined：`oldCh[idxInOld] = undefined`！为什么置空不直接用`delete`操作符删除？！删了就换了idx顺序！！
+
 ```typescript
 function updateChildren (/* */) {
   // ...
@@ -348,7 +351,10 @@ function updateChildren (/* */) {
 }
 ```
 
-###### 0.
+## 0.跳过右边已经复用的vnode
+
+参考[-1.跳过左边已经复用的vnode](#-1跳过左边已经复用的vnode)
+
 ```typescript
 function updateChildren (/* */) {
   // ...
@@ -364,3 +370,33 @@ function updateChildren (/* */) {
   // ...
 }
 ```
+
+## while中的控制流顺序
+
+上面为了突出重点去讲，没有按while中控制流的顺序书写，是while块总各控制流的顺序：
+
+```typescript
+while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+  /* -1：跳过左边已经复用的vnode */
+  if (isUndef(oldStartVnode)) { /* */ }
+  /* 0：跳过右边已经复用的vnode */
+  else if (isUndef(oldEndVnode)) { /* */ }
+  /* 1：新头与旧头垂直对比 */
+  else if (sameVnode(oldStartVnode, newStartVnode)) { /* */ }
+  /* 2：新尾与旧尾垂直对比 */
+  else if (sameVnode(oldEndVnode, newEndVnode)) { /* */ }
+  /* 3：新尾与旧头交叉对比 */
+  else if (sameVnode(oldStartVnode, newEndVnode)) { /* */ }
+  /* 4：新头与旧尾交叉对比 */
+  else if (sameVnode(oldEndVnode, newStartVnode)) { /* */ }
+  /* 5：当前新vnode与旧头尾之间的vnode对比 */
+  else { /* */ }
+}
+```
+
+# while之外
+
+留意while的循环条件：`oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx`，只要`oldStartIdx`大于`oldEndIdx`或`newStartIdx`大于`newEndIdx`就会结束循环！换言之，只要遍历完新旧children任意一个就会结束循环！
+
+a. 先遍历完旧children就说明**新children新增了vnode**，那么就要创建与这些vnodes对应的elm；
+b. 先遍历完新children就说明**新children删除了vnode**，那么就要删除多出的vnodes。
