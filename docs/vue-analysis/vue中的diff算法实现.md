@@ -44,6 +44,20 @@ function updateChildren (
 
 ## 1.新头与旧头垂直对比
 
+新旧头部vnode进行对比，判断是否匹配，以复用。sameVnode的功能与实现逻辑参考[附录：sameVnode的功能与实现逻辑]，值得一提的是：a.是input元素，更新前后type不一致；b.变动的是key属性；c.元素更新前后将所有属性删除，或从无到有；只要不是以上三种情况之一，不论怎么增删、修改元素上的属性，都不会影响是否匹配的结果！
+
+1.判断新旧头部是匹配的，那么就调用`patchVnode`，给`newStartVnode`打补丁！
+
+`patchVnode`函数的主要功能：
+
+a. 复用elm，将oldVnode.elm赋值到newVnode.elm；
+b. 更新elm上的属性变动；
+c. 更新newVnode.children，增删或复用，这里的复用就是通过调用`updateChildren`来实现，没错递归了！
+
+patchVnode函数的主要功能参考：[附录：patchVnode函数的关键实现]
+
+2.分别右移`oldStartVnode`和`newStartVnode`。
+
 ```typescript
 function updateChildren (/* */) {
   // ...
@@ -63,6 +77,8 @@ function updateChildren (/* */) {
 ```
 
 ## 2.新尾与旧尾垂直对比
+
+新旧尾部的对比情况和[1新头与旧头垂直对比]类似，再次再累累述，以下实现的逻辑：
 
 ```typescript
 function updateChildren (/* */) {
@@ -463,7 +479,82 @@ vnode是和elm一一对应的，vnode的顺序和elm保持这一直，vnode上�
 2.diff算法通过对比oldVnode.children与newVnode.children的vnode，找到可以复用的elm，并改变elm的位置，使之与newVnode.children的顺序保持一致！
 
 
+# 附录
 
+## sameVnode的功能与实现逻辑
+
+```typescript
+function sameVnode (a, b) {
+  return (
+    a.key === b.key && (
+      (
+        // 标签相同
+        a.tag === b.tag &&
+
+        // 都是注释元素, 或都不是
+        a.isComment === b.isComment &&
+
+        // idDef = (v) => v !== undefined && v !== null
+        // 都定义了，或都没有定义
+        isDef(a.data) === isDef(b.data) &&
+
+        // a = { data: { atttrs: { type: 'xxx' } } }
+        // 1. 两节点的type相同，
+        //   i. type存在, 且相同；
+        //   ii. 两个type都没有定义，都是undefined；a、b都算是通过
+        // 2. a、b节点type都是'text,number,password,search,email,tel,url'中之一
+        // 换言之 a.type = text, b.type = password，也可以说两个input节点相同
+        // 3. a不是input标签
+        sameInputType(a, b)
+      ) || (
+        isTrue(a.isAsyncPlaceholder) &&
+        a.asyncFactory === b.asyncFactory &&
+        isUndef(b.asyncFactory.error)
+      )
+    )
+  )
+}
+```
+
+
+
+- sameVnode的逻辑
+- patchVnode的实现功能
+- 移动元素：nodeOps.insertBefore
+
+
+## patchVnode函数的关键实现
+
+```typescript
+function patchVnode (/* */) {
+  // ...
+
+  // a. 复用elm，将oldVnode.elm赋值到newVnode.elm；
+  const elm = vnode.elm = oldVnode.elm
+
+  const oldCh = oldVnode.children
+  const ch = vnode.children
+
+  // b. 更新elm上的属性变动；
+  if (isDef(data) && isPatchable(vnode)) {
+    for (i = 0; i < cbs.update.length; ++i) {
+      cbs.update[i](oldVnode, vnode);
+    }
+    if (isDef(i = data.hook) && isDef(i = i.update)) i(oldVnode, vnode)
+  }
+
+  // 没有文本，即是还有子节点等情况
+  if (isUndef(vnode.text)) {
+    // 新旧vnode都有children
+    if (isDef(oldCh) && isDef(ch)) {
+      // c. 更新newVnode.children，增删或复用，这里的复用就是通过调用`updateChildren`来实现，没错递归了！
+      if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)
+    }
+    // 省略其他的更新children的操作：增、删等
+  }
+  // ...
+}
+```
 
 
 [-1.跳过左边已经复用的vnode]: #-1跳过左边已经复用的vnode
@@ -473,4 +564,6 @@ vnode是和elm一一对应的，vnode的顺序和elm保持这一直，vnode上�
 [3.新尾与旧头交叉对比]: #3新尾与旧头交叉对比
 [4.新头与旧尾交叉对比]: #4新头与旧尾交叉对比
 [5.当前新vnode与旧头尾之间的vnode对比]: #5当前新vnode与旧头尾之间的vnode对比
+[附录：sameVnode的功能与实现逻辑]: #sameVnode的功能与实现逻辑
+[附录：patchVnode函数的关键实现]: #patchVnode函数的关键实现
 
