@@ -44,6 +44,8 @@ function updateChildren (
 
 ## 1.新头与旧头垂直对比
 
+<img src="./asset/diff-vnode-children-01.png" width="100%" alt="vue中的diff算法实现"/>
+
 新旧头部vnode进行对比，判断是否匹配，以复用。sameVnode的功能与实现逻辑参考[附录：sameVnode的功能与实现逻辑]，值得一提的是：a.是input元素，更新前后type不一致；b.变动的是key属性；c.元素更新前后将所有属性删除，或从无到有；只要不是以上三种情况之一，不论怎么增删、修改元素上的属性，都不会影响是否匹配的结果！
 
 1.判断新旧头部是匹配的，那么就调用`patchVnode`，给`newStartVnode`打补丁！
@@ -78,6 +80,8 @@ function updateChildren (/* */) {
 
 ## 2.新尾与旧尾垂直对比
 
+<img src="./asset/diff-vnode-children-02.png" width="100%" alt="vue中的diff算法实现"/>
+
 新旧尾部的对比情况和[1新头与旧头垂直对比]类似，再次再累累述，以下实现的逻辑：
 
 ```typescript
@@ -99,6 +103,8 @@ function updateChildren (/* */) {
 ```
 
 ## 3.新尾与旧头交叉对比
+
+<img src="./asset/diff-vnode-children-03.png" width="100%" alt="vue中的diff算法实现"/>
 
 ```typescript
 function updateChildren (/* */) {
@@ -127,6 +133,8 @@ function updateChildren (/* */) {
 ```
 
 ## 4.新头与旧尾交叉对比
+
+<img src="./asset/diff-vnode-children-04.png" width="100%" alt="vue中的diff算法实现"/>
 
 ```typescript
 function updateChildren (/* */) {
@@ -461,9 +469,11 @@ if (oldStartIdx > oldEndIdx) {
 &nbsp;
 
 2.newStartIdx右移，newEndIdx左移，直到遍历完旧children：
+
 <img src="./asset/add-in-middle.png" width="100%" alt="vue中的diff算法实现"/>
 
 3.新增的vnode都在前面了，由于是新的节点所以存在“newStartIdx右移”的情况，newStartIdx就保持不变了，而可复用的vnode在右边，随着一次次循环，newEndIdx则会左移：
+
 <img src="./asset/add-in-before.png" width="100%" alt="vue中的diff算法实现"/>
 
 新children删除了vnode的情况就不赘述，情况可以从上面的解析类推！
@@ -513,6 +523,23 @@ function sameVnode (a, b) {
       )
     )
   )
+}
+
+/**
+ * makeMap是个工厂函数，生成 isTextInputType = (key) => {
+ *   const map = { text: true, ..., url: true };
+ *   return map[key];
+ * }
+ * 
+ * 类似于 (val) => [text,number,password,search,email,tel,url].include(val);
+ * */
+const isTextInputType = makeMap('text,number,password,search,email,tel,url')
+function sameInputType (a, b) {
+  if (a.tag !== 'input') return true
+  let i
+  const typeA = isDef(i = a.data) && isDef(i = i.attrs) && i.type
+  const typeB = isDef(i = b.data) && isDef(i = i.attrs) && i.type
+  return typeA === typeB || isTextInputType(typeA) && isTextInputType(typeB)
 }
 ```
 
