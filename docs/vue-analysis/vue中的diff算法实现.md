@@ -106,6 +106,14 @@ function updateChildren (/* */) {
 
 <img src="./asset/diff-vnode-children-03.png" width="100%" alt="vue中的diff算法实现"/>
 
+当前情况与[1新头与旧头垂直对比]略有不同！看源码中，多出了下面这句：
+
+```typescript
+canMove && nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm))
+```
+
+这句代码实现就是图片中移动elm的功能！为什么要移动elm？因为newEndVnode复用了oldStartVnode.elm，复用这一步已经由`patchVnode`函数实现，然后还需要让elm列的顺序与newVnode的顺序保持一致，所以需要将`oldStartVnode.elm`移动到正确的位置！
+
 ```typescript
 function updateChildren (/* */) {
   // ...
@@ -135,6 +143,8 @@ function updateChildren (/* */) {
 ## 4.新头与旧尾交叉对比
 
 <img src="./asset/diff-vnode-children-04.png" width="100%" alt="vue中的diff算法实现"/>
+
+当前情况与[新尾与旧头交叉对比]类似，不做赘述！配合图片和源码食用口味更佳~
 
 ```typescript
 function updateChildren (/* */) {
