@@ -1,5 +1,7 @@
 # 前言
 
+**vue版本：2.6.10**
+
 每次更新视图前都会根据视图模板生成vnode（虚拟的节点树），vnode类似dom树，但更简陋，每个vnode都与页面的上的元素html元素一一对应！为了更好的性能，因此要复用元素。那么就要知道怎么复用！就要对比newVnode（当前生成的vnode）和oldVnode（上次生成的vnode），对比完之后才知道那些是要删除，那些是需要重新创建，那些需要移动、移动到哪里！？
 而diff算法则是对比的一种比较好的方式，更好的更快地对比，谁被谁复用！
 
@@ -593,6 +595,42 @@ function patchVnode (/* */) {
 }
 ```
 
+1.只和同等级元素比较
+
+
+```typescript
+function patchVnode(newVnode, oldVnode) {
+  const elm = newVnode.elm = oldVnode.elm;
+  const ch = newVnode.children;
+  const oldCh = oldVnode.children;
+  patchTagAttrs();
+  if (
+    isUndef(newVnode.text)
+    && isDef(oldCh) && isDef(ch)
+    && oldCh !== ch
+  ) {
+    updateChildren(ch, oldCh);
+  }
+}
+
+updateChildren(newChild, oldChild) {
+  let newStartIdx = 0;
+  let oldStartIdx = 0;
+  let newEndIdx = newChild.length - 1;
+  let oldEndIdx = oldChild.length - 1;
+
+  while (newStartIdx <= newEndIdx && oldStartIdx <= oldEndIdx) {
+    if (vnodeHasKey()) {
+      // O(n)
+      itToFindSameVnode();
+    } else {
+      // O(1)
+      findInMap();
+    }
+    patchVnode();
+  }
+}
+```
 
 [-1.跳过左边已经复用的vnode]: #-1跳过左边已经复用的vnode
 [0.跳过右边已经复用的vnode]: #0跳过右边已经复用的vnode
@@ -601,6 +639,11 @@ function patchVnode (/* */) {
 [3.新尾与旧头交叉对比]: #3新尾与旧头交叉对比
 [4.新头与旧尾交叉对比]: #4新头与旧尾交叉对比
 [5.当前新vnode与旧头尾之间的vnode对比]: #5当前新vnode与旧头尾之间的vnode对比
+[附录]: #附录
 [附录：sameVnode的功能与实现逻辑]: #sameVnode的功能与实现逻辑
 [附录：patchVnode函数的关键实现]: #patchVnode函数的关键实现
 
+
+入口，patchVnode
+遍历children： n
+T(v) = T(v.children) + O(1);
