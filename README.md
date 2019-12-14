@@ -8,6 +8,7 @@
 - [数组变异方法的实现原理](docs/vue-analysis/数组变异方法的实现原理.md)
 - [$set和$del方法的实现原理](docs/vue-analysis/$set和$del方法的实现原理.md)
 - [v-for的原理分析](docs/vue-analysis/v-for的原理分析.md)
+- [filter的实现原理](docs/vue-analysis/filter的实现原理.md)
 - [多角度剖析计算属性的运行机制](docs/vue-analysis/多角度剖析计算属性的运行机制.md)
 
 ## [随性而为的工具](./docs/tools)
