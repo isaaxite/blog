@@ -1,4 +1,25 @@
+# 大纲
+ 
+ - [前言]
+ - [diff算法是什么]
+    - [1.新头与旧头垂直对比]
+    - [2.新尾与旧尾垂直对比]
+    - [3.新尾与旧头交叉对比]
+    - [4.新头与旧尾交叉对比]
+    - [5.当前新vnode与旧头尾之间的vnode对比]
+    - [-1.跳过左边已经复用的vnode]
+    - [0.跳过右边已经复用的vnode]
+    - [while中的控制流顺序]
+ - [while之外]
+ - [新旧vnode与真实元素elm的关系]
+ - [附录]
+    - [sameVnode的功能与实现逻辑]
+    - [patchVnode函数的关键实现]
+
+
 # 前言
+
+[回到顶部]
 
 **vue版本：2.6.10**
 
@@ -12,6 +33,7 @@ newVnode和oldVnode的比对仅限于同层级之间对比，兄弟之间相互�
 
 # diff算法是什么
 
+[回到顶部]
 
 diff算法不是一种对比的方法，而是一种寻找与当前节点匹配可复用节点的方法；寻找oldVnode.children中那个成员与newVnode.children中那个成员相同。
 
@@ -45,6 +67,8 @@ function updateChildren (
 建立四个指针`oldStartVnode`、`oldEndVnode`、`newStartVnode`、`newEndVnode`，由`updateChildren`中的定义可以知道：开始时，他们分别指向`oldVnode.children`的头部、`oldVnode.children`的尾部、`newVnode.children`的头部、`newVnode.children`的尾部。然后，这四个指针的指向也不是固定的，在循环遍历的过程中，他们的指向也会变动，他们指向会因为以下索引的变动而变动，`oldStartIdx`、`oldEndIdx`、`newStartIdx`、`newEndIdx`。
 
 ## 1.新头与旧头垂直对比
+
+[回到顶部]
 
 <img src="./asset/diff-vnode-children-01.png" width="100%" alt="vue中的diff算法实现"/>
 
@@ -82,6 +106,8 @@ function updateChildren (/* */) {
 
 ## 2.新尾与旧尾垂直对比
 
+[回到顶部]
+
 <img src="./asset/diff-vnode-children-02.png" width="100%" alt="vue中的diff算法实现"/>
 
 新旧尾部的对比情况和[1新头与旧头垂直对比]类似，再次再累累述，以下实现的逻辑：
@@ -105,6 +131,8 @@ function updateChildren (/* */) {
 ```
 
 ## 3.新尾与旧头交叉对比
+
+[回到顶部]
 
 <img src="./asset/diff-vnode-children-03.png" width="100%" alt="vue中的diff算法实现"/>
 
@@ -144,6 +172,8 @@ function updateChildren (/* */) {
 
 ## 4.新头与旧尾交叉对比
 
+[回到顶部]
+
 <img src="./asset/diff-vnode-children-04.png" width="100%" alt="vue中的diff算法实现"/>
 
 当前情况与[新尾与旧头交叉对比]类似，不做赘述！配合图片和源码食用口味更佳~
@@ -169,6 +199,8 @@ function updateChildren (/* */) {
 ```
 
 ## 5.当前新vnode与旧头尾之间的vnode对比
+
+[回到顶部]
 
 在本次循环中，前4种控制流都没有进入，就说明一头一尾、两次交叉对比都没有找到可复用的节点！但这并非代表旧children中无可复用，因为头与尾之间的元素还没有比对过，第5种方式即是如此！这第5种方式在有定义`key`(`v-for`指令中的`key`)或没有的情况下又是不同的表现！
 
@@ -370,6 +402,8 @@ function updateChildren (/* */) {
 
 ## -1.跳过左边已经复用的vnode
 
+[回到顶部]
+
 我们知道`oldStartVnode`这个指针是不断地右移，从下面的代码中的`isUndef(oldStartVnode)`知道，一旦碰到未定的vnode就会右移一个单位，继续循环比对后面的vnode。为什么会有未定义的vnode？正常来说应该存在，因为vnode都是与页面上的html元素一一对应的！在[5-4-1.确实可复用](#5-4-1确实可复用)中，vue确实地将旧children中存在可复用elm的vnode手动置为了undefined：`oldCh[idxInOld] = undefined`！为什么置空不直接用`delete`操作符删除？！删了就换了idx顺序！！
 
 ```typescript
@@ -388,6 +422,8 @@ function updateChildren (/* */) {
 ```
 
 ## 0.跳过右边已经复用的vnode
+
+[回到顶部]
 
 参考[-1.跳过左边已经复用的vnode](#-1跳过左边已经复用的vnode)
 
@@ -408,6 +444,8 @@ function updateChildren (/* */) {
 ```
 
 ## while中的控制流顺序
+
+[回到顶部]
 
 上面为了突出重点去讲，没有按while中控制流的顺序书写，以下是while块总各控制流的顺序：
 
@@ -431,6 +469,8 @@ while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
 ```
 
 # while之外
+
+[回到顶部]
 
 留意while的循环条件：`oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx`，只要`oldStartIdx`大于`oldEndIdx`或`newStartIdx`大于`newEndIdx`就会结束循环！换言之，只要遍历完新旧children任意一个就会结束循环！
 
@@ -476,7 +516,7 @@ if (oldStartIdx > oldEndIdx) {
 
 根据newStartIdx和newEndIdx的移动情况
 
-1.newStartIdx一直右移，由于新增的vnode都在后面，可以服用的vnode都在前面了，newEndIdx会保持不变，直到遍历完旧children：
+1.newStartIdx一直右移，由于新增的vnode都在后面，可以复用的vnode都在前面了，newEndIdx会保持不变，直到遍历完旧children：
 <img src="./asset/add-in-after.png" width="100%" alt="vue中的diff算法实现"/>
 &nbsp;
 
@@ -493,6 +533,8 @@ if (oldStartIdx > oldEndIdx) {
 
 # 新旧vnode与真实元素elm的关系
 
+[回到顶部]
+
 vnode是和elm一一对应的，vnode的顺序和elm保持这一直，vnode上的属性也是与对应的elm的属性对应。所以，在patch（给oldVnode打补丁）前，可以认为oldVnode树与页面上elm树是对应的！
 
 
@@ -502,6 +544,8 @@ vnode是和elm一一对应的，vnode的顺序和elm保持这一直，vnode上�
 
 
 # 附录
+
+[回到顶部]
 
 ## sameVnode的功能与实现逻辑
 
@@ -631,15 +675,22 @@ updateChildren(newChild, oldChild) {
   }
 }
 ```
-
+[回到顶部]: #大纲
+[前言]: #前言
+[diff算法是什么]: #diff算法是什么
+[while之外]: #while之外
+[新旧vnode与真实元素elm的关系]: #新旧vnode与真实元素elm的关系
 [-1.跳过左边已经复用的vnode]: #-1跳过左边已经复用的vnode
 [0.跳过右边已经复用的vnode]: #0跳过右边已经复用的vnode
 [1.新头与旧头垂直对比]: #1新头与旧头垂直对比
-[2.新尾与旧尾垂直对比]: #2新尾与旧尾垂直对比
+[2.新尾与旧尾垂直对比]: #2新尾与旧尾垂直对比   
 [3.新尾与旧头交叉对比]: #3新尾与旧头交叉对比
 [4.新头与旧尾交叉对比]: #4新头与旧尾交叉对比
 [5.当前新vnode与旧头尾之间的vnode对比]: #5当前新vnode与旧头尾之间的vnode对比
+[while中的控制流顺序]: #while中的控制流顺序
 [附录]: #附录
+[sameVnode的功能与实现逻辑]: #sameVnode的功能与实现逻辑
+[patchVnode函数的关键实现]: #patchVnode函数的关键实现
 [附录：sameVnode的功能与实现逻辑]: #sameVnode的功能与实现逻辑
 [附录：patchVnode函数的关键实现]: #patchVnode函数的关键实现
 
