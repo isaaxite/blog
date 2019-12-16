@@ -693,8 +693,3 @@ updateChildren(newChild, oldChild) {
 [patchVnode函数的关键实现]: #patchVnode函数的关键实现
 [附录：sameVnode的功能与实现逻辑]: #sameVnode的功能与实现逻辑
 [附录：patchVnode函数的关键实现]: #patchVnode函数的关键实现
-
-
-入口，patchVnode
-遍历children： n
-T(v) = T(v.children) + O(1);

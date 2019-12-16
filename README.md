@@ -26,6 +26,7 @@
 
 ## [JavaScript](https://github.com/isaaxite/blog/issues?page=1&q=is%3Aissue+is%3Aopen+label%3Ajavascript)
 
+- [New操作符的机制与实现相同功能的方法](docs/js-basic/New操作符的机制与实现相同功能的方法.md)
 - [JavaScript: 关于继承多种实现的笔记](https://github.com/isaaxite/blog/issues/253),
 - [JavaScript: 创建对象的多种模式](https://github.com/isaaxite/blog/issues/250),
 - [例子详解正则表达式（一）](https://github.com/isaaxite/blog/issues/242),
