@@ -535,13 +535,43 @@ if (oldStartIdx > oldEndIdx) {
 
 [回到顶部]
 
-vnode是和elm一一对应的，vnode的顺序和elm保持这一直，vnode上的属性也是与对应的elm的属性对应。所以，在patch（给oldVnode打补丁）前，可以认为oldVnode树与页面上elm树是对应的！
+vnode是和elm一一对应的，vnode的顺序和elm保持这一致，vnode上的属性也是与对应的elm的属性对应。所以，在patch（给oldVnode打补丁）前，可以认为oldVnode树与页面上elm树是对应的！
 
 
 1.oldVnode.children中vnode的顺序和oldVnode.elm.children(oldVnode对应的elm的子元素列表)的顺序是保持一致的、elm上的属性也是保持一致；
 
 2.diff算法通过对比oldVnode.children与newVnode.children的vnode，找到可以复用的elm，并改变elm的位置，使之与newVnode.children的顺序保持一致！
 
+
+# diff的特点
+
+- **先垂直，再交叉，最后中间找**，diff在旧vnode.children找可复用vnode，所用比对方式的优先级！
+
+&nbsp;
+
+- **只与同级vnode中寻找复用的elm**，由上面的分析可以知道，只会在同级的children中寻找可以复用的vnode。但现实是可以复用的元素可以存在于dom树任意的地方，明显这样是可能回错过实际存在的复用元素，而重新创建元素！这里就是vue或diff的权衡的地方，是不计代价全局去找最优解，还是如当前这般在同级节点中寻找！？
+
+&nbsp;
+
+- **定义key属性可以大幅度减少操作数**，在[5.当前新vnode与旧头尾之间的vnode对比]中，在定义了key的情况下，会创建一个映射表`oldKeyToIdx`，通过映射表可以快速找到可复用vnode，而没有定义的话，就需要遍历oldVnode.children，逐一使用`sameVnode`比对！
+
+# 实用主义
+
+[1.新头与旧头垂直对比]、[2.新尾与旧尾垂直对比]、[3.新尾与旧头交叉对比]、[4.新头与旧尾交叉对比]，以上四种不论是否定义元素属性key
+1. 定义了，可以快速判断出不相同（但不完全可靠）
+
+使用遍历索引作为key，
+
+> 它也可以用于强制替换元素/组件而不是重复使用它。当你遇到如下场景时它可能会很有用：
+> 
+> 完整地触发组件的生命周期钩子
+> 触发过渡
+
+
+>diff算法默认使用“就地复用”的策略，是一个首尾交叉对比的过程。
+>用index作为key和不加key是一样的，都采用“就地复用”的策略
+>“就地复用”的策略，只适用于不依赖子组件状态或临时 DOM 状态 (例如：表单输入值) 的列表渲染输出。
+>将与元素唯一对应的值作为key，可以最大化利用dom节点，提升性能
 
 # 附录
 
@@ -599,13 +629,6 @@ function sameInputType (a, b) {
 }
 ```
 
-
-
-- sameVnode的逻辑
-- patchVnode的实现功能
-- 移动元素：nodeOps.insertBefore
-
-
 ## patchVnode函数的关键实现
 
 ```typescript
@@ -639,42 +662,57 @@ function patchVnode (/* */) {
 }
 ```
 
-1.只和同等级元素比较
+## nodeOps.insertBefore实现
 
-
+path: src/platforms/web/runtime/node-ops.js
 ```typescript
-function patchVnode(newVnode, oldVnode) {
-  const elm = newVnode.elm = oldVnode.elm;
-  const ch = newVnode.children;
-  const oldCh = oldVnode.children;
-  patchTagAttrs();
-  if (
-    isUndef(newVnode.text)
-    && isDef(oldCh) && isDef(ch)
-    && oldCh !== ch
-  ) {
-    updateChildren(ch, oldCh);
-  }
-}
-
-updateChildren(newChild, oldChild) {
-  let newStartIdx = 0;
-  let oldStartIdx = 0;
-  let newEndIdx = newChild.length - 1;
-  let oldEndIdx = oldChild.length - 1;
-
-  while (newStartIdx <= newEndIdx && oldStartIdx <= oldEndIdx) {
-    if (vnodeHasKey()) {
-      // O(n)
-      itToFindSameVnode();
-    } else {
-      // O(1)
-      findInMap();
-    }
-    patchVnode();
-  }
+export function insertBefore (parentNode: Node, newNode: Node, referenceNode: Node) {
+  parentNode.insertBefore(newNode, referenceNode)
 }
 ```
+
+> Node.insertBefore() 方法在参考节点之前插入一个拥有指定父节点的子节点。如果给定的子节点是对文档中现有节点的引用，insertBefore() 会将其从当前位置移动到新位置（在将节点附加到其他节点之前，不需要从其父节点删除该节点）。
+
+## vnode（虚拟节点）的成员属性
+
+```typescript
+class VNode {
+  // 标签
+  tag: string | void;
+  // elm（Element）的属性
+  data: VNodeData | void;
+  // 子虚拟节点
+  children: ?Array<VNode>;
+  text: string | void;
+  // 真实dom元素
+  elm: Node | void;
+  // 元素命名空间
+  ns: string | void;
+  context: Component | void; // rendered in this component's scope
+  key: string | number | void;
+  componentOptions: VNodeComponentOptions | void;
+  componentInstance: Component | void; // component instance
+  parent: VNode | void; // component placeholder node
+
+  // strictly internal
+  raw: boolean; // contains raw HTML? (server only)
+  isStatic: boolean; // hoisted static node
+  isRootInsert: boolean; // necessary for enter transition check
+  isComment: boolean; // empty comment placeholder?
+  isCloned: boolean; // is a cloned node?
+  isOnce: boolean; // is a v-once node?
+  asyncFactory: Function | void; // async component factory function
+  asyncMeta: Object | void;
+  isAsyncPlaceholder: boolean;
+  ssrContext: Object | void;
+  fnContext: Component | void; // real context vm for functional nodes
+  fnOptions: ?ComponentOptions; // for SSR caching
+  devtoolsMeta: ?Object; // used to store functional render context for devtools
+  fnScopeId: ?string; // functional scope id support
+}
+```
+
+
 [回到顶部]: #大纲
 [前言]: #前言
 [diff算法是什么]: #diff算法是什么
