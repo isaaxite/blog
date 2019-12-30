@@ -17,7 +17,7 @@
 
 # 数据结构
 
-- [二叉树的javascript实现](https://github.com/isaaxite/blog/issues/238)
+- [二叉树的javascript实现](docs/data-structure/二叉树的javascript实现.md)
 - [二叉树遍历的javascript实现](https://github.com/isaaxite/blog/issues/236)
 - [图的javascript实现](https://github.com/isaaxite/blog/issues/231)
 - [我不知道的hash表](https://github.com/isaaxite/blog/issues/225)
