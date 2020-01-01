@@ -20,7 +20,7 @@
 - [二叉树的javascript实现](docs/data-structure/二叉树的javascript实现.md)
 - [二叉树遍历的javascript实现](docs/data-structure/二叉树遍历的javascript实现.md)
 - [图的javascript实现](docs/data-structure/图的javascript实现.md)
-- [我不知道的hash表](https://github.com/isaaxite/blog/issues/225)
+- [我不知道的hash表](docs/data-structure/我不知道的hash表.md)
 - [javascript: 快速排序（Quick Sort）](https://github.com/isaaxite/blog/issues/146)
 
 
