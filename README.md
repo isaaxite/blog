@@ -33,7 +33,7 @@
 - [例子详解正则表达式（二）](https://github.com/isaaxite/blog/issues/241)
 - [例子详解正则表达式（三）](https://github.com/isaaxite/blog/issues/239)
 - [javascript函数提升和变量的声明提前](docs/js-basic/javascript函数提升和变量的声明提前.md)
-- [javascript：作用域链浅析](https://github.com/isaaxite/blog/issues/232)
+- [浅析JavaScript作用域链](docs/js-basic/浅析JavaScript作用域链.md)
 - [Re: 从零开始的【comic spider】《最简单的实现》(上)](https://github.com/isaaxite/blog/issues/226)
 - [vue中async-await的使用误区](https://github.com/isaaxite/blog/issues/216)
 - [CORS(跨域资源共享)实现与session丢失解决方案详解](https://github.com/isaaxite/blog/issues/215)
