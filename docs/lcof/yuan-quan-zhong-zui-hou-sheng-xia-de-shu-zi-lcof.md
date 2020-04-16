@@ -75,3 +75,17 @@ function lastRemaining2(n, m) {
 }
 ```
 
+## 3.迭代优化约瑟夫问题
+
+避免使用递归栈空间
+
+```js
+function lastRemaining3(n, m) {
+  let res = 0
+  for (let i = 2; i <= n; i++) {
+    res = (res + m) % i;
+  }
+  return res;
+}
+```
+
