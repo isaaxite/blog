@@ -11,9 +11,10 @@
 - [filter的实现原理](docs/vue-analysis/filter的实现原理.md)
 - [多角度剖析计算属性的运行机制](docs/vue-analysis/多角度剖析计算属性的运行机制.md)
 
-# 随性而为的工具
+# TypeScript
 
-- [搭建一个简易vue-debugger](docs/tools/搭建一个简易vue-debugger.md)
+- [装饰器实现参数的校验](https://github.com/isaaxite/blog/issues/279)
+- [装饰器实现路由的自动挂载](https://github.com/isaaxite/blog/issues/278)
 
 # 数据结构
 
