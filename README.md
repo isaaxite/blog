@@ -10,6 +10,7 @@
 - [v-for的原理分析](docs/vue-analysis/v-for的原理分析.md)
 - [filter的实现原理](docs/vue-analysis/filter的实现原理.md)
 - [多角度剖析计算属性的运行机制](docs/vue-analysis/多角度剖析计算属性的运行机制.md)
+- [vue中的diff算法实现[writting..]](https://github.com/isaaxite/blog/blob/master/docs/vue-analysis/vue%E4%B8%AD%E7%9A%84diff%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%5Bwritting..%5D.md)
 
 # TypeScript
 
