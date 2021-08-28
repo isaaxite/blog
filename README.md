@@ -1,8 +1,9 @@
 <p align="center">
-  <img height="200" src="https://sdtimes.com/wp-content/uploads/2014/11/1126.sdt-github.png"/>
+  <img src="https://user-images.githubusercontent.com/25907273/131220100-46cc0d57-3d06-4d96-98b6-a96ea97f00fc.png"/>
 </p>
 
 # Vue源码学习
+
 
 - [nextTick的实现原理](docs/vue-analysis/nextTick实现原理.md)
 - [数组变异方法的实现原理](docs/vue-analysis/数组变异方法的实现原理.md)
