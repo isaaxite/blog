@@ -173,8 +173,121 @@ Web 应用很容易有效地使用授权码、客 户端凭据或者断言许可
 
 ## 原生应用
 
-原生应用是直接在最终用户的设备（计算机或者移动设备）上运行的应用。应用软件通常是在外部经过编译或者打包之后再安装到设备上的。 
+原生应用是直接在最终用户的设备（计算机或者移动设备）上运行的应用。应用软件通常是在外部经过编译或者打包之后再安装到设备上的。
 
+# 密钥
+
+客户端密钥属 于配置期间秘密，因为它代表客户端自身，是配置在客户端软件内部的。访问令牌、刷新令牌和 授权码都属于运行时秘密，因为它们都是在客户端软件被部署之后由客户端存储的。
+
+运行时秘密仍然需要安全存储并保护，但是它们被设计得容易撤销或更改。相反，配置期间秘密一般不会经 常改变。 
+
+不要求所有客户端都拥有客户端密钥，而是将客户 端分为两种类型：公开客户端和保密客户端，划分依据是能否持有配置期间秘密
+
+
+Web 应用是最常见的保密客户端类 型，它是运行在 Web 服务器上的单个实例，单个 OAuth客户端可以对应多个资源拥有者
+
+
+# OAuth令牌
+
+*授权服务器* 和 *受保护资源* 间共享数据库。存在两者不共享的场景！
+
+在授权服务器和受保护资源间共享数据库并不总是实际可行，特别是在一个授权服务器需要 保护下游的多个资源服务器的情况下。该如何解决这个问题呢？本章将讨论另外两种常见的方 案：结构化令牌和令牌内省
+
+![](asset/2022-10-08-13-31-55.png)
+
+
+## JWT的结构
+
+JWT的核心是将一个 JSON对象封 装为一种用于网络传输的格式
+
+> eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9. 
+
+句点符号将字符串分割成了两部分
+
+以句点符号将令牌字符串分解，让我们可以对令牌的 不同部分分别进行处理
+
+
+>eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0
+>
+>. 
+>
+>eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9
+>
+>.
+
+对第一部分解码：
+
+```js
+{
+  "typ": "JWT", 
+  "alg": "none"
+} 
+```
+
+这是 JWT的头部，它是一个 JSON对象，用于描述与令牌剩余部分有关的信息。其中的 typ 头告诉处理程序令牌的第二部分（载荷）是何种类型。
+
+第二部分是令牌的载荷，它的序列化方式与 JWT头部相同：对 JSON对象进行 Base64URL 编码。由于它是 JWT，因此其载荷可以是任意的 JSON对象
+
+![](asset/2022-10-08-14-54-58.png)
+
+
+```js
+var header = { 'typ': 'JWT', 'alg': 'none' }; 
+var payload = {
+  iss: 'http://localhost:9001/',   
+  sub: code.user ? code.user.sub : undefined,   
+  aud: 'http://localhost:9002/',   
+  iat: Math.floor(Date.now() / 1000),   
+  exp: Math.floor(Date.now() / 1000) + (5 * 60),   
+  jti: randomstring.generate(8)
+};
+var access_token = base64url.encode(JSON.stringify(header))
+  + '.'
+  + base64url.encode(JSON.stringify(payload))
+  + '.';
+```
+
+
+## 令牌的加密保护：JOSE 
+
+JSON对象的签名和加密标准（JOSE①）。这套规范以 JSON为基础数据模型，提供了 签名（JSON Web签名，或称 JWS）、加密（JSON Web加密，或称 JWE）以及密钥存储格式（JSON Web 密钥，或称 JWK）的标准
+
+
+### 使用HS256的对称签名
+
+```js
+var header = { 'typ': 'JWT', 'alg': 'HS256'}; 
+var access_token = jose.jws.JWS.sign(
+  header.alg,   
+  JSON.stringify(header),   
+  JSON.stringify(payload),   
+  new Buffer(sharedTokenSecret).toString('hex')); 
+
+// access_token
+// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwMDEv   
+// Iiwic3ViIjoiOVhFMy1KSTM0LTAwMTMyQSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTAwMi8   
+// iLCJpYXQiOjE0NjcyNTEwNzMsImV4cCI6MTQ2NzI1MTM3MywianRpIjoiaEZLUUpSNmUifQ.Wq  
+// RsY03pYwuJTx-9pDQXftkcj7YbRn95o-16NHrVugg
+```
+
+### 使用RS256的非对称签名
+
+使用共享密钥时，创建签名和验证签名的系统使用的是同一个密钥。这实际上意味着授权服务器和资源服务器都能够生成令牌，因为它们都拥有创建令牌所需的密钥。
+
+使用公钥 加密的话，授权服务器拥有公钥和私钥，可用于生成令牌，而受保护资源则只能访问授权服务器 的公钥，用于验证令牌。与使用共享密钥不同的是，受保护资源虽然能够很容易地验证令牌，但它无法自己生成有效的令牌。、
+
+*使用非对称加密签名的目的就为了将创建令牌的权限收归到授权服务器。受保护资源服务器只能使用公钥进行验证而不能创建令牌！*
+
+
+![](asset/2022-10-09-06-17-02.png)
+
+
+# 内省协议 
+
+OAuth令牌内省协议定义了一种机制，让受保护资源能够主动向授权服务器查询令牌状态。
+该协议是对 OAuth 的一个简单增强。授权服务器向客户端颁发令牌，客户端向受保护资源 出示令牌，受保护资源则向授权服务器查询令牌状
+
+![](asset/2022-10-09-07-08-23.png)
 
 # 附录
 
