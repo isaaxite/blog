@@ -289,6 +289,110 @@ OAuth令牌内省协议定义了一种机制，让受保护资源能够主动向
 
 ![](asset/2022-10-09-07-08-23.png)
 
+内省请求
+
+![](asset/2022-10-09-07-15-45.png)
+
+内省请求的响应是一个 JSON 对象，用于描述令牌信息。它的内容与 JWT 的载荷相似，任 何有效的 JWT声明都可以包含在响应中。 
+
+![](asset/2022-10-09-07-16-11.png)
+
+内省协议规范还在 JWT的基础上增加了几个声明定义，其中重要的是 active 声明。此 声明告诉受保护资源当前令牌在授权服务器上是否有效，且是唯一必须返回的声明。
+
+## 构建内省端点
+
+```js
+var protectedResources = [{
+  "resource_id": "protected-resource-1",        
+  "resource_secret": "protected-resource-secret-1"
+}];
+
+var getProtectedResource = function(resourceId) {
+  return __.find(protectedResources, function(protectedResource) {
+    return   protectedResource.resource_id == resourceId;
+  });
+};
+
+app.post('/introspect', function(req, res) { 
+  var auth = req.headers['authorization']; 
+  var resourceCredentials = decodeClientCredentials(auth); 
+  var resourceId = resourceCredentials.id; 
+  var resourceSecret = resourceCredentials.secret;
+
+  var resource = getProtectedResource(resourceId);
+  if (!resource) {   
+    res.status(401).end();   
+    return; 
+  } 
+
+  if (resource.resource_secret != resourceSecret) {   
+    res.status(401).end();   
+    return; 
+  }
+
+  var inToken = req.body.token; 
+  
+  nosql.one(function(token) {   
+    if (token.access_token == inToken) {        
+      return token;   
+    } 
+  }, function(err, token) {   
+    if (token) { 
+      var introspectionResponse = {              
+        active: true,              
+        iss: 'http://localhost:9001/',              
+        aud: 'http://localhost:9002/',              
+        sub: token.user ? token.user.sub : undefined,              
+        username: token.user ? token.user.preferred_username : undefined,
+        scope: token.scope ? token.scope.join(' ') : undefined,              
+        client_id: token.client_id       
+      }; 
+      res.status(200).json(introspectionResponse);       
+      return;   
+    } else {       
+      var introspectionResponse = {              
+        active: false       
+      };       
+      res.status(200).json(introspectionResponse);       
+      return;   
+    } 
+  });
+});
+```
+
+
+## 发起令牌内省请求 
+
+```js
+var protectedResource = {   
+  "resource_id": "protected-resource-1",   
+  "resource_secret": "protected-resource-secret-1"
+};
+var form_data = qs.stringify({   
+  token: inToken
+}); 
+var headers = {   
+  'Content-Type': 'application/x-www-form-urlencoded',   
+  'Authorization': 'Basic ' + encodeClientCredentials(
+    protectedResource.resource_id, protectedResource.resource_secret)
+}; 
+ 
+var tokRes = await request('POST', authServer.introspectionEndpoint, {   
+  body: form_data,   
+  headers: headers 
+});
+
+if (tokRes.statusCode >= 200 && tokRes.statusCode < 300) {   
+  var body = JSON.parse(tokRes.getBody()); 
+ 
+  console.log('Got introspection response', body);   
+  var active = body.active;   
+  if (active) {        
+    req.access_token = body;   
+  } 
+}
+```
+
 # 附录
 
 ## 参考
