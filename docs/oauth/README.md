@@ -99,6 +99,23 @@ OAuth 2.0完全没有规定访问令牌的内容应该是什么样的，它有�
 3. **资源拥有者凭据许可类型**，资源拥有者通过客户端使用账号密码换令牌
 4. **断言许可类型**,
 
+
+授权点接口（`/authorize`）
+
+| 参数名 | 类型 | 释义 |
+|:--|:--|:--|
+| response_type | emAuthRespType | 响应类型 |
+| scope | string | 需要申请的权限域 |
+| client_id | string | 客户端的唯一标识 |
+| redirect_uri | string | 客户端地址，需要授权完成后跳转的地址 |
+
+```js
+enum emAuthRespType {
+  CODE: 'code',
+  TOKEN: 'token'
+}
+```
+
 ## 隐式许可类型
 
 ```js
