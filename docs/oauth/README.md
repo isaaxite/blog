@@ -95,25 +95,69 @@ OAuth 2.0完全没有规定访问令牌的内容应该是什么样的，它有�
 # 授权许可类型
 
 1. **隐式许可类型**，直接从授权端点返回令牌，没有令牌端点；
-2. **客户端凭据许可类型**，没有明确的资源拥有。只使用后端信道。
+2. **客户端凭据许可类型**，没有明确的资源拥有者。只使用后端信道。
 3. **资源拥有者凭据许可类型**，资源拥有者通过客户端使用账号密码换令牌
 4. **断言许可类型**,
 
+隐式许可类型 的起点入口： 
 
-授权点接口（`/authorize`）
+授权点接口（`/authorize`）的url search参数
 
-| 参数名 | 类型 | 释义 |
-|:--|:--|:--|
-| response_type | emAuthRespType | 响应类型 |
-| scope | string | 需要申请的权限域 |
-| client_id | string | 客户端的唯一标识 |
-| redirect_uri | string | 客户端地址，需要授权完成后跳转的地址 |
+| 参数名 | 类型 | 释义 |  |
+|:--|:--|:--|:--|
+| response_type | emAuthRespType | 响应类型 | required |
+| scope | string | 需要申请的权限域 | optional |
+| client_id | string | 客户端的唯一标识 | required |
+| redirect_uri | string | 客户端地址，需要授权完成后跳转的地址 | required |
+| state | string | csrf-token | optional |
+
+回包结构
+
+```js
+// 隐式许可类型
+?access_token=987tghjkiu6trfghjuytrghj&token_type=Bearer
+```
 
 ```js
 enum emAuthRespType {
   CODE: 'code',
-  TOKEN: 'token'
+  TOKEN: 'token'  // 隐式许可类型 
 }
+```
+
+客户端凭据许可类型 与 资源拥有者凭据许可类型 的起点接口
+
+`/token`，该接口是上面用code换access_token
+
+| body参数 | 类型 | 释义 | - |
+|:--|:--|:--|:--|
+| grant_type | emGrantType | 获取token的方式 | required |
+| scope | string | csrf-token | optional |
+| username | string | 账户，资源拥有者凭据许可类型使用，账户是受保护资源的账户 | optional |
+| password | string | 密码，资源拥有者凭据许可类型使用，账户是受保护资源的账户 | optional |
+
+注意
+- 账号和密码是由用户交互输出的，交互的页面由客户端提供！
+
+
+| header参数 | 类型 | 释义 | - |
+|:--|:--|:--|:--|
+| Authorization | 'Basic <clent_id>+<clent_secret>' | *客户端凭证许可类型*和*资源拥有者凭据许可类型 *的使用，传递账号密码 | optional |
+
+```js
+enum emGrantType {
+  AUTHORIZATION_CODE: 'authorization_code',
+  CLIENT_CREDENTIALS: 'client_credentials',
+  PASSWORD: 'password'
+}
+```
+回报接口
+```js
+{
+  "access_token": "987tghjkiu6trfghjuytrghj",
+  "scope": "foo bar",
+  "token_type": "Bearer"
+} 
 ```
 
 ## 隐式许可类型
@@ -133,8 +177,24 @@ response_type 参数的值为 token，而不是 code。这样会通知授权服�
 
 ## 客户端凭据许可类型
 
+与前面不同，使用另外一个接口（`/token`）
+
+`/token`，该接口是上面用code换access_token
+
+| 参数 | 类型 | 释义 | - |
+|:--|:--|:--|:--|
+| grant_type | emGrantType | 获取token的方式 | required |
+
+
 ```js
-} else if (req.body.grant_type == 'client_credentials') { 
+enum emGrantType {
+  AUTHORIZATION_CODE: 'authorization_code',
+  CLIENT_CREDENTIALS: 'client_credentials',
+}
+```
+
+```js
+} else if (req.body.grant_type == emGrantType.CLIENT_CREDENTIALS) { 
 ```
 
 比如后端系统之间需要直接通信
