@@ -14,6 +14,7 @@ timezone: ''
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://isaaxite.github.io/
+root: public
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -104,4 +105,4 @@ theme: landscape
 deploy:
   type: git
   repository: git@github.com:isaaxite/isaaxite.github.io.git
-  branck: main
+  branch: main
