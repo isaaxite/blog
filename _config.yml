@@ -8,8 +8,7 @@ subtitle: ''
 description: ''
 keywords:
 author: Isaac Kam
-language: en
-timezone: ''
+timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -99,7 +98,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: next
-scheme: Pisces
+language: zh-Hans
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
