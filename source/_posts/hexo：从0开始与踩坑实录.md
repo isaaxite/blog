@@ -5,7 +5,7 @@ categories:
 - hexo
 tags:
 - hexo
-description: 记录入坑hexo的过程中遇到的问题与最终解决
+# description: 记录入坑hexo的过程中遇到的问题与最终解决
 ---
 
 
@@ -13,22 +13,17 @@ description: 记录入坑hexo的过程中遇到的问题与最终解决
 
 官文档说的布局概念
 
-> Hexo 有三种默认布局：post、page 和 draft。在创建这三种不同类型的文件时，它们将会被保存到不同的路径；而您自定义的其他布局和 post 相同，都将储存到 source/_posts 文件夹。
->
-> 布局	路径
-> post	source/_posts
-> page	source
-> draft	source/_drafts
-
+> ![](Snipaste_2023-02-14_21-58-08.png)
 
 **布局概念含糊不清！**
 
+<!-- more -->
 
 # 为什么主页将所有文章以详情的形式全列出来了？
 
-猜测原因是：文章没有添加 `description` 属性。形如
+文章没有添加 `description` 属性。形如
 
-```
+```yml
 ---
 title: hexo：从0开始与踩坑实录
 date: 2021-03-16 14:46:49
@@ -42,10 +37,44 @@ description: 记录入坑hexo的过程中遇到的问题与最终解决
 
 只有添加 `description`并且字段值不为空（可以使用空格占位），才会以概览模式在主页列出所有文章！
 
+## 参考
+
+- [hexo小技巧-首页显示文章摘要及图片](https://ryderchan.github.io/2017/01/26/hexo%E5%B0%8F%E6%8A%80%E5%B7%A7-%E9%A6%96%E9%A1%B5%E6%98%BE%E7%A4%BA%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%E5%8F%8A%E5%9B%BE%E7%89%87/)
+
+
 
 # 文章中的图片的保存位置以及使用方式
 
-TODO
+
+## post_asset_folder
+
+开启 `post_asset_folder`，将生成文章同名目录。可以使用路径访问此目录下的资源！
+
+```yml
+# _config.yml
+post_asset_folder: true
+```
+
+## 使用Markdown语法
+
+
+```yml
+# _config.yml
+post_asset_folder: true
+marked:
+  prependRoot: true
+  postAsset: true
+```
+
+启用后，资源图片将会被自动解析为其对应文章的路径。
+例如： image.jpg 位置为 `/2020/01/02/foo/image.jpg` ，这表示它是 `/2020/01/02/foo/` 文章的一张资源图片， `![](image.jpg)` 将会被解析为 `<img src="/2020/01/02/foo/image.jpg"> `。
+
+## 参考
+
+- hexo博客中如何插入图片: https://cloud.tencent.com/developer/article/1736563
+- 资源文件夹: https://hexo.io/zh-cn/docs/asset-folders
+
+
 
 # Next如何添加分类页与标签页？
 
@@ -105,7 +134,7 @@ type: "categories"
 文章添加标签后，再编译就会生成对应的标签文件！
 
 
-```
+```yml
 ---
 title: 面试题62. 圆圈中最后剩下的数字
 date: 2020-04-17 02:13:49
@@ -121,7 +150,7 @@ description: ' '
 
 编译后继承生成分类、标签目录，见下：
 
-```
+```shell
 categories
 ├── hexo
 |  └── index.html
@@ -133,6 +162,7 @@ categories
 
 # 参考
 
+- [NexT官方文档](https://theme-next.js.org/)
 - [初步了解Hexo站点的布局](https://www.jianshu.com/p/5a1e6d8c83af)
 - [hexo布局架构及功能分析](https://ben286.github.io/2018/08/21/%E5%85%B6%E4%BB%96/hexo%E5%B8%83%E5%B1%80%E6%9E%B6%E6%9E%84%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%88%86%E6%9E%90/)
 - [Hexo使用攻略-添加分类及标签](https://linlif.github.io/2017/05/27/Hexo%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5-%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E6%A0%87%E7%AD%BE/)

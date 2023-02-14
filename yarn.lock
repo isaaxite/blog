@@ -677,6 +677,14 @@
   dependencies:
     "hexo-pagination" "3.0.0"
 
+"hexo-generator-feed@^3.0.0":
+  "integrity" "sha512-Jo35VSRSNeMitS2JmjCq3OHAXXYU4+JIODujHtubdG/NRj2++b3Tgyz9pwTmROx6Yxr2php/hC8og5AGZHh8UQ=="
+  "resolved" "https://mirrors.tencent.com/npm/hexo-generator-feed/-/hexo-generator-feed-3.0.0.tgz"
+  "version" "3.0.0"
+  dependencies:
+    "hexo-util" "^2.1.0"
+    "nunjucks" "^3.0.0"
+
 "hexo-generator-index@^3.0.0":
   "integrity" "sha512-83AuNN4cWdLVi//3ugR8E3kR6rrOwhXZt+hOCm1IjtIGj353/GlrtpMHpqZHU5kqipzj4miy9dweVdukXglVWw=="
   "resolved" "https://mirrors.tencent.com/npm/hexo-generator-index/-/hexo-generator-index-3.0.0.tgz"
@@ -769,12 +777,7 @@
   "resolved" "https://mirrors.tencent.com/npm/hexo-theme-landscape/-/hexo-theme-landscape-0.0.3.tgz"
   "version" "0.0.3"
 
-"hexo-theme-next@^8.14.2":
-  "integrity" "sha512-XF0xocZmXNTqqPZJuBkwfDFyR51kDFWFxdp9xNN1voUduGROYrTTHaM0IFklhdK0cAjIX0EG+FndtU/5SHZkMg=="
-  "resolved" "https://mirrors.tencent.com/npm/hexo-theme-next/-/hexo-theme-next-8.14.2.tgz"
-  "version" "8.14.2"
-
-"hexo-util@^2.0.0", "hexo-util@^2.7.0":
+"hexo-util@^2.0.0", "hexo-util@^2.1.0", "hexo-util@^2.7.0":
   "integrity" "sha512-hQM3h34nhDg0bSe/Tg1lnpODvNkz7h2u0+lZGzlKL0Oufp+5KCAEUX9wal7/xC7ax3/cwEn8IuoU75kNpZLpJQ=="
   "resolved" "https://mirrors.tencent.com/npm/hexo-util/-/hexo-util-2.7.0.tgz"
   "version" "2.7.0"
@@ -1201,7 +1204,7 @@
   "resolved" "https://mirrors.tencent.com/npm/normalize-path/-/normalize-path-3.0.0.tgz"
   "version" "3.0.0"
 
-"nunjucks@^3.2.3":
+"nunjucks@^3.0.0", "nunjucks@^3.2.3":
   "integrity" "sha512-psb6xjLj47+fE76JdZwskvwG4MYsQKXUtMsPh6U0YMvmyjRtKRFcxnlXGWglNybtNTNVmGdp94K62/+NjF5FDQ=="
   "resolved" "https://mirrors.tencent.com/npm/nunjucks/-/nunjucks-3.2.3.tgz"
   "version" "3.2.3"
