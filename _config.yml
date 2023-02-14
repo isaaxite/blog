@@ -107,8 +107,8 @@ language: zh-Hans
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repository: git@github.com:isaaxite/isaaxite.github.io.git
-  branch: main
+  repository: https://github.com/isaaxite/blog
+  branch: master
 
 feed:
   enable: true
