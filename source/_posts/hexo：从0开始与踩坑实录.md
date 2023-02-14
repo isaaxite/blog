@@ -5,9 +5,22 @@ categories:
 - hexo
 tags:
 - hexo
-# description: 记录入坑hexo的过程中遇到的问题与最终解决
+description: " "
 ---
 
+# 下载插件
+
+## curl下载github zip链接
+
+```
+curl -LJO https://github.com/theme-next/theme-next-fancybox3 
+```
+
+## unzip
+
+```
+unzip theme-next-fancybox3-master.zip
+```
 
 # page布局有什么用？
 
@@ -16,8 +29,6 @@ tags:
 > ![](Snipaste_2023-02-14_21-58-08.png)
 
 **布局概念含糊不清！**
-
-<!-- more -->
 
 # 为什么主页将所有文章以详情的形式全列出来了？
 
@@ -159,6 +170,18 @@ categories
    └── index.html
 ```
 
+
+-------------
+
+
+# 预览图片
+
+## 打开
+
+```yml
+# NexT _config.yml
+fancybox: true
+```
 
 # 参考
 
