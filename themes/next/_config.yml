@@ -636,7 +636,7 @@ livere_uid: # <your_uid>
 gitalk:
   enable: true
   github_id: isaaxite # GitHub repo owner
-  repo: https://github.com/isaaxite/blog # Repository name to store issues
+  repo: blog # Repository name to store issues
   client_id: 3d095a550ce98b7fe548 # GitHub Application Client ID
   client_secret: 1e2461b8e09a0adde99e9ffeba0a959ab5244634 # GitHub Application Client Secret
   admin_user: isaaxite # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
