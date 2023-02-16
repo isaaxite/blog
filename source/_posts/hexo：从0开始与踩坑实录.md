@@ -198,7 +198,7 @@ fancybox: true
 ```
 
 
-### 下载 fancybox 插件资源
+### 方式2：下载 fancybox 插件资源
 
 将 fancybox 包下载到 cd next/source/lib，并将资源解压（假如需要）后命名为 fancybox 即可！
 
