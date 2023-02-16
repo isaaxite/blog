@@ -176,12 +176,33 @@ categories
 
 # 预览图片
 
-## 打开
+## 打开 fancybox 开关
 
 ```yml
 # NexT _config.yml
 fancybox: true
 ```
+
+## 加载资源
+
+### 方式1：CDN
+
+打开 NexT 配置文件FancyBox资源配置的注释即可！
+
+```yml
+# NexT _config.yml
+# FancyBox
+# jquery: //cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js
+# fancybox: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js
+# fancybox_css: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css
+```
+
+
+### 下载 fancybox 插件资源
+
+将 fancybox 包下载到 cd next/source/lib，并将资源解压（假如需要）后命名为 fancybox 即可！
+
+fancybox包：https://github.com/theme-next/theme-next-fancybox3
 
 # 参考
 
