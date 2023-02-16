@@ -204,6 +204,49 @@ fancybox: true
 
 fancybox包：https://github.com/theme-next/theme-next-fancybox3
 
+
+# 评论插件(gittalk)
+
+仓库：https://github.com/gitalk/gitalk
+
+NexT已经内置，只需要修改NexT配置文件！
+
+```yml
+# Gitalk
+# For more information: https://gitalk.github.io, https://github.com/gitalk/gitalk
+gitalk:
+  enable: true
+  github_id:  # GitHub repo owner
+  repo:  # Repository name to store issues
+  client_id:  # GitHub Application Client ID
+  client_secret:  # GitHub Application Client Secret
+  admin_user:  # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
+  distraction_free_mode: false # Facebook-like distraction free mode
+  # Gitalk's display language depends on user's browser or system environment
+  # If you want everyone visiting your site to see a uniform language, you can set a force language value
+  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW
+  language: zh-CN
+```
+
+上面配置 client_id 和 client_secret 需要在github注册 OAuth App: 
+
+https://github.com/settings/applications/new
+
+![](Snipaste_2023-02-16_13-28-44.png)
+
+```yml
+Application name： # 应用名称，随意填写即可
+Homepage URL： # 你的网站地址，如https://yourname.github.io
+Application description # 描述，随意填写即可
+Authorization callback URL：# 你的网站地址，如https://yourname.github.io
+```
+
+## 参考
+
+- [hexo博客 NexT 7.7.0以后版本 gitalk配置](https://chenfeng2000.github.io/2020/01/30/NexT-7-7-0%E4%BB%A5%E5%90%8E%E7%89%88%E6%9C%AC-gitalk%E9%85%8D%E7%BD%AE/)
+- [Hexo 博客增加Valine/Gitalk评论插件](https://blog.mmzi.online/2021/07/10/Hexo-%E5%8D%9A%E5%AE%A2%E5%A2%9E%E5%8A%A0Valine%E5%92%8CGitalk%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/)
+- [github:gitalk/gitalk](https://github.com/gitalk/gitalk)
+
 # 参考
 
 - [NexT官方文档](https://theme-next.js.org/)
