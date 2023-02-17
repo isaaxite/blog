@@ -1,23 +1,23 @@
 .posts-expand .post-header {
   font-size: $font-size-large;
+  margin-bottom: 60px;
+  text-align: center;
 }
 
 .posts-expand .post-title {
   font-size: $font-size-largest;
   font-weight: normal;
   margin: initial;
-  text-align: center;
   word-wrap();
 
   if (hexo-config('post_edit.enable')) {
     .post-edit-link {
-      border-bottom: none;
+      border-bottom: 0;
       color: $grey;
-      display: inline-block;
       float: right;
       font-size: $font-size-larger;
       margin-left: -1.2em;
-      the-transition-ease-in();
+      transition: color $transition-ease-in;
 
       +mobile-small() {
         margin-left: initial;
@@ -31,28 +31,26 @@
 }
 
 .posts-expand .post-title-link {
-  border-bottom: none;
+  border-bottom: 0;
   color: var(--link-color);
   display: inline-block;
   position: relative;
-  vertical-align: top;
 
   &::before {
     background: var(--link-color);
     bottom: 0;
     content: '';
     height: 2px;
+    // Fix issue #75
     left: 0;
     position: absolute;
     transform: scaleX(0);
-    visibility: hidden;
+    transition: transform $transition-ease;
     width: 100%;
-    the-transition();
   }
 
   &:hover::before {
     transform: scaleX(1);
-    visibility: visible;
   }
 
   .fa-external-link-alt {
@@ -61,12 +59,18 @@
   }
 }
 
-.posts-expand .post-meta {
+.post-sticky-flag {
+  display: inline-block;
+  // Fix issue #80 #140
+  margin-right: 8px;
+  transform: rotate(30deg);
+}
+
+.posts-expand .post-meta-container {
   color: $grey-dark;
   font-family: $font-family-posts;
   font-size: $font-size-smallest;
-  margin: 3px 0 60px 0;
-  text-align: center;
+  margin-top: 3px;
 
   .post-description {
     font-size: $font-size-small;
@@ -75,33 +79,42 @@
 
   time {
     border-bottom: 1px dashed $grey-dark;
-    cursor: pointer;
   }
 }
 
-.post-meta .post-meta-item + .post-meta-item::before {
-  content: '|';
-  margin: 0 .5em;
+// Flexbox layout makes it possible to reorder the child
+// elements of .post-meta through the `order` CSS property
+.post-meta {
+  flex-wrap();
 }
 
-.post-meta-divider {
+// .post-meta-item exists in .post-meta and footer
+:not(.post-meta-break) + .post-meta-item::before {
+  content: '|';
   margin: 0 .5em;
 }
 
 .post-meta-item-icon {
   margin-right: 3px;
-
-  +tablet-mobile() {
-    display: inline-block;
-  }
 }
 
 .post-meta-item-text {
-  if (!hexo-config('post_meta.item_text')) {
+  if (not hexo-config('post_meta.item_text')) {
     display: none;
   }
 
   +tablet-mobile() {
+    display: none;
+  }
+}
+
+.post-meta-break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+if (hexo-config('busuanzi_count.enable') and hexo-config('busuanzi_count.post_views')) {
+  #busuanzi_container_page_pv {
     display: none;
   }
 }

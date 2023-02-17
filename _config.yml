@@ -12,7 +12,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://isaaxite.github.io/
+url: https://isaaxite.github.io/blog/
 root: /blog/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -101,7 +101,6 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: next
-language: zh-Hans
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -123,3 +122,5 @@ feed:
   icon: icon.png
   autodiscovery: true
   template:
+
+language: en

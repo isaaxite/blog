@@ -1,8 +1,8 @@
 // Menu
 // --------------------------------------------------
 .menu {
-  margin-top: 20px;
-  padding-left: 0;
+  margin: 0;
+  padding: 1em 0;
   text-align: center;
 }
 
@@ -20,18 +20,14 @@
     }
   }
 
-  a, span.exturl {
+  a {
     border-bottom: 0;
     display: block;
     font-size: $font-size-smaller;
-    transition-property: border-color;
-    the-transition();
+    transition: border-color $transition-ease;
 
-    // To prevent hover on external links with touch devices after click.
-    @media (hover: none) {
-      &:hover {
-        border-bottom-color: transparent !important;
-      }
+    &:hover, &.menu-item-active {
+      background: var(--menu-item-bg-color);
     }
   }
 
@@ -55,10 +51,8 @@
   }
 }
 
-.menu-item-active a {
-  background: var(--menu-item-bg-color);
-}
-
-.use-motion .menu-item {
-  opacity: 0;
+if (hexo-config('motion.transition.menu_item')) {
+  .use-motion .menu-item {
+    visibility: hidden;
+  }
 }

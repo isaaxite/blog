@@ -20,6 +20,7 @@ menu:
 sidebar:
   overview: Overview
   toc: Table of Contents
+  links: Links
 
 post:
   posted: Posted on
@@ -36,6 +37,8 @@ post:
   copyright:
     author: Post author
     link: Post link
+    post_author: Written by
+    post_link: This article originally appeared on
     license_title: Copyright Notice
     license_content: "All articles in this blog are licensed under %s unless stating additionally."
 
@@ -43,6 +46,10 @@ footer:
   powered: "Powered by %s"
   total_views: Total Views
   total_visitors: Total Visitors
+
+widget:
+  github: Follow me on GitHub
+  chat: Chat
 
 counter:
   tag_cloud:
@@ -67,6 +74,9 @@ state:
 
 search:
   placeholder: Searching...
+  empty: "We didn't find any results for the search: %s"
+  hits_time: "%s results found in %s ms"
+  hits: "%s results found"
 
 cheers:
   um: Um..
@@ -89,6 +99,7 @@ reward:
   alipay: Alipay
   paypal: PayPal
   bitcoin: Bitcoin
+  comment: Buy me a coffee
 
 follow_me:
   welcome: Welcome to my other publishing channels
@@ -97,10 +108,12 @@ accessibility:
   nav_toggle: Toggle navigation bar
   prev_page: Previous page
   next_page: Next page
+  back_to_top: Back to top
+  select_lang: Select language
 
 symbols_count_time:
-  count: Symbols count in article
-  count_total: Symbols count total
+  count: Word count in article
+  count_total: Word count total
   time: Reading time
   time_total: Reading time total
   time_minutes: mins.

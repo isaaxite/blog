@@ -18,6 +18,7 @@ menu:
 sidebar:
   overview: Огляд
   toc: Зміст
+  links: Links
 post:
   posted: Опубліковано
   edited: Змінено
@@ -33,12 +34,17 @@ post:
   copyright:
     author: Автор запису
     link: Посилання на запис
+    post_author: Written by
+    post_link: This article originally appeared on
     license_title: Інформація про авторські права
     license_content: "Всі записи на цьому сайті захищені ліцензією %s, якщо не вказано додатково."
 footer:
   powered: "Генератор — %s"
   total_views: Всього переглядів
   total_visitors: Всього відвідувачів
+widget:
+  github: Follow me on GitHub
+  chat: Chat
 counter:
   tag_cloud:
     zero: Немає тегів.
@@ -58,6 +64,9 @@ state:
   categories: Категорії
 search:
   placeholder: Пошук...
+  empty: "We didn't find any results for the search: %s"
+  hits_time: "%s results found in %s ms"
+  hits: "%s results found"
 cheers:
   um: Ем..
   ok: ОК
@@ -76,12 +85,15 @@ reward:
   alipay: Alipay
   paypal: PayPal
   bitcoin: Bitcoin
+  comment: Buy me a coffee
 follow_me:
   welcome: Мої інші видавничі канали
 accessibility:
   nav_toggle: Показати/приховати меню
   prev_page: Попередня сторінка
   next_page: Наступна сторінка
+  back_to_top: Back to top
+  select_lang: Select language
 symbols_count_time:
   count: К-сть символів в статті
   count_total: Загальна к-сть символів

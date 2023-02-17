@@ -1,13 +1,9 @@
 /**
- * video.js | https://theme-next.org/docs/tag-plugins/video
+ * video.js | https://theme-next.js.org/docs/tag-plugins/
  */
-
-/* global hexo */
 
 'use strict';
 
-function postVideo(args) {
-  return `<video src="${args}" preload="metadata" controls playsinline poster="">Sorry, your browser does not support the video tag.</video>`;
-}
-
-hexo.extend.tag.register('video', postVideo, {ends: false});
+module.exports = function(args) {
+  return `<video src="${args[0]}" preload="metadata" controlslist="nodownload" controls playsinline poster="${args[1] || ''}"></video>`;
+};

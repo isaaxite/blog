@@ -1,16 +1,25 @@
 /**
- * note.js | https://theme-next.org/docs/tag-plugins/note
+ * note.js | https://theme-next.js.org/docs/tag-plugins/note
  */
-
-/* global hexo */
 
 'use strict';
 
-function postNote(args, content) {
-  return `<div class="note ${args.join(' ')}">
-            ${hexo.render.renderSync({text: content, engine: 'markdown'}).split('\n').join('')}
-          </div>`;
-}
+module.exports = ctx => function(args, content) {
+  const keywords = ['default', 'primary', 'info', 'success', 'warning', 'danger', 'no-icon'];
+  const className = [];
+  for (let i = 0; i < 2; i++) {
+    if (keywords.includes(args[0])) {
+      className.push(args.shift());
+    } else {
+      break;
+    }
+  }
 
-hexo.extend.tag.register('note', postNote, {ends: true});
-hexo.extend.tag.register('subnote', postNote, {ends: true});
+  content = ctx.render.renderSync({ text: content, engine: 'markdown' });
+  if (args.length === 0) {
+    return `<div class="note ${className.join(' ')}">${content}</div>`;
+  }
+  return `<details class="note ${className.join(' ')}"><summary>${ctx.render.renderSync({ text: args.join(' '), engine: 'markdown' })}</summary>
+${content}
+</details>`;
+};

@@ -18,6 +18,7 @@ menu:
 sidebar:
   overview: 本站概覽
   toc: 文章目錄
+  links: Links
 post:
   posted: 發表於
   edited: 更新於
@@ -33,12 +34,17 @@ post:
   copyright:
     author: 博主
     link: 文章連結
+    post_author: 已寫入
+    post_link: 文章最初發表於
     license_title: 版權聲明
     license_content: "本網誌所有文章除特別聲明外，均採用 %s 許可協議。轉載請註明出處！"
 footer:
   powered: "由 %s 強力驅動"
   total_views: 總瀏覽次數
   total_visitors: 訪客總數
+widget:
+  github: Follow me on GitHub
+  chat: Chat
 counter:
   tag_cloud:
     zero: 暫無標籤
@@ -58,6 +64,9 @@ state:
   categories: 分類
 search:
   placeholder: 搜索...
+  empty: "我們無法找到任何有關 %s 的搜索結果"
+  hits_time: "%s 結果在 %s 毫秒找到"
+  hits: "找到 %s 個結果"
 cheers:
   um: 嗯..
   ok: 還行
@@ -71,17 +80,20 @@ symbol:
   period: "。"
   colon: "："
 reward:
-  donate: 打賞
+  donate: 讚賞
   wechatpay: 微信支付
   alipay: 支付寶
-  paypal: PayPal
+  paypal: 貝寶
   bitcoin: 比特幣
+  comment: Buy me a coffee
 follow_me:
   welcome: 歡迎關注我的其它發布渠道
 accessibility:
   nav_toggle: 切換導航欄
   prev_page: 上一頁
   next_page: 下一頁
+  back_to_top: 回到頂部
+  select_lang: 選擇語言
 symbols_count_time:
   count: 本文字數
   count_total: 站點總字數

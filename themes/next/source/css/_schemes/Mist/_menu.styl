@@ -4,12 +4,18 @@
   flex-grow: 1;
 
   +mobile() {
-    padding: 10px 10px 0;
+    padding: 0 10px 0;
+  }
+}
+
+.main-menu {
+  +mobile() {
+    padding-top: 10px;
   }
 }
 
 .menu {
-  margin: 0;
+  padding: 0;
 
   .menu-item {
     margin: 0;
@@ -18,17 +24,13 @@
       margin-top: 5px;
     }
 
-    a, span.exturl {
+    a {
       border-radius: 2px;
       padding: 0 10px;
       transition-property: background;
 
       +mobile() {
         text-align: left;
-      }
-
-      &:hover {
-        @extend .menu-item-active a;
       }
     }
 

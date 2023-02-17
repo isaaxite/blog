@@ -10,7 +10,7 @@ menu:
   archives: 아카이브
   categories: 카테고리
   tags: 태그
-  about: About
+  about: 정보
   search: 검색
   schedule: Schedule
   sitemap: Sitemap
@@ -18,6 +18,7 @@ menu:
 sidebar:
   overview: 흝어보기
   toc: 목차
+  links: Links
 post:
   posted: 작성일
   edited: Edited on
@@ -31,14 +32,19 @@ post:
   views: Views
   related_posts: Related Posts
   copyright:
-    author: Post author
+    author: 포스트 작성자
     link: Post link
+    post_author: Written by
+    post_link: This article originally appeared on
     license_title: Copyright Notice
     license_content: "All articles in this blog are licensed under %s unless stating additionally."
 footer:
   powered: "Powered by %s"
   total_views: Total Views
   total_visitors: Total Visitors
+widget:
+  github: Follow me on GitHub
+  chat: Chat
 counter:
   tag_cloud:
     zero: 태그 없음
@@ -58,9 +64,12 @@ state:
   categories: 카테고리
 search:
   placeholder: Searching...
+  empty: "We didn't find any results for the search: %s"
+  hits_time: "%s results found in %s ms"
+  hits: "%s results found"
 cheers:
   um: 음..
-  ok: OK
+  ok: 동의해요
   nice: 잘했어요
   good: 좋아요
   great: 훌륭해요
@@ -71,17 +80,20 @@ symbol:
   period: ". "
   colon: ": "
 reward:
-  donate: Donate
+  donate: 도네이션
   wechatpay: WeChat Pay
   alipay: Alipay
   paypal: PayPal
-  bitcoin: Bitcoin
+  bitcoin: 비트코인
+  comment: Buy me a coffee
 follow_me:
   welcome: Welcome to my other publishing channels
 accessibility:
   nav_toggle: Toggle navigation bar
   prev_page: 이전 페이지
   next_page: 다음 페이지
+  back_to_top: Back to top
+  select_lang: Select language
 symbols_count_time:
   count: Symbols count in article
   count_total: Symbols count total

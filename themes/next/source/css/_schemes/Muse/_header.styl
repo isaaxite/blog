@@ -1,25 +1,18 @@
-.custom-logo {
-  .site-meta-headline {
-    text-align: center;
-  }
-
-  .site-title {
-    color: $black-deep;
-    margin: 10px auto 0;
-
-    a {
-      border: 0;
-    }
-  }
-}
-
 .custom-logo-image {
   background: white;
-  margin: 0 auto;
+  margin: 0 auto 10px;
   max-width: 150px;
   padding: 5px;
 }
 
 .brand {
   background: var(--btn-default-bg);
+}
+
+.header {
+  padding-top: 100px;
+
+  +mobile() {
+    padding-top: 50px;
+  }
 }

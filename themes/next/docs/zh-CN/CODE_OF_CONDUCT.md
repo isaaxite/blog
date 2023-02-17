@@ -5,11 +5,13 @@
   <a title="俄语" href="../ru/CODE_OF_CONDUCT.md">:ru:</a>
 </div>
 
-# <div align="center"><a title="Go to homepage" href="https://theme-next.org"><img align="center" width="56" height="56" src="https://raw.githubusercontent.com/theme-next/hexo-theme-next/master/source/images/logo.svg?sanitize=true"></a> e x T</div>
+<a title="NexT website" href="https://theme-next.js.org"><img align="right" alt="NexT logo" width="100" height="100" src="https://raw.githubusercontent.com/next-theme/hexo-theme-next/master/source/images/logo.svg"></a>
 
-[NexT](https://theme-next.org) 是一个优雅而强大的 [Hexo](https://hexo.io/)主题。在这里，您可以构建一个托管在 [GitHub Pages](https://pages.github.com/) 上的静态博客，分享您的生活，并与新朋友进行交流。
+# NexT
 
-参与者公约用来约束在 [NexT](https://github.com/theme-next/hexo-theme-next) 社区中代码更新、问题交流、请求合并等行为。我们期望所有用户相互尊重，礼貌待人。任何违反这些规则的人都将不会被审核，并会在发现后立即被阻止和驱逐。
+[NexT](https://theme-next.js.org) 是一个优雅而强大的 [Hexo](https://hexo.io/)主题。在这里，您可以构建一个托管在 [GitHub Pages](https://pages.github.com/) 上的静态博客，分享您的生活，并与新朋友进行交流。
+
+参与者公约用来约束在 [NexT](https://github.com/next-theme/hexo-theme-next) 社区中代码更新、问题交流、请求合并等行为。我们期望所有用户相互尊重，礼貌待人。任何违反这些规则的人都将不会被审核，并会在发现后立即被阻止和驱逐。
 
 ## 目录
 
@@ -80,15 +82,13 @@
 
 ## 联系项目维护者
 
-您可以通过以下任何方法与维护人员联系
+您可以通过以下方式与维护人员联系：
 
-* 电子邮件:
-    * [support@theme-next.org](mailto:support@theme-next.org)
+* 讨论:
+    * [GitHub Discussions](https://github.com/next-theme/hexo-theme-next/discussions)
 
 * 即时通信:
-    * [Gitter](https://gitter.im/theme-next)
-    * [Riot](https://riot.im/app/#/room/#NexT:matrix.org)
-    * [Telegram](https://t.me/joinchat/GUNHXA-vZkgSMuimL1VmMw)
+    * [Gitter](https://gitter.im/hexo-next)
 
 ## 来源
 

@@ -3,67 +3,98 @@
 'use strict';
 
 const crypto = require('crypto');
+const { parse } = require('url');
+const nextFont = require('./font');
+const nextUrl = require('./next-url');
+const { getVendors } = require('../events/lib/utils');
+
+hexo.extend.helper.register('next_font', nextFont);
+hexo.extend.helper.register('next_url', nextUrl);
 
 hexo.extend.helper.register('next_inject', function(point) {
-  return hexo.theme.config.injects[point]
+  return this.theme.injects[point]
     .map(item => this.partial(item.layout, item.locals, item.options))
     .join('');
 });
 
-hexo.extend.helper.register('next_js', function(...urls) {
-  const { js } = hexo.theme.config;
-  return urls.map(url => this.js(`${js}/${url}`)).join('');
+hexo.extend.helper.register('next_js', function(file, {
+  pjax = false,
+  module = false
+} = {}) {
+  const { next_version } = this;
+  const { internal, custom_cdn_url } = this.theme.vendors;
+  const links = getVendors({
+    name    : 'hexo-theme-next',
+    version : next_version,
+    file    : 'source/js/' + file,
+    minified: 'source/js/' + file.replace(/\.js$/, '.min.js'),
+    local   : this.url_for(`${this.theme.js}/${file}`),
+    custom  : custom_cdn_url
+  });
+  const src = links[internal] || links.local;
+  return `<script ${pjax ? 'data-pjax ' : ''}${module ? 'type="module" ' : ''}src="${src}"></script>`;
 });
 
-hexo.extend.helper.register('next_vendors', function(url) {
-  if (url.startsWith('//')) return url;
-  const internal = hexo.theme.config.vendors._internal;
-  return this.url_for(`${internal}/${url}`);
+hexo.extend.helper.register('next_vendors', function(name) {
+  const { url, integrity } = this.theme.vendors[name];
+  const type = url.endsWith('css') ? 'css' : 'js';
+  if (type === 'css') {
+    if (integrity) return `<link rel="stylesheet" href="${url}" integrity="${integrity}" crossorigin="anonymous">`;
+    return `<link rel="stylesheet" href="${url}">`;
+  }
+  if (integrity) return `<script src="${url}" integrity="${integrity}" crossorigin="anonymous"></script>`;
+  return `<script src="${url}"></script>`;
+});
+
+hexo.extend.helper.register('next_data', function(name, ...data) {
+  const json = data.length === 1 ? data[0] : Object.assign({}, ...data);
+  return `<script class="next-config" data-name="${name}" type="application/json">${
+    JSON.stringify(json).replace(/</g, '\\u003c')
+  }</script>`;
+});
+
+hexo.extend.helper.register('next_pre', function() {
+  if (!this.theme.preconnect) return '';
+  const { enable, host } = this.theme.font;
+  const { internal, plugins, custom_cdn_url } = this.theme.vendors;
+  const links = {
+    local   : this.theme.js && parse(this.theme.js).hostname ? parse(this.theme.js).protocol + '//' + parse(this.theme.js).hostname : '',
+    jsdelivr: 'https://cdn.jsdelivr.net',
+    unpkg   : 'https://unpkg.com',
+    cdnjs   : 'https://cdnjs.cloudflare.com',
+    custom  : custom_cdn_url && parse(custom_cdn_url).hostname ? parse(custom_cdn_url).protocol + '//' + parse(custom_cdn_url).hostname : ''
+  };
+  const h = enable ? host || 'https://fonts.googleapis.com' : '';
+  const i = links[internal];
+  const p = links[plugins];
+  return [...new Set([h, i, p].filter(origin => origin))].map(
+    origin => `<link rel="preconnect" href="${origin}" crossorigin>`
+  ).join('\n');
+});
+
+hexo.extend.helper.register('post_gallery', function(photos) {
+  if (!photos || !photos.length) return '';
+  const content = photos.map(photo => `
+    <div class="post-gallery-image">
+      <img src="${this.url_for(photo)}" itemprop="contentUrl">
+    </div>`).join('');
+  return `<div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+    ${content}
+    </div>`;
 });
 
 hexo.extend.helper.register('post_edit', function(src) {
-  const theme = hexo.theme.config;
-  if (!theme.post_edit.enable) return '';
-  return this.next_url(theme.post_edit.url + src, '<i class="fa fa-pencil-alt"></i>', {
+  const { post_edit } = this.theme;
+  if (!post_edit.enable) return '';
+  return this.next_url(post_edit.url + src, '<i class="fa fa-pen-nib"></i>', {
     class: 'post-edit-link',
     title: this.__('post.edit')
   });
 });
 
-hexo.extend.helper.register('post_nav', function(post) {
-  const theme = hexo.theme.config;
-  if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
-  const prev = theme.post_navigation === 'right' ? post.prev : post.next;
-  const next = theme.post_navigation === 'right' ? post.next : post.prev;
-  const left = prev ? `
-    <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
-      <i class="fa fa-chevron-left"></i> ${prev.title}
-    </a>` : '';
-  const right = next ? `
-    <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
-      ${next.title} <i class="fa fa-chevron-right"></i>
-    </a>` : '';
-  return `
-    <div class="post-nav">
-      <div class="post-nav-item">${left}</div>
-      <div class="post-nav-item">${right}</div>
-    </div>`;
-});
-
 hexo.extend.helper.register('gitalk_md5', function(path) {
-  let str = this.url_for(path);
-  str.replace('index.html', '');
+  const str = this.url_for(path);
   return crypto.createHash('md5').update(str).digest('hex');
-});
-
-hexo.extend.helper.register('canonical', function() {
-  // https://support.google.com/webmasters/answer/139066
-  const { permalink } = hexo.config;
-  let url = this.url.replace(/index\.html$/, '');
-  if (!permalink.endsWith('.html')) {
-    url = url.replace(/\.html$/, '');
-  }
-  return `<link rel="canonical" href="${url}">`;
 });
 
 /**

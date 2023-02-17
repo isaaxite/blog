@@ -18,6 +18,7 @@ menu:
 sidebar:
   overview: 站点概览
   toc: 文章目录
+  links: 链接
 post:
   posted: 发表于
   edited: 更新于
@@ -33,12 +34,17 @@ post:
   copyright:
     author: 本文作者
     link: 本文链接
+    post_author: 原作者
+    post_link: 原文链接
     license_title: 版权声明
     license_content: "本博客所有文章除特别声明外，均采用 %s 许可协议。转载请注明出处！"
 footer:
   powered: "由 %s 强力驱动"
   total_views: 总访问量
   total_visitors: 总访客量
+widget:
+  github: Follow me on GitHub
+  chat: 聊天
 counter:
   tag_cloud:
     zero: 暂无标签
@@ -58,6 +64,9 @@ state:
   categories: 分类
 search:
   placeholder: 搜索...
+  empty: "没有找到任何搜索结果：%s"
+  hits_time: "找到 %s 个搜索结果（用时 %s 毫秒）"
+  hits: "找到 %s 个搜索结果"
 cheers:
   um: 嗯..
   ok: 还行
@@ -71,17 +80,20 @@ symbol:
   period: "。"
   colon: "："
 reward:
-  donate: 打赏
-  wechatpay: 微信支付
+  donate: 赞赏
+  wechatpay: 微信
   alipay: 支付宝
-  paypal: 贝宝
+  paypal: PayPal
   bitcoin: 比特币
+  comment: Buy me a coffee
 follow_me:
   welcome: 欢迎关注我的其它发布渠道
 accessibility:
   nav_toggle: 切换导航栏
   prev_page: 上一页
   next_page: 下一页
+  back_to_top: 返回顶部
+  select_lang: 选择语言
 symbols_count_time:
   count: 本文字数
   count_total: 站点总字数

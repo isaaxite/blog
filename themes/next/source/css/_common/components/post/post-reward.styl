@@ -1,59 +1,56 @@
 .reward-container {
-  margin: 20px auto;
-  padding: 10px 0;
+  margin: $post-card-margin;
+  padding: 1em 0;
   text-align: center;
-  width: 90%;
 
   button {
-    background: transparent;
-    border: 1px solid #fc6423;
-    border-radius: 0;
-    color: #fc6423;
-    cursor: pointer;
-    line-height: 2;
+    button($sidebar-highlight);
+    border: 2px solid $sidebar-highlight;
+    border-radius: 2px;
     outline: 0;
-    padding: 0 15px;
+    transition: all $transition-ease;
     vertical-align: text-top;
-
-    &:hover {
-      background: #fc6423;
-      border: 1px solid transparent;
-      color: #fa9366
-    }
   }
 }
 
-#qr {
+.post-reward {
+  display: none;
   padding-top: 20px;
 
-  a {
-    border: 0;
+  &.active {
+    display: block;
+  }
+
+  div {
+    display: inline-block;
+
+    span {
+      display: block;
+    }
+
+    if (hexo-config('reward_settings.animation')) {
+      &:hover span {
+        animation: next-roll .1s infinite linear;
+        // The animation may affect :hover of img in dark mode
+        pointer-events: none;
+      }
+    }
   }
 
   img {
     display: inline-block;
-    margin: .8em 2em 0 2em;
+    margin: .8em 2em 0;
     max-width: 100%;
-    width: 180px;
+    width: $post-reward-img-width;
+  }
+}
+
+@keyframes next-roll {
+  from {
+    transform: rotateZ(30deg);
   }
 
-  p {
-    text-align: center;
-  }
-
-  if (hexo-config('reward_settings.animation')) {
-    > div:hover p {
-      animation: roll .1s infinite linear;
-    }
-
-    @keyframes roll {
-      from {
-        transform: rotateZ(30deg);
-      }
-
-      to {
-        transform: rotateZ(-30deg);
-      }
-    }
+  to {
+    transform: rotateZ(-30deg);
   }
 }

@@ -3,16 +3,19 @@
 }
 
 .post-body .tabs, .tabs-comment {
-  display: block;
   padding-top: 10px;
-  position: relative;
 
   ul.nav-tabs {
+    background: (($scheme == 'Muse') or ($scheme == 'Mist')) ? var(--body-bg-color) : var(--content-bg-color);
     display: flex;
     flex-wrap: wrap;
     margin: 0;
-    margin-bottom: -1px;
     padding: 0;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    // Fix issue #398
+    z-index: $zindex-0;
 
     +mobile-smallest() {
       display: block;
@@ -23,6 +26,7 @@
       border-bottom: 1px solid $grey-lighter;
       border-left: 1px solid transparent;
       border-right: 1px solid transparent;
+      border-radius: $tbr $tbr 0 0;
       border-top: 3px solid transparent;
       flex-grow: 1;
       list-style-type: none;
@@ -34,21 +38,18 @@
         border-top: 1px solid transparent;
       }
 
-      border-radius: $tbr $tbr 0 0;
-
       +mobile-smallest() {
         border-radius: $tbr;
       }
 
       if (hexo-config('tabs.transition.tabs')) {
-        the-transition-ease-out();
+        transition: all $transition-ease-out;
       }
 
       a {
         border-bottom: initial;
         display: block;
         line-height: 1.8;
-        outline: 0;
         padding: .25em .75em;
         text-align: center;
 
@@ -57,25 +58,24 @@
         }
 
         if (hexo-config('tabs.transition.labels')) {
-          the-transition-ease-out();
+          transition: all $transition-ease-out;
         }
       }
 
       &.active {
-        border-bottom: 1px solid transparent;
-        border-left: 1px solid $table-border-color;
-        border-right: 1px solid $table-border-color;
-        border-top: 3px solid $orange;
+        border-bottom-color: transparent;
+        border-left-color: $table-border-color;
+        border-right-color: $table-border-color;
+        border-top-color: $orange;
 
         +mobile-smallest() {
-          border-bottom: 1px solid $table-border-color;
-          border-left: 3px solid $orange;
-          border-right: 1px solid $table-border-color;
-          border-top: 1px solid $table-border-color;
+          border-bottom-color: $table-border-color;
+          border-left-color: $orange;
+          border-right-color: $table-border-color;
+          border-top-color: $table-border-color;
         }
 
         a {
-          color: var(--link-color);
           cursor: default;
         }
       }
@@ -83,27 +83,20 @@
   }
 
   .tab-content {
-    .tab-pane {
-      border: 1px solid $table-border-color;
-      border-top: 0;
-      padding: 20px 20px 0 20px;
+    border: 1px solid $table-border-color;
+    border-radius: 0 0 $tbr $tbr;
+    border-top-color: transparent;
 
+    +mobile-smallest() {
       border-radius: $tbr;
+      border-top-color: $table-border-color;
+    }
+
+    .tab-pane {
+      padding: 20px 20px 0;
 
       &:not(.active) {
         display: none;
-      }
-
-      &.active {
-        display: block;
-
-        &:nth-of-type(1) {
-          border-radius: 0 $tbr $tbr $tbr;
-
-          +mobile-smallest() {
-            border-radius: $tbr;
-          }
-        }
       }
     }
   }

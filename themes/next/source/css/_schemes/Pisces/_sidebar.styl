@@ -1,17 +1,12 @@
 .sidebar {
-  background: var(--body-bg-color);
-  box-shadow: none;
-  margin-top: 100%;
-  position: static;
-  width: $sidebar-desktop;
+  // https://caniuse.com/css-sticky
+  position: -webkit-sticky;
+  position: sticky;
+  top: $sidebar-offset;
 
   +tablet-mobile() {
     display: none;
   }
-}
-
-.sidebar-toggle {
-  display: none;
 }
 
 .sidebar-inner {
@@ -20,19 +15,11 @@
   box-shadow: $box-shadow;
   box-sizing: border-box;
   color: var(--text-color);
-  width: $sidebar-desktop;
+  margin-top: $sidebar-offset;
+  max-height: 'calc(100vh - %s)' % unit($sidebar-offset * 2, 'px');
 
-  if (hexo-config('motion.enable') && hexo-config('motion.transition.sidebar')) {
-    opacity: 0;
-  }
-
-  &.affix {
-    position: fixed;
-    top: $sidebar-offset;
-  }
-
-  &.affix-bottom {
-    position: absolute;
+  if (hexo-config('motion.enable') and hexo-config('motion.transition.sidebar')) {
+    visibility: hidden;
   }
 }
 
@@ -40,73 +27,51 @@
   padding: 0 10px;
 }
 
-.sidebar-button {
+.sidebar .sidebar-button {
   border-bottom: 1px dotted $grey-light;
   border-top: 1px dotted $grey-light;
-  margin-top: 10px;
-  text-align: center;
 
-  a {
+  button {
     border: 0;
     color: $orange;
     display: block;
+    width: 100%;
 
     &:hover {
       background: none;
       border: 0;
       color: darken($orange, 20%);
-
-      .fa, .fab, .far, .fas {
-        color: darken($orange, 20%);
-      }
     }
   }
 }
 
 .links-of-author {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 10px;
-  justify-content: center;
+  flex-wrap();
 }
 
 .links-of-author-item {
   sidebar-inline-links-item();
 
-  if (!hexo-config('social_icons.icons_only')) {
+  if (not hexo-config('social_icons.icons_only')) {
     width: 50%;
   }
 
-  a, span.exturl {
-    border-bottom: none;
+  a {
+    border-bottom: 0;
+    border-radius: 4px;
     display: block;
-    text-decoration: none;
-
-    &::before {
-      display: none;
-    }
 
     &:hover {
       background: var(--body-bg-color);
-      border-radius: 4px;
     }
-  }
-
-  .fa, .fab, .far, .fas {
-    margin-right: 2px;
   }
 }
 
 .links-of-blogroll-item {
-  padding: 0;
-
   if (hexo-config('links_settings.layout') == 'inline') {
     display: inline-block;
+    max-width: 100%;
     sidebar-inline-links-item();
-
-    if (!hexo-config('social_icons.icons_only')) {
-      width: unset;
-    }
   }
 }
 

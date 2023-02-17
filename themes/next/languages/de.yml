@@ -18,6 +18,7 @@ menu:
 sidebar:
   overview: Übersicht
   toc: Inhaltsverzeichnis
+  links: Links
 post:
   posted: Veröffentlicht am
   edited: Bearbeitet am
@@ -33,12 +34,17 @@ post:
   copyright:
     author: Beitragsautor
     link: Beitragslink
+    post_author: Written by
+    post_link: This article originally appeared on
     license_title: Urheberrechtshinweis
     license_content: "Alle Artikel in diesem Blog sind unter %s lizenziert, außer es wird anders angegeben."
 footer:
   powered: "Erstellt mit  %s"
   total_views: Alle Aufrufe
   total_visitors: Alle Besucher
+widget:
+  github: Follow me on GitHub
+  chat: Chat
 counter:
   tag_cloud:
     zero: Keine Schlagworte
@@ -58,6 +64,9 @@ state:
   categories: Kategorien
 search:
   placeholder: Suche...
+  empty: "We didn't find any results for the search: %s"
+  hits_time: "%s results found in %s ms"
+  hits: "%s results found"
 cheers:
   um: Öhm..
   ok: OK
@@ -76,12 +85,15 @@ reward:
   alipay: Alipay
   paypal: PayPal
   bitcoin: Bitcoin
+  comment: Buy me a coffee
 follow_me:
-  welcome: Welcome to my other publishing channels
+  welcome: Willkommen zu meinen anderen Veröffentlichen Kanälen
 accessibility:
   nav_toggle: Navigationsleiste an/ausschalten
   prev_page: Vorherige Seite
   next_page: Nächste Seite
+  back_to_top: Back to top
+  select_lang: Select language
 symbols_count_time:
   count: Symbole im Artikel gezählt
   count_total: Insgesamt gezählte Symbole

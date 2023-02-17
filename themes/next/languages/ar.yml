@@ -18,6 +18,7 @@ menu:
 sidebar:
   overview: عام
   toc: المحتويات
+  links: Links
 post:
   posted: نُشر في
   edited: عُدل في
@@ -33,12 +34,17 @@ post:
   copyright:
     author: مؤلف المقال
     link: رابط المقال
+    post_author: Written by
+    post_link: This article originally appeared on
     license_title: حقوق الملكية
     license_content: "حميع المقالات في هذه المدوّنة منشورة تحت رخصة %s إلا عند التنويه بخلافه."
 footer:
   powered: "تطبيق الموقع %s"
   total_views: إجمالي المشاهدات
   total_visitors: إجمالي الزوار
+widget:
+  github: Follow me on GitHub
+  chat: Chat
 counter:
   tag_cloud:
     zero: لا وسوم
@@ -58,6 +64,9 @@ state:
   categories: التصنيفات
 search:
   placeholder: بحث...
+  empty: "We didn't find any results for the search: %s"
+  hits_time: "%s results found in %s ms"
+  hits: "%s results found"
 cheers:
   um: هِم..
   ok: حسناً
@@ -76,12 +85,15 @@ reward:
   alipay: Alipay
   paypal: PayPal
   bitcoin: Bitcoin
+  comment: Buy me a coffee
 follow_me:
   welcome: مرحباً بك حيثُ أنشر أيضاً
 accessibility:
   nav_toggle: تشغيل شريط التصفح
   prev_page: الصفحة السابقة
   next_page: الصفحة التالية
+  back_to_top: Back to top
+  select_lang: Select language
 symbols_count_time:
   count: عدد الحروف في المقال
   count_total: مُجمل عدد الحروف

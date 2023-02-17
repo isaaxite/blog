@@ -1,19 +1,25 @@
 .site-meta {
   flex-grow: 1;
-  text-align: $site-meta-text-align;
+  text-align: center;
 
   +mobile() {
     text-align: center;
   }
 }
 
+.custom-logo-image {
+  margin-top: 20px;
+
+  +tablet-mobile() {
+    display: none;
+  }
+}
+
 .brand {
-  border-bottom: none;
+  border-bottom: 0;
   color: var(--brand-color);
   display: inline-block;
-  line-height: $font-size-title;
-  padding: 0 40px;
-  position: relative;
+  padding: $brand-padding;
 
   &:hover {
     color: var(--brand-hover-color);
@@ -24,20 +30,17 @@
   font-family: $font-family-logo;
   font-size: $font-size-title;
   font-weight: normal;
+  line-height: 1.5;
   margin: 0;
 }
 
 .site-subtitle {
   color: $subtitle-color;
   font-size: $font-size-subtitle;
-  margin: 10px 0;
+  margin: $site-subtitle-margin;
 }
 
 .use-motion {
-  .brand {
-    opacity: 0;
-  }
-
   .site-title, .site-subtitle, .custom-logo-image {
     opacity: 0;
     position: relative;

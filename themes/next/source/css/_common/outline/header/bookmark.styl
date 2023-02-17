@@ -1,24 +1,24 @@
-.book-mark-link {
-  border-bottom: none;
-  display: inline-block;
-  position: fixed;
-  right: $b2t-position-right;
-  top: -10px;
-  transition: .3s;
+if (hexo-config('bookmark.enable')) {
+  .book-mark-link {
+    border-bottom: 0;
+    position: fixed;
+    top: -10px;
+    transition: top .3s;
+    sidebar-toggle-position(true);
 
-  +tablet-mobile() {
-    display: none;
+    +tablet-mobile() {
+      display: none;
+    }
+
+    &::before {
+      color: convert(hexo-config('bookmark.color'));
+      font-size: 32px;
+      line-height: 1;
+      font-family-icons('\f02e');
+    }
   }
 
-  &::before {
-    color: unquote(hexo-config('bookmark.color'));
-    content: '\f02e';
-    font-size: 32px;
-    line-height: 1;
-    font-family-icons();
+  .book-mark-link:hover, .book-mark-link-fixed {
+    top: -2px;
   }
-}
-
-.book-mark-link:hover, .book-mark-link-fixed {
-  top: -2px;
 }

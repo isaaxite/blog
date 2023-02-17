@@ -1,9 +1,11 @@
-.highlight-container {
-  position: relative;
+.highlight:hover .copy-btn, pre:hover .copy-btn {
+  opacity: 1;
 }
 
-.highlight-container:hover .copy-btn, .highlight-container .copy-btn:focus {
-  opacity: 1;
+figure.highlight {
+  .table-container {
+    position: relative;
+  }
 }
 
 .copy-btn {
@@ -13,7 +15,7 @@
   opacity: 0;
   padding: 2px 6px;
   position: absolute;
-  the-transition();
+  transition: opacity $transition-ease;
 
   if (hexo-config('codeblock.copy_button.style') == 'flat') {
     background: white;
@@ -22,7 +24,7 @@
     right: 0;
     top: 0;
   } else if (hexo-config('codeblock.copy_button.style') == 'mac') {
-    color: white;
+    color: var(--highlight-foreground);
     font-size: 14px;
     right: 0;
     top: 2px;
@@ -38,30 +40,22 @@
 }
 
 if (hexo-config('codeblock.copy_button.style') == 'mac') {
-  .highlight-container {
-    background: #21252b;
+  figure.highlight {
     border-radius: 5px;
     box-shadow: 0 10px 30px 0 rgba(0, 0, 0, .4);
     padding-top: 30px;
 
+    .table-container {
+      border-radius: 0 0 5px 5px;
+    }
+
     &::before {
       background: #fc625d;
-      border-radius: 50%;
       box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-      content: ' ';
-      height: 12px;
       left: 12px;
       margin-top: -20px;
       position: absolute;
-      width: 12px;
-    }
-
-    .highlight {
-      border-radius: 0 0 5px 5px;
-
-      .table-container {
-        border-radius: 0 0 5px 5px;
-      }
+      round-icon(12px);
     }
   }
 }

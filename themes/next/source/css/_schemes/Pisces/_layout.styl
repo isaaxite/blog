@@ -1,98 +1,46 @@
 .header {
-  margin: 0 auto;
-  position: relative;
-  width: $content-desktop;
-
-  +desktop-large() {
-    width: $content-desktop-large;
-  }
-
-  +desktop-largest() {
-    width: $content-desktop-largest;
-  }
-
-  +tablet-mobile() {
-    width: auto;
-  }
-}
-
-.header-inner {
-  background: var(--content-bg-color);
-  border-radius: $border-radius-inner;
-  box-shadow: $box-shadow-inner;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  top: 0;
-  width: $sidebar-desktop;
-
-  +desktop-large() {
-    width: $sidebar-desktop;
-  }
+  gemini-block();
 
   +tablet-mobile() {
     border-radius: initial;
-    position: relative;
+  }
+}
+
+.main {
+  // Make sure that .header and .main-inner are the same height
+  // Required for .sidebar `position: sticky;`
+  align-items: stretch;
+  display: flex;
+  justify-content: space-between;
+  main-container();
+
+  if (hexo-config('sidebar.position') == 'right') {
+    flex-direction: row-reverse;
+  }
+
+  +tablet-mobile() {
+    display: block;
     width: auto;
   }
 }
 
 .main-inner {
-  align-items: flex-start;
-  display: flex;
-  justify-content: space-between;
-
-  if (hexo-config('sidebar.position') != 'right') {
-    flex-direction: row-reverse;
-  }
-  +tablet-mobile() {
-    width: auto;
-  }
-}
-
-.content-wrap {
-  background: var(--content-bg-color);
   border-radius: $border-radius-inner;
-  box-shadow: $box-shadow-inner;
   box-sizing: border-box;
-  padding: $content-desktop-padding;
   width: $content-wrap;
 
   +tablet-mobile() {
     border-radius: initial;
-    padding: 20px;
     width: 100%;
   }
 }
 
-if (hexo-config('sidebar.position') == 'right') {
-  .header-inner {
-    right: 0;
-  }
-
-  .book-mark-link {
-    left: $b2t-position-right;
-  }
-
-  .footer-inner {
-    padding-right: 260px;
-  }
-} else {
-  .footer-inner {
-    padding-left: 260px;
-  }
-
-  .back-to-top {
-    left: auto;
-    right: $b2t-position-right;
-
-    +tablet-mobile() {
-      right: $b2t-position-right-mobile;
-    }
-  }
-}
-
 .footer-inner {
+  if (hexo-config('sidebar.position') == 'right') {
+    padding-right: $sidebar-desktop + $sidebar-offset;
+  } else {
+    padding-left: $sidebar-desktop + $sidebar-offset;
+  }
 
   +tablet-mobile() {
     padding-left: 0;

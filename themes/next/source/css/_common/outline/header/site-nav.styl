@@ -18,14 +18,7 @@
 }
 
 .site-nav {
-  display: block;
-
   +mobile() {
-    clear: both;
-    display: none;
-  }
-
-  &.site-nav-on {
-    display: block;
+    site-nav-hide-by-default();
   }
 }

@@ -5,9 +5,11 @@
   <a title="Russian" href="../docs/ru/CONTRIBUTING.md">:ru:</a>
 </div>
 
-# <div align="center"><a title="Go to homepage" href="https://theme-next.org"><img align="center" width="56" height="56" src="https://raw.githubusercontent.com/theme-next/hexo-theme-next/master/source/images/logo.svg?sanitize=true"></a> e x T</div>
+<a title="NexT website" href="https://theme-next.js.org"><img align="right" alt="NexT logo" width="100" height="100" src="https://raw.githubusercontent.com/next-theme/hexo-theme-next/master/source/images/logo.svg"></a>
 
-First of all, thanks for taking your time to contribute and help make our project even better than it is today! The following is a set of guidelines for contributing to [Theme-Next](https://github.com/theme-next) and its libs submodules. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+# NexT
+
+First of all, thanks for taking your time to contribute and help make our project even better than it is today! The following is a set of guidelines for contributing to [Theme NexT](https://github.com/next-theme) and its libs submodules. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 ## Table Of Contents
 
@@ -35,38 +37,22 @@ First of all, thanks for taking your time to contribute and help make our projec
 
 #### Read the docs
 
-If you just have a question, you'll get faster results by checking the [FAQs for a list of common questions and problems](https://theme-next.org/docs/faqs) or the [troubleshooting part of «NexT» Documentation Site](https://theme-next.org/docs/troubleshooting).
+If you just have a question, you'll get faster results by checking the [FAQs for a list of common questions and problems](https://theme-next.js.org/docs/faqs) or the [troubleshooting part of «NexT» Documentation Site](https://theme-next.js.org/docs/troubleshooting).
 
-Also, you can perform a [cursory search](https://github.com/theme-next/hexo-theme-next/search?q=&type=Issues&utf8=%E2%9C%93) to see if the problem has already been reported or solved. You don't want to duplicate effort. You might be able to find the cause of the problem and fix things yourself, or add comments to the existed issue.
+Also, you can perform a [cursory search](https://github.com/next-theme/hexo-theme-next/search?q=&type=Issues&utf8=%E2%9C%93) to see if the problem has already been reported or solved. You don't want to duplicate effort. You might be able to find the cause of the problem and fix things yourself, or add comments to the existed issue.
 
 #### Quick debug instructions
 
-Before submitting an Issue on GitHub, you can follow the steps below to debug:
+Before submitting an Issue on GitHub, you can follow our [Quick debug instructions](https://theme-next.js.org/docs/troubleshooting.html#Quick-Debug-Instructions) to debug.
 
-* Execute `hexo clean`, clear the browser cache and disable all CDN services (e.g. Cloudflare Rocket Loader)
-* Switch to another theme and check if the bug still exists (e.g. default theme landscape). In other words, prove that this is a NexT issue, not a issue from Hexo.
-* Upgrade theme NexT to the latest version.
-* Upgrade Hexo and Hexo plugins to the latest version.
-* Upgrade Node.js and `npm` to the latest version.
-* Uninstall all non-essential Hexo plugins, or reinstall all plugins using `npm install --save`.
-
-If you get an error message from Hexo or your browser, please search in Google / Stackoverflow / GitHub Issues, or report it to us when submitting a new Issue.
-
-If you find a bug in the source code, most importantly, please check carefully if you can reproduce the problem [in the latest release version of Next](https://github.com/theme-next/hexo-theme-next/releases/latest). Then, you can help us by [Reporting Bugs](#reporting-bugs) or [Suggesting Enhancements](#suggesting-enhancements) to our [Repository](https://github.com/theme-next/hexo-theme-next). Even better, you can [submit a Pull Request](#submitting-a-pull-request) with a fix.
+If you find a bug in the source code, most importantly, please check carefully if you can reproduce the problem [in the latest release version of NexT](https://github.com/next-theme/hexo-theme-next/releases/latest). Then, you can help us by [Reporting Bugs](#reporting-bugs) or [Suggesting Enhancements](#suggesting-enhancements) to our [Repository](https://github.com/next-theme/hexo-theme-next). Even better, you can [submit a Pull Request](#submitting-a-pull-request) with a fix.
 
 ### Reporting Bugs
 
-Before creating bug reports, please check [this list](#before-submitting-an-issue) as you might find out that you don't need to create one. After you've determined the repository your bug is related to, create an issue on that repository and provide the information as many details as possible by filling in [the required template](ISSUE_TEMPLATE.md).
-
-Following these guidelines helps maintainers and the community understand your report :pencil:, reproduce the behavior, and find related reports:
+Before creating bug reports, please check [this list](#before-submitting-an-issue) as you might find out that you don't need to create one. When creating an issue, following these guidelines helps maintainers and the community understand your report :pencil:, reproduce the behavior, and find related reports:
 
 * Use a clear and descriptive title for the issue to identify the problem.
-* Provide more context by answering these questions:
-    * Can you reproduce the problem? Can you reliably reproduce the issue? If not, provide details about how often the problem happens and under which conditions it normally happens.
-    * Did the problem start happening recently or was this always a problem?
-    * If the problem started happening recently, can you reproduce the problem in an older version of Next? What's the most recent version in which the problem doesn't happen? You can download older versions of Next from [the releases page](https://github.com/theme-next/hexo-theme-next/releases).
-    * Which version of Node, Hexo and Next are you using? You can get the exact version by running `node -v`, `hexo version` in your terminal, or copy the contents in site's`package.json`.
-    * Which packages do you have installed? You can get that list by copying the contents in site's`package.json`.
+* Provide the information as many details as possible by filling in [the required template](ISSUE_TEMPLATE.md).
 * Describe the exact steps which reproduce the problem in as many details as possible. When listing steps, don't just say what you did, but explain how you did it, e.g. which command exactly you used. If you're providing snippets in the issue, use [Markdown code blocks](https://help.github.com/articles/creating-and-highlighting-code-blocks/) or [a permanent link to a code snippet](https://help.github.com/articles/creating-a-permanent-link-to-a-code-snippet/), or a [Gist link](https://gist.github.com/).
 * Provide specific examples to demonstrate the steps. Include links to files (screenshots or GIFs) or live demo.
 * Describe the behavior you observed after following the steps and point out what exactly is the problem with that behavior.
@@ -108,7 +94,7 @@ Releases are a great way to ship projects on GitHub to your users.
 3. Select a branch that contains the project you want to release. Usually, you'll want to release against your `master` branch, unless you're releasing beta software.
 4. Type a title and description that describes your release.
     - Use the version as the title.
-    - The types of changes include **Breaking Changes**, **Updates**, **Features**, and **Bug Fixes**. In the section of Breaking Changes, use multiple secondary headings, and use item list in other sections.
+    - The content should be filled in according to the template of the [Release Drafter](https://github.com/release-drafter/release-drafter).
     - Use the passive tense and subject-less sentences.
     - All changes must be documented in release notes. If commits happen without pull request (minimal changes), just add this commit ID into release notes. If commits happen within pull request alreay, just add the related pull request ID including all possible commits.
 5. If you'd like to include binary files along with your release, such as compiled programs, drag and drop or select files manually in the binaries box.
@@ -141,13 +127,14 @@ Issues related:
     - `Polls`: An issue that initiated a poll
 - By results
     - `Duplicate`: An issue which had been mentioned
-    - `Irrelevant`: An irrelevant issue for Next
+    - `Hexo`: An issue related to Hexo
+    - `Hexo Plugin`: An issue related to Hexo plugins
+    - `Browser`: An issue related to browsers
     - `Invalid`: An issue that cannot be reproduced
     - `Expected Behavior`: An issue that corresponds to expected behavior
     - `Need More Info`: Need more information for solving the issue
-    - `Verified`: An issue that has been verified
     - `Solved`: An issue that has been solved
-    - `Backlog`: An issue that is to be completed and later compensated
+    - `To Do`: An issue that is to be completed and later compensated
     - `Stale`: This issue has been automatically marked as stale because lack of recent activity
 
 Pull requests related:
@@ -157,20 +144,18 @@ Pull requests related:
 - `New Feature`: A pull request that provides a new feature
 - `Feature`: A pull request that provides an option or addition to existing feature
 - `i18n`: A pull request that makes new languages translation
-- `Work in Progress`: A pull request that is still working in progress
+- `Dependencies`: A pull request that updates package dependencies
+- `Actions`: A pull request that updates the GitHub Actions workflow
 - `Skip Release`: A pull request that should be excluded from release note
 
 Both:
 
 - `Roadmap`: An issue / pull request about future development
 - `Help Wanted`: An issue / pull request that needs help
-- `Discussion`: An issue / pull request that needs to be discussed
 - `Improvement`: An issue that needs improvement or a pull request that improves NexT
-- `Performance`: An issue / pull request that improves the performance
-- `Hexo`: An issue / pull request related to Hexo or Hexo plugins
-- `Template Engine`: An issue / pull request related to template engine
+- `Layout`: An issue / pull request related to template engine
 - `CSS`: An issue / pull request related to CSS
-- `Fonts`: An issue / pull request related to fonts
+- `Icons & Fonts`: An issue / pull request related to icons or fonts
 - `PJAX`: An issue / pull request related to PJAX
 - `3rd Party Plugin`: An issue / pull request related to 3rd party plugins & service
 - `Docs`: An issue / pull request related to instruction document
@@ -192,6 +177,6 @@ readable messages that are easy to follow when looking through the project histo
     * `Style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
     * `Revert`: Revert some existing commits
     * `Release`: Commit a release for a conventional changelog project
-- The `subject` contains a succinct description of the change, like `Update code highlighting in readme.md`.
+- The `subject` contains a succinct description of the change, like `Update code highlighting in README.md`.
     * No dot (.) at the end.
     * Use the imperative, present tense: "change" not "changed" nor "changes".

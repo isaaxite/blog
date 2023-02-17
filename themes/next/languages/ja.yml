@@ -18,6 +18,7 @@ menu:
 sidebar:
   overview: 概要
   toc: 見出し
+  links: Links
 post:
   posted: 投稿日
   edited: 編集日
@@ -33,12 +34,17 @@ post:
   copyright:
     author: 著者
     link: 記事へのリンク
+    post_author: 作者
+    post_link: 元の記事
     license_title: 著作権表示
     license_content: "このブログ内のすべての記事は、特別な記載がない限り %s の下のライセンスで保護されています。"
 footer:
   powered: "Powered by %s"
   total_views: 閲覧合計数
   total_visitors: 合計閲覧者数
+widget:
+  github: Follow me on GitHub
+  chat: Chat
 counter:
   tag_cloud:
     zero: タグなし
@@ -58,6 +64,9 @@ state:
   categories: カテゴリ
 search:
   placeholder: 検索…
+  empty: "検索結果が見つかりませんでした: %s"
+  hits_time: "%s の結果が %s ms で見つかりました"
+  hits: "%s 件の結果が見つかりました"
 cheers:
   um: うーん
   ok: はい
@@ -76,12 +85,15 @@ reward:
   alipay: Alipay
   paypal: PayPal
   bitcoin: ビットコイン
+  comment: Buy me a coffee
 follow_me:
-  welcome: Welcome to my other publishing channels
+  welcome: 他の公開チャンネルへようこそ
 accessibility:
   nav_toggle: ナビゲーションバーの切り替え
   prev_page: 前のページ
   next_page: 次のページ
+  back_to_top: Back to top
+  select_lang: Select language
 symbols_count_time:
   count: 単語数
   count_total: 単語の総数
