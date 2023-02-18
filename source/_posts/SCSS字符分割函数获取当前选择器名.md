@@ -1,7 +1,11 @@
 ---
 title: SCSS字符分割函数获取当前选择器名
-date: 2023-02-19 00:53:16
+date: 2018-08-31 00:53:16
 tags:
+- scss
+- sass
+categories:
+- 前端
 ---
 
 # 有点长的前言
@@ -9,6 +13,8 @@ tags:
 常有这样的情况：比如以下面的一段代码来说，多人开发的情况下，很可能你写了一个`.header-icon`的css样式描述，你的同事也开发了一个！
 
 并且他的样式优先级比你的高，目前你负责的部分需要你的样式生效！
+
+<!-- more -->
 
 ```scss
 .side{
@@ -138,13 +144,13 @@ scss没有提供获取当前选择器名的方法或者全局变量，那么就�
 
 ```scss
 @function nth-by-flag($list, $flag) {
-    $els: ();
-    @each $item in $list {
-        @if str-index($item, $flag) != null {
-            $els: append($els, $item);
-        }
+  $els: ();
+  @each $item in $list {
+    @if str-index($item, $flag) != null {
+      $els: append($els, $item);
     }
-    @return $els;
+  }
+  @return $els;
 }
 
 @function current-selector($str, $seps: null, $flag: null) {
