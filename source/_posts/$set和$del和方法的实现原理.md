@@ -3,10 +3,10 @@ title: $set和$del和方法的实现原理
 date: 2019-11-09 08:41:47
 tags:
 - vue
-- vue源码分析
-categories:
 - 源码分析
-- vue
+categories:
+  - [源码分析]
+  - [vue]
 ---
 
 

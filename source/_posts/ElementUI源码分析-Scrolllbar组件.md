@@ -6,8 +6,8 @@ tags:
 - 旧文迁移
 - 源码分析
 categories:
-- JavaScript
-- Element-UI
+- [JavaScript]
+- [Element-UI]
 ---
 
 scrollbar组件可以通过设置native属性，是否使用自定义的scrollbar视图，默认为`undefined`即使用自定义的，下面也是主要分析自定义scrollbar的构成。

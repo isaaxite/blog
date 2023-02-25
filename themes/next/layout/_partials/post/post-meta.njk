@@ -2,6 +2,13 @@
   {%- set date_diff = date(post.date) != date(post.updated) %}
   {%- set time_diff = time(post.date) != time(post.updated) %}
 
+  {% if post.top %}
+    <font color="#1fa67a">
+      <i class="fa fa-thumb-tack" style="position: relative;top: 1px;"></i>
+      <span> 置顶</span>
+    </font>
+  {% endif %}
+
   {%- if theme.post_meta.created_at %}
     <span class="post-meta-item">
       <span class="post-meta-item-icon">

@@ -5,8 +5,8 @@ tags:
 - vue
 - vue源码分析
 categories:
-- 源码分析
-- vue
+- [源码分析]
+- [vue]
 ---
 
 # 大纲
