@@ -32,6 +32,8 @@ apt-get install git vim curl -y
 # 开发软件
 
 - nvm
+- yarn
+- hexo
 
 ## nvm
 
