@@ -24,6 +24,7 @@ apt-get update
 - git
 - vim
 - curl
+- net-tools：ifconfig命令，方便查看ip
 
 ```shell
 apt-get install git vim curl -y
