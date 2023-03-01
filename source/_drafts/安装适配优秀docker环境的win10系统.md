@@ -19,7 +19,7 @@ categories:
 
 - 优秀的dockers环境；
 
-- WSL2
+- WSL2，运行Debian系统
 
 - windows 10系统
 
