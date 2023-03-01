@@ -103,10 +103,9 @@ ignore:
 theme: next
 
 # Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
+# Docs: https://hexo.io/docs/one-command-deployment
 # deploy:
 #   type: git
-#   token: $GITHUB_TOKEN
 #   repository: https://github.com/isaaxite/blog
 #   branch: master
 
