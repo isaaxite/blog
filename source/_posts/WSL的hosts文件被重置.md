@@ -38,4 +38,18 @@ generateHosts = false
 - 在win系统下的hosts做修改；
 
 
+## 关闭 generateHosts
 
+默认情况下，wsl是没有 `/etc/wsl.conf`，所以新建就好！
+
+完整的 示例配置 可以从这个链接中获取：https://learn.microsoft.com/en-us/windows/wsl/wsl-config#example-wslconf-file
+
+setp1: 新建 `sudo vim /etc/wsl.conf`；
+
+setp2：添加配置，`generateHosts = false`
+
+## 在win系统下的hosts做修改
+
+在研究的过程中，发现wsl是基于win下的host文件生成的！
+
+基于这些host映射在win和wsl都会用到，所以直接在win的host文件做修改！
