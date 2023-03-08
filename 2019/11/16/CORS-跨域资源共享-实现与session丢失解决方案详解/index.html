@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"isaaxite.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="前言跨域是什么？只要请求地址与当前地址的协议、域名、端口其中一个不同都会引起跨域，这是由于浏览器的同源策略导致。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CORS(跨域资源共享)实现与session丢失解决方案详解">
+<meta property="og:url" content="https://isaaxite.github.io/blog/2019/11/16/CORS-%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB-%E5%AE%9E%E7%8E%B0%E4%B8%8Esession%E4%B8%A2%E5%A4%B1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Isaac Kam&#39;s Blog">
+<meta property="og:description" content="前言跨域是什么？只要请求地址与当前地址的协议、域名、端口其中一个不同都会引起跨域，这是由于浏览器的同源策略导致。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://isaaxite.github.io/blog/01.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/02.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/03.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/04.png">
+<meta property="article:published_time" content="2019-11-16T02:33:06.000Z">
+<meta property="article:modified_time" content="2023-03-08T09:02:17.248Z">
+<meta property="article:author" content="Isaac Kam">
+<meta property="article:tag" content="旧文迁移">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="CORS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://isaaxite.github.io/blog/01.png">
+
+
+<link rel="canonical" href="https://isaaxite.github.io/blog/2019/11/16/CORS-%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB-%E5%AE%9E%E7%8E%B0%E4%B8%8Esession%E4%B8%A2%E5%A4%B1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://isaaxite.github.io/blog/2019/11/16/CORS-%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB-%E5%AE%9E%E7%8E%B0%E4%B8%8Esession%E4%B8%A2%E5%A4%B1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/","path":"2019/11/16/CORS-跨域资源共享-实现与session丢失解决方案详解/","title":"CORS(跨域资源共享)实现与session丢失解决方案详解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CORS(跨域资源共享)实现与session丢失解决方案详解 | Isaac Kam's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Isaac Kam's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am a slow walker, but I never walk backwards.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-rss"><a href="/blog/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CORS%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">CORS的兼容性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CORS%E5%90%8E%E5%87%BA%E7%8E%B0session%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">CORS后出现session丢失问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">4.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Isaac Kam"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Isaac Kam</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/isaaxite" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;isaaxite" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="isaacgun:isaacgun@outlook.com" title="E-Mail → isaacgun:isaacgun@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://isaaxite.github.io/blog/2019/11/16/CORS-%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB-%E5%AE%9E%E7%8E%B0%E4%B8%8Esession%E4%B8%A2%E5%A4%B1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="Isaac Kam">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CORS(跨域资源共享)实现与session丢失解决方案详解 | Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CORS(跨域资源共享)实现与session丢失解决方案详解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-11-16 10:33:06" itemprop="dateCreated datePublished" datetime="2019-11-16T10:33:06+08:00">2019-11-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-08 17:02:17" itemprop="dateModified" datetime="2023-03-08T17:02:17+08:00">2023-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>跨域是什么？只要请求地址与当前地址的<strong>协议</strong>、<strong>域名</strong>、<strong>端口</strong>其中一个不同都会引起跨域，这是由于浏览器的同源策略导致。</p>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/31459669">同源策略的存在意义</a></p>
+<p>但有时候跨域又是难以避难，目前有很多跨域的方法：</p>
+<ol>
+<li>JSON-P(安全性不好)；</li>
+<li>window.name + iframe(实现的方式恶心)；</li>
+<li>window.postMessage(HTML5)；</li>
+<li>proxy(麻烦的部署及维护)；</li>
+<li>使用同域后端语言作为中转；</li>
+<li>跨域资源共享;</li>
+<li>…</li>
+</ol>
+<p>其中我实践过得有1、4、5、6，常用的是4，最近XXX的时候被问到CORS，引申出很多知识，比如其中问到了<strong>复杂请求和简单请求</strong>，我对CORS并没有太多深入，接下来你懂的……</p>
+<p>CORS需要服务器端及客户端双方面的更改支持。本编主要基于js和php代码以及session机制介绍如何实现CORS跨域以及解决CORS后的session丢失问题。</p>
+<p>以下是本次实现的前后端域名。观两端域名可知会引起跨域问题。</p>
+<p>前端域名为：<code>http://dev.github.io</code>；</p>
+<p>后端域名：<code>http://php.cn</code> 请求地址为：<code>http://php.cn/cors.php</code>。</p>
+<h1 id="CORS的兼容性"><a href="#CORS的兼容性" class="headerlink" title="CORS的兼容性"></a>CORS的兼容性</h1><ul>
+<li>Chrome 3+</li>
+<li>Firefox 3.5+</li>
+<li>Opera 12+</li>
+<li>Safari 4+</li>
+<li>Internet Explorer 8+</li>
+</ul>
+<p>#CORS实现跨域</p>
+<ul>
+<li><p>客服端（Client）</p>
+<p>封装一个ajax函数：</p>
+<p>path：<code>http://dev.github.io/index.html</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">request</span>(<span class="params">sender</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">    <span class="keyword">var</span> url = <span class="string">&quot;http://php.cn/cors.php?fn=&quot;</span> + sender.<span class="property">url</span>.<span class="title function_">slice</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;withCredentials&quot;</span> <span class="keyword">in</span> xhr) &#123;</span><br><span class="line">        <span class="comment">// &quot;withCredentials&quot;属性只存在于XMLHttpRequest2对象中</span></span><br><span class="line">        <span class="comment">// Chrome, Firefox, Opera and Safari</span></span><br><span class="line">        xhr.<span class="title function_">open</span>(sender.<span class="property">method</span>, url, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="title class_">XDomainRequest</span> != <span class="string">&quot;undefined&quot;</span>) &#123;</span><br><span class="line">        <span class="comment">// XDomainRequest对象，兼容IE</span></span><br><span class="line">        xhr = <span class="keyword">new</span> <span class="title class_">XDomainRequest</span>();</span><br><span class="line">        xhr.<span class="title function_">open</span>(sender.<span class="property">method</span>, url);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        xhr = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> sender.<span class="property">header</span>) &#123;</span><br><span class="line">        xhr[key] = sender.<span class="property">header</span>[key];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    xhr.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> responseText = xhr.<span class="property">responseText</span>;</span><br><span class="line">        sender.<span class="property">callback</span> &amp;&amp; sender.<span class="title function_">callback</span>(responseText);</span><br><span class="line">    &#125;;</span><br><span class="line">    xhr.<span class="title function_">send</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发起一个get请求：</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getData</span>(<span class="params">callback</span>) &#123;</span><br><span class="line">    <span class="title function_">request</span>(&#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;/getData&#x27;</span>,</span><br><span class="line">        <span class="attr">callback</span>: callback</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">getData</span>(<span class="keyword">function</span>(<span class="params">resp</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(resp);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>服务端（Server）</p>
+<p>path：<code>http://php.cn/cors.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// header(&#x27;Access-Control-Allow-Origin: *&#x27;);</span></span><br><span class="line"><span class="comment">// header(&#x27;Access-Control-Allow-Origin: http://dev.github.io&#x27;);</span></span><br><span class="line"><span class="variable">$fn</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;fn&#x27;</span>] ? <span class="variable">$_GET</span>[<span class="string">&#x27;fn&#x27;</span>] : <span class="string">&#x27;getData&#x27;</span>;</span><br><span class="line"><span class="variable">$fn</span>();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">returnAjax</span>(<span class="params"><span class="variable">$arr</span></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="title function_ invoke__">json_encode</span>(<span class="variable">$arr</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="title function_ invoke__">returnAjax</span>(<span class="keyword">array</span>(</span><br><span class="line">		<span class="string">&#x27;status&#x27;</span> =&gt; <span class="number">0</span>,</span><br><span class="line">		<span class="string">&#x27;msg&#x27;</span> =&gt; <span class="string">&quot;getData&quot;</span></span><br><span class="line">	));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>准备代码写完，先发起一个请求测试：</p>
+<p>抛出以下异常</p>
+<blockquote>
+<p><code>Failed to load http://php.cn/cors.php?fn=getData: No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource. Origin &#39;http://dev.github.io&#39; is therefore not allowed access.</code></p>
+</blockquote>
+<p>大致意思就是响应报文中没有指定当前域为可跨域域名。</p>
+<p>CORS怎么解决，也是很简单：</p>
+<p>回看刚刚的php代码，你发现两行注释代码，取消任意一行都可以解决以上异常</p>
+<ul>
+<li>使用通配符，表示允许任何来源域名进行跨域；</li>
+<li>也可以指定来源域名，比如第二行。</li>
+</ul>
+<p><strong>ok，取消第一行注释，来实践一下：</strong><br><img src="/blog/01.png"><br><img src="/blog/02.png"></p>
+<p><strong>这就这么简单，关键是服务端向响应报文的消息头中指定可进行跨域的源域名</strong></p>
+</li>
+</ul>
+<h1 id="CORS后出现session丢失问题"><a href="#CORS后出现session丢失问题" class="headerlink" title="CORS后出现session丢失问题"></a>CORS后出现session丢失问题</h1><p>先简单介绍一下session机制：</p>
+<p>服务端建立session，比如php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;name&#x27;</span>] = <span class="string">&quot;isaac&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>建立session后，session保存的到服务端，生成一个sessionId以cookie形式保存到客户端。</p>
+<p>当下一次访问的时候，保存在浏览器cookie的sessionId会被带在请求头中，服务端就会根据请求头中的sessionId去服务端获取对应的sessionId</p>
+<p>然后，再来说一下CORS后出现session丢失问题，为什么会出现呢？</p>
+<p>这就需要说一下<code>Access-Control-Allow-Credentials</code></p>
+<blockquote>
+<p><strong>Access-Control-Allow-Credentials</strong></p>
+<p>该字段可选。它的值是一个布尔值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求之中。设为<code>true</code>，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值也只能设为<code>true</code>，如果服务器不要浏览器发送Cookie，删除该字段即可。</p>
+</blockquote>
+<p>CORS后默认是不会发送cookie的，在看上面说到的session机制，最后一步是需要发送sessionId的cookie到服务端的，服务端才能获取到对应的session，这就是session丢失的原因。</p>
+<p>既然知道原因，那么就好办了！</p>
+<p>如上引用中写到，需要服务端向响应头中设置Access-Control-Allow-Credentials为true才能允许浏览器向服务器发送cookie。</p>
+<p>另外，在浏览器端也是需要在AJAX请求中打开<code>withCredentials</code>属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">xhr.<span class="property">withCredentials</span> = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+
+<p>注意：必须浏览器端将<code>withCredentials</code>设为<code>true</code>和服务端将<code>Access-Control-Allow-Credentials</code>设为<code>true</code>才能达到预期效果</p>
+<p>ok，现在再来实践一下，首先先做一下代码准备：</p>
+<p>html:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getData</span>(<span class="params">callback</span>) &#123;</span><br><span class="line">    <span class="title function_">request</span>(&#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;/getData&#x27;</span>,</span><br><span class="line">        <span class="attr">header</span>: &#123;</span><br><span class="line">            <span class="attr">withCredentials</span>: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">callback</span>: callback</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">setSession</span>(<span class="params">callback</span>) &#123;</span><br><span class="line">    <span class="title function_">request</span>(&#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;/setSession&#x27;</span>,</span><br><span class="line">        <span class="attr">callback</span>: callback</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 先发送请求建立一个session，然后在发送一个请求获取刚刚建立的session，若果不为空即session没有丢失</span></span><br><span class="line"><span class="title function_">setSession</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">getData</span>(<span class="keyword">function</span>(<span class="params">resp</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(resp);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>php：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// header(&#x27;Access-Control-Allow-Origin: *&#x27;);</span></span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&#x27;Access-Control-Allow-Origin: http://dev.github.io&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$fn</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;fn&#x27;</span>] ? <span class="variable">$_GET</span>[<span class="string">&#x27;fn&#x27;</span>] : <span class="string">&#x27;getData&#x27;</span>;</span><br><span class="line"><span class="variable">$fn</span>();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">returnAjax</span>(<span class="params"><span class="variable">$arr</span></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="title function_ invoke__">json_encode</span>(<span class="variable">$arr</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="title function_ invoke__">header</span>(<span class="string">&quot;Access-Control-Allow-Credentials: true&quot;</span>); </span><br><span class="line"></span><br><span class="line">	<span class="title function_ invoke__">returnAjax</span>(<span class="keyword">array</span>(</span><br><span class="line">		<span class="string">&#x27;status&#x27;</span> =&gt; <span class="number">0</span>,</span><br><span class="line">		<span class="string">&#x27;msg&#x27;</span> =&gt; <span class="string">&quot;getData&quot;</span>,</span><br><span class="line">		<span class="string">&#x27;data&#x27;</span> =&gt; <span class="variable">$_SESSION</span>[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">	));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setSession</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="variable">$_SESSION</span>[<span class="string">&#x27;name&#x27;</span>] = <span class="string">&quot;isaac&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="title function_ invoke__">returnAjax</span>(<span class="keyword">array</span>(</span><br><span class="line">		<span class="string">&#x27;status&#x27;</span> =&gt; <span class="number">0</span>,</span><br><span class="line">		<span class="string">&#x27;msg&#x27;</span> =&gt; <span class="string">&#x27;setSession&#x27;</span></span><br><span class="line">	));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ok，现在来执行一下</p>
+<p><img src="/blog/03.png"></p>
+<p><img src="/blog/04.png"></p>
+<p>如上，发送第一个请求php代码建立的一个session</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;name&#x27;</span>] = <span class="string">&quot;isaac&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>发送第二个请求，获取该session，并且如上图，确实返回了该session保存的值。</p>
+<p>对比第一次实现CORS，你会发现第二次实现CORS的时候，在服务端，没有再用通配符<code>*</code>来配置<code>Access-Control-Allow-Origin</code>而是直接指定为：<code>http://dev.github.io</code>，这也是一个注意点，要发送cookie就必须明确指明可跨域域名，不可以使用通配符，不然则会抛出如下异常：</p>
+<blockquote>
+<p><code>Failed to load http://php.cn/cors.php?fn=getData: The value of the &#39;Access-Control-Allow-Origin&#39; header in the response must not be the wildcard &#39;*&#39; when the request&#39;s credentials mode is &#39;include&#39;. Origin &#39;http://dev.github.io&#39; is therefore not allowed access. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.</code></p>
+</blockquote>
+<h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h1><p>看得多了，不如试试？！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/blog/images/wechatpay.jpg" alt="Isaac Kam 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/blog/images/alipay.jpg" alt="Isaac Kam 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Isaac Kam
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://isaaxite.github.io/blog/2019/11/16/CORS-%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB-%E5%AE%9E%E7%8E%B0%E4%B8%8Esession%E4%B8%A2%E5%A4%B1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/" title="CORS(跨域资源共享)实现与session丢失解决方案详解">https://isaaxite.github.io/blog/2019/11/16/CORS-跨域资源共享-实现与session丢失解决方案详解/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.zhihu.com/people/issac-79">
+            <span class="icon">
+              <i class="fab | fa-zhihu"></i>
+            </span>
+
+            <span class="label">Zhihu</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/blog/images/wechat_qrcode.jpg">
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/blog/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://github.com/isaaxite">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+
+            <span class="label">GitHub</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="isaacgun:isaacgun@outlook.com">
+            <span class="icon">
+              <i class="fa fa-envelope"></i>
+            </span>
+
+            <span class="label">E-Mail</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/" rel="tag"># 旧文迁移</a>
+              <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/blog/tags/CORS/" rel="tag"># CORS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2019/11/09/$set%E5%92%8C$del%E5%92%8C%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" rel="prev" title="$set和$del和方法的实现原理">
+                  <i class="fa fa-chevron-left"></i> $set和$del和方法的实现原理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2019/11/19/%E6%95%B0%E7%BB%84%E5%8F%98%E5%BC%82%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" rel="next" title="数组变异方法的实现原理">
+                  数组变异方法的实现原理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Isaac Kam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/blog/js/third-party/fancybox.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"isaaxite/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/blog/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

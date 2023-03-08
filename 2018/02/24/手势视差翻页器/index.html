@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"isaaxite.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="需求移动端实现一个轮播器，在轮播器上层有一个静止图层，不会随着轮播器翻页而偏移。以下是两个已经实践的两个项目：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手势视差翻页器">
+<meta property="og:url" content="https://isaaxite.github.io/blog/2018/02/24/%E6%89%8B%E5%8A%BF%E8%A7%86%E5%B7%AE%E7%BF%BB%E9%A1%B5%E5%99%A8/index.html">
+<meta property="og:site_name" content="Isaac Kam&#39;s Blog">
+<meta property="og:description" content="需求移动端实现一个轮播器，在轮播器上层有一个静止图层，不会随着轮播器翻页而偏移。以下是两个已经实践的两个项目：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ohi69gup6.bkt.clouddn.com/%E8%BD%AE%E6%92%AD-min.gif">
+<meta property="article:published_time" content="2018-02-23T19:17:22.000Z">
+<meta property="article:modified_time" content="2023-03-08T09:02:17.278Z">
+<meta property="article:author" content="Isaac Kam">
+<meta property="article:tag" content="旧文迁移">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ohi69gup6.bkt.clouddn.com/%E8%BD%AE%E6%92%AD-min.gif">
+
+
+<link rel="canonical" href="https://isaaxite.github.io/blog/2018/02/24/%E6%89%8B%E5%8A%BF%E8%A7%86%E5%B7%AE%E7%BF%BB%E9%A1%B5%E5%99%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://isaaxite.github.io/blog/2018/02/24/%E6%89%8B%E5%8A%BF%E8%A7%86%E5%B7%AE%E7%BF%BB%E9%A1%B5%E5%99%A8/","path":"2018/02/24/手势视差翻页器/","title":"手势视差翻页器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>手势视差翻页器 | Isaac Kam's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Isaac Kam's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am a slow walker, but I never walk backwards.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-rss"><a href="/blog/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">需求分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E4%B8%8A%E9%9C%80%E6%B1%82%E5%8F%AF%E4%BB%A5%E6%8B%86%E5%88%86%E6%88%90%E4%B8%A4%E4%B8%AA%E5%B0%8F%E7%9A%84%E9%9C%80%E6%B1%82%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">以上需求可以拆分成两个小的需求：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%8D%E7%BB%86%E5%88%86%E9%9C%80%E6%B1%82"><span class="nav-number">2.3.</span> <span class="nav-text">再细分需求</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AE%E6%92%AD%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">轮播器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scroll-view"><span class="nav-number">3.1.1.</span> <span class="nav-text">scroll-view</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%AD%A2%E5%9B%BE%E5%B1%82%E5%B9%B6%E7%9B%91%E5%90%AC%E5%85%B6%E4%B8%8A%E7%9A%84%E6%89%8B%E5%8A%BF"><span class="nav-number">3.2.</span> <span class="nav-text">静止图层并监听其上的手势</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC1%E7%82%B9%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">3.2.1.</span> <span class="nav-text">第1点的实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC2%E7%82%B9%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">3.2.2.</span> <span class="nav-text">第2点的实现思路</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Isaac Kam"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Isaac Kam</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/isaaxite" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;isaaxite" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="isaacgun:isaacgun@outlook.com" title="E-Mail → isaacgun:isaacgun@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://isaaxite.github.io/blog/2018/02/24/%E6%89%8B%E5%8A%BF%E8%A7%86%E5%B7%AE%E7%BF%BB%E9%A1%B5%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="Isaac Kam">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="手势视差翻页器 | Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          手势视差翻页器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-02-24 03:17:22" itemprop="dateCreated datePublished" datetime="2018-02-24T03:17:22+08:00">2018-02-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-08 17:02:17" itemprop="dateModified" datetime="2023-03-08T17:02:17+08:00">2023-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>移动端实现一个轮播器，在轮播器上层有一个静止图层，不会随着轮播器翻页而偏移。<br>以下是两个已经实践的两个项目：</p>
+<span id="more"></span>
+
+<ul>
+<li><a href="https://isaaxite.github.io/parallax_scrolling_flip/example/">Example-1</a></li>
+<li><a href="https://isaaxite.github.io/parallax_scrolling_flip/">Example-2</a></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/issaxite/parallax_scrolling_flip">[Github]</a>，欢迎Fork与Star！！！</p>
+<h1 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h1><h2 id="以上需求可以拆分成两个小的需求："><a href="#以上需求可以拆分成两个小的需求：" class="headerlink" title="以上需求可以拆分成两个小的需求："></a>以上需求可以拆分成两个小的需求：</h2><ul>
+<li>实现一个轮播器；</li>
+<li>做个静止图层。</li>
+</ul>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>轮播器作为一个图层，静止图层是一个。</p>
+<p>那么那个图层在上，那个在下？</p>
+<ol>
+<li>轮播器在上，则静止图层被轮播器遮盖；</li>
+<li>静止图层在上，则绑定在轮播器上的手势事件由于被静止图层在上而无法触发。</li>
+</ol>
+<h2 id="再细分需求"><a href="#再细分需求" class="headerlink" title="再细分需求"></a>再细分需求</h2><p>为了显示静止图层，那么静止图层一定是要在上的。那么就必须解决第2个问题，怎么触发轮播器的手势。<br>我们可以通过监听静止图层或者两图层容器的手势，然后映射到轮播器。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="轮播器"><a href="#轮播器" class="headerlink" title="轮播器"></a>轮播器</h2><p>由于网上的轮播器插件的都是封装好的，触发事件比较麻烦，因此选择自己使用原生js实现一个。</p>
+<p>实现轮播器的方案有很多中，比如改变<code>translate</code>属性的，也有先实现一个<code>scroll-view </code>，然后改变<code>scroll-view</code>的<code>scrollLeft</code>。我选用后者（单纯是因为我没有这样做过，而且好像很有趣）。</p>
+<h3 id="scroll-view"><a href="#scroll-view" class="headerlink" title="scroll-view"></a>scroll-view</h3><p>一般<code>scroll-view</code>都是纵向的，根据以上需求，我们就需要实现一个横向的<code>scroll-view</code>，具体实现如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dl</span> <span class="attr">class</span>=<span class="string">&quot;story&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span><span class="tag">&lt;/<span class="name">dt</span>&gt;</span><span class="tag">&lt;<span class="name">dt</span>&gt;</span><span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span><span class="tag">&lt;/<span class="name">dt</span>&gt;</span><span class="tag">&lt;<span class="name">dt</span>&gt;</span><span class="tag">&lt;/<span class="name">dt</span>&gt;</span><span class="tag">&lt;<span class="name">dt</span>&gt;</span><span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span><span class="tag">&lt;/<span class="name">dt</span>&gt;</span><span class="tag">&lt;<span class="name">dt</span>&gt;</span><span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">*&#123; <span class="attribute">margin</span>: <span class="number">0</span>;<span class="attribute">padding</span>: <span class="number">0</span>; &#125;</span><br><span class="line"><span class="selector-tag">html</span>,<span class="selector-tag">body</span>&#123; <span class="attribute">height</span>: <span class="number">100%</span>; &#125;</span><br><span class="line">::-webkit-scrollbar&#123; <span class="attribute">display</span>: none; &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#app</span>&#123; <span class="attribute">height</span>: <span class="number">100%</span>;<span class="attribute">position</span>: relative; &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#app</span> &gt; <span class="selector-class">.story</span>&#123; <span class="attribute">position</span>: absolute;<span class="attribute">top</span>: <span class="number">0</span>;<span class="attribute">right</span>: <span class="number">0</span>;<span class="attribute">bottom</span>: <span class="number">0</span>;<span class="attribute">left</span>: <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#app</span> &gt; <span class="selector-class">.story</span>&#123; </span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">1000</span>; <span class="attribute">border</span>: <span class="number">1px</span> solid;</span><br><span class="line">  <span class="attribute">overflow-x</span>: auto;<span class="attribute">overflow-y</span>: hidden; <span class="attribute">white-space</span>: nowrap;<span class="attribute">font-size</span>: <span class="number">0</span>;<span class="attribute">letter-spacing</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="comment">/* translateZ是是为了开启硬件加速 */</span></span><br><span class="line">  -webkit-<span class="attribute">transform</span>: <span class="built_in">translateZ</span>(<span class="number">0</span>);</span><br><span class="line">  -moz-<span class="attribute">transform</span>: <span class="built_in">translateZ</span>(<span class="number">0</span>);</span><br><span class="line">  -ms-<span class="attribute">transform</span>: <span class="built_in">translateZ</span>(<span class="number">0</span>);</span><br><span class="line">  -o-<span class="attribute">transform</span>: <span class="built_in">translateZ</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translateZ</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.story</span> &gt; <span class="selector-tag">dt</span>&#123; <span class="attribute">height</span>: <span class="number">100%</span>;<span class="attribute">width</span>: <span class="number">100%</span>;<span class="attribute">display</span>: inline-block;<span class="attribute">vertical-align</span>: top;<span class="attribute">position</span>: relative; &#125;</span><br><span class="line"><span class="selector-class">.story</span> &gt; <span class="selector-tag">dt</span><span class="selector-pseudo">:nth-of-type</span>(<span class="number">1</span>)&#123; <span class="attribute">background-color</span>: red; &#125;</span><br><span class="line"><span class="selector-class">.story</span> &gt; <span class="selector-tag">dt</span><span class="selector-pseudo">:nth-of-type</span>(<span class="number">2</span>)&#123; <span class="attribute">background-color</span>: orange; &#125;</span><br><span class="line"><span class="selector-class">.story</span> &gt; <span class="selector-tag">dt</span><span class="selector-pseudo">:nth-of-type</span>(<span class="number">3</span>)&#123; <span class="attribute">background-color</span>: yellow; &#125;</span><br><span class="line"><span class="selector-class">.story</span> &gt; <span class="selector-tag">dt</span><span class="selector-pseudo">:nth-of-type</span>(<span class="number">4</span>)&#123; <span class="attribute">background-color</span>: green; &#125;</span><br><span class="line"><span class="selector-class">.story</span> &gt; <span class="selector-tag">dt</span><span class="selector-pseudo">:nth-of-type</span>(<span class="number">5</span>)&#123; <span class="attribute">background-color</span>: cyan; &#125;</span><br><span class="line"><span class="selector-class">.story</span> &gt; <span class="selector-tag">dt</span><span class="selector-pseudo">:nth-of-type</span>(<span class="number">6</span>)&#123; <span class="attribute">background-color</span>: blue; &#125;</span><br><span class="line"><span class="selector-class">.story</span> &gt; <span class="selector-tag">dt</span><span class="selector-pseudo">:nth-of-type</span>(<span class="number">7</span>)&#123; <span class="attribute">background-color</span>: purple; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>核心css为</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">overflow-x</span>: auto;<span class="attribute">overflow-y</span>: hidden; <span class="attribute">white-space</span>: nowrap;</span><br></pre></td></tr></table></figure>
+<p>禁用块级元素的换行，依次达到横排的效果。<br><a target="_blank" rel="noopener" href="http://jsbin.com/virecok/1/edit?html,css,output">[查看源码：jsbin]</a><br><a target="_blank" rel="noopener" href="https://jsfiddle.net/issaxite/ec6cmpkq/5/">[查看源码：jsfiddle]</a><br>(ps：要看效果的gay man请点击<a target="_blank" rel="noopener" href="http://jsbin.com/virecok/1/edit?html,css,output">[查看源码：jsbin]</a>，并使用移动设备模式查看， 下同)<br><img src="http://ohi69gup6.bkt.clouddn.com/%E8%BD%AE%E6%92%AD-min.gif"></p>
+<h2 id="静止图层并监听其上的手势"><a href="#静止图层并监听其上的手势" class="headerlink" title="静止图层并监听其上的手势"></a>静止图层并监听其上的手势</h2><p>先向#app中添加静止图层</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dl</span> <span class="attr">class</span>=<span class="string">&quot;mash&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;http://ohi69gup6.bkt.clouddn.com/005TGG6vly1fes9jc0kk0g30b40b40tv.gif&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后，来分析一下轮播器的功能</p>
+<ol>
+<li>向左，向右滑动翻页；</li>
+<li>轮播器卡片手势跟随。</li>
+</ol>
+<h3 id="第1点的实现思路"><a href="#第1点的实现思路" class="headerlink" title="第1点的实现思路"></a>第1点的实现思路</h3><p>获取手指 “触碰屏幕那刻” 和 “离开屏幕那刻” 的位置，根据以上两个位置判断翻页方向，要获取这两位置，就需要分别注册<code>touchstart</code>和<code>touchend</code>事件，通过事件的回调参数( <code>event</code> )获取。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 触碰屏幕那刻横向位置</span></span><br><span class="line"><span class="keyword">var</span> touchStartX = e.<span class="property">changedTouches</span>[<span class="number">0</span>].<span class="property">pageX</span>;</span><br><span class="line"><span class="comment">// 离开屏幕那刻横向位置</span></span><br><span class="line"><span class="keyword">var</span> touchEndX = e.<span class="property">changedTouches</span>[<span class="number">0</span>].<span class="property">pageX</span>;</span><br></pre></td></tr></table></figure>
+
+<p>判断滑动方向</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isNext = touchEndX - touchStartX &lt; <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>知道翻页方向就可以进行翻页</p>
+<p>翻页如上文所说，通过改变卡片容器的<code>scrollLeft</code>。这里的容器是<code>#app &gt; .story</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#app &gt; .story&quot;</span>).<span class="property">scrollLeft</span></span><br></pre></td></tr></table></figure>
+<p>想要实现翻页，还必须知道两个属性：</p>
+<ol>
+<li>每页宽度：可以通过<code>story.clientWidth</code>获取；</li>
+<li>当前页：使用全局变量记录当前是第几页。</li>
+</ol>
+<p>具体实现如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> touchStartX = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> currentPage = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> mash = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#app &gt; .mash&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> story = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#app &gt; .story&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> screenWidth = story.<span class="property">clientWidth</span>;</span><br><span class="line"></span><br><span class="line">mash &amp;&amp; mash.<span class="title function_">addEventListener</span>(<span class="string">&#x27;touchstart&#x27;</span>, <span class="keyword">function</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> touch = e.<span class="property">changedTouches</span>[<span class="number">0</span>];</span><br><span class="line"> touchStartX = touch.<span class="property">pageX</span>;</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">mash &amp;&amp; mash.<span class="title function_">addEventListener</span>(<span class="string">&#x27;touchend&#x27;</span>, <span class="keyword">function</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> touch = e.<span class="property">changedTouches</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">var</span> touchEndX = touch.<span class="property">pageX</span>;</span><br><span class="line">  <span class="keyword">var</span> isNext = touchEndX - touchStartX &lt; <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> oldCurrentPage = currentPage;</span><br><span class="line">  <span class="keyword">var</span> maxPage = story.<span class="property">children</span>.<span class="property">length</span>;</span><br><span class="line">  <span class="keyword">var</span> minPage = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  currentPage = isNext ? currentPage + <span class="number">1</span> : currentPage - <span class="number">1</span>;</span><br><span class="line">  currentPage = currentPage &gt; maxPage ? maxPage : currentPage;</span><br><span class="line">  currentPage = currentPage &lt; minPage ? minPage : currentPage;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> targetScrollLeft = (currentPage - <span class="number">1</span>) * screenWidth;</span><br><span class="line">  </span><br><span class="line">  story.<span class="property">scrollLeft</span> = targetScrollLeft;</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p>以上代码基本实现翻页，但是仅仅是通过每次 “增加&#x2F;减少 一个<code>screenWidth</code>的距离” 达到翻页的目的，是不够的，因为你会发现翻页效果很生硬的，仅仅只有一帧。</p>
+<p>下面让我们把翻页效果做得更加顺滑。</p>
+<p>怎么做，使用定时器(<code>setTimeout</code>)？</p>
+<p>不！不！不！当然不会！</p>
+<p>我们使用<code>requestAnimationFrame</code>，至于为什么使用<code>requestAnimationFrame</code>而不使用<code>setTimeout</code>？请自行Google。接着，让我们先实现一个动画函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">animate</span>(<span class="params">callback</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> _animate = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> isValid = callback &amp;&amp; <span class="title function_">callback</span>();</span><br><span class="line">    isValid &amp;&amp; <span class="title function_">requestAnimationFrame</span>(_animate);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">requestAnimationFrame</span>(_animate);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>ok，然后要做的就是将它运用到翻页的代码中!</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置每帧改变scrollLeft距离</span></span><br><span class="line"><span class="keyword">var</span> step = <span class="number">30</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">mash &amp;&amp; mash.<span class="title function_">addEventListener</span>(<span class="string">&#x27;touchend&#x27;</span>, <span class="keyword">function</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="title function_">animate</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> scrollLeft = story.<span class="property">scrollLeft</span>;</span><br><span class="line"></span><br><span class="line">    scrollLeft = isNext ? scrollLeft + step : scrollLeft - step;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(isNext &amp;&amp; scrollLeft &gt; targetScrollLeft) &#123;</span><br><span class="line">      story.<span class="property">scrollLeft</span> = targetScrollLeft;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(!isNext &amp;&amp; scrollLeft &lt; targetScrollLeft)&#123;</span><br><span class="line">      story.<span class="property">scrollLeft</span> = targetScrollLeft;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      story.<span class="property">scrollLeft</span> = scrollLeft;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://jsbin.com/qoqufo/2/edit?html,css,js,output">[查看源码：jsbin]</a><br><a target="_blank" rel="noopener" href="https://jsfiddle.net/issaxite/ec6cmpkq/26/">[查看源码：jsfiddle]</a></p>
+<h3 id="第2点的实现思路"><a href="#第2点的实现思路" class="headerlink" title="第2点的实现思路"></a>第2点的实现思路</h3><p>第二点需要实现的功能是：轮播器卡片手势跟随。<br>假如你有试过以上代码实现的轮播器，你会发现一个问题：手指在未离开屏幕前，无论手指怎么滑动都不会有任何响应，这明显不是我们想要的。标准的轮播器应该是：当前卡片应该对手势做出响应，卡片跟随手指移动。</p>
+<p>要实现以上效果，就需要监听手指未离开屏幕的前的动作，注册<code>touchmove</code>事件，获取手指每次移动的位置！</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mash &amp;&amp; mash.<span class="title function_">addEventListener</span>(<span class="string">&#x27;touchmove&#x27;</span>, <span class="keyword">function</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> touch = e.<span class="property">changedTouches</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">var</span> moveingfPageX = touch.<span class="property">pageX</span>;</span><br><span class="line">  <span class="keyword">var</span> distance = -(moveingfPageX - touchStartX);</span><br><span class="line">  <span class="keyword">var</span> currentPageScrollLeft = (currentPage - <span class="number">1</span>) * screenWidth;</span><br><span class="line"></span><br><span class="line">  story.<span class="property">scrollLeft</span> = currentPageScrollLeft + distance;</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p>思路也是比较简单的，监听手指所在位置与初始位置<code>touchStartX</code>的距离，然后动态地改变<code>story.scrollLeft</code>。</p>
+<p>另外，现在已经实现卡片的手势跟随，随之又可能有这么一种情况：<br>用户已经滑动卡片，但是在滑动后用户不想翻页了，转而想继续留在当前页，即 “后悔功能”。然后再看看当前我们的逻辑：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">var</span> isNext = touchEndX - touchStartX &lt; <span class="number">0</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">currentPage = isNext ? currentPage + <span class="number">1</span> : currentPage - <span class="number">1</span>;</span><br><span class="line">currentPage = currentPage &gt; maxPage ? maxPage : currentPage;</span><br><span class="line">currentPage = currentPage &lt; minPage ? minPage : currentPage;</span><br></pre></td></tr></table></figure>
+<p>以上逻辑是：如果不是上一页就是下一页。并没有实现后悔功能。</p>
+<p>为实现后悔功能，我做如下修改</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置最小有效翻页距离（在手指离开屏幕时所偏移的横向距离），换言之，偏移距离小于30就触发后悔功能</span></span><br><span class="line"><span class="keyword">var</span> validFlipDistance = <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  ...</span></span><br><span class="line"></span><br><span class="line">mash &amp;&amp; mash.<span class="title function_">addEventListener</span>(<span class="string">&#x27;touchend&#x27;</span>, <span class="keyword">function</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  <span class="comment">//  ...</span></span><br><span class="line">  <span class="keyword">var</span> isValid = <span class="title class_">Math</span>.<span class="title function_">abs</span>(touchEndX - touchStartX) &gt;= validFlipDistance;</span><br><span class="line">  <span class="comment">//  ...</span></span><br><span class="line">  <span class="keyword">if</span>(isValid) &#123;</span><br><span class="line">    currentPage = isNext ? currentPage + <span class="number">1</span> : currentPage - <span class="number">1</span>;</span><br><span class="line">    currentPage = currentPage &gt; maxPage ? maxPage : currentPage;</span><br><span class="line">    currentPage = currentPage &lt; minPage ? minPage : currentPage;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 触发后悔功能，改变滑动方向，由animate函数将卡片反向滑回初始位置</span></span><br><span class="line">    isNext = !isNext;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://jsbin.com/qoqufo/edit?css,js,output">[查看源码: jsbin]</a><br><a target="_blank" rel="noopener" href="https://jsfiddle.net/issaxite/ec6cmpkq/29/">[查看源码: jsfiddle]</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/blog/images/wechatpay.jpg" alt="Isaac Kam 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/blog/images/alipay.jpg" alt="Isaac Kam 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Isaac Kam
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://isaaxite.github.io/blog/2018/02/24/%E6%89%8B%E5%8A%BF%E8%A7%86%E5%B7%AE%E7%BF%BB%E9%A1%B5%E5%99%A8/" title="手势视差翻页器">https://isaaxite.github.io/blog/2018/02/24/手势视差翻页器/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.zhihu.com/people/issac-79">
+            <span class="icon">
+              <i class="fab | fa-zhihu"></i>
+            </span>
+
+            <span class="label">Zhihu</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/blog/images/wechat_qrcode.jpg">
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/blog/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://github.com/isaaxite">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+
+            <span class="label">GitHub</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="isaacgun:isaacgun@outlook.com">
+            <span class="icon">
+              <i class="fa fa-envelope"></i>
+            </span>
+
+            <span class="label">E-Mail</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/" rel="tag"># 旧文迁移</a>
+              <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/blog/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2018/01/25/%E6%B5%85%E6%9E%90vue%E8%AF%AD%E6%B3%95%E7%B3%96v-model/" rel="prev" title="浅析vue语法糖v-model">
+                  <i class="fa fa-chevron-left"></i> 浅析vue语法糖v-model
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2018/08/31/SCSS%E5%AD%97%E7%AC%A6%E5%88%86%E5%89%B2%E5%87%BD%E6%95%B0%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E9%80%89%E6%8B%A9%E5%99%A8%E5%90%8D/" rel="next" title="SCSS字符分割函数获取当前选择器名">
+                  SCSS字符分割函数获取当前选择器名 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Isaac Kam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/blog/js/third-party/fancybox.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"isaaxite/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/blog/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

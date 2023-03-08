@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"isaaxite.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="编写油猴脚本扩展github评论编辑器，增加全屏模式">
+<meta property="og:url" content="https://isaaxite.github.io/blog/2022/10/31/%E7%BC%96%E5%86%99%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E6%89%A9%E5%B1%95github%E8%AF%84%E8%AE%BA%E7%BC%96%E8%BE%91%E5%99%A8%EF%BC%8C%E5%A2%9E%E5%8A%A0%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Isaac Kam&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/198898570-20993ce2-6890-4583-9583-018500c99b1e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/198898702-ac29ff5d-7cbf-4086-a8d5-6ea28db837f4.png">
+<meta property="article:published_time" content="2022-10-31T05:15:34.000Z">
+<meta property="article:modified_time" content="2023-03-08T09:02:17.278Z">
+<meta property="article:author" content="Isaac Kam">
+<meta property="article:tag" content="旧文迁移">
+<meta property="article:tag" content="tampermonkey">
+<meta property="article:tag" content="油猴脚本">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/25907273/198898570-20993ce2-6890-4583-9583-018500c99b1e.png">
+
+
+<link rel="canonical" href="https://isaaxite.github.io/blog/2022/10/31/%E7%BC%96%E5%86%99%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E6%89%A9%E5%B1%95github%E8%AF%84%E8%AE%BA%E7%BC%96%E8%BE%91%E5%99%A8%EF%BC%8C%E5%A2%9E%E5%8A%A0%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://isaaxite.github.io/blog/2022/10/31/%E7%BC%96%E5%86%99%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E6%89%A9%E5%B1%95github%E8%AF%84%E8%AE%BA%E7%BC%96%E8%BE%91%E5%99%A8%EF%BC%8C%E5%A2%9E%E5%8A%A0%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F/","path":"2022/10/31/编写油猴脚本扩展github评论编辑器，增加全屏模式/","title":"编写油猴脚本扩展github评论编辑器，增加全屏模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>编写油猴脚本扩展github评论编辑器，增加全屏模式 | Isaac Kam's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Isaac Kam's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am a slow walker, but I never walk backwards.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-rss"><a href="/blog/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">注释说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">2.1.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">调试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%91%E5%B8%83"><span class="nav-number">4.</span> <span class="nav-text">发布</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%97%E5%AD%90%F0%9F%8C%B0"><span class="nav-number">5.</span> <span class="nav-text">栗子🌰</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">6.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Isaac Kam"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Isaac Kam</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/isaaxite" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;isaaxite" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="isaacgun:isaacgun@outlook.com" title="E-Mail → isaacgun:isaacgun@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://isaaxite.github.io/blog/2022/10/31/%E7%BC%96%E5%86%99%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E6%89%A9%E5%B1%95github%E8%AF%84%E8%AE%BA%E7%BC%96%E8%BE%91%E5%99%A8%EF%BC%8C%E5%A2%9E%E5%8A%A0%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="Isaac Kam">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="编写油猴脚本扩展github评论编辑器，增加全屏模式 | Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          编写油猴脚本扩展github评论编辑器，增加全屏模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-31 13:15:34" itemprop="dateCreated datePublished" datetime="2022-10-31T13:15:34+08:00">2022-10-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-08 17:02:17" itemprop="dateModified" datetime="2023-03-08T17:02:17+08:00">2023-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/" itemprop="url" rel="index"><span itemprop="name">油猴脚本</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h1><p>安装 <a target="_blank" rel="noopener" href="https://www.tampermonkey.net/index.php?version=4.18.0&ext=dhdg&show=dhdg#">tampermonkey</a></p>
+<h1 id="注释说明"><a href="#注释说明" class="headerlink" title="注释说明"></a>注释说明</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         Comment Zoomer</span></span><br><span class="line"><span class="comment">// @namespace    http://tampermonkey.net/</span></span><br><span class="line"><span class="comment">// @version      1.0.0</span></span><br><span class="line"><span class="comment">// @description  Add zoom button in github comment to provide full screen mode, allowing you to write comments more elegantly</span></span><br><span class="line"><span class="comment">// @author       IsaacKam</span></span><br><span class="line"><span class="comment">// @match        https://github.com/*</span></span><br><span class="line"><span class="comment">// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==</span></span><br><span class="line"><span class="comment">// @grant        none</span></span><br><span class="line"><span class="comment">// @license MIT</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">name</td>
+<td align="left">油猴脚本的名字</td>
+</tr>
+<tr>
+<td align="left">namespace</td>
+<td align="left">命名空间，类似于Java的包名，用来区分相同名称的脚本，一般写成作者名字或者网址就可以了</td>
+</tr>
+<tr>
+<td align="left">version</td>
+<td align="left">脚本版本，油猴脚本的更新会读取这个版本号</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">描述，用来告诉用户这个脚本是干什么用的</td>
+</tr>
+<tr>
+<td align="left">author</td>
+<td align="left">作者名字</td>
+</tr>
+<tr>
+<td align="left">match</td>
+<td align="left">只有匹配的网址才会执行对应的脚本，例如*、http:&#x2F;&#x2F;*、<a target="_blank" rel="noopener" href="http://www.baidu.com/*%E7%AD%89%EF%BC%8C%E5%8F%82%E8%A7%81%E8%B0%B7%E6%AD%8C%E5%BC%80%E5%8F%91%E8%80%85%E6%96%87%E6%A1%A3">http://www.baidu.com/*等，参见谷歌开发者文档</a></td>
+</tr>
+<tr>
+<td align="left">grant</td>
+<td align="left">指定脚本运行所需权限，如果脚本拥有相应的权限，就可以调用油猴扩展提供的API与浏览器进行交互。如果设置为none的话，则不使用沙箱环境，脚本会直接运行在网页的环境中，这时候无法使用大部分油猴扩展的API。如果不指定的话，油猴会默认添加几个最常用的API</td>
+</tr>
+<tr>
+<td align="left">require</td>
+<td align="left">如果脚本依赖其他js库的话，可以使用require指令，在运行脚本之前先加载其他库，常见用法是加载jquery</td>
+</tr>
+<tr>
+<td align="left">connect</td>
+<td align="left">当用户使用GM_xmlhttpRequest请求远程数据的时候，需要使用connect指定允许访问的域名，支持域名、子域名、IP地址以及*通配符</td>
+</tr>
+<tr>
+<td align="left">updateURL</td>
+<td align="left">脚本更新网址，当油猴扩展检查更新的时候，会尝试从这个网址下载脚本，然后比对版本号确认是否更新</td>
+</tr>
+<tr>
+<td align="left">license</td>
+<td align="left">声明开源协议，<em>在发布是必须的</em></td>
+</tr>
+</tbody></table>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li><code>@match</code>，<em>是必要的参数，用来匹配当前脚本要在那个页面生效！</em></li>
+</ul>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>最简单的方式是编写完后，将代码复制到 tampermonkey 上。然后刷新脚本应用到的页面！</p>
+<h1 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h1><ol>
+<li>进入 <a target="_blank" rel="noopener" href="https://greasyfork.org/en">greasyfork</a>！</li>
+<li>选择发布脚本；</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><img width="383" alt="image" style="border: 1px solid black;" src="https://user-images.githubusercontent.com/25907273/198898570-20993ce2-6890-4583-9583-018500c99b1e.png"></th>
+</tr>
+</thead>
+</table>
+<ol start="3">
+<li>输入代码，以及说明，即可发布！</li>
+</ol>
+<h1 id="栗子🌰"><a href="#栗子🌰" class="headerlink" title="栗子🌰"></a>栗子🌰</h1><p>欢迎 <a target="_blank" rel="noopener" href="https://greasyfork.org/en/scripts/453950-comment-zoomer">使用</a> 和 <a target="_blank" rel="noopener" href="https://github.com/isaaxite/comment_zoomer">star</a>!</p>
+<table>
+<thead>
+<tr>
+<th><img src="https://user-images.githubusercontent.com/25907273/198898702-ac29ff5d-7cbf-4086-a8d5-6ea28db837f4.png" alt="image"></th>
+</tr>
+</thead>
+</table>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000021654926">油猴脚本编写教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tampermonkey.net/documentation.php">This section describes how the Tampermonkey API can be used and what is different to Geasemonkey</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tampermonkey.net/index.php?version=4.18.0&ext=dhdg&show=dhdg#">tampermonkey</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/blog/images/wechatpay.jpg" alt="Isaac Kam 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/blog/images/alipay.jpg" alt="Isaac Kam 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Isaac Kam
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://isaaxite.github.io/blog/2022/10/31/%E7%BC%96%E5%86%99%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E6%89%A9%E5%B1%95github%E8%AF%84%E8%AE%BA%E7%BC%96%E8%BE%91%E5%99%A8%EF%BC%8C%E5%A2%9E%E5%8A%A0%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F/" title="编写油猴脚本扩展github评论编辑器，增加全屏模式">https://isaaxite.github.io/blog/2022/10/31/编写油猴脚本扩展github评论编辑器，增加全屏模式/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.zhihu.com/people/issac-79">
+            <span class="icon">
+              <i class="fab | fa-zhihu"></i>
+            </span>
+
+            <span class="label">Zhihu</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/blog/images/wechat_qrcode.jpg">
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/blog/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://github.com/isaaxite">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+
+            <span class="label">GitHub</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="isaacgun:isaacgun@outlook.com">
+            <span class="icon">
+              <i class="fa fa-envelope"></i>
+            </span>
+
+            <span class="label">E-Mail</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/" rel="tag"># 旧文迁移</a>
+              <a href="/blog/tags/tampermonkey/" rel="tag"># tampermonkey</a>
+              <a href="/blog/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/" rel="tag"># 油猴脚本</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/" rel="prev" title="oauth2实践">
+                  <i class="fa fa-chevron-left"></i> oauth2实践
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2022/11/01/PM2%E6%97%A5%E5%BF%97%E4%BC%98%E5%8C%96/" rel="next" title="PM2日志优化">
+                  PM2日志优化 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Isaac Kam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/blog/js/third-party/fancybox.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"isaaxite/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/blog/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

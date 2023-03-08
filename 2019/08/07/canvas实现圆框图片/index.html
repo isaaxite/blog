@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"isaaxite.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="前言在html中做圆框图片很容易，只需要简单的 border-radius: 50%; 当然，为了兼容性，还有必要做带前缀的兼容性写法。但总的来说还是很简单。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="canvas实现圆框图片">
+<meta property="og:url" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/index.html">
+<meta property="og:site_name" content="Isaac Kam&#39;s Blog">
+<meta property="og:description" content="前言在html中做圆框图片很容易，只需要简单的 border-radius: 50%; 当然，为了兼容性，还有必要做带前缀的兼容性写法。但总的来说还是很简单。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-bd35ee9e30c8de53.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-2ec590dc132f3067.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-9343063b631f3456.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-6ae38ef8653024d8.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-b8968aabf0bdc4cb.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-4cb61a8b9522b0ac.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-619ed2977b158f5b.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-37eba062c3666da0.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-ba345b172e3ad4b8.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-f38ace5dbf8d890b.png">
+<meta property="article:published_time" content="2019-08-07T08:36:14.000Z">
+<meta property="article:modified_time" content="2023-03-08T09:02:17.258Z">
+<meta property="article:author" content="Isaac Kam">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="canvas">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-bd35ee9e30c8de53.png">
+
+
+<link rel="canonical" href="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/","path":"2019/08/07/canvas实现圆框图片/","title":"canvas实现圆框图片"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>canvas实现圆框图片 | Isaac Kam's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Isaac Kam's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am a slow walker, but I never walk backwards.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-rss"><a href="/blog/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%BA%B9%E7%90%86%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">通过纹理实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E8%A3%81%E5%89%AA%E7%94%BB%E5%B8%83%E9%83%A8%E5%88%86%E5%8C%BA%E5%9F%9F%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">通过裁剪画布部分区域实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9%EF%BC%8C%E6%AF%94%E8%BE%83%E5%AE%B9%E6%98%93%E8%AE%A9%E8%AF%AF%E8%A7%A3%E7%9A%84API%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">两个值得注意的点，比较容易让误解的API：</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Isaac Kam"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Isaac Kam</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/isaaxite" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;isaaxite" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="isaacgun:isaacgun@outlook.com" title="E-Mail → isaacgun:isaacgun@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="Isaac Kam">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="canvas实现圆框图片 | Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          canvas实现圆框图片
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-07 16:36:14" itemprop="dateCreated datePublished" datetime="2019-08-07T16:36:14+08:00">2019-08-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-08 17:02:17" itemprop="dateModified" datetime="2023-03-08T17:02:17+08:00">2023-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在html中做圆框图片很容易，只需要简单的 <code>border-radius: 50%;</code> 当然，为了兼容性，还有必要做带前缀的兼容性写法。但总的来说还是很简单。</p>
+<span id="more"></span>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="language-css">  -webkit-<span class="attribute">border-radius</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">  -moz-<span class="attribute">border-radius</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<!-- ![](https://pbs.twimg.com/profile_images/588883654157291520/4DBMn6_A.jpg) -->
+
+<p><img src="/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-bd35ee9e30c8de53.png"></p>
+<p><a target="_blank" rel="noopener" href="https://jsfiddle.net/issaxite/3gLaoLjy/">[传送门：demo]</a></p>
+<p>但是在canvas上做起来就有点麻烦了，在canvas画布上画图片，可以使用canvas的 <code>drawImage</code> 接口，但是这个接口也仅仅是将图片画在画布上，并没有如css那样提供做圆角的接口。</p>
+<p>网上google过一下，常看到这样的做法(最先是在<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/study/201406/image-border-radius-canvas.html">张鑫旭的blog上看到的</a>)：</p>
+<h1 id="通过纹理实现"><a href="#通过纹理实现" class="headerlink" title="通过纹理实现"></a>通过纹理实现</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;canvas&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="title class_">CanvasRenderingContext2D</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">roundRect</span> = <span class="keyword">function</span> (<span class="params">x, y, w, h, r</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> min_size = <span class="title class_">Math</span>.<span class="title function_">min</span>(w, h);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">if</span> (r &gt; min_size / <span class="number">2</span>) r = min_size / <span class="number">2</span>;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 开始绘制</span></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">this</span>.<span class="title function_">beginPath</span>();</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">this</span>.<span class="title function_">moveTo</span>(x + r, y);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">this</span>.<span class="title function_">arcTo</span>(x + w, y, x + w, y + h, r);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">this</span>.<span class="title function_">arcTo</span>(x + w, y + h, x, y + h, r);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">this</span>.<span class="title function_">arcTo</span>(x, y + h, x, y, r);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">this</span>.<span class="title function_">arcTo</span>(x, y, x + w, y, r);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">this</span>.<span class="title function_">stroke</span>();</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">this</span>.<span class="title function_">closePath</span>();</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">return</span> <span class="variable language_">this</span>;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> canvas = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#canvas&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> context = canvas.<span class="title function_">getContext</span>(<span class="string">&quot;2d&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> img = <span class="keyword">new</span> <span class="title class_">Image</span>();</span></span><br><span class="line"><span class="language-javascript">img.<span class="property">src</span> = <span class="string">&#x27;https://pbs.twimg.com/profile_images/588883654157291520/4DBMn6_A.jpg&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> pattern = context.<span class="title function_">createPattern</span>(img, <span class="string">&quot;no-repeat&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">context.<span class="title function_">roundRect</span>(<span class="number">0</span>, <span class="number">0</span>, img.<span class="property">width</span>, img.<span class="property">height</span>, <span class="number">0</span>);</span></span><br><span class="line"><span class="language-javascript">context.<span class="property">fillStyle</span> = pattern;</span></span><br><span class="line"><span class="language-javascript">context.<span class="title function_">fill</span>(); </span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样做是可以的，这个做法的关键道具是<code>createPattern</code> 这是一个专门用来作纹理的API：</p>
+<p><img src="/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-2ec590dc132f3067.png"></p>
+<p><strong>但是，如果你将该形状右移50px就会发现问题所在，图片没有跟着形状（圆框）一起移动</strong>：</p>
+<p><img src="/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-9343063b631f3456.png"></p>
+<p>其实，看第二个画布应该可以看出图片是对画布的左上角做定位的。如果图片没有移动，那么想办法移动图片就好啦！然而，可悲的是没有方法。因此，这是一种比较鸡肋的做法。</p>
+<p><a target="_blank" rel="noopener" href="https://jsfiddle.net/issaxite/3gLaoLjy/1/">[传送门：demo]</a></p>
+<h1 id="通过裁剪画布部分区域实现"><a href="#通过裁剪画布部分区域实现" class="headerlink" title="通过裁剪画布部分区域实现"></a>通过裁剪画布部分区域实现</h1><p>这是我最后使用的方法，这个方法的关键道具是<code>clip()</code>API，这个API，可以用你指定的形状在画布上裁剪一部分出来，然后，接下来你在画布上的操作只有在该形状区域内可见，如果还有后续还有对画布的其他地方有操作，可以使用<code>restore()</code>接口恢复，但是必须在使用clip接口前用 <code>save()</code> 接口保存canvas的状态。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;canvas&quot;</span> <span class="attr">style</span>=<span class="string">&quot;border: 1px solid;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> canvas = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#canvas&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> context = canvas.<span class="title function_">getContext</span>(<span class="string">&quot;2d&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> img = <span class="keyword">new</span> <span class="title class_">Image</span>();</span></span><br><span class="line"><span class="language-javascript">  img.<span class="property">src</span> = <span class="string">&#x27;https://pbs.twimg.com/profile_images/588883654157291520/4DBMn6_A.jpg&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 首先是先画一个圆形，因为现在我们不是画圆角矩形，所以就不用“张鑫旭”画圆</span></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 的做法，我们直接使用 `arc` 接口</span></span></span><br><span class="line"><span class="language-javascript">  context.<span class="title function_">save</span>();</span></span><br><span class="line"><span class="language-javascript">  context.<span class="title function_">arc</span>(<span class="number">100</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">0</span>, <span class="number">2</span> * <span class="title class_">Math</span>.<span class="property">PI</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 从画布上裁剪出这个圆形</span></span></span><br><span class="line"><span class="language-javascript">  context.<span class="title function_">clip</span>();</span></span><br><span class="line"><span class="language-javascript">  context.<span class="title function_">drawImage</span>(img, <span class="number">50</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-6ae38ef8653024d8.png"></p>
+<p>为此，还封装了个简单的方法：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;canvas&quot;</span> <span class="attr">style</span>=<span class="string">&quot;border: 1px solid;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 封装了一个简单的方法</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">circleImg</span>(<span class="params">ctx, img, x, y, r</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    ctx.<span class="title function_">save</span>();</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> d =<span class="number">2</span> * r;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> cx = x + r;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> cy = y + r;</span></span><br><span class="line"><span class="language-javascript">    ctx.<span class="title function_">arc</span>(cx, cy, r, <span class="number">0</span>, <span class="number">2</span> * <span class="title class_">Math</span>.<span class="property">PI</span>);</span></span><br><span class="line"><span class="language-javascript">    ctx.<span class="title function_">clip</span>();</span></span><br><span class="line"><span class="language-javascript">    ctx.<span class="title function_">drawImage</span>(img, x, y, d, d);</span></span><br><span class="line"><span class="language-javascript">    ctx.<span class="title function_">restore</span>();</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> img = <span class="keyword">new</span> <span class="title class_">Image</span>();</span></span><br><span class="line"><span class="language-javascript">  img.<span class="property">src</span> = <span class="string">&#x27;https://pbs.twimg.com/profile_images/588883654157291520/4DBMn6_A.jpg&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> canvas1 = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#canvas1&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> context1 = canvas1.<span class="title function_">getContext</span>(<span class="string">&quot;2d&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">circleImg</span>(context1, img, <span class="number">100</span>, <span class="number">20</span>, <span class="number">50</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-b8968aabf0bdc4cb.png"></p>
+<p>正如你所见，这个做法可以随意移动圆框和图片的。</p>
+<p><a target="_blank" rel="noopener" href="https://jsfiddle.net/issaxite/p56fkb9s/1/">[传送门：demo]</a></p>
+<h1 id="两个值得注意的点，比较容易让误解的API："><a href="#两个值得注意的点，比较容易让误解的API：" class="headerlink" title="两个值得注意的点，比较容易让误解的API："></a>两个值得注意的点，比较容易让误解的API：</h1><ul>
+<li>clip()<br><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/tiy/t.asp?f=html5_canvas_clip">这是w3c的例子</a>，或许有部分人（在说自己），会误以为，在使用clip以后，接下来的操作都是相对于这个被剪切出来的部分做定位，特别是下面这张图：</li>
+</ul>
+<p><img src="/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-4cb61a8b9522b0ac.png" alt="灰色框是画布"></p>
+<p>更加容易让人误以为真是如此，其实不然，其实还是相对画布的左上角做定位，用了clip后只是变成，只有clip区域可见而已。</p>
+<ul>
+<li>arcTo 一个用来画弧线的api</li>
+</ul>
+<p>关于这个API的参数说明是这样的：</p>
+<p><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/tags/canvas_arcto.asp">[传送门：demo]</a></p>
+<p><img src="/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-619ed2977b158f5b.png"></p>
+<p>上面的参数说明中的起点和终点，比较容易让人误以为是下面两个点：</p>
+<p><img src="/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-37eba062c3666da0.png"></p>
+<p>然而上面的(x1,y1)和(x2,y2)其实是分别指下图上的上面一点和下面一点：</p>
+<p><img src="/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-ba345b172e3ad4b8.png"></p>
+<p>继续看下图：</p>
+<p><img src="/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/2838289-f38ace5dbf8d890b.png"></p>
+<p><strong>顺道说一下，canvas的坐标，x轴由原点左到右从0开始递增，y轴由原点上到下，从0开始递增。</strong></p>
+<p>A点是直线的末点，这个点一般是有lineTo接口写出，或者moveTo接口，比如moveTo(50,50)，而B点则是arcTo中的x1,x2，B(100, 50)， C点则是arcTo中的x2,y2，C(100, 100)，而arcTo中的r则是AB或者CD。</p>
+<p><a target="_blank" rel="noopener" href="https://jsfiddle.net/issaxite/uqj700yo/">[传送门：demo]</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/blog/images/wechatpay.jpg" alt="Isaac Kam 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/blog/images/alipay.jpg" alt="Isaac Kam 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Isaac Kam
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://isaaxite.github.io/blog/2019/08/07/canvas%E5%AE%9E%E7%8E%B0%E5%9C%86%E6%A1%86%E5%9B%BE%E7%89%87/" title="canvas实现圆框图片">https://isaaxite.github.io/blog/2019/08/07/canvas实现圆框图片/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.zhihu.com/people/issac-79">
+            <span class="icon">
+              <i class="fab | fa-zhihu"></i>
+            </span>
+
+            <span class="label">Zhihu</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/blog/images/wechat_qrcode.jpg">
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/blog/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://github.com/isaaxite">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+
+            <span class="label">GitHub</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="isaacgun:isaacgun@outlook.com">
+            <span class="icon">
+              <i class="fa fa-envelope"></i>
+            </span>
+
+            <span class="label">E-Mail</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/blog/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/blog/tags/canvas/" rel="tag"># canvas</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2018/10/09/Alpha%E3%80%81Beta%E3%80%81RC%E3%80%81GA%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="prev" title="Alpha、Beta、RC、GA版本的区别">
+                  <i class="fa fa-chevron-left"></i> Alpha、Beta、RC、GA版本的区别
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2019/08/17/%E7%AE%97%E6%B3%95%E9%A2%98%E7%9B%AE%EF%BC%9A%E5%8F%98%E6%80%81%E8%B7%B3%E5%8F%B0%E9%98%B6-%E8%A7%A3%E6%B3%95/" rel="next" title="算法题目：变态跳台阶||解法">
+                  算法题目：变态跳台阶||解法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Isaac Kam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/blog/js/third-party/fancybox.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"isaaxite/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/blog/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

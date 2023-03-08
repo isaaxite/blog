@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"isaaxite.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="前言Rust 是一种 预编译静态类型（ahead-of-time compiled）语言，这意味着你可以编译程序，并将可执行文件送给其他人，他们甚至不需要安装 Rust 就可以运行。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rust学习">
+<meta property="og:url" content="https://isaaxite.github.io/blog/2023/02/15/Rust%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Isaac Kam&#39;s Blog">
+<meta property="og:description" content="前言Rust 是一种 预编译静态类型（ahead-of-time compiled）语言，这意味着你可以编译程序，并将可执行文件送给其他人，他们甚至不需要安装 Rust 就可以运行。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204077420-7c3a88eb-57d2-4393-ae55-5ad625521997.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204089591-b2abeda6-5cdc-4bda-8498-3a06cf746f4a.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204089548-adadc8f1-ff1a-48e5-826b-68257e30cb6f.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204089646-b505984f-8cf6-4fae-b221-cbb47c59dcbb.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204099490-4309d4b8-7122-44d0-a7e7-2668d1940238.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204089972-fb695c14-1456-4863-8c09-fb8e5184a9bd.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204100025-89f68fa1-26a0-4303-a32f-3a240ae04503.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204480696-4188bc14-809f-49dd-be12-3ef7868d3b0e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204481489-09ebb4e5-5fb3-413c-83a6-36a528ed980a.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204489601-c2e6f02b-4aa7-46bc-97d5-e707e7643458.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204947997-bd4878ea-b295-47fd-bd0d-895d2f703fc1.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/25907273/204198140-44b47b88-e8ed-43b0-a554-181ebdd3ef0c.png">
+<meta property="article:published_time" content="2023-02-14T16:56:17.000Z">
+<meta property="article:modified_time" content="2023-03-08T09:02:17.258Z">
+<meta property="article:author" content="Isaac Kam">
+<meta property="article:tag" content="旧文迁移">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/25907273/204077420-7c3a88eb-57d2-4393-ae55-5ad625521997.png">
+
+
+<link rel="canonical" href="https://isaaxite.github.io/blog/2023/02/15/Rust%E5%AD%A6%E4%B9%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://isaaxite.github.io/blog/2023/02/15/Rust%E5%AD%A6%E4%B9%A0/","path":"2023/02/15/Rust学习/","title":"Rust学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Rust学习 | Isaac Kam's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Isaac Kam's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am a slow walker, but I never walk backwards.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-rss"><a href="/blog/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hello-World"><span class="nav-number">3.</span> <span class="nav-text">Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Code"><span class="nav-number">3.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">3.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C"><span class="nav-number">3.3.</span> <span class="nav-text">执行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%EF%BC%8CCargo"><span class="nav-number">4.</span> <span class="nav-text">构建系统和包管理器，Cargo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">4.1.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E9%A1%B9%E7%9B%AE"><span class="nav-number">4.2.</span> <span class="nav-text">编译项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E6%97%B6%E7%BC%96%E8%AF%91"><span class="nav-number">4.2.1.</span> <span class="nav-text">开发时编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E6%97%B6%E7%BC%96%E8%AF%91"><span class="nav-number">4.2.2.</span> <span class="nav-text">生产时编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE"><span class="nav-number">4.3.</span> <span class="nav-text">运行项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%A3%80%E6%9F%A5"><span class="nav-number">4.4.</span> <span class="nav-text">快速检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.6.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E6%A6%82%E5%BF%B5"><span class="nav-number">5.</span> <span class="nav-text">语法概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9D%9F%E7%AC%A6%E5%8F%B7"><span class="nav-number">5.1.</span> <span class="nav-text">结束符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">5.2.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F-x2F-%E5%B8%B8%E9%87%8F"><span class="nav-number">5.3.</span> <span class="nav-text">变量&#x2F;常量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">5.3.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F"><span class="nav-number">5.3.2.</span> <span class="nav-text">常量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.4.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">5.4.1.</span> <span class="nav-text">数据类型的分类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%80%E6%9C%89%E6%9D%83%EF%BC%88ownership%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">所有权（ownership）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-1"><span class="nav-number">6.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%80%E6%9C%89%E6%9D%83%E7%9A%84%E8%A7%84%E5%88%99"><span class="nav-number">6.2.</span> <span class="nav-text">所有权的规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">6.3.</span> <span class="nav-text">变量作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-%E7%B1%BB%E5%9E%8B"><span class="nav-number">6.4.</span> <span class="nav-text">String 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">6.4.1.</span> <span class="nav-text">变量与数据交互的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AC%E7%A7%BB"><span class="nav-number">6.4.1.1.</span> <span class="nav-text">转移</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D"><span class="nav-number">6.4.1.2.</span> <span class="nav-text">拷贝</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E4%B8%8E%E5%80%9F%E7%94%A8"><span class="nav-number">6.5.</span> <span class="nav-text">引用与借用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8"><span class="nav-number">6.5.1.</span> <span class="nav-text">可变引用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8C%85%E3%80%81crate%E5%92%8C%E6%A8%A1%E5%9D%97"><span class="nav-number">7.</span> <span class="nav-text">包、crate和模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">8.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83-1"><span class="nav-number">8.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cargo-%E2%80%93help"><span class="nav-number">8.2.</span> <span class="nav-text">cargo –help</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cargo%E7%BC%96%E8%AF%91%E5%90%8E%E7%9A%84%E4%BA%A7%E7%89%A9"><span class="nav-number">8.3.</span> <span class="nav-text">cargo编译后的产物</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E6%97%B6%E4%BA%A7%E7%89%A9"><span class="nav-number">8.3.1.</span> <span class="nav-text">开发时产物</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E6%97%B6%E4%BA%A7%E7%89%A9"><span class="nav-number">8.3.2.</span> <span class="nav-text">生产时产物</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rust-%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="nav-number">8.4.</span> <span class="nav-text">Rust 内存布局</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Isaac Kam"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Isaac Kam</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/isaaxite" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;isaaxite" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="isaacgun:isaacgun@outlook.com" title="E-Mail → isaacgun:isaacgun@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://isaaxite.github.io/blog/2023/02/15/Rust%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="Isaac Kam">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Rust学习 | Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Rust学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-02-15 00:56:17" itemprop="dateCreated datePublished" datetime="2023-02-15T00:56:17+08:00">2023-02-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-08 17:02:17" itemprop="dateModified" datetime="2023-03-08T17:02:17+08:00">2023-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Rust/" itemprop="url" rel="index"><span itemprop="name">Rust</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Rust 是一种 预编译静态类型（ahead-of-time compiled）语言，这意味着你可以编译程序，并将可执行文件送给其他人，他们甚至不需要安装 Rust 就可以运行。</p>
+<span id="more"></span>
+
+<p>Rust 是 静态类型（statically typed）语言，也就是说在编译时就必须知道所有变量的类型。</p>
+<p>Rust 通过所有权系统管理内存，编译器在编译时会根据一系列的规则进行检查。如果违反了任何这些规则，程序都不能编译。</p>
+<p>Rust是内存安全、没有GC(垃圾回收)的高效语言。</p>
+<hr>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@f8ac270c7b6b workspace]# curl --proto &#x27;=https&#x27; --tlsv1.3 https://sh.rustup.rs -sSf | sh</span><br></pre></td></tr></table></figure>
+<p>安装成功！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">info: default toolchain set to &#x27;stable-x86_64-unknown-linux-gnu&#x27;                 </span><br><span class="line">                                                                                 </span><br><span class="line">  stable-x86_64-unknown-linux-gnu installed - rustc 1.65.0 (897e37553 2022-11-02)</span><br><span class="line">                                                                                 </span><br><span class="line">                                                                                 </span><br><span class="line">Rust is installed now. Great!                                                    </span><br><span class="line">                                                                                 </span><br><span class="line">To get started you may need to restart your current shell.                       </span><br><span class="line">This would reload your PATH environment variable to include                      </span><br><span class="line">Cargo&#x27;s bin directory ($HOME/.cargo/bin).                                        </span><br><span class="line">                                                                                 </span><br><span class="line">To configure your current shell, run:                                            </span><br><span class="line">source &quot;$HOME/.cargo/env&quot;                                                        </span><br></pre></td></tr></table></figure>
+
+<p>刷新当前shell配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@f8ac270c7b6b workspace]# source ~/.bashrc</span><br><span class="line"></span><br><span class="line">[root@f8ac270c7b6b workspace]# rustc --version</span><br><span class="line">rustc 1.65.0 (897e37553 2022-11-02)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><ul>
+<li>Code</li>
+<li>编译</li>
+<li>执行</li>
+</ul>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>文件名：hello_world.rs</p>
+<p>使用的是 <code>.rs</code> 后缀！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">  println!(&quot;Hello, world!&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>安装 vs code的 rust 扩展！</p>
+<p>Extension ID：dustypomerleau.rust-syntax<br><img src="https://user-images.githubusercontent.com/25907273/204077420-7c3a88eb-57d2-4393-ae55-5ad625521997.png" alt="image"></p>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p><code>rustc xxx.rs</code> 编译rust程序！</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@f8ac270c7b6b rust-learn]# rustc hello_world.rs</span><br><span class="line">[root@f8ac270c7b6b rust-learn]# ls</span><br><span class="line">hello_world  hello_world.rs</span><br></pre></td></tr></table></figure>
+
+<h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><p>直接执行编译后的文件！不需要启动程序！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@f8ac270c7b6b rust-learn]# ./hello_world</span><br><span class="line">Hello, world!</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="构建系统和包管理器，Cargo"><a href="#构建系统和包管理器，Cargo" class="headerlink" title="构建系统和包管理器，Cargo"></a>构建系统和包管理器，Cargo</h1><p>Cargo 是 Rust 的构建系统和包管理器。它可以为你处理很多任务，比如构建代码、下载依赖库并编译这些库</p>
+<p>使用官方方式安装，会自带 Cargo！</p>
+<p>Cargo的详细命令可以使用 <code>--help</code>，也可查看 <a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1327996209">附录</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@f8ac270c7b6b rust-learn]# cargo --version</span><br><span class="line">cargo 1.65.0 (4bc8f24d3 2022-10-20)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建项目</li>
+<li>编译项目<ul>
+<li>开发时编译</li>
+<li>生产时编译</li>
+</ul>
+</li>
+<li>执行项目</li>
+<li>快速检测</li>
+<li>小结</li>
+<li>参考</li>
+</ul>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>使用 <code>cargo new &lt;new dir name&gt;</code></p>
+<p>产物结构</p>
+<p><img src="https://user-images.githubusercontent.com/25907273/204089591-b2abeda6-5cdc-4bda-8498-3a06cf746f4a.png" alt="image"></p>
+<p>生成一个配置文件，是toml文件。</p>
+<p>这个文件使用 <a target="_blank" rel="noopener" href="https://toml.io/">TOML</a> (Tom’s Obvious, Minimal Language) 格式，这是 Cargo 配置文件的格式。</p>
+<p>还生成一个src以及src下的z&#x3D;主文件main。</p>
+<p><img src="https://user-images.githubusercontent.com/25907273/204089548-adadc8f1-ff1a-48e5-826b-68257e30cb6f.png" alt="image"></p>
+<h2 id="编译项目"><a href="#编译项目" class="headerlink" title="编译项目"></a>编译项目</h2><ul>
+<li>开发时编译</li>
+<li>生产时编译</li>
+</ul>
+<h3 id="开发时编译"><a href="#开发时编译" class="headerlink" title="开发时编译"></a>开发时编译</h3><p>切换到 项目目录下（此处是 hello_cargo），执行build命令。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo build</span><br></pre></td></tr></table></figure>
+
+<p>build 结果如下：</p>
+<p><img src="https://user-images.githubusercontent.com/25907273/204089646-b505984f-8cf6-4fae-b221-cbb47c59dcbb.png" alt="image"></p>
+<p>增加了 <code>Cargo.lock</code> 和 <code>target/</code> 目录！</p>
+<h3 id="生产时编译"><a href="#生产时编译" class="headerlink" title="生产时编译"></a>生产时编译</h3><p>在开发时编译的基础上增加 <code>--release</code>。</p>
+<p>编译的产物会放在 <code>target/release</code> 中！详细参考 <a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1327996209">附录</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo build --release</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-images.githubusercontent.com/25907273/204099490-4309d4b8-7122-44d0-a7e7-2668d1940238.png" alt="image"></p>
+<h2 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h2><p>使用 <code>run</code> 命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo run</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-images.githubusercontent.com/25907273/204089972-fb695c14-1456-4863-8c09-fb8e5184a9bd.png" alt="image"></p>
+<h2 id="快速检查"><a href="#快速检查" class="headerlink" title="快速检查"></a>快速检查</h2><p>在项目根目录下执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo check</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-images.githubusercontent.com/25907273/204100025-89f68fa1-26a0-4303-a32f-3a240ae04503.png" alt="image"></p>
+<p>该命令快速检查代码确保其可以编译，但并不产生可执行文件！</p>
+<p>通常 cargo check 要比 cargo build 快得多，因为它省略了生成可执行文件的步骤。如果你在编写代码时持续的进行检查，cargo check 可以让你快速了解现在的代码能不能正常通过编译！</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li><code>cargo new</code>，创建项目。</li>
+<li><code>cargo build</code>，构建项目。</li>
+<li><code>cargo run</code>，一步构建并运行项目。</li>
+<li><code>cargo check</code>，在不生成二进制文件的情况下构建项目来检查错误。</li>
+<li>有别于将构建结果放在与源码相同的目录，Cargo 会将其放到 target目录，默认在 <code>target/debug</code>，生产时在 <code>target/release</code>。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://kaisery.github.io/trpl-zh-cn/ch01-03-hello-cargo.html#hello-cargo">Rust 程序设计语言 简体中文版 —— Hello, Cargo!</a></li>
+</ul>
+<hr>
+<h1 id="语法概念"><a href="#语法概念" class="headerlink" title="语法概念"></a>语法概念</h1><ul>
+<li>结束符号</li>
+<li>注释</li>
+<li>变量&#x2F;常量</li>
+<li>数据类型</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1328515749">函数定义</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1330017240">控制流</a></li>
+</ul>
+<h2 id="结束符号"><a href="#结束符号" class="headerlink" title="结束符号"></a>结束符号</h2><p>使用分号（<code>;</code>）作为结束符号</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一段注释</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="变量-x2F-常量"><a href="#变量-x2F-常量" class="headerlink" title="变量&#x2F;常量"></a>变量&#x2F;常量</h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量默认是不可重复赋值！<br>如果要重复赋值可以使用<code>mut</code>配合声明。<br>变量是可以重复声明的！</p>
+<p>使用 <code>let</code> 声明标量！</p>
+<figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">foo</span> = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>需要重复赋值时声明</p>
+<figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">foo</span> = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">foo = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>可以重复声明变量</p>
+<figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">foo</span> = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 在此之前foo=1</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">foo</span>: <span class="type">u8</span> = <span class="number">2</span>;</span><br><span class="line"><span class="comment">// 解析来foo = 2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>使用 <code>const</code>声明，与变量不同，它声明之后总是不可重复声明与赋值！</p>
+<figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> FOO = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
+<li>数据类型的分类</li>
+</ul>
+<h3 id="数据类型的分类"><a href="#数据类型的分类" class="headerlink" title="数据类型的分类"></a>数据类型的分类</h3><p>数据类型的分为<em>标量（scalar）</em>和<em>复合（compound）</em>，以及其他</p>
+<p><strong>标量（scalar）</strong> 类型代表一个单独的值。Rust 有四种基本的标量类型：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1328102385">整型</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1328105183">浮点型</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1328105689">布尔类型</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1328111816">字符类型</a></li>
+</ul>
+<p><strong>复合类型（Compound types）</strong> 可以将多个值组合成一个类型。Rust 有两个原生的复合类型：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1328122358">元组（tuple）</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1328195135">数组（array）</a></li>
+</ul>
+<p>其他类型包含：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1328463936">引用类型</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/isaaxite/blog/issues/296#issuecomment-1328510984">Slice类型</a></li>
+</ul>
+<hr>
+<h1 id="所有权（ownership）"><a href="#所有权（ownership）" class="headerlink" title="所有权（ownership）"></a>所有权（ownership）</h1><ul>
+<li>前言</li>
+<li>所有权的规则</li>
+<li>变量作用域</li>
+<li>变量与数据交互的方式</li>
+<li>引用与借用</li>
+</ul>
+<h2 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h2><p>[栈（Stack）与堆（Heap）内存。</p>
+<p>栈以放入值的顺序存储值。</p>
+<p>堆是缺乏组织的：当向堆放入数据时，你要请求一定大小的空间。内存分配器（memory allocator）在堆的某处找到一块足够大的空位，把它标记为已使用，并返回一个表示该位置地址的 指针（pointer）。</p>
+<p>入栈比在堆上分配内存要快，因为（入栈时）分配器无需为存储新数据去搜索内存空间；其位置总是在栈顶。相比之下，在堆上分配内存则需要更多的工作，这是因为分配器必须首先找到一块足够存放数据的内存空间，并接着做一些记录为下一次分配做准备。</p>
+<h2 id="所有权的规则"><a href="#所有权的规则" class="headerlink" title="所有权的规则"></a>所有权的规则</h2><ol>
+<li>Rust 中的每一个值都有一个 所有者（owner）。</li>
+<li>值在任一时刻有且只有一个所有者。</li>
+<li>当所有者（变量）离开作用域，这个值将被丢弃。</li>
+</ol>
+<h2 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h2><p><code>&#123;&#125;</code>，每个花括号包含的代码块都是一个作用域！</p>
+<p>注意，这不包含 struct 的花括号！</p>
+<figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">var_scope_main</span>() &#123;</span><br><span class="line">  &#123;                     <span class="comment">// s 在这里无效, 它尚未声明</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s</span> = <span class="string">&quot;hello&quot;</span>;    <span class="comment">// 从此处起，s 是有效的</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 使用 s</span></span><br><span class="line">  &#125;                     <span class="comment">// Rust 在结尾的 &#125; 处自动调用 drop, 释放内存</span></span><br><span class="line">                        <span class="comment">// 此作用域已结束，s 不再有效</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="String-类型"><a href="#String-类型" class="headerlink" title="String 类型"></a>String 类型</h2><p>Rust 有第二个字符串类型，String。这个类型管理被分配到堆上的数据，所以能够存储在编译时未知大小的文本。可以使用 from 函数基于字符串字面值来创建 String。</p>
+<p>String类型有别于字面量字符串，它是可修改的！</p>
+<figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">s</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"></span><br><span class="line">s.<span class="title function_ invoke__">push_str</span>(<span class="string">&quot;, world!&quot;</span>); <span class="comment">// push_str() 在字符串后追加字面值</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s); <span class="comment">// 将打印 `hello, world!`</span></span><br></pre></td></tr></table></figure>
+
+<p>对于 String 类型，为了支持一个可变，可增长的文本片段，需要在堆上分配一块在编译时未知大小的内存来存放内容。这意味着：</p>
+<ul>
+<li>必须在运行时向内存分配器（memory allocator）请求内存。</li>
+<li>需要一个当我们处理完 String 时将内存返回给分配器的方法。</li>
+</ul>
+<h3 id="变量与数据交互的方式"><a href="#变量与数据交互的方式" class="headerlink" title="变量与数据交互的方式"></a>变量与数据交互的方式</h3><p>使用堆内存的变量，他们之间的数据交互方式！</p>
+<p><img src="https://user-images.githubusercontent.com/25907273/204480696-4188bc14-809f-49dd-be12-3ef7868d3b0e.png" alt="图片"></p>
+<ul>
+<li>转移</li>
+<li>拷贝</li>
+</ul>
+<h4 id="转移"><a href="#转移" class="headerlink" title="转移"></a>转移</h4><p>为了确保内存安全，在 let s2 &#x3D; s1 之后，Rust 认为 s1 不再有效，因此 Rust 不需要在 s1 离开作用域后清理任何东西。</p>
+<p>相当于 s1 赋值给 s2，就将数据转移到s2。不是浅拷贝（将引用复制给s2），也不是深拷贝！</p>
+<figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">heap_var_main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">s1</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">s2</span> = s1;</span><br><span class="line">  <span class="built_in">print!</span>(<span class="string">&quot;s1 is &#123;&#125;&quot;</span>, s1);</span><br><span class="line">  <span class="built_in">print!</span>(<span class="string">&quot;s2 is &#123;&#125;&quot;</span>, s2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-images.githubusercontent.com/25907273/204481489-09ebb4e5-5fb3-413c-83a6-36a528ed980a.png" alt="图片"></p>
+<h4 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h4><p>使用一个叫做 <a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/clone/index.html">clone</a> 的通用函数。</p>
+<figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">clone_main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">s1</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">s2</span> = s1.<span class="title function_ invoke__">clone</span>();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">println!</span>(<span class="string">&quot;\ns1 = &#123;&#125;, s2 = &#123;&#125;&quot;</span>, s1, s2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-images.githubusercontent.com/25907273/204489601-c2e6f02b-4aa7-46bc-97d5-e707e7643458.png" alt="图片"></p>
+<h2 id="引用与借用"><a href="#引用与借用" class="headerlink" title="引用与借用"></a>引用与借用</h2><p>引用（reference）像一个指针，因为它是一个地址，我们可以由此访问储存于该地址的属于其他变量的数据。 与指针不同，引用确保指向某个特定类型的有效值。</p>
+<p><code>&amp;</code> 符号就是 引用，它们允许你使用值但不获取其所有权。</p>
+<p><img src="https://user-images.githubusercontent.com/25907273/204947997-bd4878ea-b295-47fd-bd0d-895d2f703fc1.png" alt="图片"></p>
+<figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">ref_main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="variable">s1</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello world!&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">fn</span> <span class="title function_">calculate_length</span>(s: &amp;<span class="type">String</span>) <span class="punctuation">-&gt;</span> <span class="type">usize</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> s.<span class="title function_ invoke__">len</span>();</span><br><span class="line">  &#125;<span class="comment">// 这里，s 离开了作用域。但因为它并不拥有引用值的所有权，</span></span><br><span class="line">  <span class="comment">// 所以什么也不会发生</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> <span class="variable">len</span> = <span class="title function_ invoke__">calculate_length</span>(&amp;s1);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">println!</span>(<span class="string">&quot;\ns1 len = &#123;&#125;&quot;</span>, len);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>&amp;s1</code> 语法让我们创建一个 指向 值 s1 的引用，但是并不拥有它。因为并不拥有这个值。</p>
+<p>我们将创建一个引用的行为称为 借用（borrowing）。</p>
+<h3 id="可变引用"><a href="#可变引用" class="headerlink" title="可变引用"></a>可变引用</h3><p>正如变量默认是不可变的，引用也一样。（默认）不允许修改引用的值。</p>
+<figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">mut_ref_main</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">s</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_ invoke__">change</span>(&amp;<span class="keyword">mut</span> s);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">print!</span>(<span class="string">&quot;\ns = &#123;&#125;&quot;</span>, s);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">fn</span> <span class="title function_">change</span>(some_string: &amp;<span class="keyword">mut</span> <span class="type">String</span>) &#123;</span><br><span class="line">    some_string.<span class="title function_ invoke__">push_str</span>(<span class="string">&quot;, world&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：可变引用有一个很大的限制：如果你有一个对该变量的可变引用，你就不能再创建对该变量的引用。</strong></p>
+<p>这个限制的好处是 Rust 可以在编译时就避免数据竞争。</p>
+<hr>
+<h1 id="包、crate和模块"><a href="#包、crate和模块" class="headerlink" title="包、crate和模块"></a>包、crate和模块</h1><p>use 关键字: 在一个作用域内，use关键字创建了一个成员的快捷方式，用来减少长路径的重复。在任何可以引用crate::garden::vegetables::Asparagus的作用域, 你可以通过 use crate::garden::vegetables::Asparagus;创建一个快捷方式，然后你就可以在作用域中只写Asparagus来使用该类型。</p>
+<p>外部模块的寻址过程 </p>
+<ol>
+<li>内联；</li>
+<li>在文件 <code>src/&lt;mod&gt;.rs</code>；</li>
+<li>在文件 <code>src/&lt;mod&gt;/mod.rs</code>。</li>
+</ol>
+<p>内联模块：</p>
+<figure class="highlight rs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mod</span> front_of_house &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><ul>
+<li>参考</li>
+<li>cargo –help</li>
+<li>cargo编译后的产物</li>
+<li>Rust内存布局</li>
+</ul>
+<h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/book/#the-rust-programming-language">The Rust Programming Language</a></li>
+<li><a target="_blank" rel="noopener" href="https://kaisery.github.io/trpl-zh-cn/ch01-01-installation.html">Rust 程序设计语言 简体中文版</a></li>
+<li><a target="_blank" rel="noopener" href="https://rust-book.junmajinlong.com/">Rust入门秘籍</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.rustwiki.org.cn/docs/">Rust 中文教程等相关资源列表</a></li>
+</ul>
+<h2 id="cargo-–help"><a href="#cargo-–help" class="headerlink" title="cargo –help"></a>cargo –help</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">[root@f8ac270c7b6b rust-learn]# cargo --help                                                    </span><br><span class="line">Rust&#x27;s package manager                                                                          </span><br><span class="line">                                                                                                </span><br><span class="line">USAGE:                                                                                          </span><br><span class="line">    cargo [+toolchain] [OPTIONS] [SUBCOMMAND]                                                   </span><br><span class="line">                                                                                                </span><br><span class="line">OPTIONS:                                                                                        </span><br><span class="line">    -V, --version               Print version info and exit                                     </span><br><span class="line">        --list                  List installed commands                                         </span><br><span class="line">        --explain &lt;CODE&gt;        Run `rustc --explain CODE`                                      </span><br><span class="line">    -v, --verbose               Use verbose output (-vv very verbose/build.rs output)           </span><br><span class="line">    -q, --quiet                 Do not print cargo log messages                                 </span><br><span class="line">        --color &lt;WHEN&gt;          Coloring: auto, always, never                                   </span><br><span class="line">        --frozen                Require Cargo.lock and cache are up to date                     </span><br><span class="line">        --locked                Require Cargo.lock is up to date                                </span><br><span class="line">        --offline               Run without accessing the network                               </span><br><span class="line">        --config &lt;KEY=VALUE&gt;    Override a configuration value                                  </span><br><span class="line">    -Z &lt;FLAG&gt;                   Unstable (nightly-only) flags to Cargo, see &#x27;cargo -Z help&#x27; for </span><br><span class="line">                                details                                                         </span><br><span class="line">    -h, --help                  Print help information                                          </span><br><span class="line">                                                                                                </span><br><span class="line">Some common cargo commands are (see all commands with --list):                                  </span><br><span class="line">    build, b    Compile the current package                                                     </span><br><span class="line">    check, c    Analyze the current package and report errors, but don&#x27;t build object files     </span><br><span class="line">    clean       Remove the target directory                                                     </span><br><span class="line">    doc, d      Build this package&#x27;s and its dependencies&#x27; documentation                        </span><br><span class="line">    new         Create a new cargo package                                                      </span><br><span class="line">    init        Create a new cargo package in an existing directory                             </span><br><span class="line">    add         Add dependencies to a manifest file                                             </span><br><span class="line">    run, r      Run a binary or example of the local package                                    </span><br><span class="line">    test, t     Run the tests                                                                   </span><br><span class="line">    bench       Run the benchmarks                                                              </span><br><span class="line">    update      Update dependencies listed in Cargo.lock                                        </span><br><span class="line">    search      Search registry for crates                                                      </span><br><span class="line">    publish     Package and upload this package to the registry                                 </span><br><span class="line">    install     Install a Rust binary. Default location is $HOME/.cargo/bin                     </span><br><span class="line">    uninstall   Uninstall a Rust binary                                                         </span><br><span class="line">                                                                                                </span><br><span class="line">See &#x27;cargo help &lt;command&gt;&#x27; for more information on a specific command.                          </span><br><span class="line">                                                                                                </span><br></pre></td></tr></table></figure>
+
+<h2 id="cargo编译后的产物"><a href="#cargo编译后的产物" class="headerlink" title="cargo编译后的产物"></a>cargo编译后的产物</h2><ul>
+<li>开发时产物</li>
+<li>生产时产物</li>
+</ul>
+<h3 id="开发时产物"><a href="#开发时产物" class="headerlink" title="开发时产物"></a>开发时产物</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[root@f8ac270c7b6b hello_cargo]# tree                      </span><br><span class="line">.                                                          </span><br><span class="line">|-- Cargo.lock                                             </span><br><span class="line">|-- Cargo.toml                                             </span><br><span class="line">|-- src                                                    </span><br><span class="line">|   `-- main.rs                                            </span><br><span class="line">`-- target                                                 </span><br><span class="line">    |-- CACHEDIR.TAG                                       </span><br><span class="line">    `-- debug                                              </span><br><span class="line">        |-- build                                          </span><br><span class="line">        |-- deps                                           </span><br><span class="line">        |   |-- hello_cargo-84cd33c7f338469a               </span><br><span class="line">        |   `-- hello_cargo-84cd33c7f338469a.d             </span><br><span class="line">        |-- examples                                       </span><br><span class="line">        |-- hello_cargo                                    </span><br><span class="line">        |-- hello_cargo.d                                  </span><br><span class="line">        `-- incremental                                    </span><br><span class="line">            `-- hello_cargo-aokenuaryvra                   </span><br><span class="line">                |-- s-gfry8e3ogd-1vtypym-2e5m3t5mj48xn     </span><br><span class="line">                |   |-- 1b24fot1ksjfohwq.o                 </span><br><span class="line">                |   |-- 2pcmwubz98u8588d.o                 </span><br><span class="line">                |   |-- 2skhc1xjwld6hx4y.o                 </span><br><span class="line">                |   |-- 387f08navk0xr9hq.o                 </span><br><span class="line">                |   |-- 41zl1lnzyfy87gmq.o                 </span><br><span class="line">                |   |-- 4gfj2nd48vmsnha0.o                 </span><br><span class="line">                |   |-- dep-graph.bin                      </span><br><span class="line">                |   |-- query-cache.bin                    </span><br><span class="line">                |   `-- work-products.bin                  </span><br><span class="line">                `-- s-gfry8e3ogd-1vtypym.lock              </span><br><span class="line">                                                           </span><br><span class="line">9 directories, 18 files                                    </span><br></pre></td></tr></table></figure>
+
+<h3 id="生产时产物"><a href="#生产时产物" class="headerlink" title="生产时产物"></a>生产时产物</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[root@f8ac270c7b6b target]# tree                   </span><br><span class="line">.                                                  </span><br><span class="line">|-- CACHEDIR.TAG                                   </span><br><span class="line">|-- debug                                          </span><br><span class="line">|   |-- build                                      </span><br><span class="line">|   |-- deps                                       </span><br><span class="line">|   |   |-- hello_cargo-84cd33c7f338469a           </span><br><span class="line">|   |   `-- hello_cargo-84cd33c7f338469a.d         </span><br><span class="line">|   |-- examples                                   </span><br><span class="line">|   |-- hello_cargo                                </span><br><span class="line">|   |-- hello_cargo.d                              </span><br><span class="line">|   `-- incremental                                </span><br><span class="line">|       `-- hello_cargo-aokenuaryvra               </span><br><span class="line">|           |-- s-gfryfk4nh1-10dc9z2-2e5m3t5mj48xn </span><br><span class="line">|           |   |-- 1b24fot1ksjfohwq.o             </span><br><span class="line">|           |   |-- 2pcmwubz98u8588d.o             </span><br><span class="line">|           |   |-- 2skhc1xjwld6hx4y.o             </span><br><span class="line">|           |   |-- 387f08navk0xr9hq.o             </span><br><span class="line">|           |   |-- 41zl1lnzyfy87gmq.o             </span><br><span class="line">|           |   |-- 4gfj2nd48vmsnha0.o             </span><br><span class="line">|           |   |-- dep-graph.bin                  </span><br><span class="line">|           |   |-- query-cache.bin                </span><br><span class="line">|           |   `-- work-products.bin              </span><br><span class="line">|           `-- s-gfryfk4nh1-10dc9z2.lock          </span><br><span class="line">`-- release                                        </span><br><span class="line">    |-- build                                      </span><br><span class="line">    |-- deps                                       </span><br><span class="line">    |   |-- hello_cargo-42d24d7ef33ef483           </span><br><span class="line">    |   `-- hello_cargo-42d24d7ef33ef483.d         </span><br><span class="line">    |-- examples                                   </span><br><span class="line">    |-- hello_cargo                                </span><br><span class="line">    |-- hello_cargo.d                              </span><br><span class="line">    `-- incremental                                </span><br><span class="line">                                                   </span><br><span class="line">12 directories, 19 files</span><br></pre></td></tr></table></figure>
+
+<h2 id="Rust-内存布局"><a href="#Rust-内存布局" class="headerlink" title="Rust 内存布局"></a>Rust 内存布局</h2><img width="100%" src="https://user-images.githubusercontent.com/25907273/204198140-44b47b88-e8ed-43b0-a554-181ebdd3ef0c.png" />
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/blog/images/wechatpay.jpg" alt="Isaac Kam 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/blog/images/alipay.jpg" alt="Isaac Kam 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Isaac Kam
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://isaaxite.github.io/blog/2023/02/15/Rust%E5%AD%A6%E4%B9%A0/" title="Rust学习">https://isaaxite.github.io/blog/2023/02/15/Rust学习/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.zhihu.com/people/issac-79">
+            <span class="icon">
+              <i class="fab | fa-zhihu"></i>
+            </span>
+
+            <span class="label">Zhihu</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/blog/images/wechat_qrcode.jpg">
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/blog/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://github.com/isaaxite">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+
+            <span class="label">GitHub</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="isaacgun:isaacgun@outlook.com">
+            <span class="icon">
+              <i class="fa fa-envelope"></i>
+            </span>
+
+            <span class="label">E-Mail</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/" rel="tag"># 旧文迁移</a>
+              <a href="/blog/tags/Rust/" rel="tag"># Rust</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2022/11/01/PM2%E6%97%A5%E5%BF%97%E4%BC%98%E5%8C%96/" rel="prev" title="PM2日志优化">
+                  <i class="fa fa-chevron-left"></i> PM2日志优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2023/02/25/NexT%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6feat/" rel="next" title="NexT添加文章置顶feat">
+                  NexT添加文章置顶feat <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Isaac Kam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/blog/js/third-party/fancybox.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"isaaxite/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/blog/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

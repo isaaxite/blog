@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"isaaxite.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="oauth2实践">
+<meta property="og:url" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="Isaac Kam&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-03-23-41.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-12-10-49.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-12-05-02.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-08-14-35.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-11-32-59.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-24-00-46-21.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-14-51-53.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-14-34-57.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-16-00-30.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-08-05-42-33.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-08-13-31-55.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-08-14-54-58.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-09-06-17-02.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-09-07-08-23.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-09-07-15-45.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-09-07-16-11.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-09-12-16-09.png">
+<meta property="og:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-24-03-52-06.png">
+<meta property="article:published_time" content="2022-10-17T23:03:02.000Z">
+<meta property="article:modified_time" content="2023-03-08T09:02:17.258Z">
+<meta property="article:author" content="Isaac Kam">
+<meta property="article:tag" content="旧文迁移">
+<meta property="article:tag" content="oauth2">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-03-23-41.png">
+
+
+<link rel="canonical" href="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/","path":"2022/10/18/oauth2实践/","title":"oauth2实践"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>oauth2实践 | Isaac Kam's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Isaac Kam's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am a slow walker, but I never walk backwards.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-rss"><a href="/blog/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%A1%E7%90%86OAuth%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B3%A8%E5%86%8C"><span class="nav-number">1.</span> <span class="nav-text">管理OAuth客户端注册</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B1%E8%B0%81%E6%9D%A5%E7%94%9F%E6%88%90%E5%AE%A2%E6%88%B7%E7%AB%AF-ID%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">由谁来生成客户端 ID？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%88%E6%9D%83"><span class="nav-number">1.2.</span> <span class="nav-text">对客户端授权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%88%E6%9D%83%E7%AB%AF%E7%82%B9"><span class="nav-number">1.2.1.</span> <span class="nav-text">授权端点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A4%E7%89%8C%E7%AB%AF%E7%82%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">令牌端点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0%E6%8E%88%E6%9D%83%E7%AB%AF%E7%82%B9"><span class="nav-number">1.2.3.</span> <span class="nav-text">重定向到授权端点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%8B%A5%E6%9C%89%E8%80%85%E5%AF%B9%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%88%E6%9D%83"><span class="nav-number">1.2.4.</span> <span class="nav-text">资源拥有者对客户端授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%88%E6%9D%83%E7%82%B9%E9%9C%80%E8%A6%81%E4%BF%9D%E5%AD%98%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B3%A8%E5%86%8C%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.5.</span> <span class="nav-text">授权点需要保存客户端注册信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A4%E7%89%8C%E9%A2%81%E5%8F%91"><span class="nav-number">1.3.</span> <span class="nav-text">令牌颁发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="nav-number">1.3.1.</span> <span class="nav-text">对客户端进行身份认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%8E%88%E6%9D%83%E8%AE%B8%E5%8F%AF%E8%AF%B7%E6%B1%82"><span class="nav-number">1.3.2.</span> <span class="nav-text">处理授权许可请求</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%88%E6%9D%83%E8%AE%B8%E5%8F%AF%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">授权许可类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E8%AE%B8%E5%8F%AF%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">隐式许可类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%87%AD%E6%8D%AE%E8%AE%B8%E5%8F%AF%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">客户端凭据许可类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%8B%A5%E6%9C%89%E8%80%85%E5%87%AD%E6%8D%AE%E8%AE%B8%E5%8F%AF%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">资源拥有者凭据许可类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B2%E7%9A%84%E5%BA%94%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">客户端部署的应用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Web%E5%BA%94%E7%94%A8"><span class="nav-number">3.1.</span> <span class="nav-text">Web应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BA%94%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">浏览器应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8"><span class="nav-number">3.3.</span> <span class="nav-text">原生应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%86%E9%92%A5"><span class="nav-number">4.</span> <span class="nav-text">密钥</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OAuth%E4%BB%A4%E7%89%8C"><span class="nav-number">5.</span> <span class="nav-text">OAuth令牌</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JWT%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">5.1.</span> <span class="nav-text">JWT的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A4%E7%89%8C%E7%9A%84%E5%8A%A0%E5%AF%86%E4%BF%9D%E6%8A%A4%EF%BC%9AJOSE"><span class="nav-number">5.2.</span> <span class="nav-text">令牌的加密保护：JOSE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8HS256%E7%9A%84%E5%AF%B9%E7%A7%B0%E7%AD%BE%E5%90%8D"><span class="nav-number">5.2.1.</span> <span class="nav-text">使用HS256的对称签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8RS256%E7%9A%84%E9%9D%9E%E5%AF%B9%E7%A7%B0%E7%AD%BE%E5%90%8D"><span class="nav-number">5.2.2.</span> <span class="nav-text">使用RS256的非对称签名</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E7%9C%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">内省协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E5%86%85%E7%9C%81%E7%AB%AF%E7%82%B9"><span class="nav-number">6.1.</span> <span class="nav-text">构建内省端点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E8%B5%B7%E4%BB%A4%E7%89%8C%E5%86%85%E7%9C%81%E8%AF%B7%E6%B1%82"><span class="nav-number">6.2.</span> <span class="nav-text">发起令牌内省请求</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B3%A8%E5%86%8C"><span class="nav-number">7.</span> <span class="nav-text">动态客户端注册</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%8E%88%E6%9D%83%E7%A0%81"><span class="nav-number">8.</span> <span class="nav-text">生成授权码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">9.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5"><span class="nav-number">9.1.</span> <span class="nav-text">生成密钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">9.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Isaac Kam"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Isaac Kam</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/isaaxite" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;isaaxite" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="isaacgun:isaacgun@outlook.com" title="E-Mail → isaacgun:isaacgun@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="Isaac Kam">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="oauth2实践 | Isaac Kam's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          oauth2实践
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-18 07:03:02" itemprop="dateCreated datePublished" datetime="2022-10-18T07:03:02+08:00">2022-10-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-08 17:02:17" itemprop="dateModified" datetime="2023-03-08T17:02:17+08:00">2023-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">安全</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-03-23-41.png"></p>
+<span id="more"></span>
+
+<h1 id="管理OAuth客户端注册"><a href="#管理OAuth客户端注册" class="headerlink" title="管理OAuth客户端注册"></a>管理OAuth客户端注册</h1><p>oauth服务器需要为每个客户端分配唯一的客户端标识！</p>
+<h2 id="由谁来生成客户端-ID？"><a href="#由谁来生成客户端-ID？" class="headerlink" title="由谁来生成客户端 ID？"></a>由谁来生成客户端 ID？</h2><p>在常规 的 OAuth系统中，客户端 ID（client_id）和密钥（client_secret）由 <em>授权服务器</em> 颁发给客户端</p>
+<p>通过客户端 ID查找信息，客户端 ID是从请求 </p>
+<h2 id="对客户端授权"><a href="#对客户端授权" class="headerlink" title="对客户端授权"></a>对客户端授权</h2><p>OAuth协议要求授权服务器提供两个端点：</p>
+<ul>
+<li>授权端点，运行在前端信道上；</li>
+<li>令牌端点，运行 在后端信道上</li>
+</ul>
+<h3 id="授权端点"><a href="#授权端点" class="headerlink" title="授权端点"></a>授权端点</h3><p>授权服务器提供了一个授权端点，供客户端请求访问令牌和刷新令牌。客户端直接向该端点 发出请求，携带一组表单格式的参数，授权服务器解析并处理这些参数。然后授权服务器返回一 个代表令牌的 JSON对象</p>
+<h3 id="令牌端点"><a href="#令牌端点" class="headerlink" title="令牌端点"></a>令牌端点</h3><p>令牌端点不面向用户</p>
+<p>客户端得到授权码，它可以将其发送给授权服务器的令牌端点，换取 OAuth访问令牌， 再进行解析和存储</p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-12-10-49.png"></p>
+<p>OAuth流程中的很多部分都使用标准的 HTTP请求和响应格式来相互通信。由于这些请求通 常都发生在资源拥有者和用户代理的可见范围之外，因此它们统称为后端信道通信</p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-12-05-02.png"></p>
+<h3 id="重定向到授权端点"><a href="#重定向到授权端点" class="headerlink" title="重定向到授权端点"></a>重定向到授权端点</h3><p>授权端点是一个前端信道端点，客户端会 将用户浏览器重定向至该端点，以发出授权请求。</p>
+<p>资源拥有者从客户端重定向到授权端点，它会带上客户端id。授权端点根客户端 ID查找客户端的详细信息：</p>
+<ol>
+<li>需要检查客户端是否存在；</li>
+<li>需要渲染出一个页面来（&#x2F;authorize），让用户交互并进行授权</li>
+</ol>
+<h3 id="资源拥有者对客户端授权"><a href="#资源拥有者对客户端授权" class="headerlink" title="资源拥有者对客户端授权"></a>资源拥有者对客户端授权</h3><ol>
+<li>在授权页面交互，发请求（&#x2F;approve）给授权点，生成授权码。</li>
+<li>生成授权码，将授权码存储。以便后续客户端用授权码换令牌</li>
+</ol>
+<p>通过浏览器传过来的唯一信息就是 client_id，由于该信息是用浏览器通过前端信道传输的， 因此被视为公开信息。如此一来，任何人都可以冒充该客户端，但是我们还是可以借助一些信息 来判断请求的合法性，其中重要的就是检查传入的 redirect_uri 是否与客户端注册信息中 的一致</p>
+<h3 id="授权点需要保存客户端注册信息"><a href="#授权点需要保存客户端注册信息" class="headerlink" title="授权点需要保存客户端注册信息"></a>授权点需要保存客户端注册信息</h3><ol>
+<li>client_id</li>
+<li>redirect_uri，可以是array</li>
+<li>client_secret</li>
+</ol>
+<h2 id="令牌颁发"><a href="#令牌颁发" class="headerlink" title="令牌颁发"></a>令牌颁发</h2><ol>
+<li>对客户端进行身份认证</li>
+<li>处理授权许可请求</li>
+</ol>
+<p>客户端带过来的授权码其实没有很大用处。至少在书中它没和令牌有直接的关系！</p>
+<p>授权码是作为一个一次性凭证，请求的时候就必须消耗，二次请求就会失效！</p>
+<p>授权码的作用：保持一次性！</p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-08-14-35.png"></p>
+<h3 id="对客户端进行身份认证"><a href="#对客户端进行身份认证" class="headerlink" title="对客户端进行身份认证"></a>对客户端进行身份认证</h3><p>客户端会带来 client_id 和 client_secret，用client_id去查client_id对应的的客户端已经注册的信息！比对 client_secret 是否正确有效！</p>
+<h3 id="处理授权许可请求"><a href="#处理授权许可请求" class="headerlink" title="处理授权许可请求"></a>处理授权许可请求</h3><p>根据 grant_type 参数，选择令牌颁发方式！</p>
+<p>OAuth 2.0完全没有规定访问令牌的内容应该是什么样的，它有一个很好的理由：支持多 样化的选择，每种选择都有各自的权衡，并适应于不同的场景。</p>
+<p>看下面代码，我思考后发现：access_token，它颗粒度是去到单个用户，而不是单个client的维度！</p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-11-32-59.png"></p>
+<p>客户端获取权限之后，用access_token访问受保护资源时，使用access_token去数据库查找详细信息，得到scope！</p>
+<h1 id="授权许可类型"><a href="#授权许可类型" class="headerlink" title="授权许可类型"></a>授权许可类型</h1><p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-24-00-46-21.png"></p>
+<ol>
+<li><strong>隐式许可类型</strong>，直接从授权端点返回令牌，没有令牌端点；</li>
+<li><strong>客户端凭据许可类型</strong>，没有明确的资源拥有者。只使用后端信道。</li>
+<li><strong>资源拥有者凭据许可类型</strong>，资源拥有者通过客户端使用账号密码换令牌</li>
+<li><strong>断言许可类型</strong>,</li>
+</ol>
+<p>隐式许可类型 的起点入口： </p>
+<p>授权点接口（<code>/authorize</code>）的url search参数</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th align="left">释义</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">response_type</td>
+<td align="left">emAuthRespType</td>
+<td align="left">响应类型</td>
+<td align="left">required</td>
+</tr>
+<tr>
+<td align="left">scope</td>
+<td align="left">string</td>
+<td align="left">需要申请的权限域</td>
+<td align="left">optional</td>
+</tr>
+<tr>
+<td align="left">client_id</td>
+<td align="left">string</td>
+<td align="left">客户端的唯一标识</td>
+<td align="left">required</td>
+</tr>
+<tr>
+<td align="left">redirect_uri</td>
+<td align="left">string</td>
+<td align="left">客户端地址，需要授权完成后跳转的地址</td>
+<td align="left">required</td>
+</tr>
+<tr>
+<td align="left">state</td>
+<td align="left">string</td>
+<td align="left">csrf-token</td>
+<td align="left">optional</td>
+</tr>
+</tbody></table>
+<p>回包结构</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 隐式许可类型</span></span><br><span class="line">?access_token=987tghjkiu6trfghjuytrghj&amp;token_type=<span class="title class_">Bearer</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">enum emAuthRespType &#123;</span><br><span class="line">  <span class="attr">CODE</span>: <span class="string">&#x27;code&#x27;</span>,</span><br><span class="line">  <span class="attr">TOKEN</span>: <span class="string">&#x27;token&#x27;</span>  <span class="comment">// 隐式许可类型 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端凭据许可类型 与 资源拥有者凭据许可类型 的起点接口</p>
+<p><code>/token</code>，该接口是上面用code换access_token</p>
+<table>
+<thead>
+<tr>
+<th align="left">body参数</th>
+<th align="left">类型</th>
+<th align="left">释义</th>
+<th align="left">-</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">grant_type</td>
+<td align="left">emGrantType</td>
+<td align="left">获取token的方式</td>
+<td align="left">required</td>
+</tr>
+<tr>
+<td align="left">scope</td>
+<td align="left">string</td>
+<td align="left">csrf-token</td>
+<td align="left">optional</td>
+</tr>
+<tr>
+<td align="left">username</td>
+<td align="left">string</td>
+<td align="left">账户，资源拥有者凭据许可类型使用，账户是受保护资源的账户</td>
+<td align="left">optional</td>
+</tr>
+<tr>
+<td align="left">password</td>
+<td align="left">string</td>
+<td align="left">密码，资源拥有者凭据许可类型使用，账户是受保护资源的账户</td>
+<td align="left">optional</td>
+</tr>
+</tbody></table>
+<p>注意</p>
+<ul>
+<li>账号和密码是由用户交互输出的，交互的页面由客户端提供！</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">header参数</th>
+<th align="left">类型</th>
+<th align="left">释义</th>
+<th align="left">-</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Authorization</td>
+<td align="left">‘Basic <clent_id>+<clent_secret>‘</td>
+<td align="left"><em>客户端凭证许可类型</em>和*资源拥有者凭据许可类型 *的使用，传递账号密码</td>
+<td align="left">optional</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum emGrantType &#123;</span><br><span class="line">  <span class="attr">AUTHORIZATION_CODE</span>: <span class="string">&#x27;authorization_code&#x27;</span>,</span><br><span class="line">  <span class="attr">CLIENT_CREDENTIALS</span>: <span class="string">&#x27;client_credentials&#x27;</span>,</span><br><span class="line">  <span class="attr">PASSWORD</span>: <span class="string">&#x27;password&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>回报接口</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;access_token&quot;</span>: <span class="string">&quot;987tghjkiu6trfghjuytrghj&quot;</span>,</span><br><span class="line">  <span class="string">&quot;scope&quot;</span>: <span class="string">&quot;foo bar&quot;</span>,</span><br><span class="line">  <span class="string">&quot;token_type&quot;</span>: <span class="string">&quot;Bearer&quot;</span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h2 id="隐式许可类型"><a href="#隐式许可类型" class="headerlink" title="隐式许可类型"></a>隐式许可类型</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (query.<span class="property">response_type</span> == <span class="string">&#x27;token&#x27;</span>) &#123; </span><br></pre></td></tr></table></figure>
+
+<p>完全运行在浏览器中的 JavaScript应用就属于这种情况。在这种情况下，通过浏览器向客户端传递仅用于换 取令牌的授权码就没有任何实际意义了，因为这个额外的保密层没有起到任何作.</p>
+<p>这种许可流程只使用授权端点而不使 用令牌端点</p>
+<p>隐式许可流程不可用于获取刷新令牌。因为浏览器内的应用具有短暂运行的特点，只会在被加载到浏览器的期间保持会话，所以刷新令牌在这里的作用非常有限。</p>
+<p>response_type 参数的值为 token，而不是 code。这样会通知授权服务器直接生成令牌，而 不是生成一个用于换取令牌的授权码。 </p>
+<h2 id="客户端凭据许可类型"><a href="#客户端凭据许可类型" class="headerlink" title="客户端凭据许可类型"></a>客户端凭据许可类型</h2><p>与前面不同，使用另外一个接口（<code>/token</code>）</p>
+<p><code>/token</code>，该接口是上面用code换access_token</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">类型</th>
+<th align="left">释义</th>
+<th align="left">-</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">grant_type</td>
+<td align="left">emGrantType</td>
+<td align="left">获取token的方式</td>
+<td align="left">required</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">enum emGrantType &#123;</span><br><span class="line">  <span class="attr">AUTHORIZATION_CODE</span>: <span class="string">&#x27;authorization_code&#x27;</span>,</span><br><span class="line">  <span class="attr">CLIENT_CREDENTIALS</span>: <span class="string">&#x27;client_credentials&#x27;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (req.<span class="property">body</span>.<span class="property">grant_type</span> == emGrantType.<span class="property">CLIENT_CREDENTIALS</span>) &#123; </span><br></pre></td></tr></table></figure>
+
+<p>比如后端系统之间需要直接通信<br>只使用后端信道，客户端代表自己（它自己就是资源拥有 者）从令牌端点获取令牌。 </p>
+<p>客户端向授权服务器的令牌端点发出令牌请求，这与授权码流程是一样的，只不过这一次使 用 client_credentials 作为 grant_type 参数的值，而且没有授权码或者其他用于换取令牌 的临时凭据。相反，客户端直接向授权服务器进行身份认证，而授权服务器给客户端颁发访问令牌</p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-14-51-53.png"></p>
+<p>在客户端凭据许可流程中不会颁发刷新令牌，因为我们认为客户端能够随时获取新令牌，无 须单独的资源拥有者参与，因此在这种情况下没有必要使用刷新令牌。 </p>
+<p>客户端凭据许可类型没有任何直接的用户交互!它确实是为可信的后端系统直接 访问服务而准备的。</p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-14-34-57.png"></p>
+<h2 id="资源拥有者凭据许可类型"><a href="#资源拥有者凭据许可类型" class="headerlink" title="资源拥有者凭据许可类型"></a>资源拥有者凭据许可类型</h2><p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-16-00-30.png"></p>
+<p>用户名和密码，那么客户端可以向用户索取用户 的凭据，然后用这个凭据换取令牌。支持客户端这样做的是资源拥有者凭据许可类型，也叫作密码流程。</p>
+<p>这种许可类型的工作方式很简单。客户端收集用户的用户名和密码（使用什么样的交互接口 由客户端决定），然后将它们发送至授权服务器。 </p>
+<p>授权服务器从收到的请求中取出用户名和密码，并与本地存储的用户信息对比。如果匹配， 则授权服务器向客户端颁发令牌。 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant_type == <span class="string">&#x27;password&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>完成所有的检查之后，就可以生成并返回令牌了。请注意，还可以生成刷新令牌（我们的练 习中这样做了）。为客户端提供刷新令牌之后，它就不需要再保存用户的密码了</p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-08-05-42-33.png"></p>
+<h1 id="客户端部署的应用类型"><a href="#客户端部署的应用类型" class="headerlink" title="客户端部署的应用类型"></a>客户端部署的应用类型</h1><ol>
+<li>Web应用；</li>
+<li>浏览器应用；</li>
+<li>原生应用；</li>
+</ol>
+<h2 id="Web应用"><a href="#Web应用" class="headerlink" title="Web应用"></a>Web应用</h2><p>Web应用运行在远程服务器上，需要通过Web浏览器访问。应用的配置和运行时状态由 Web 服务器维护，通常使用会话 cookie 与浏览器保持 连接。</p>
+<p>Web 应用很容易有效地使用授权码、客 户端凭据或者断言许可流程。由于浏览器一般不会将请求 URI 中的片段部分发送给服务器，大 多数情况下隐式许可流程不适用于Web 应用。 </p>
+<h2 id="浏览器应用"><a href="#浏览器应用" class="headerlink" title="浏览器应用"></a>浏览器应用</h2><p>浏览器应用完全运行在浏览器内，一般使用 JavaScript。虽然应用的代码确实需要由Web 服 务器提供，但代码本身并不在服务器上运行，Web 服务器也不会维护应用的任何运行时状态。应 用的所有执行动作都发生在最终用户计算机的浏览器内。 </p>
+<p>因 为浏览器应用受限于同源策略以及其他安全限制条件，这些限制是为了防止跨站攻击。因此，最 适合这类应用的是隐式许可流程，该许可流程就是针对这种应用场景而做的优化。 </p>
+<h2 id="原生应用"><a href="#原生应用" class="headerlink" title="原生应用"></a>原生应用</h2><p>原生应用是直接在最终用户的设备（计算机或者移动设备）上运行的应用。应用软件通常是在外部经过编译或者打包之后再安装到设备上的。</p>
+<h1 id="密钥"><a href="#密钥" class="headerlink" title="密钥"></a>密钥</h1><p>客户端密钥属 于配置期间秘密，因为它代表客户端自身，是配置在客户端软件内部的。访问令牌、刷新令牌和 授权码都属于运行时秘密，因为它们都是在客户端软件被部署之后由客户端存储的。</p>
+<p>运行时秘密仍然需要安全存储并保护，但是它们被设计得容易撤销或更改。相反，配置期间秘密一般不会经 常改变。 </p>
+<p>不要求所有客户端都拥有客户端密钥，而是将客户 端分为两种类型：公开客户端和保密客户端，划分依据是能否持有配置期间秘密</p>
+<p>Web 应用是最常见的保密客户端类 型，它是运行在 Web 服务器上的单个实例，单个 OAuth客户端可以对应多个资源拥有者</p>
+<h1 id="OAuth令牌"><a href="#OAuth令牌" class="headerlink" title="OAuth令牌"></a>OAuth令牌</h1><p><strong>授权服务器生成令牌之后，会将令牌值存储在磁盘上的共享数据库中。当受保护资源从客户 端收到令牌之后，它会在同一个数据库中查找令牌值，以确定令牌有效</strong></p>
+<p><em>授权服务器</em> 和 <em>受保护资源</em> 间共享数据库。存在两者不共享的场景！</p>
+<p>在授权服务器和受保护资源间共享数据库并不总是实际可行，特别是在一个授权服务器需要 保护下游的多个资源服务器的情况下。该如何解决这个问题呢？本章将讨论另外两种常见的方 案：结构化令牌和令牌内省</p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-08-13-31-55.png"></p>
+<h2 id="JWT的结构"><a href="#JWT的结构" class="headerlink" title="JWT的结构"></a>JWT的结构</h2><p>JWT的核心是将一个 JSON对象封 装为一种用于网络传输的格式</p>
+<blockquote>
+<p>eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9. </p>
+</blockquote>
+<p>句点符号将字符串分割成了两部分</p>
+<p>以句点符号将令牌字符串分解，让我们可以对令牌的 不同部分分别进行处理</p>
+<blockquote>
+<p>eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0</p>
+<p>. </p>
+<p>eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9</p>
+<p>.</p>
+</blockquote>
+<p>对第一部分解码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;typ&quot;</span>: <span class="string">&quot;JWT&quot;</span>, </span><br><span class="line">  <span class="string">&quot;alg&quot;</span>: <span class="string">&quot;none&quot;</span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>这是 JWT的头部，它是一个 JSON对象，用于描述与令牌剩余部分有关的信息。其中的 typ 头告诉处理程序令牌的第二部分（载荷）是何种类型。</p>
+<p>第二部分是令牌的载荷，它的序列化方式与 JWT头部相同：对 JSON对象进行 Base64URL 编码。由于它是 JWT，因此其载荷可以是任意的 JSON对象</p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-08-14-54-58.png"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> header = &#123; <span class="string">&#x27;typ&#x27;</span>: <span class="string">&#x27;JWT&#x27;</span>, <span class="string">&#x27;alg&#x27;</span>: <span class="string">&#x27;none&#x27;</span> &#125;; </span><br><span class="line"><span class="keyword">var</span> payload = &#123;</span><br><span class="line">  <span class="attr">iss</span>: <span class="string">&#x27;http://localhost:9001/&#x27;</span>,   </span><br><span class="line">  <span class="attr">sub</span>: code.<span class="property">user</span> ? code.<span class="property">user</span>.<span class="property">sub</span> : <span class="literal">undefined</span>,   </span><br><span class="line">  <span class="attr">aud</span>: <span class="string">&#x27;http://localhost:9002/&#x27;</span>,   </span><br><span class="line">  <span class="attr">iat</span>: <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Date</span>.<span class="title function_">now</span>() / <span class="number">1000</span>),   </span><br><span class="line">  <span class="attr">exp</span>: <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Date</span>.<span class="title function_">now</span>() / <span class="number">1000</span>) + (<span class="number">5</span> * <span class="number">60</span>),   </span><br><span class="line">  <span class="attr">jti</span>: randomstring.<span class="title function_">generate</span>(<span class="number">8</span>)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> access_token = base64url.<span class="title function_">encode</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(header))</span><br><span class="line">  + <span class="string">&#x27;.&#x27;</span></span><br><span class="line">  + base64url.<span class="title function_">encode</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(payload))</span><br><span class="line">  + <span class="string">&#x27;.&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="令牌的加密保护：JOSE"><a href="#令牌的加密保护：JOSE" class="headerlink" title="令牌的加密保护：JOSE"></a>令牌的加密保护：JOSE</h2><p>JSON对象的签名和加密标准（JOSE①）。这套规范以 JSON为基础数据模型，提供了 签名（JSON Web签名，或称 JWS）、加密（JSON Web加密，或称 JWE）以及密钥存储格式（JSON Web 密钥，或称 JWK）的标准</p>
+<h3 id="使用HS256的对称签名"><a href="#使用HS256的对称签名" class="headerlink" title="使用HS256的对称签名"></a>使用HS256的对称签名</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> header = &#123; <span class="string">&#x27;typ&#x27;</span>: <span class="string">&#x27;JWT&#x27;</span>, <span class="string">&#x27;alg&#x27;</span>: <span class="string">&#x27;HS256&#x27;</span>&#125;; </span><br><span class="line"><span class="keyword">var</span> access_token = jose.<span class="property">jws</span>.<span class="property">JWS</span>.<span class="title function_">sign</span>(</span><br><span class="line">  header.<span class="property">alg</span>,   </span><br><span class="line">  <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(header),   </span><br><span class="line">  <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(payload),   </span><br><span class="line">  <span class="keyword">new</span> <span class="title class_">Buffer</span>(sharedTokenSecret).<span class="title function_">toString</span>(<span class="string">&#x27;hex&#x27;</span>)); </span><br><span class="line"></span><br><span class="line"><span class="comment">// access_token</span></span><br><span class="line"><span class="comment">// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwMDEv   </span></span><br><span class="line"><span class="comment">// Iiwic3ViIjoiOVhFMy1KSTM0LTAwMTMyQSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTAwMi8   </span></span><br><span class="line"><span class="comment">// iLCJpYXQiOjE0NjcyNTEwNzMsImV4cCI6MTQ2NzI1MTM3MywianRpIjoiaEZLUUpSNmUifQ.Wq  </span></span><br><span class="line"><span class="comment">// RsY03pYwuJTx-9pDQXftkcj7YbRn95o-16NHrVugg</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用RS256的非对称签名"><a href="#使用RS256的非对称签名" class="headerlink" title="使用RS256的非对称签名"></a>使用RS256的非对称签名</h3><p>使用共享密钥时，创建签名和验证签名的系统使用的是同一个密钥。这实际上意味着授权服务器和资源服务器都能够生成令牌，因为它们都拥有创建令牌所需的密钥。</p>
+<p>使用公钥 加密的话，授权服务器拥有公钥和私钥，可用于生成令牌，而受保护资源则只能访问授权服务器 的公钥，用于验证令牌。与使用共享密钥不同的是，受保护资源虽然能够很容易地验证令牌，但它无法自己生成有效的令牌。、</p>
+<p><em>使用非对称加密签名的目的就为了将创建令牌的权限收归到授权服务器。受保护资源服务器只能使用公钥进行验证而不能创建令牌！</em></p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-09-06-17-02.png"></p>
+<h1 id="内省协议"><a href="#内省协议" class="headerlink" title="内省协议"></a>内省协议</h1><p>OAuth令牌内省协议定义了一种机制，让受保护资源能够主动向授权服务器查询令牌状态。<br>该协议是对 OAuth 的一个简单增强。授权服务器向客户端颁发令牌，客户端向受保护资源 出示令牌，受保护资源则向授权服务器查询令牌状</p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-09-07-08-23.png"></p>
+<p>内省请求</p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-09-07-15-45.png"></p>
+<p>内省请求的响应是一个 JSON 对象，用于描述令牌信息。它的内容与 JWT 的载荷相似，任 何有效的 JWT声明都可以包含在响应中。 </p>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-09-07-16-11.png"></p>
+<p>内省协议规范还在 JWT的基础上增加了几个声明定义，其中重要的是 active 声明。此 声明告诉受保护资源当前令牌在授权服务器上是否有效，且是唯一必须返回的声明。</p>
+<h2 id="构建内省端点"><a href="#构建内省端点" class="headerlink" title="构建内省端点"></a>构建内省端点</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> protectedResources = [&#123;</span><br><span class="line">  <span class="string">&quot;resource_id&quot;</span>: <span class="string">&quot;protected-resource-1&quot;</span>,        </span><br><span class="line">  <span class="string">&quot;resource_secret&quot;</span>: <span class="string">&quot;protected-resource-secret-1&quot;</span></span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> getProtectedResource = <span class="keyword">function</span>(<span class="params">resourceId</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> __.<span class="title function_">find</span>(protectedResources, <span class="keyword">function</span>(<span class="params">protectedResource</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span>   protectedResource.<span class="property">resource_id</span> == resourceId;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/introspect&#x27;</span>, <span class="keyword">function</span>(<span class="params">req, res</span>) &#123; </span><br><span class="line">  <span class="keyword">var</span> auth = req.<span class="property">headers</span>[<span class="string">&#x27;authorization&#x27;</span>]; </span><br><span class="line">  <span class="keyword">var</span> resourceCredentials = <span class="title function_">decodeClientCredentials</span>(auth); </span><br><span class="line">  <span class="keyword">var</span> resourceId = resourceCredentials.<span class="property">id</span>; </span><br><span class="line">  <span class="keyword">var</span> resourceSecret = resourceCredentials.<span class="property">secret</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> resource = <span class="title function_">getProtectedResource</span>(resourceId);</span><br><span class="line">  <span class="keyword">if</span> (!resource) &#123;   </span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">401</span>).<span class="title function_">end</span>();   </span><br><span class="line">    <span class="keyword">return</span>; </span><br><span class="line">  &#125; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (resource.<span class="property">resource_secret</span> != resourceSecret) &#123;   </span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">401</span>).<span class="title function_">end</span>();   </span><br><span class="line">    <span class="keyword">return</span>; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> inToken = req.<span class="property">body</span>.<span class="property">token</span>; </span><br><span class="line">  </span><br><span class="line">  nosql.<span class="title function_">one</span>(<span class="keyword">function</span>(<span class="params">token</span>) &#123;   </span><br><span class="line">    <span class="keyword">if</span> (token.<span class="property">access_token</span> == inToken) &#123;        </span><br><span class="line">      <span class="keyword">return</span> token;   </span><br><span class="line">    &#125; </span><br><span class="line">  &#125;, <span class="keyword">function</span>(<span class="params">err, token</span>) &#123;   </span><br><span class="line">    <span class="keyword">if</span> (token) &#123; </span><br><span class="line">      <span class="keyword">var</span> introspectionResponse = &#123;              </span><br><span class="line">        <span class="attr">active</span>: <span class="literal">true</span>,              </span><br><span class="line">        <span class="attr">iss</span>: <span class="string">&#x27;http://localhost:9001/&#x27;</span>,              </span><br><span class="line">        <span class="attr">aud</span>: <span class="string">&#x27;http://localhost:9002/&#x27;</span>,              </span><br><span class="line">        <span class="attr">sub</span>: token.<span class="property">user</span> ? token.<span class="property">user</span>.<span class="property">sub</span> : <span class="literal">undefined</span>,              </span><br><span class="line">        <span class="attr">username</span>: token.<span class="property">user</span> ? token.<span class="property">user</span>.<span class="property">preferred_username</span> : <span class="literal">undefined</span>,</span><br><span class="line">        <span class="attr">scope</span>: token.<span class="property">scope</span> ? token.<span class="property">scope</span>.<span class="title function_">join</span>(<span class="string">&#x27; &#x27;</span>) : <span class="literal">undefined</span>,              </span><br><span class="line">        <span class="attr">client_id</span>: token.<span class="property">client_id</span>       </span><br><span class="line">      &#125;; </span><br><span class="line">      res.<span class="title function_">status</span>(<span class="number">200</span>).<span class="title function_">json</span>(introspectionResponse);       </span><br><span class="line">      <span class="keyword">return</span>;   </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;       </span><br><span class="line">      <span class="keyword">var</span> introspectionResponse = &#123;              </span><br><span class="line">        <span class="attr">active</span>: <span class="literal">false</span>       </span><br><span class="line">      &#125;;       </span><br><span class="line">      res.<span class="title function_">status</span>(<span class="number">200</span>).<span class="title function_">json</span>(introspectionResponse);       </span><br><span class="line">      <span class="keyword">return</span>;   </span><br><span class="line">    &#125; </span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="发起令牌内省请求"><a href="#发起令牌内省请求" class="headerlink" title="发起令牌内省请求"></a>发起令牌内省请求</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> protectedResource = &#123;   </span><br><span class="line">  <span class="string">&quot;resource_id&quot;</span>: <span class="string">&quot;protected-resource-1&quot;</span>,   </span><br><span class="line">  <span class="string">&quot;resource_secret&quot;</span>: <span class="string">&quot;protected-resource-secret-1&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> form_data = qs.<span class="title function_">stringify</span>(&#123;   </span><br><span class="line">  <span class="attr">token</span>: inToken</span><br><span class="line">&#125;); </span><br><span class="line"><span class="keyword">var</span> headers = &#123;   </span><br><span class="line">  <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,   </span><br><span class="line">  <span class="string">&#x27;Authorization&#x27;</span>: <span class="string">&#x27;Basic &#x27;</span> + <span class="title function_">encodeClientCredentials</span>(</span><br><span class="line">    protectedResource.<span class="property">resource_id</span>, protectedResource.<span class="property">resource_secret</span>)</span><br><span class="line">&#125;; </span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> tokRes = <span class="keyword">await</span> <span class="title function_">request</span>(<span class="string">&#x27;POST&#x27;</span>, authServer.<span class="property">introspectionEndpoint</span>, &#123;   </span><br><span class="line">  <span class="attr">body</span>: form_data,   </span><br><span class="line">  <span class="attr">headers</span>: headers </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (tokRes.<span class="property">statusCode</span> &gt;= <span class="number">200</span> &amp;&amp; tokRes.<span class="property">statusCode</span> &lt; <span class="number">300</span>) &#123;   </span><br><span class="line">  <span class="keyword">var</span> body = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(tokRes.<span class="title function_">getBody</span>()); </span><br><span class="line"> </span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Got introspection response&#x27;</span>, body);   </span><br><span class="line">  <span class="keyword">var</span> active = body.<span class="property">active</span>;   </span><br><span class="line">  <span class="keyword">if</span> (active) &#123;        </span><br><span class="line">    req.<span class="property">access_token</span> = body;   </span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>呈现了两种用于授权服务器和受保护资源之间传递信息的方法：结构化令牌（具体来说 就是 JWT）和令牌内省。看起来这两种方法需要二选一，但实际上，将它们结合起来使用也可 以得到很好的效果</p>
+<h1 id="动态客户端注册"><a href="#动态客户端注册" class="headerlink" title="动态客户端注册"></a>动态客户端注册</h1><p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-09-12-16-09.png"></p>
+<p>OAuth 动态客户端注册协议②提供了一种方法，让客户端可以自行加入授权服务器，并注册 自己的各类相关信息。</p>
+<h1 id="生成授权码"><a href="#生成授权码" class="headerlink" title="生成授权码"></a>生成授权码</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> randomString = <span class="built_in">require</span>(<span class="string">&#x27;random-string&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> code = <span class="title function_">randomString</span>();</span><br><span class="line"></span><br><span class="line">mysql.<span class="title function_">insert</span>(&#123;</span><br><span class="line">  <span class="attr">table</span>: <span class="string">&#x27;code&#x27;</span>,</span><br><span class="line">  <span class="attr">field</span>: &#123; code &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; <span class="variable constant_">KEYUTIL</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;jsrsasign&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> rsaKeypair = <span class="variable constant_">KEYUTIL</span>.<span class="title function_">generateKeypair</span>(<span class="string">&quot;RSA&quot;</span>, <span class="number">1024</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PRIVATE</span> = <span class="variable constant_">KEYUTIL</span>.<span class="title function_">getPEM</span>(rsaKeypair.<span class="property">prvKeyObj</span>, <span class="string">&quot;PKCS8PRV&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PUBLIC</span> = <span class="variable constant_">KEYUTIL</span>.<span class="title function_">getPEM</span>(rsaKeypair.<span class="property">pubKeyObj</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-24-03-52-06.png"><br>参考：<a target="_blank" rel="noopener" href="http://kjur.github.io/jsrsasign/api/symbols/KEYUTIL.html">http://kjur.github.io/jsrsasign/api/symbols/KEYUTIL.html</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://laibh.top/2020-07-17-oauth2%20nodejs%E5%AE%9E%E6%88%98.html">oauth2 nodejs实战</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7febbe553c83">使用 Nodejs 搭建一个 OAuth2.0 服务</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.rfcreader.com/#rfc6749">rfc6749</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/blog/images/wechatpay.jpg" alt="Isaac Kam 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/blog/images/alipay.jpg" alt="Isaac Kam 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Isaac Kam
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/" title="oauth2实践">https://isaaxite.github.io/blog/2022/10/18/oauth2实践/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.zhihu.com/people/issac-79">
+            <span class="icon">
+              <i class="fab | fa-zhihu"></i>
+            </span>
+
+            <span class="label">Zhihu</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/blog/images/wechat_qrcode.jpg">
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/blog/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://github.com/isaaxite">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+
+            <span class="label">GitHub</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="isaacgun:isaacgun@outlook.com">
+            <span class="icon">
+              <i class="fa fa-envelope"></i>
+            </span>
+
+            <span class="label">E-Mail</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/" rel="tag"># 旧文迁移</a>
+              <a href="/blog/tags/oauth2/" rel="tag"># oauth2</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2022/06/17/%E3%80%90win%E3%80%91%E5%AE%89%E8%A3%85ADB/" rel="prev" title="【win】安装ADB">
+                  <i class="fa fa-chevron-left"></i> 【win】安装ADB
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2022/10/31/%E7%BC%96%E5%86%99%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E6%89%A9%E5%B1%95github%E8%AF%84%E8%AE%BA%E7%BC%96%E8%BE%91%E5%99%A8%EF%BC%8C%E5%A2%9E%E5%8A%A0%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F/" rel="next" title="编写油猴脚本扩展github评论编辑器，增加全屏模式">
+                  编写油猴脚本扩展github评论编辑器，增加全屏模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Isaac Kam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/blog/js/third-party/fancybox.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"isaaxite/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/blog/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
