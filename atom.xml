@@ -6,7 +6,7 @@
   <link href="https://isaaxite.github.io/blog/atom.xml" rel="self"/>
   
   <link href="https://isaaxite.github.io/blog/"/>
-  <updated>2023-03-08T09:02:17.258Z</updated>
+  <updated>2023-03-08T09:08:55.278Z</updated>
   <id>https://isaaxite.github.io/blog/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://isaaxite.github.io/blog/2023/03/08/WSL%E7%9A%84hosts%E6%96%87%E4%BB%B6%E8%A2%AB%E9%87%8D%E7%BD%AE/"/>
     <id>https://isaaxite.github.io/blog/2023/03/08/WSL%E7%9A%84hosts%E6%96%87%E4%BB%B6%E8%A2%AB%E9%87%8D%E7%BD%AE/</id>
     <published>2023-03-08T08:01:21.000Z</published>
-    <updated>2023-03-08T09:02:17.258Z</updated>
+    <updated>2023-03-08T09:08:55.278Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;使用WSL安装软件时，需要从 &lt;code&gt;raw.githubusercontent.com&lt;/code&gt; 拉取数据，抛异常 403。经查阅是DNS污染导致，推荐的解决方案是修改hosts文件，添加域名与ip的映射。&lt;/p&gt;
