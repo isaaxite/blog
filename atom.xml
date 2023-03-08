@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Isaac Kam&#39;s Blog</title>
+  <icon>https://isaaxite.github.io/blog/icon.png</icon>
+  <subtitle>I am a slow walker, but I never walk backwards.</subtitle>
+  <link href="https://isaaxite.github.io/blog/atom.xml" rel="self"/>
+  
+  <link href="https://isaaxite.github.io/blog/"/>
+  <updated>2023-03-08T09:02:17.258Z</updated>
+  <id>https://isaaxite.github.io/blog/</id>
+  
+  <author>
+    <name>Isaac Kam</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>WSL的hosts文件被重置</title>
+    <link href="https://isaaxite.github.io/blog/2023/03/08/WSL%E7%9A%84hosts%E6%96%87%E4%BB%B6%E8%A2%AB%E9%87%8D%E7%BD%AE/"/>
+    <id>https://isaaxite.github.io/blog/2023/03/08/WSL%E7%9A%84hosts%E6%96%87%E4%BB%B6%E8%A2%AB%E9%87%8D%E7%BD%AE/</id>
+    <published>2023-03-08T08:01:21.000Z</published>
+    <updated>2023-03-08T09:02:17.258Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;使用WSL安装软件时，需要从 &lt;code&gt;raw.githubusercontent.com&lt;/code&gt; 拉取数据，抛异常 403。经查阅是DNS污染导致，推荐的解决方案是修改hosts文件，添加域名与ip的映射。&lt;/p&gt;
+&lt;p&gt;然而，再第二天打开电脑再次登入wsl发现，继续403异常！查看hosts文件：内容被重置！&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="WSL" scheme="https://isaaxite.github.io/blog/categories/WSL/"/>
+    
+    
+    <category term="WSL" scheme="https://isaaxite.github.io/blog/tags/WSL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker容器（Debian）内终端的中文展示与输入问题</title>
+    <link href="https://isaaxite.github.io/blog/2023/02/28/Docker%E5%AE%B9%E5%99%A8%EF%BC%88Debian%EF%BC%89%E5%86%85%E7%BB%88%E7%AB%AF%E7%9A%84%E4%B8%AD%E6%96%87%E5%B1%95%E7%A4%BA%E4%B8%8E%E8%BE%93%E5%85%A5%E9%97%AE%E9%A2%98/"/>
+    <id>https://isaaxite.github.io/blog/2023/02/28/Docker%E5%AE%B9%E5%99%A8%EF%BC%88Debian%EF%BC%89%E5%86%85%E7%BB%88%E7%AB%AF%E7%9A%84%E4%B8%AD%E6%96%87%E5%B1%95%E7%A4%BA%E4%B8%8E%E8%BE%93%E5%85%A5%E9%97%AE%E9%A2%98/</id>
+    <published>2023-02-28T08:22:11.000Z</published>
+    <updated>2023-03-08T09:02:17.258Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;使用docker容器作为开发环境。以Debian11镜像启动容器，出现两个问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;无法展示中文，ls输出的都是八进制编码的字符串；&lt;/li&gt;
+&lt;li&gt;终端无法输入中文，粘贴可以但同学展示为八进制字符串；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;/blog/2023/02/28/Docker%E5%AE%B9%E5%99%A8%EF%BC%88Debian%EF%BC%89%E5%86%85%E7%BB%88%E7%AB%AF%E7%9A%84%E4%B8%AD%E6%96%87%E5%B1%95%E7%A4%BA%E4%B8%8E%E8%BE%93%E5%85%A5%E9%97%AE%E9%A2%98/Snipaste_2023-02-27_20-24-42.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="linux" scheme="https://isaaxite.github.io/blog/categories/linux/"/>
+    
+    <category term="docker" scheme="https://isaaxite.github.io/blog/categories/docker/"/>
+    
+    
+    <category term="docker" scheme="https://isaaxite.github.io/blog/tags/docker/"/>
+    
+    <category term="debian" scheme="https://isaaxite.github.io/blog/tags/debian/"/>
+    
+    <category term="linux" scheme="https://isaaxite.github.io/blog/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nvm安装与基本使用</title>
+    <link href="https://isaaxite.github.io/blog/2023/02/27/nvm%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
+    <id>https://isaaxite.github.io/blog/2023/02/27/nvm%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</id>
+    <published>2023-02-26T17:26:41.000Z</published>
+    <updated>2023-03-08T09:02:17.258Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;nvm-与-n-的区别&quot;&gt;&lt;a href=&quot;#nvm-与-n-的区别&quot; class=&quot;headerlink&quot; title=&quot;nvm 与 n 的区别&quot;&gt;&lt;/a&gt;nvm 与 n 的区别&lt;/h1&gt;&lt;p&gt;node 版本管理工具还有一个是 TJ大神的 n 命令，n 命令是作为一个 node 的模块而存在，而 nvm 是一个独立于 node&amp;#x2F;npm 的外部 shell 脚本，因此 n 命令相比 nvm 更加局限。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="linux" scheme="https://isaaxite.github.io/blog/categories/linux/"/>
+    
+    <category term="nodejs" scheme="https://isaaxite.github.io/blog/categories/nodejs/"/>
+    
+    
+    <category term="nodejs" scheme="https://isaaxite.github.io/blog/tags/nodejs/"/>
+    
+    <category term="nvm" scheme="https://isaaxite.github.io/blog/tags/nvm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NexT添加文章置顶feat</title>
+    <link href="https://isaaxite.github.io/blog/2023/02/25/NexT%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6feat/"/>
+    <id>https://isaaxite.github.io/blog/2023/02/25/NexT%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6feat/</id>
+    <published>2023-02-25T13:26:30.000Z</published>
+    <updated>2023-03-08T09:02:17.258Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;Hexo以及NexT主题默认没有置顶功能！本文旨在通过现有方案，花费最小力气补充此缺失的功能！&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://isaaxite.github.io/blog/categories/hexo/"/>
+    
+    <category term="NexT" scheme="https://isaaxite.github.io/blog/categories/NexT/"/>
+    
+    
+    <category term="hexo" scheme="https://isaaxite.github.io/blog/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rust学习</title>
+    <link href="https://isaaxite.github.io/blog/2023/02/15/Rust%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://isaaxite.github.io/blog/2023/02/15/Rust%E5%AD%A6%E4%B9%A0/</id>
+    <published>2023-02-14T16:56:17.000Z</published>
+    <updated>2023-03-08T09:02:17.258Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;Rust 是一种 预编译静态类型（ahead-of-time compiled）语言，这意味着你可以编译程序，并将可执行文件送给其他人，他们甚至不需要安装 Rust 就可以运行。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Rust" scheme="https://isaaxite.github.io/blog/categories/Rust/"/>
+    
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+    <category term="Rust" scheme="https://isaaxite.github.io/blog/tags/Rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PM2日志优化</title>
+    <link href="https://isaaxite.github.io/blog/2022/11/01/PM2%E6%97%A5%E5%BF%97%E4%BC%98%E5%8C%96/"/>
+    <id>https://isaaxite.github.io/blog/2022/11/01/PM2%E6%97%A5%E5%BF%97%E4%BC%98%E5%8C%96/</id>
+    <published>2022-11-01T05:09:01.000Z</published>
+    <updated>2023-03-08T09:02:17.258Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;默认pm2日志存在的问题&quot;&gt;&lt;a href=&quot;#默认pm2日志存在的问题&quot; class=&quot;headerlink&quot; title=&quot;默认pm2日志存在的问题&quot;&gt;&lt;/a&gt;默认pm2日志存在的问题&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;缺少日志时间戳；&lt;/li&gt;
+&lt;li&gt;缺少日志分片；&lt;/li&gt;
+&lt;li&gt;没有日志rotate 功能，定期清除防止磁盘爆满&lt;/li&gt;
+&lt;/ol&gt;</summary>
+    
+    
+    
+    <category term="服务端" scheme="https://isaaxite.github.io/blog/categories/%E6%9C%8D%E5%8A%A1%E7%AB%AF/"/>
+    
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+    <category term="PM2" scheme="https://isaaxite.github.io/blog/tags/PM2/"/>
+    
+    <category term="日志处理" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>编写油猴脚本扩展github评论编辑器，增加全屏模式</title>
+    <link href="https://isaaxite.github.io/blog/2022/10/31/%E7%BC%96%E5%86%99%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E6%89%A9%E5%B1%95github%E8%AF%84%E8%AE%BA%E7%BC%96%E8%BE%91%E5%99%A8%EF%BC%8C%E5%A2%9E%E5%8A%A0%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://isaaxite.github.io/blog/2022/10/31/%E7%BC%96%E5%86%99%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E6%89%A9%E5%B1%95github%E8%AF%84%E8%AE%BA%E7%BC%96%E8%BE%91%E5%99%A8%EF%BC%8C%E5%A2%9E%E5%8A%A0%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F/</id>
+    <published>2022-10-31T05:15:34.000Z</published>
+    <updated>2023-03-08T09:02:17.278Z</updated>
+    
+    
+    <summary type="html"> </summary>
+    
+    
+    
+    <category term="油猴脚本" scheme="https://isaaxite.github.io/blog/categories/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/"/>
+    
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+    <category term="tampermonkey" scheme="https://isaaxite.github.io/blog/tags/tampermonkey/"/>
+    
+    <category term="油猴脚本" scheme="https://isaaxite.github.io/blog/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>oauth2实践</title>
+    <link href="https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/"/>
+    <id>https://isaaxite.github.io/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/</id>
+    <published>2022-10-17T23:03:02.000Z</published>
+    <updated>2023-03-08T09:02:17.258Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/blog/2022/10/18/oauth2%E5%AE%9E%E8%B7%B5/2022-10-07-03-23-41.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全" scheme="https://isaaxite.github.io/blog/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+    <category term="oauth2" scheme="https://isaaxite.github.io/blog/tags/oauth2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【win】安装ADB</title>
+    <link href="https://isaaxite.github.io/blog/2022/06/17/%E3%80%90win%E3%80%91%E5%AE%89%E8%A3%85ADB/"/>
+    <id>https://isaaxite.github.io/blog/2022/06/17/%E3%80%90win%E3%80%91%E5%AE%89%E8%A3%85ADB/</id>
+    <published>2022-06-17T09:10:03.000Z</published>
+    <updated>2023-03-08T09:02:17.268Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://developer.android.com/studio/releases/platform-tools&quot;&gt;下载adb for windows&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/blog/2022/06/17/%E3%80%90win%E3%80%91%E5%AE%89%E8%A3%85ADB/58064e0ddf514a219e22db69e7dbb67c.webp&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="开发调试" scheme="https://isaaxite.github.io/blog/categories/%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95/"/>
+    
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+    <category term="adb" scheme="https://isaaxite.github.io/blog/tags/adb/"/>
+    
+    <category term="安卓调试" scheme="https://isaaxite.github.io/blog/tags/%E5%AE%89%E5%8D%93%E8%B0%83%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo：从0开始与踩坑实录</title>
+    <link href="https://isaaxite.github.io/blog/2021/03/16/hexo%EF%BC%9A%E4%BB%8E0%E5%BC%80%E5%A7%8B%E4%B8%8E%E8%B8%A9%E5%9D%91%E5%AE%9E%E5%BD%95/"/>
+    <id>https://isaaxite.github.io/blog/2021/03/16/hexo%EF%BC%9A%E4%BB%8E0%E5%BC%80%E5%A7%8B%E4%B8%8E%E8%B8%A9%E5%9D%91%E5%AE%9E%E5%BD%95/</id>
+    <published>2021-03-16T06:46:49.000Z</published>
+    <updated>2023-03-08T09:02:17.258Z</updated>
+    
+    
+    <summary type="html"> </summary>
+    
+    
+    
+    <category term="hexo" scheme="https://isaaxite.github.io/blog/categories/hexo/"/>
+    
+    
+    <category term="hexo" scheme="https://isaaxite.github.io/blog/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git Hook实现轻量级自动化部署</title>
+    <link href="https://isaaxite.github.io/blog/2020/05/07/Git-Hook%E5%AE%9E%E7%8E%B0%E8%BD%BB%E9%87%8F%E7%BA%A7%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
+    <id>https://isaaxite.github.io/blog/2020/05/07/Git-Hook%E5%AE%9E%E7%8E%B0%E8%BD%BB%E9%87%8F%E7%BA%A7%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/</id>
+    <published>2020-05-07T05:20:52.000Z</published>
+    <updated>2023-03-08T09:02:17.258Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;最近在整理项目，发现以前的一个项目中，发现使用git hook和pm2实现了一个简单的自动化部署，也没有写什么记录，故复记录之。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="部署发布" scheme="https://isaaxite.github.io/blog/categories/%E9%83%A8%E7%BD%B2%E5%8F%91%E5%B8%83/"/>
+    
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+    <category term="部署发布" scheme="https://isaaxite.github.io/blog/tags/%E9%83%A8%E7%BD%B2%E5%8F%91%E5%B8%83/"/>
+    
+    <category term="git hook" scheme="https://isaaxite.github.io/blog/tags/git-hook/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅析Generator</title>
+    <link href="https://isaaxite.github.io/blog/2020/04/25/%E6%B5%85%E6%9E%90Generator/"/>
+    <id>https://isaaxite.github.io/blog/2020/04/25/%E6%B5%85%E6%9E%90Generator/</id>
+    <published>2020-04-25T02:59:28.000Z</published>
+    <updated>2023-03-08T09:02:17.278Z</updated>
+    
+    
+    <summary type="html"> </summary>
+    
+    
+    
+    <category term="JavaScript" scheme="https://isaaxite.github.io/blog/categories/JavaScript/"/>
+    
+    
+    <category term="JavaScript" scheme="https://isaaxite.github.io/blog/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>装饰器实现路由的自动挂载</title>
+    <link href="https://isaaxite.github.io/blog/2020/04/23/%E8%A3%85%E9%A5%B0%E5%99%A8%E5%AE%9E%E7%8E%B0%E8%B7%AF%E7%94%B1%E7%9A%84%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD/"/>
+    <id>https://isaaxite.github.io/blog/2020/04/23/%E8%A3%85%E9%A5%B0%E5%99%A8%E5%AE%9E%E7%8E%B0%E8%B7%AF%E7%94%B1%E7%9A%84%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD/</id>
+    <published>2020-04-23T05:31:13.000Z</published>
+    <updated>2023-03-08T09:02:17.278Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;装饰器实现路由的自动挂载&quot;&gt;&lt;a href=&quot;#装饰器实现路由的自动挂载&quot; class=&quot;headerlink&quot; title=&quot;装饰器实现路由的自动挂载&quot;&gt;&lt;/a&gt;装饰器实现路由的自动挂载&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;类装饰器工作记录contriller路径；&lt;/li&gt;
+&lt;li&gt;方法装饰器记录方法路径；&lt;/li&gt;
+&lt;li&gt;参数装饰器记录参数类型；&lt;/li&gt;
+&lt;li&gt;组合路由&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="TypeScript" scheme="https://isaaxite.github.io/blog/categories/TypeScript/"/>
+    
+    
+    <category term="TypeScript" scheme="https://isaaxite.github.io/blog/tags/TypeScript/"/>
+    
+    <category term="装饰器" scheme="https://isaaxite.github.io/blog/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>装饰器实现参数的校验</title>
+    <link href="https://isaaxite.github.io/blog/2020/04/23/%E8%A3%85%E9%A5%B0%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%8F%82%E6%95%B0%E7%9A%84%E6%A0%A1%E9%AA%8C/"/>
+    <id>https://isaaxite.github.io/blog/2020/04/23/%E8%A3%85%E9%A5%B0%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%8F%82%E6%95%B0%E7%9A%84%E6%A0%A1%E9%AA%8C/</id>
+    <published>2020-04-23T05:25:17.000Z</published>
+    <updated>2023-03-08T09:02:17.278Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;需要用到的工具：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参数装饰器：记录参数的索引，方法名；&lt;/li&gt;
+&lt;li&gt;tslib_1.__metadata：这是ts的内置方法用于保存方法的参数类型、方法类型以及方法返回数据的类型；&lt;/li&gt;
+&lt;li&gt;reflect-metadata：保存参数的数据；&lt;/li&gt;
+&lt;li&gt;class-validator：对类成员进行校验；&lt;/li&gt;
+&lt;li&gt;class-transformer：使用class-transformer的plainToClass方法将对象转化成指定类的实例。&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="TypeScript" scheme="https://isaaxite.github.io/blog/categories/TypeScript/"/>
+    
+    
+    <category term="TypeScript" scheme="https://isaaxite.github.io/blog/tags/TypeScript/"/>
+    
+    <category term="装饰器" scheme="https://isaaxite.github.io/blog/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ElementUI源码分析-Scrolllbar组件</title>
+    <link href="https://isaaxite.github.io/blog/2020/04/20/ElementUI%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-Scrolllbar%E7%BB%84%E4%BB%B6/"/>
+    <id>https://isaaxite.github.io/blog/2020/04/20/ElementUI%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-Scrolllbar%E7%BB%84%E4%BB%B6/</id>
+    <published>2020-04-20T04:11:58.000Z</published>
+    <updated>2023-03-08T09:02:17.258Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;scrollbar组件可以通过设置native属性，是否使用自定义的scrollbar视图，默认为&lt;code&gt;undefined&lt;/code&gt;即使用自定义的，下面也是主要分析自定义scrollbar的构成。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="JavaScript" scheme="https://isaaxite.github.io/blog/categories/JavaScript/"/>
+    
+    <category term="Element-UI" scheme="https://isaaxite.github.io/blog/categories/Element-UI/"/>
+    
+    
+    <category term="源码分析" scheme="https://isaaxite.github.io/blog/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+    <category term="JavaScript" scheme="https://isaaxite.github.io/blog/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面试题61. 扑克牌中的顺子</title>
+    <link href="https://isaaxite.github.io/blog/2020/04/17/%E9%9D%A2%E8%AF%95%E9%A2%9861.%20%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/"/>
+    <id>https://isaaxite.github.io/blog/2020/04/17/%E9%9D%A2%E8%AF%95%E9%A2%9861.%20%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/</id>
+    <published>2020-04-16T23:37:04.000Z</published>
+    <updated>2023-03-08T09:02:17.278Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。2～10为数字本身，A为1，J为11，Q为12，K为13，而大、小王为 0 ，可以看成任意数字。A 不能视为 14。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法题" scheme="https://isaaxite.github.io/blog/categories/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    
+    <category term="算法题" scheme="https://isaaxite.github.io/blog/tags/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>46. 全排列</title>
+    <link href="https://isaaxite.github.io/blog/2020/04/17/46.%20%E5%85%A8%E6%8E%92%E5%88%97/"/>
+    <id>https://isaaxite.github.io/blog/2020/04/17/46.%20%E5%85%A8%E6%8E%92%E5%88%97/</id>
+    <published>2020-04-16T23:33:59.000Z</published>
+    <updated>2023-03-08T09:02:17.248Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;给定一个 没有重复 数字的序列，返回其所有可能的全排列。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法题" scheme="https://isaaxite.github.io/blog/categories/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    
+    <category term="算法题" scheme="https://isaaxite.github.io/blog/tags/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面试题47. 礼物的最大价值</title>
+    <link href="https://isaaxite.github.io/blog/2020/04/17/%E9%9D%A2%E8%AF%95%E9%A2%9847.%20%E7%A4%BC%E7%89%A9%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC/"/>
+    <id>https://isaaxite.github.io/blog/2020/04/17/%E9%9D%A2%E8%AF%95%E9%A2%9847.%20%E7%A4%BC%E7%89%A9%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC/</id>
+    <published>2020-04-16T23:33:59.000Z</published>
+    <updated>2023-03-08T09:02:17.278Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在一个 m*n 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值（价值大于 0）。你可以从棋盘的左上角开始拿格子里的礼物，并每次向右或者向下移动一格、直到到达棋盘的右下角。给定一个棋盘及其上面的礼物的价值，请计算你最多能拿到多少价值的礼物？&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法题" scheme="https://isaaxite.github.io/blog/categories/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    
+    <category term="算法题" scheme="https://isaaxite.github.io/blog/tags/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面试题19. 正则表达式匹配</title>
+    <link href="https://isaaxite.github.io/blog/2020/04/17/%E9%9D%A2%E8%AF%95%E9%A2%9819-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/"/>
+    <id>https://isaaxite.github.io/blog/2020/04/17/%E9%9D%A2%E8%AF%95%E9%A2%9819-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/</id>
+    <published>2020-04-16T23:26:51.000Z</published>
+    <updated>2023-03-08T09:02:17.278Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;请实现一个函数用来匹配包含’. ‘和’&lt;em&gt;‘的正则表达式。模式中的字符’.’表示任意一个字符，而’&lt;/em&gt;‘表示它前面的字符可以出现任意次（含0次）。在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串”aaa”与模式”a.a”和”ab&lt;em&gt;ac&lt;/em&gt;a”匹配，但与”aa.a”和”ab*a”均不匹配。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法题" scheme="https://isaaxite.github.io/blog/categories/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    
+    <category term="算法题" scheme="https://isaaxite.github.io/blog/tags/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面试题29. 顺时针打印矩阵</title>
+    <link href="https://isaaxite.github.io/blog/2020/04/17/%E9%9D%A2%E8%AF%95%E9%A2%9829-%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/"/>
+    <id>https://isaaxite.github.io/blog/2020/04/17/%E9%9D%A2%E8%AF%95%E9%A2%9829-%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/</id>
+    <published>2020-04-16T23:26:51.000Z</published>
+    <updated>2023-03-08T09:02:17.278Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法题" scheme="https://isaaxite.github.io/blog/categories/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    
+    <category term="算法题" scheme="https://isaaxite.github.io/blog/tags/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    <category term="旧文迁移" scheme="https://isaaxite.github.io/blog/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
+    
+  </entry>
+  
+</feed>
