@@ -32,13 +32,34 @@ apt-get install git vim curl -y
 
 # 开发软件
 
-- nvm
-- yarn
-- hexo
+- nvm，管理多个node和npm版本；
+- yarn，nodejs lib 管理工具
+- hexo，blog工具
 
 ## nvm
 
 参考：[Isaac Kam's Blog: nvm安装与基本使用](nvm安装与基本使用/#more)
+
+# 体验优化
+
+- zsh，优秀的shell工具；
+- Oh My Zsh，zsh的美化插件；
+
+## zsh
+
+```shell
+apt-get install zsh -y
+```
+
+## Oh My Zsh
+
+参考：https://ohmyz.sh/
+
+![](Snipaste_2023-03-08_11-10-50.png)
+
+```shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
 # 参考
 

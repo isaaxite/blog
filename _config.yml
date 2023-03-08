@@ -104,20 +104,20 @@ theme: next
 
 # Deployment
 # Docs: https://hexo.io/docs/one-command-deployment
-# deploy:
-#   type: git
-#   repository: https://github.com/isaaxite/blog
-#   branch: master
-
 deploy:
   type: git
-  repo:
-    github:
-      url: https://github.com/isaaxite/blog.git
-      branch: master
-      token: $GITHUB_TOKEN
-    name: isaaxite
-    email: isaacgun@outlook.com
+  repository: https://github.com/isaaxite/blog
+  branch: master
+
+# deploy:
+#   type: git
+#   repo:
+#     github:
+#       url: https://github.com/isaaxite/blog.git
+#       branch: master
+#       token: $GITHUB_TOKEN
+#     name: isaaxite
+#     email: isaacgun@outlook.com
 
 feed:
   enable: true
