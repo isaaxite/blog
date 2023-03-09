@@ -114,7 +114,7 @@ deploy:
   repo:
     github:
       url: https://github.com/isaaxite/blog.git
-      branch: gh-pages
+      branch: master
       token: $GITHUB_TOKEN
     # name: isaaxite
     # email: isaacgun@outlook.com
