@@ -1,16 +1,17 @@
 ---
 title: hexo deploy失败问题
 tags:
-- hexo
-- deploy
-- wsl
-- debian
-- github
-
+  - hexo
+  - deploy
+  - wsl
+  - debian
+  - github
 categories:
-- hexo
-- deploy
+  - hexo
+  - deploy
+date: 2023-03-10 23:22:46
 ---
+
 
 # 前言
 
