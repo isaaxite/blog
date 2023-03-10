@@ -15,6 +15,8 @@ categories:
 
 - win11系统响应太慢，个人感受win10更加适合当前的使用场景；
 
+<!-- more -->
+
 # 新环境需求
 
 - 优秀的dockers环境；
@@ -66,17 +68,17 @@ Before you turn on the Docker Desktop WSL 2, ensure you have:
 
 **Q2：Windows 10 各版本区别？**
 
-- **家庭版(Home)**：供家庭用户使用，无法加入Active Directory和Azure AD，不允许远程链接
+- 家庭版(Home)：供家庭用户使用，无法加入Active Directory和Azure AD，不允许远程链接
 
-- **专业版(Professional)**：供小型企业使用 在家庭版基础上增加了域账号加入、bitlocker、企业商店等功能
+- 专业版(Professional)：供小型企业使用 在家庭版基础上增加了域账号加入、bitlocker、企业商店等功能
 
-- **企业版(Enterprise)**：供中大型企业使用 在专业版基础上增加了DirectAccess，AppLocker等高级企业功能
+- 企业版(Enterprise)：供中大型企业使用 在专业版基础上增加了DirectAccess，AppLocker等高级企业功能
 
-- **教育版(Education)**：供学校使用 (学校职员, 管理人员, 老师和学生) 其功能基本和企业版的一样
+- 教育版(Education)：供学校使用 (学校职员, 管理人员, 老师和学生) 其功能基本和企业版的一样
 
-- **LTSB版**：无Edge浏览器、小娜，无磁贴，可选是否下载和安装补丁，其它版都不能自选补丁
+- LTSB版：无Edge浏览器、小娜，无磁贴，可选是否下载和安装补丁，其它版都不能自选补丁
 
-- **N版**：带“N”的版本相当于阉割版，移除了Windows Media Player，几乎用不到N版。
+- N版：带“N”的版本相当于阉割版，移除了Windows Media Player，几乎用不到N版。
 
 参考以上，最终选择下载 **consumer_editions 版本**，选装 **专业版(Professional)**！
 
@@ -84,7 +86,8 @@ Before you turn on the Docker Desktop WSL 2, ensure you have:
 
 ## 系统下载
 
-下载地址：ed2k://|file|cn_windows_10_consumer_editions_version_1909_updated_jan_2020_x64_dvd_47161f17.iso|5417457664|274FEBA5BF0C874C291674182FA9C851|/
+下载地址：[cn_windows_10_consumer_editions_version]
+
 
 来源：https://msdn.itellyou.cn/
 
@@ -98,3 +101,5 @@ TODO
 
 
 参考：https://docs.docker.com/desktop/windows/wsl/
+
+[cn_windows_10_consumer_editions_version]:ed2k://|file|cn_windows_10_consumer_editions_version_1909_updated_jan_2020_x64_dvd_47161f17.iso|5417457664|274FEBA5BF0C874C291674182FA9C851|/

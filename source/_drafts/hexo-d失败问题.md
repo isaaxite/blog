@@ -7,6 +7,8 @@ tags:
 
 personal access token (classic)开放的权限
 
+<!-- more -->
+
 - repo
 - workflow
 - write:packages
