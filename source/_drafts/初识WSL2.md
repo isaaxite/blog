@@ -34,6 +34,19 @@ wsl --install
 
 安装结束后，可以使用 `wsl --help` 查看支持的命令，详细参考 [附录-wsl --help]。
 
+然后，使用 `wsl --status` 确认当前的 WSL 版本。
+
+```shell
+PS C:\Users\isaac> wsl --status
+Default Distribution: Debian
+Default Version: 2
+```
+
+如果不是 `Default Version: 2` 的话，使用 `wsl --set-default-version 2` 修改。
+
+> --set-default-version <Version>
+        Changes the default install version for new distributions.
+
 
 # 修改linux distributions
 
