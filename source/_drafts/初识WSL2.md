@@ -22,7 +22,7 @@ ccategories:
 
 ## 系统要求
 
-安装要求是指可以安装WSL2的windows 版本。它们分为最方便的安装要求和最低的要求，前者可以直接使用命令行安装，后者需要做一些windows功能的开启。
+安装要求是指可以安装WSL2的windows 版本。它们分为最方便的安装要求和最低的要求，前者可以直接使用命令行安装，后者需要做一些windows功能的开启，官方的详细要求可参考 [附录-Prerequisites]。
 
 ### 最方便的要求
 
@@ -124,7 +124,27 @@ Default Version: 2
 
 # 修改linux distributions
 
-TODO
+WSL默认安装的Linux发行版本是 Ubantu。当前WSL支持的Linux发行版本可查看 [附录-WSL支持的Linux发行版本]。以下以切换 Debian 作为例子：
+
+打开 powershell，使用 `wsl --list -o` 查看当前支持的发行版本：
+
+![](Snipaste_2023-03-12_22-58-58.png)
+
+见上图提示，使用 `wsl --install -d <Distro>` 安装。
+
+```shell
+wsl --install -d Debian
+```
+
+安装完成后，设置WSL默认的发行版本：
+
+```shell
+wsl -s Debian
+```
+
+设置完成后，可以使用 `wsl --status` 查看。
+
+![](Snipaste_2023-03-12_23-05-55.png)
 
 # 添加配置
 
@@ -291,6 +311,33 @@ Arguments for managing distributions in Windows Subsystem for Linux:
         Unregisters the distribution and deletes the root filesystem.
 ```
 
+## WSL支持的Linux发行版本
+
+详细参考：[#downloading-distributions](https://learn.microsoft.com/en-us/windows/wsl/install-manual#downloading-distributions)
+
+*PS:以下数据记录于 2023/03/12*
+
+> - Ubuntu
+> - Ubuntu 22.04 LTS
+> - Ubuntu 20.04
+> - Ubuntu 20.04 ARM
+> - Ubuntu 18.04
+> - Ubuntu 18.04 ARM
+> - Ubuntu 16.04
+> - Debian GNU/Linux
+> - Kali Linux
+> - SUSE Linux Enterprise Server 12
+> - SUSE Linux Enterprise Server 15 SP2
+> - SUSE Linux Enterprise Server 15 SP3
+> - openSUSE Tumbleweed
+> - openSUSE Leap 15.3
+> - openSUSE Leap 15.2
+> - Oracle Linux 8.5
+> - Oracle Linux 7.9
+> - Fedora Remix for WSL
+
+另外，可以通过 powershell，使用 `wsl --list -o` 查阅当前WSL支持的Linux发行版本。
+
 ## Prerequisites
 
 以下是官方的安装要求
@@ -337,6 +384,10 @@ You must be running Windows 10 version 2004 and higher (Build 19041 and higher) 
 <!-- reference -->
 
 [附录-wsl --help]:#wsl-%E2%80%93help
+
+[附录-Prerequisites]:#Prerequisites
+
+[附录-WSL支持的Linux发行版本]:#WSL支持的Linux发行版本
 
 [How to install WSL2 on Windows 10]:https://pureinfotech.com/install-windows-subsystem-linux-2-windows-10/
 
