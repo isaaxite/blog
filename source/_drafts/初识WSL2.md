@@ -19,7 +19,62 @@ ccategories:
 # 安装
 
 ## 系统要求
-TODO
+
+### 最方便的要求
+
+与下面这个本版下相同或者更高：
+
+window 10
+
+- 版本：2004
+- OS Build：19041
+
+
+### 最低版本
+
+最低版本的要求根据x64版本和ARM64版本有所不同。具体如下
+
+
+x64版本：
+
+- window 10
+- 版本：1903
+- OS Build：18362
+
+
+ARM64版本：
+
+- window 10
+- 版本：2004
+- OS Build：19041
+
+在符合以上要求的情况下，还需要已经安装WSL1；
+
+安装WSL1，需要以下几个操作：
+
+1. 启用wsl功能；
+2. 启用虚拟机平台；
+
+
+####  启用wsl功能
+
+还需要在控制面版 > windows > 功能开关，勾选打开 wsl 选项，见下图：
+
+![](enable-wsl1-windows-10.webp)
+
+然后，重启电脑。
+
+
+#### 启用虚拟机平台
+
+以管理员权限打开powershell执行下面命令：
+
+```shell
+Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform
+```
+
+然后，重启电脑。
+
 
 ## 实践环境
 TODO
@@ -217,6 +272,26 @@ Arguments for managing distributions in Windows Subsystem for Linux:
         Unregisters the distribution and deletes the root filesystem.
 ```
 
+## Prerequisites
+
+以下是官方的安装要求
+
+### 新版本：
+
+详细参考：[Install Linux on Windows with WSL - Prerequisites]
+
+>Prerequisites
+You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 to use the commands below. If you are on earlier versions please see the manual install page.
+
+### 旧版本
+
+详细参考：[Check requirements for running WSL 2]
+
+>To update to WSL 2, you must be running Windows 10...
+>
+>- For x64 systems: Version 1903 or later, with Build 18362 or later.
+>
+>- For ARM64 systems: Version 2004 or later, with Build 19041 or later.
 
 ## 参考
 
@@ -225,6 +300,8 @@ Arguments for managing distributions in Windows Subsystem for Linux:
 - [How to install WSL2 on Windows 10]
 
 - [Install Linux on Windows with WSL]
+
+- [Manual installation steps for older versions of WSL]
 
 ### 其他
 
@@ -259,3 +336,9 @@ Arguments for managing distributions in Windows Subsystem for Linux:
 [.wslconfig]:https://learn.microsoft.com/en-us/windows/wsl/wsl-config#example-wslconfig-file
 
 [wsl.conf]:https://learn.microsoft.com/en-us/windows/wsl/wsl-config#example-wslconf-file
+
+[Manual installation steps for older versions of WSL]:https://learn.microsoft.com/en-us/windows/wsl/install-manual
+
+[Check requirements for running WSL 2]:https://learn.microsoft.com/en-us/windows/wsl/install-manual#step-2---check-requirements-for-running-wsl-2
+
+[Install Linux on Windows with WSL - Prerequisites]:https://learn.microsoft.com/en-us/windows/wsl/install#prerequisites
