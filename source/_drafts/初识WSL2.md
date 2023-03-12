@@ -18,7 +18,11 @@ ccategories:
 
 # 安装
 
+本节将介绍安装WSL2的系统要求以及笔者的安装环境。笔者将在比较新的windows 10环境下，使用命令行安装，并且详细记录安装细节。
+
 ## 系统要求
+
+安装要求是指可以安装WSL2的windows 版本。它们分为最方便的安装要求和最低的要求，前者可以直接使用命令行安装，后者需要做一些windows功能的开启。
 
 ### 最方便的要求
 
@@ -48,7 +52,7 @@ ARM64版本：
 - 版本：2004
 - OS Build：19041
 
-在符合以上要求的情况下，还需要已经安装WSL1；
+**在符合以上要求的情况下，还需要已经安装WSL1！**
 
 安装WSL1，需要以下几个操作：
 
@@ -75,9 +79,15 @@ Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform
 
 然后，重启电脑。
 
+到此，旧版本的准备已经完成。
+
 
 ## 实践环境
-TODO
+
+笔者当前的环境是比较新的环境。适合使用命令行直接安装WSL2。环境细节见下图：
+
+|![](Snipaste_2023-03-12_17-34-36.png)|
+|--|
 
 ## 命令行安装
 
@@ -101,6 +111,15 @@ Default Version: 2
 
 > --set-default-version <Version>
         Changes the default install version for new distributions.
+
+
+## 旧版本windows安装WSL2
+
+旧版本的详情可以查看 [最低版本](#最低版本)。已经做好准备后，还需要做下面几步：
+
+- 下载并安装 [WSL2 Linux kernel update package for x64 machines](https://learn.microsoft.com/en-us/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package)；
+
+- 设置WSL版本：`wsl --set-default-version 2`
 
 
 # 修改linux distributions
