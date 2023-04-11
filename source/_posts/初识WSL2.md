@@ -1,10 +1,12 @@
 ---
 title: 初识WSL2
 tags:
-- WSL
+  - WSL
 ccategories:
-- [WSL]
+  - - WSL
+date: 2023-04-11 19:10:24
 ---
+
 
 # 前言
 
@@ -148,7 +150,38 @@ wsl -s Debian
 
 # 添加配置
 
-TODO
+下面要介绍的是使用配置文件进行配置。
+
+WSL的配置文件有2个，分别是 `wsl.conf` 和 `.wslconfig`。接下来要介绍的是：
+
+1. 两种配置文件的异同；
+2. 配置文件的存放位置。
+
+在配置完成之后，需要重启WSL才会生效。注意不是单纯关闭 Terminal。
+
+> You must wait until the subsystem running your Linux distribution completely stops running and restarts for configuration setting updates to appear. This typically takes about 8 seconds after closing ALL instances of the distribution shell.
+
+
+## 配置文件的异同
+
+两个文件都是WSL的配置文件，它们区别在于存储的位置、生效的范围、配置的选项。
+
+`wsl.conf` 是WSL1时已经有的配置文件。它可以在WSL1和WSL2版本下生效。但是它可以配置的属性有效，比如要配置WSL的内存占用则只能通过`.wslconfig`文件进行配置。
+
+`.wslconfig` 是WSL2的配置文件，它仅仅在WSL2版本环境下生效。
+
+
+>![](Snipaste_2023-04-11_18-49-48.png)
+
+## 存放位置
+
+配置文件不是自动生成的，如果是第一次配置，需要手动创建对应的配置文件。如果没有配置文件存在即使用默认配置。
+
+- `wsl.conf`：`/etc/wsl.conf`
+
+- `.wslconfig`: `C:\Users\<UserName>\.wslconfig`
+
+
 
 # 特性
 
