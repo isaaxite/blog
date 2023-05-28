@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://isaaxite.github.io/blog/sitemap.xml
+Sitemap: https://isaaxite.github.io/blog/baidusitemap.xml
