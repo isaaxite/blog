@@ -101,7 +101,7 @@ menu:
   categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
   #schedule: /schedule/ || fa fa-calendar
-  #sitemap: /sitemap.xml || fa fa-sitemap
+  sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404/ || fa fa-heartbeat
   RSS: /atom.xml || fa fa-rss
 
@@ -484,7 +484,7 @@ google_site_verification: D3uaiX9T8gcr1zBjqu9y67t-0DhGNCa7yyjpQ27T_Co
 
 # Bing Webmaster tools verification.
 # See: https://www.bing.com/webmasters
-bing_site_verification:
+bing_site_verification: AFD16F68B2DF363759600CB5E8825AEC
 
 # Yandex Webmaster tools verification.
 # See: https://webmaster.yandex.ru
