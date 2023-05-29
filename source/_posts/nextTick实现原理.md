@@ -12,10 +12,15 @@ categories:
 
 # 大纲
 
+- [大纲](#大纲)
 - [前言](#前言)
-- [nextTick的实现逻辑](#nextTick的实现逻辑)
-- [timerFunc是什么？](#timerFunc是什么？)
-- [timerFunc的实现](#timerFunc的实现)
+- [nextTick的实现逻辑](#nexttick的实现逻辑)
+- [timerFunc是什么？](#timerfunc是什么)
+- [timerFunc的实现](#timerfunc的实现)
+    - [Promise实现timerFunc](#promise实现timerfunc)
+    - [MutationObserver实现timerFunc](#mutationobserver实现timerfunc)
+    - [setImmediate实现timerFunc](#setimmediate实现timerfunc)
+    - [setTimeout实现timerFunc](#settimeout实现timerfunc)
 
 <!-- more -->
 

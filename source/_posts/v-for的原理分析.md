@@ -11,9 +11,13 @@ categories:
 
 # 大纲
 
+- [大纲](#大纲)
 - [前言](#前言)
 - [v-for的函数文本](#v-for的函数文本)
-- [renderList的实现](#renderList的实现)
+  - [解析出`ast`](#解析出ast)
+  - [根据ast解析出函数文本](#根据ast解析出函数文本)
+- [renderList的实现](#renderlist的实现)
+- [总结](#总结)
 
 <!-- more -->
 
