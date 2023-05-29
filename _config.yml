@@ -136,5 +136,12 @@ feed:
 
 language: zh-CN
 
-neat_enable: true
+neat_enable: false
+
+ndex2_include_index: true # defult is true
+
+# the custom index2 generator, can be array or object
+index2_generator:
+  exclude:
+    - tag hidden # exclude article which tag is Hexo
 

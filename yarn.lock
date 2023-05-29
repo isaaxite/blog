@@ -1261,6 +1261,14 @@
     "hexo-pagination" "0.0.2"
     "object-assign" "^4.0.1"
 
+"hexo-generator-index2@^0.2.0":
+  "integrity" "sha512-XgRPTq8R9jzH6HnfQuPyFkeqQdcnAIMJq1exRNyYvSg+mE5YRqroBDrKewSHFbfRzYTbeO0861pDCAjOiwpHqQ=="
+  "resolved" "https://registry.npmjs.org/hexo-generator-index2/-/hexo-generator-index2-0.2.0.tgz"
+  "version" "0.2.0"
+  dependencies:
+    "hexo-pagination" "0.0.2"
+    "object-assign" "^4.0.1"
+
 "hexo-generator-searchdb@^1.4.1":
   "integrity" "sha512-7m8IBpZbI6iKb2jRYxs4pghD6Ln8ylQSRGl6MIC4G9wws21vYSXSD8rvC3MoCO+pWBHs6E/mTA/rjG+p2AZfVg=="
   "resolved" "https://registry.npmjs.org/hexo-generator-searchdb/-/hexo-generator-searchdb-1.4.1.tgz"
