@@ -135,3 +135,6 @@ feed:
   template:
 
 language: zh-CN
+
+neat_enable: true
+
