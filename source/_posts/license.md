@@ -25,18 +25,18 @@ Open Source License 是指符合开源定义的许可证——简而言之，它
 
 世界上的开源许可证（Open Source License）大概有上百种，今天我们来介绍下几种我们常见的开源协议。大致有GPL、BSD、MIT、Mozilla、Apache和LGPL等。
 
-![常见的开源许可证](da68b98e404578126b87c5afd9ba9bc3.png)
+![常见的开源许可证](./license/da68b98e404578126b87c5afd9ba9bc3.png)
 
 
 # 选择LICENSE
 
 下面是来自 Paul Bagwell 整理的许可证选择流程：
 
-![来自Paul Bagwell整理](tumblr_lkhe2jxnXS1qguzn1o1_r7_1280.png)
+![来自Paul Bagwell整理](./license/tumblr_lkhe2jxnXS1qguzn1o1_r7_1280.png)
 
 下面是 阮一峰整理的选择流程，图已经略过时，但仍然有一定的参考价值，英文好的同学建议看 Paul Bagwell 整理的选择。
 
-|![来自阮一峰整理](9720a0afdb60d23b31b3a667ad6e70a2.png)|
+|![来自阮一峰整理](./license/9720a0afdb60d23b31b3a667ad6e70a2.png)|
 |:--:|
 
 # MIT LICENSE
