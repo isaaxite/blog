@@ -218,10 +218,6 @@ cargo check
 
 # 语法概念
 
-- 结束符号
-- 注释
-- 变量/常量
-- 数据类型
 - [函数定义](https://github.com/isaaxite/blog/issues/296#issuecomment-1328515749)
 - [控制流](https://github.com/isaaxite/blog/issues/296#issuecomment-1330017240)
 
@@ -276,43 +272,225 @@ const FOO = 1;
 
 ## 数据类型
 
-- 数据类型的分类
-
-### 数据类型的分类
-
 数据类型的分为*标量（scalar）*和*复合（compound）*，以及其他
+
+### 标量
 
 **标量（scalar）** 类型代表一个单独的值。Rust 有四种基本的标量类型：
 
-- [整型](https://github.com/isaaxite/blog/issues/296#issuecomment-1328102385)
-- [浮点型](https://github.com/isaaxite/blog/issues/296#issuecomment-1328105183)
-- [布尔类型](https://github.com/isaaxite/blog/issues/296#issuecomment-1328105689)
-- [字符类型](https://github.com/isaaxite/blog/issues/296#issuecomment-1328111816)
+- [整型](#整型)
+- [浮点型](#浮点型)
+- [布尔类型](#布尔类型)
+- [字符类型](#字符类型)
+
+### 复合类型
 
 **复合类型（Compound types）** 可以将多个值组合成一个类型。Rust 有两个原生的复合类型：
 
-- [元组（tuple）](https://github.com/isaaxite/blog/issues/296#issuecomment-1328122358)
-- [数组（array）](https://github.com/isaaxite/blog/issues/296#issuecomment-1328195135)
+- [元组（tuple）](#元组类型)
+- [数组（array）](#数组类型)
 
 其他类型包含：
 
-- [引用类型](https://github.com/isaaxite/blog/issues/296#issuecomment-1328463936)
-- [Slice类型](https://github.com/isaaxite/blog/issues/296#issuecomment-1328510984)
+- [引用类型](#引用类型)
+- [Slice类型](#Slice类型)
 
 
------------------
+### 整型
+
+长度![space]  | 有符号![space] | 无符号![space]
+-- | -- | --
+8-bit | i8 | u8
+16-bit | i16 | u16
+32-bit | i32 | u32
+64-bit | i64 | u64
+128-bit | i128 | u128
+arch | isize | usize
+
+其中，`isize` 和 `usize` 类型依赖运行程序的计算机架构：64 位架构上它们是 64 位的， 32 位架构上它们是 32 位的。
+
+**数字类型默认是 i32。isize 或 usize 主要作为某些集合的索引。**
+
+[space]: https://user-images.githubusercontent.com/25907273/204106545-3a62a4e3-0667-4021-b882-d14c2ce516e5.png
+
+
+
+### 浮点型
+
+Rust 也有两个原生的 浮点数（floating-point numbers）类型:
+- `f32`
+- `f64`
+
+f32、f64分别占 32 位和 64 位。默认类型是 f64。
+
+所有的浮点型都是 **有** 符号的
+
+```rs
+let foo: f32 = 2.12;
+```
+
+### 布尔类型
+
+Rust 中的布尔类型使用 `bool` 表示
+
+```
+let foo = false;
+let bar: bool;
+bar = true;
+```
+
+### 字符类型
+
+Rust中的字符类型包含char类型和字符串类型，而字符串类型由str和String组成。
+
+
+#### char类型
+
+使用 `char` 关键字声明，它只能存储*单个字符*！
+
+```rs
+let name: char;
+name = 'i';
+println!("{}", name)
+```
+注意，我们用 **单引号** 声明 char 字面量，而与之相反的是，使用 **双引号** 声明字符串字面量。
+
+Rust 的 char 类型的大小为四个字节(four bytes)，并代表了一个 Unicode 标量值（Unicode Scalar Value），这意味着它可以比 ASCII 表示更多内容。
+
+#### 字符串类型
+
+Rust有两种字符串类型：str和String。其中str是String的切片类型，也就是说，str类型的字符串值是String类型的字符串值的一部分或全部。
+
+注意使用双引号！
+
+##### str
+
+使用 `&str`显式声明。
+
+```rs
+let name: &str = "isaac";
+println!("i am {}", name);
+```
+
+##### String
+
+使用 `String` 显式声明！
+
+```
+let name: String = String::from("isaac");
+println!("i am {}", name);
+
+let name: String = "isaac".to_string();
+println!("i am {}", name);
+```
+
+### 元组类型
+
+元组是一个将多个其他类型的值组合进一个复合类型的主要方式。元组长度固定：一旦声明，其长度不会增大或缩小。
+
+```rs
+let n: (i32, f64, u8) = (500, 6.4, 1);
+```
+
+可以使用 点操作符（.）或者 解构取单个值。
+
+```rs
+// 点操作符
+println!("{}", n.0);
+// 解构
+let (x,_y,_z) = n;
+println!("num {}", x);
+```
+
+### 数组类型
+
+Rust 中的数组与一些其他语言中的数组不同，Rust中的数组长度是固定的。
+
+当你想要在栈（stack）而不是在堆（heap）上为数据分配空间，或者是想要确保总是有固定数量的元素时，数组非常有用。
+
+```rs
+let a = [1, 2, 3, 4, 5];
+```
+
+显式声明，在方括号中包含每个元素的类型，后跟分号，再后跟数组元素的数量
+
+```rs
+let a: [i32; 5] = [1, 2, 3, 4, 5];
+
+let first = a[0];
+```
+
+**但是数组并不如 [vector] 类型灵活。vector 类型是标准库提供的一个 允许 增长和缩小长度的类似数组的集合类型。当不确定是应该使用数组还是 [vector] 的时候，那么很可能应该使用 [vector]。**
+
+<!-- links -->
+[vector]: xxx
+
+
+### 引用类型
+
+#### 概念与使用
+
+引用类型是一种数据类型，它表示其所保存的值是一个引用。
+
+引用，通常来说是指向其他数据的一个指针或一个胖指针(有额外元数据的指针)。例如&33表示的是一个指向数据值33的一个指针。
+
+因此，引用类型保存值的引用。
+
+Rust中，使用&T表示类型T的引用类型(reference type)。
+
+```rs
+let n: &i32 = &33_i32;
+```
+
+#### 可变引用
+
+直接使用&创建出来的引用是只读的，这意味着可以通过该引用去读取其指向的数据，但是不能通过引用去修改指向的数据。
+
+
+可以使用 `&mut v` 来创建可修改源数据v的可变引用。
+
+**注意，想要通过&mut引用去修改源数据，要求原变量是可变的。**
+
+```rs
+let mut x = "xxxx";
+let x_ref = &mut x;
+
+*x_ref = "xxxx2";
+
+print!("x: {}\n", x_ref);
+print!("x_ref: {}", x_ref);
+```
+
+#### 解引用
+
+解引用表示解除引用，即通过引用获取到该引用所指向的原始值。
+
+解引用使用*T表示，其中T是一个引用
+
+```rs
+*x_ref = "xxxx2";
+```
+
+#### 小结
+
+- 引用类型，是一个数据类型，它存储的是一直数据的引用，地址！
+- 可变引用即储存的可变变量
+- 解引用，使用*号，读取引用变量指向地址所保存的指！
+
+
+### Slice类型
+
+Slice操作，Rust中的切片操作只允许获取一段连续的局部数据，切片操作获取到的数据称为切片数据。
+
+
+
+
+
 
 #  所有权（ownership）
 
-- 前言
-- 所有权的规则
-- 变量作用域
-- 变量与数据交互的方式
-- 引用与借用
 
-## 前言
-
-[栈（Stack）与堆（Heap）内存。
+栈（Stack）与堆（Heap）内存。
 
 栈以放入值的顺序存储值。
 
