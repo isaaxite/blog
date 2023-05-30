@@ -34,7 +34,7 @@ hexo.extend.filter.register('marked:renderer', function(renderer) {
       href = url_for.call(hexo, href);
     }
 
-    let out = `<img b="12" src="${encodeURL(href)}"`;
+    let out = `<img src="${encodeURL(href)}"`;
     if (text) out += ` alt="${text}"`;
     if (title) out += ` title="${title}"`;
     if (lazyload) out += ' loading="lazy"';
