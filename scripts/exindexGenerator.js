@@ -6,6 +6,8 @@
 var assign = require('object-assign');
 var pagination = require('hexo-pagination');
 
+// const logKeys = (o) => console.info(Object.keys(o));
+
 hexo.config.exindex_generator = assign({
   per_page: typeof hexo.config.per_page === 'undefined' ? 10 : hexo.config.per_page,
   order_by: '-date'
@@ -44,6 +46,8 @@ const generator = function(locals){
   // console.info(util.format('%o', posts.data.map((it) => {
   //   return it.title;
   // })))
+
+  // logKeys(posts.data[0]);
 
   var paginationDir = config.pagination_dir || 'page';
   return pagination('', posts, {
