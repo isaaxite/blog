@@ -1253,22 +1253,6 @@
     "hexo-util" "^2.1.0"
     "nunjucks" "^3.0.0"
 
-"hexo-generator-index-pin-top@^0.2.2":
-  "integrity" "sha512-1mVXHoUL5a3Q3yvIqoRVFhbJPlVAnRfc9ibToWpIlxU7ILTJwxhT6NFiS/jf/yZ0Suq1HvTI68yViMQMQVoDvg=="
-  "resolved" "https://registry.npmjs.org/hexo-generator-index-pin-top/-/hexo-generator-index-pin-top-0.2.2.tgz"
-  "version" "0.2.2"
-  dependencies:
-    "hexo-pagination" "0.0.2"
-    "object-assign" "^4.0.1"
-
-"hexo-generator-index2@^0.2.0":
-  "integrity" "sha512-XgRPTq8R9jzH6HnfQuPyFkeqQdcnAIMJq1exRNyYvSg+mE5YRqroBDrKewSHFbfRzYTbeO0861pDCAjOiwpHqQ=="
-  "resolved" "https://registry.npmjs.org/hexo-generator-index2/-/hexo-generator-index2-0.2.0.tgz"
-  "version" "0.2.0"
-  dependencies:
-    "hexo-pagination" "0.0.2"
-    "object-assign" "^4.0.1"
-
 "hexo-generator-searchdb@^1.4.1":
   "integrity" "sha512-7m8IBpZbI6iKb2jRYxs4pghD6Ln8ylQSRGl6MIC4G9wws21vYSXSD8rvC3MoCO+pWBHs6E/mTA/rjG+p2AZfVg=="
   "resolved" "https://registry.npmjs.org/hexo-generator-searchdb/-/hexo-generator-searchdb-1.4.1.tgz"
@@ -1340,13 +1324,6 @@
     "object-assign" "^4.1.1"
     "stream-to-array" "^2.3.0"
     "uglify-js" "~3.10.0"
-
-"hexo-pagination@0.0.2":
-  "integrity" "sha512-4kSEfk+f1xX9UkLiFR0u1/uLombK7xiTcKcESkYTFc9GioeG8ORGe2IRaYF0meScMk5pDDTTmq73uZAuzpsgwg=="
-  "resolved" "https://registry.npmjs.org/hexo-pagination/-/hexo-pagination-0.0.2.tgz"
-  "version" "0.0.2"
-  dependencies:
-    "utils-merge" "^1.0.0"
 
 "hexo-pagination@3.0.0":
   "integrity" "sha512-8oo1iozloZo7TojPVYg4IxL3SJKCBdSJ908fTlIxIK7TWJIKdYnQlW31+12DBJ0NhVZA/lZisPObGF08wT8fKw=="
@@ -2264,7 +2241,7 @@
   "resolved" "https://mirrors.tencent.com/npm/nwsapi/-/nwsapi-2.2.2.tgz"
   "version" "2.2.2"
 
-"object-assign@^4.0.1", "object-assign@^4.1.1":
+"object-assign@^4.1.1":
   "integrity" "sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg=="
   "resolved" "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
   "version" "4.1.1"
