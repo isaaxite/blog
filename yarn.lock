@@ -312,7 +312,7 @@
     "no-case" "^2.2.0"
     "upper-case" "^1.1.1"
 
-"camel-case@^4.0.0":
+"camel-case@^4.0.0", "camel-case@^4.1.2":
   "integrity" "sha512-gxGWBrTT1JuMx6R+o5PTXMmUnhnVzLQ9SNutD4YqKtI6ap897t3tKECYla6gCWEkplXnlNybEkZg9GEGxKFCgw=="
   "resolved" "https://mirrors.tencent.com/npm/camel-case/-/camel-case-4.1.2.tgz"
   "version" "4.1.2"
@@ -560,7 +560,7 @@
     "lru-cache" "^4.0.1"
     "which" "^1.2.9"
 
-"cross-spawn@^7.0.0":
+"cross-spawn@^7.0.0", "cross-spawn@^7.0.3":
   "integrity" "sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w=="
   "resolved" "https://mirrors.tencent.com/npm/cross-spawn/-/cross-spawn-7.0.3.tgz"
   "version" "7.0.3"
@@ -730,6 +730,15 @@
     "domhandler" "^4.2.0"
     "entities" "^2.0.0"
 
+"dom-serializer@^2.0.0":
+  "integrity" "sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg=="
+  "resolved" "https://registry.npmjs.org/dom-serializer/-/dom-serializer-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "domelementtype" "^2.3.0"
+    "domhandler" "^5.0.2"
+    "entities" "^4.2.0"
+
 "dom-serializer@~0.1.0", "dom-serializer@0":
   "integrity" "sha512-l0IU0pPzLWSHBcieZbpOKgkIn3ts3vAh7ZuFyXNwJxJXk/c4Gwj9xaTJwIDVQCXawWD0qb3IzMGH5rglQaO0XA=="
   "resolved" "https://registry.npmjs.org/dom-serializer/-/dom-serializer-0.1.1.tgz"
@@ -743,7 +752,7 @@
   "resolved" "https://registry.npmjs.org/domelementtype/-/domelementtype-1.3.1.tgz"
   "version" "1.3.1"
 
-"domelementtype@^2.0.1", "domelementtype@^2.2.0":
+"domelementtype@^2.0.1", "domelementtype@^2.2.0", "domelementtype@^2.3.0":
   "integrity" "sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw=="
   "resolved" "https://mirrors.tencent.com/npm/domelementtype/-/domelementtype-2.3.0.tgz"
   "version" "2.3.0"
@@ -769,6 +778,13 @@
   dependencies:
     "domelementtype" "^2.2.0"
 
+"domhandler@^5.0.2", "domhandler@^5.0.3":
+  "integrity" "sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w=="
+  "resolved" "https://registry.npmjs.org/domhandler/-/domhandler-5.0.3.tgz"
+  "version" "5.0.3"
+  dependencies:
+    "domelementtype" "^2.3.0"
+
 "dompurify@^2.4.0":
   "integrity" "sha512-q6QaLcakcRjebxjg8/+NP+h0rPfatOgOzc46Fst9VAA3jF2ApfKBNKMzdP4DYTqtUMXSCd5pRS/8Po/OmoCHZQ=="
   "resolved" "https://mirrors.tencent.com/npm/dompurify/-/dompurify-2.4.3.tgz"
@@ -790,6 +806,15 @@
     "dom-serializer" "^1.0.1"
     "domelementtype" "^2.2.0"
     "domhandler" "^4.2.0"
+
+"domutils@^3.0.1":
+  "integrity" "sha512-H78uMmQtI2AhgDJjWeQmHwJJ2bLPD3GMmO7Zja/ZZh84wkm+4ut+IUnUdRa8uCGX88DiVx1j6FRe1XfxEgjEZA=="
+  "resolved" "https://registry.npmjs.org/domutils/-/domutils-3.1.0.tgz"
+  "version" "3.1.0"
+  dependencies:
+    "dom-serializer" "^2.0.0"
+    "domelementtype" "^2.3.0"
+    "domhandler" "^5.0.3"
 
 "domutils@1.5.1":
   "integrity" "sha512-gSu5Oi/I+3wDENBsOWBiRK1eoGxcywYSqg3rR960/+EfY0CF4EX1VPkgHOZ3WiS/Jg2DtliF6BhWcHlfpYUcGw=="
@@ -836,10 +861,10 @@
   "resolved" "https://mirrors.tencent.com/npm/entities/-/entities-3.0.1.tgz"
   "version" "3.0.1"
 
-"entities@^4.4.0":
-  "integrity" "sha512-oYp7156SP8LkeGD0GF85ad1X9Ai79WtRsZ2gxJqtBuzH+98YUV6jkHEKlZkMbcrjJjIVJNIDP/3WL9wQkoPbWA=="
-  "resolved" "https://mirrors.tencent.com/npm/entities/-/entities-4.4.0.tgz"
-  "version" "4.4.0"
+"entities@^4.2.0", "entities@^4.4.0":
+  "integrity" "sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw=="
+  "resolved" "https://registry.npmjs.org/entities/-/entities-4.5.0.tgz"
+  "version" "4.5.0"
 
 "escape-html@~1.0.3":
   "integrity" "sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg="
@@ -1178,6 +1203,14 @@
     "nunjucks" "^3.2.3"
     "picocolors" "^1.0.0"
 
+"hexo-filter-relative-src@^1.0.3":
+  "integrity" "sha512-xQpBZmVrjkCLLfwpvCfw4oxTA9kCeqOQhcO/nq/pWxSDXnO58CQq7tCXoUU7Q8sR0/xdspMuUdMUmwclfDqO5g=="
+  "resolved" "https://registry.npmjs.org/hexo-filter-relative-src/-/hexo-filter-relative-src-1.0.3.tgz"
+  "version" "1.0.3"
+  dependencies:
+    "hexo-util" "^3.0.1"
+    "object-assign" "^4.1.1"
+
 "hexo-front-matter@^0.2.3":
   "integrity" "sha512-GL/pGfYqsvjMgxjhOWv1zAc7t4JoGUow+CH9Tes/5N2wKxxTzt2woKEMHz1+c01CmhdVYUR4lO3R1ZAcxc0caA=="
   "resolved" "https://registry.npmjs.org/hexo-front-matter/-/hexo-front-matter-0.2.3.tgz"
@@ -1244,6 +1277,13 @@
   "version" "2.0.0"
   dependencies:
     "hexo-pagination" "3.0.0"
+
+"hexo-generator-exindex@file:../hexo-generator-exindex":
+  "resolved" "file:../hexo-generator-exindex"
+  "version" "1.0.3"
+  dependencies:
+    "hexo-pagination" "^3.0.0"
+    "object-assign" "^4.1.1"
 
 "hexo-generator-feed@^3.0.0":
   "integrity" "sha512-Jo35VSRSNeMitS2JmjCq3OHAXXYU4+JIODujHtubdG/NRj2++b3Tgyz9pwTmROx6Yxr2php/hC8og5AGZHh8UQ=="
@@ -1330,6 +1370,12 @@
   "resolved" "https://mirrors.tencent.com/npm/hexo-pagination/-/hexo-pagination-3.0.0.tgz"
   "version" "3.0.0"
 
+"hexo-relatived-img@file:../hexo-relatived-img":
+  "resolved" "file:../hexo-relatived-img"
+  "version" "1.0.0"
+  dependencies:
+    "hexo-util" "^3.0.1"
+
 "hexo-renderer-ejs@^2.0.0":
   "integrity" "sha512-qCjE1IdwgDgv65qyb0KMVCwCdSVAkH0vwAe9XihjvaKWkmb9dtt8DgErOdqCXn0HReSyWiEVP2BrLRj3gyHwOQ=="
   "resolved" "https://mirrors.tencent.com/npm/hexo-renderer-ejs/-/hexo-renderer-ejs-2.0.0.tgz"
@@ -1408,6 +1454,20 @@
     "prismjs" "^1.17.1"
     "strip-indent" "^3.0.0"
 
+"hexo-util@^3.0.1":
+  "integrity" "sha512-ri3WsEUWSfrjydYPeOaWvrYIzfVBiaXUy0846051MkuJxBcNtG2o87q0KFGiniSMmi0XxLQhSl415anU3+FFlA=="
+  "resolved" "https://registry.npmjs.org/hexo-util/-/hexo-util-3.0.1.tgz"
+  "version" "3.0.1"
+  dependencies:
+    "bluebird" "^3.7.2"
+    "camel-case" "^4.1.2"
+    "cross-spawn" "^7.0.3"
+    "deepmerge" "^4.2.2"
+    "highlight.js" "^11.6.0"
+    "htmlparser2" "^8.0.1"
+    "prismjs" "^1.29.0"
+    "strip-indent" "^3.0.0"
+
 "hexo@^3.0.0":
   "integrity" "sha512-uga6MsxGlD0AeafiObbFkQVWlUO+wWTb/IJVPI3fFpmAJu0PBD//Ek0qVOxHjlzdvFGeW0bYWYqXgDbR7suJng=="
   "resolved" "https://registry.npmjs.org/hexo/-/hexo-3.9.0.tgz"
@@ -1471,7 +1531,7 @@
     "titlecase" "^1.1.3"
     "warehouse" "^4.0.2"
 
-"highlight.js@^11.0.1":
+"highlight.js@^11.0.1", "highlight.js@^11.6.0":
   "integrity" "sha512-1rRqesRFhMO/PRF+G86evnyJkCgaZFOI+Z6kdj15TA18funfoqJXvgPCLSf0SWq3SRfg1j3HlDs8o4s3EGq1oQ=="
   "resolved" "https://mirrors.tencent.com/npm/highlight.js/-/highlight.js-11.7.0.tgz"
   "version" "11.7.0"
@@ -1527,6 +1587,16 @@
     "domhandler" "^4.2.2"
     "domutils" "^2.8.0"
     "entities" "^3.0.1"
+
+"htmlparser2@^8.0.1":
+  "integrity" "sha512-GYdjWKDkbRLkZ5geuHs5NY1puJ+PXwP7+fHPRz06Eirsb9ugf6d8kkXav6ADhcODhFFPMIXyxkxSuMf3D6NCFA=="
+  "resolved" "https://registry.npmjs.org/htmlparser2/-/htmlparser2-8.0.2.tgz"
+  "version" "8.0.2"
+  dependencies:
+    "domelementtype" "^2.3.0"
+    "domhandler" "^5.0.3"
+    "domutils" "^3.0.1"
+    "entities" "^4.4.0"
 
 "http-errors@2.0.0":
   "integrity" "sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ=="
@@ -2406,7 +2476,7 @@
   "resolved" "https://mirrors.tencent.com/npm/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz"
   "version" "1.0.3"
 
-"prismjs@^1.17.1":
+"prismjs@^1.17.1", "prismjs@^1.29.0":
   "integrity" "sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q=="
   "resolved" "https://mirrors.tencent.com/npm/prismjs/-/prismjs-1.29.0.tgz"
   "version" "1.29.0"

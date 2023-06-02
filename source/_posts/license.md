@@ -25,7 +25,7 @@ Open Source License 是指符合开源定义的许可证——简而言之，它
 
 世界上的开源许可证（Open Source License）大概有上百种，今天我们来介绍下几种我们常见的开源协议。大致有GPL、BSD、MIT、Mozilla、Apache和LGPL等。
 
-![常见的开源许可证](./license/da68b98e404578126b87c5afd9ba9bc3.png)
+![常见的开源许可证](license/da68b98e404578126b87c5afd9ba9bc3.png)
 
 
 # 选择LICENSE
@@ -82,11 +82,11 @@ Github是支持半自动化的方式创建LICENSE的。
 
 创建LICESE文件，会自动出现选择LICENSE协议的按钮（“Choose a license template”）
 
-![](Snipaste_2023-05-30_17-44-00.png)
+![创建LICESE文件](./license/Snipaste_2023-05-30_17-44-00.png)
 
 #### 选择MIT协议
 
-![](Snipaste_2023-05-30_17-47-09.png)
+![选择MIT协议](./license/Snipaste_2023-05-30_17-47-09.png)
 
 
 
