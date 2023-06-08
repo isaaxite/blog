@@ -15,7 +15,7 @@
   "dependencies": {
     "hexo": "^6.3.0",
     "hexo-deployer-git": "^4.0.0",
-    "hexo-filter-relative-src": "^1.0.3",
+    "hexo-filter-relative-src": "^1.0.4",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-baidu-sitemap": "^0.1.9",
     "hexo-generator-category": "^2.0.0",
