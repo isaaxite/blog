@@ -143,7 +143,7 @@ feed:
 
 language: zh-CN
 
-neat_enable: false
+neat_enable: true
 
 relitive_src_filter:
   enable: true
