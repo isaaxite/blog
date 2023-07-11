@@ -147,4 +147,4 @@ neat_enable: true
 
 relitive_src_filter:
   enable: true
-  # prefix: '/test'
+  # prefix: https://raw.githubusercontent.com/isaaxite/blog/master/resources
