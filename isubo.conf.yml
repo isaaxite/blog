@@ -66,7 +66,7 @@ source_dir: source/_posts
 ##
 ## Default:
 ##  link_prefix: https://raw.githubusercontent.com/<owner>/<repo>/<branch>/<source_dir>/
-# link_prefix: 
+link_prefix: https://isaaxite.github.io/blog/resources/
 
 ## [optional]
 ## types, Which link type should be formated.

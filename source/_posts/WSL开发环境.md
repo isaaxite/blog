@@ -1,6 +1,15 @@
 ---
 title: WSL搭建丝滑的开发环境
 excerpt: Windows系统对于日常使用与娱乐不可否认是优秀的，但对于程序开发的普适性却稍微逊其他系统一筹。WSL2的出现对此让人嗅到了一丝改变。本文旨在使用WSL2搭建NodeJs开发环境。在Windows环境下，使用VSCode、Windows Termial 和 Debian，以WSL2连结三者，搭建NodeJS开发环境，以获得丝滑的Linux开发体验。
+tags:
+  - 环境配置
+  - NodeJS
+  - VSCode
+  - Linux
+  - Debian
+  - Windows
+  - WSL
+  - Windows Terminal
 issue_number: 307
 ---
 
