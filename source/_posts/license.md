@@ -2,8 +2,9 @@
 title: LICENSE的选择与生成
 date: 2023-05-30 16:50:28
 tags:
-- 开发标准
-- LICENSE
+  - 开发标准
+  - LICENSE
+issue_number: 309
 ---
 
 # 前言
