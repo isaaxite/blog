@@ -226,29 +226,67 @@ Gitmoji 规范的制定者 Carlos Cuesta 在规范的 Github 页面上并没有�
 
 *因此，接下来需要做的事情是，安装 Husky，配置 `commit-msg` 拦截`git commit` 动作，再安装 Commitlint 对拦截到的 commit 信息进行校验。*
 
+### 安装 Husky
+
+安装 husky
+
+```shell
+# npm
+npm install husky --save-dev
+
+# pnpm
+pnpm add husky --save-dev
+```
+
+使用 husky 安装 git hook
+
+```shell
+# npx 调用 局部命令 husky 
+npx husky install
+
+# 直接路径访问局部命令 husky
+./node_modules/.bin/husky install
+```
+
+添加 `prepare` 脚本到 `package.json` 的 `scripts` 中，使得在新环境初始化项目时，自动安装 Git Hooks。
+
+📢 *此为可选操作，不做也不影响后续操作，但是推荐执行*
+
+```shell
+npm pkg set scripts.prepare="husky install"
+
+# 执行以上命令得到的结果是：
+{
+  "scripts": {
++    "prepare": "husky install" 
+  }
+}
+```
+
+> **prepare (since npm@4.0.0)**
+>
+> Runs BEFORE the package is packed
+> Runs BEFORE the package is published
+> <mark>Runs on local `npm install` without any arguments</mark>
+> Run AFTER `prepublish`, but BEFORE `prepublishOnly`
+> NOTE: If a package being installed through git contains a `prepare` script, its `dependencies` and `devDependencies` will be installed, and the prepare script will be run, before the package is packaged and installed.
+>
+> Refenrence: [How npm handles the "scripts" field]
+
+husky 配置 Hooks 的方式如下
+
+```shell
+npx husky add .husky/<git hook> "<command that needs to be executed when the hook is triggered>"
+
+# e.g.
+# 将在 `git commit` 执行前触发 `npm test` 命令
+npx husky add .husky/pre-commit "npm test"
+```
 
 
+至此，Git Hooks 的准备工作已经完成，`commit-msg` 钩子的配置要在 commitlint 安装完成后配置。
 
-常用的遵循 Angular 规范、Conventional Commits 规范和 Gitmoji 规范的工具：
-
-| 工具名称 | 描述 | 支持的规范 |
-| --- | --- | --- |
-| [Commitizen ↗](https://github.com/commitizen/cz-cli) | 一个用于生成符合规范的 commit message 的命令行工具。可以使用预设的配置或自定义配置。 | Angular 规范、Conventional Commits 规范、Gitmoji 规范等 |
-| [Commitlint ↗](https://github.com/conventional-changelog/commitlint) | 一个用于检查 commit message 是否符合规范的工具。可以自定义规则和配置。 | Angular 规范、Conventional Commits 规范等 |
-| [Semantic Release ↗](https://github.com/semantic-release/semantic-release) | 一个用于自动化版本控制和发布的工具。支持 Conventional Commits 规范。 | Conventional Commits 规范 |
-| [Gitmoji CLI ↗](https://github.com/carloscuesta/gitmoji-cli) | 一个用于在命令行中快速添加 Gitmoji 表情符号的工具。可以自定义配置。 | Gitmoji 规范 |
-
-
-[`@commitlint/config-conventional`] 是 commitlint 的规则
-
-
-| Husky | 一个 Git 钩子工具，可用于在 Git 操作前或后执行脚本，常用于配合 Commitlint 进行 commit message 的校验。 | - |
-
-
-[`@commitlint/config-conventional`]:https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional
-
-
-## 安装 Commitlint
+### 安装 Commitlint
 
 依赖2个库
 
@@ -333,8 +371,20 @@ Husky 支持大部分 Git hook，以下是 Husky 支持的 Git hook 列表：
 ## 参考
 
 - [githooks - Hooks used by Git]
-- [How npm handles the "scripts" field](https://docs.npmjs.com/cli/v9/using-npm/scripts)
+- [How npm handles the "scripts" field]
 
 <!-- Link Defined -->
 [Commitlint ↗]:https://commitlint.js.org/#/?id=getting-started
 [githooks - Hooks used by Git]:https://git-scm.com/docs/githooks#_commit_msg
+[`@commitlint/config-conventional`]:https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional
+[How npm handles the "scripts" field]:https://docs.npmjs.com/cli/v9/using-npm/scripts
+
+
+常用的遵循 Angular 规范、Conventional Commits 规范和 Gitmoji 规范的工具：
+
+| 工具名称 | 描述 | 支持的规范 |
+| --- | --- | --- |
+| [Commitizen ↗](https://github.com/commitizen/cz-cli) | 一个用于生成符合规范的 commit message 的命令行工具。可以使用预设的配置或自定义配置。 | Angular 规范、Conventional Commits 规范、Gitmoji 规范等 |
+| [Commitlint ↗](https://github.com/conventional-changelog/commitlint) | 一个用于检查 commit message 是否符合规范的工具。可以自定义规则和配置。 | Angular 规范、Conventional Commits 规范等 |
+| [Semantic Release ↗](https://github.com/semantic-release/semantic-release) | 一个用于自动化版本控制和发布的工具。支持 Conventional Commits 规范。 | Conventional Commits 规范 |
+| [Gitmoji CLI ↗](https://github.com/carloscuesta/gitmoji-cli) | 一个用于在命令行中快速添加 Gitmoji 表情符号的工具。可以自定义配置。 | Gitmoji 规范 |
