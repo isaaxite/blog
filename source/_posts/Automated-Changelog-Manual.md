@@ -3,7 +3,7 @@ title: Automated Changelog Manual
 date: 2023-07-13 11:06:20
 tags:
 categories:
-keywords:
+excerpt: Automated Changelog Manual
 ---
 
 # 前言
@@ -41,17 +41,17 @@ Angular 规范要求每个 commit message 都包含三个部分：Header、Body 
 
 **Type 字段包含以下值：**
 
-- feat：新功能
-- fix：修复问题
-- docs：文档修改
-- style：代码格式修改，不影响代码逻辑
-- refactor：重构代码，既不修复错误也不添加功能
-- perf：性能优化
-- test：添加或修改测试代码
-- build：构建系统或外部依赖项修改
-- ci：持续集成修改
-- chore：其他修改，如修改构建流程或辅助工具等
-- revert：回滚到之前的提交
+- `feat`：新功能
+- `fix`：修复问题
+- `docs`：文档修改
+- `style`：代码格式修改，不影响代码逻辑
+- `refactor`：重构代码，既不修复错误也不添加功能
+- `perf`：性能优化
+- `test`：添加或修改测试代码
+- `build`：构建系统或外部依赖项修改
+- `ci`：持续集成修改
+- `chore`：其他修改，如修改构建流程或辅助工具等
+- `revert`：回滚到之前的提交
 
 **Angular 规范的格式为：**
 
@@ -82,27 +82,27 @@ Conventional Commits 规范要求每个 commit message 都包含三个部分：T
 
 **Type 包含以下值：**
 
-- feat：新功能
-- fix：修复问题
-- docs：文档修改
-- style：代码格式修改，不影响代码逻辑
-- refactor：重构代码，既不修复错误也不添加功能
-- perf：性能优化
-- test：添加或修改测试代码
-- build：构建系统或外部依赖项修改
-- ci：持续集成修改
-- chore：其他修改，如修改构建流程或辅助工具等
-- revert：回滚到之前的提交
-- feat!: 不兼容的新功能
-- fix!: 不兼容的修复问题
-- docs!: 不兼容的文档修改
-- style!: 不兼容的代码格式修改
-- refactor!: 不兼容的重构代码
-- perf!: 不兼容的性能优化
-- test!: 不兼容的添加或修改测试代码
-- build!: 不兼容的构建系统或外部依赖项修改
-- ci!: 不兼容的持续集成修改
-- chore!: 不兼容的其他修改，如修改构建流程或辅助工具等
+- `feat`：新功能
+- `fix`：修复问题
+- `docs`：文档修改
+- `style`：代码格式修改，不影响代码逻辑
+- `refactor`：重构代码，既不修复错误也不添加功能
+- `perf`：性能优化
+- `test`：添加或修改测试代码
+- `build`：构建系统或外部依赖项修改
+- `ci`：持续集成修改
+- `chore`：其他修改，如修改构建流程或辅助工具等
+- `revert`：回滚到之前的提交
+- `feat!`: 不兼容的新功能
+- `fix!`: 不兼容的修复问题
+- `docs!`: 不兼容的文档修改
+- `style!`: 不兼容的代码格式修改
+- `refactor!`: 不兼容的重构代码
+- `perf!`: 不兼容的性能优化
+- `test!`: 不兼容的添加或修改测试代码
+- `build!`: 不兼容的构建系统或外部依赖项修改
+- `ci!`: 不兼容的持续集成修改
+- `chore!`: 不兼容的其他修改，如修改构建流程或辅助工具等
 
 **Conventional Commits 规范的格式为：**
 
@@ -196,7 +196,7 @@ Gitmoji 规范的制定者 Carlos Cuesta 在规范的 Github 页面上并没有�
 
 1. 基础：添加 commit 语法检测；
 
-2. 优化：添加工具编写 commit，提供易用性。
+2. 优化：添加工具辅助编写 commit，提高易用性。
 
 ## Commit 语法检测
 
@@ -205,11 +205,11 @@ Gitmoji 规范的制定者 Carlos Cuesta 在规范的 Github 页面上并没有�
 [Commitlint ↗] 的作用仅仅是检测 Commit 语法。还需要使用 Git Hook （`commit-msg`）拦截 `git commit` 动作以达到强制执行规范的目的。
 
 > **commit-msg**
->This hook is invoked by [git-commit[1]](https://git-scm.com/docs/git-commit) and [git-merge[1]](https://git-scm.com/docs/git-merge), and can be bypassed with the `--no-verify` option. It takes a single parameter, the name of the file that holds the proposed commit log message. Exiting with a non-zero status causes the command to abort.
+> This hook is invoked by [git-commit[1]](https://git-scm.com/docs/git-commit) and [git-merge[1]](https://git-scm.com/docs/git-merge), and can be bypassed with the `--no-verify` option. It takes a single parameter, the name of the file that holds the proposed commit log message. Exiting with a non-zero status causes the command to abort.
 >
->The hook is allowed to edit the message file in place, and can be used to normalize the message into some project standard format. It can also be used to refuse the commit after inspecting the message file.
+> <mark>The hook is allowed to edit the message file in place, and can be used to normalize the message into some project standard format. It can also be used to refuse the commit after inspecting the message file.</mark>
 >
->The default commit-msg hook, when enabled, detects duplicate `Signed-off-by` trailers, and aborts the commit if one is found.
+> The default commit-msg hook, when enabled, detects duplicate `Signed-off-by` trailers, and aborts the commit if one is found.
 >
 > Refenrence: [githooks - Hooks used by Git]
 
@@ -228,8 +228,6 @@ Gitmoji 规范的制定者 Carlos Cuesta 在规范的 Github 页面上并没有�
 
 ### 安装 Husky
 
-安装 husky
-
 ```shell
 # npm
 npm install husky --save-dev
@@ -238,7 +236,7 @@ npm install husky --save-dev
 pnpm add husky --save-dev
 ```
 
-使用 husky 安装 git hook
+使用 Husky 安装 Git Hooks
 
 ```shell
 # npx 调用 局部命令 husky 
@@ -247,6 +245,21 @@ npx husky install
 # 直接路径访问局部命令 husky
 ./node_modules/.bin/husky install
 ```
+
+<details open>
+  <summary><strong>💡 npx 是什么？</strong></summary>
+  <blockquote>
+    <br/>
+    <p><code>npx</code>是一个Node.js命令行工具，它提供了一种方便的方式来运行本地安装的Node.js包中的可执行文件。npx的作用是在不全局安装包的情况下，运行这些包中的命令。</p>
+    <p>通常情况下，在运行命令行工具时，需要全局安装相关的包和依赖项。但是，这种方式可能会导致一些问题，例如不同版本的包之间的冲突，或者需要手动更新全局安装的包等。<code>npx</code>提供了一个解决方案，可以在不全局安装包的情况下，运行这些包中的命令。</p>
+    <p>使用<code>npx</code>，可以直接在命令行中指定需要运行的包和命令，<code>npx</code>将会自动查找并运行该包中的命令。例如，可以使用以下命令运行&quot;<code>create-react-app</code>&quot;包中的命令来创建一个新的React应用程序：</p>
+    <pre><code>npx create-react-app my-app</code></pre>
+    <p>在这个例子中，<code>npx</code>将在本地查找&quot;<code>create-react-app</code>&quot;包，并运行它中的&quot;<code>create-react-app</code>&quot;命令，然后使用&quot;<code>my-app</code>&quot;作为应用程序的名称创建一个新的React应用程序。</p>
+    <p>更多 npx 相关信息可参考：<a href="https://docs.npmjs.com/cli/v9/commands/npx">npx | Run a command from a local or remote npm package</a></p>
+    <br/>
+  </blockquote>
+</details>
+<br/>
 
 添加 `prepare` 脚本到 `package.json` 的 `scripts` 中，使得在新环境初始化项目时，自动安装 Git Hooks。
 
@@ -267,13 +280,13 @@ npm pkg set scripts.prepare="husky install"
 >
 > Runs BEFORE the package is packed
 > Runs BEFORE the package is published
-> <mark>Runs on local `npm install` without any arguments</mark>
+> <mark>Runs on local "npm install" without any arguments</mark>
 > Run AFTER `prepublish`, but BEFORE `prepublishOnly`
 > NOTE: If a package being installed through git contains a `prepare` script, its `dependencies` and `devDependencies` will be installed, and the prepare script will be run, before the package is packaged and installed.
 >
 > Refenrence: [How npm handles the "scripts" field]
 
-husky 配置 Hooks 的方式如下
+Husky 配置 Hooks 的方式如下
 
 ```shell
 npx husky add .husky/<git hook> "<command that needs to be executed when the hook is triggered>"
@@ -288,56 +301,78 @@ npx husky add .husky/pre-commit "npm test"
 
 ### 安装 Commitlint
 
-依赖2个库
+`@commitlint` 是一个由多个相关包组成的集合，可以根据需要安装和配置这些包来实现不同的功能。
 
-- @commitlint/config-conventional
+`@commitlint` 的核心包是`@commitlint/cli`，它提供了命令行工具，用于检查提交信息是否符合规范。`@commitlint/cli`可以通过命令行参数来指定规范，也可以通过配置文件来指定规范。例如，可以使用`@commitlint/config-conventional`包来定义一个常规的提交信息规范，然后使用`@commitlint/cli`来检查提交信息是否符合该规范。
 
-- commitlint/cli
+除了`@commitlint/cli`之外，@commitlint还提供了其他几个相关包，包括：
+
+- `@commitlint/load`: 提供了一个函数，用于加载配置文件并解析它们，以便`@commitlint/cli`可以使用它们进行检查。
+- `@commitlint/config-conventional`: 提供了一组常见的规范，用于检查常规的Git提交信息格式。
+- `@commitlint/config-angular`: 提供了一个用于检查Angular项目的提交信息规范。
+- `@commitlint/config-lerna-scopes`: 提供了一个用于检查Lerna项目的提交信息规范。
+- [更多相关包...](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint)
+
+这些包可以根据具体需要进行安装和配置。
+
+---
+
+📢 *根据当前的需求，接下来则安装 `@commitlint/cli` 和 `@commitlint/config-conventional`(Conventional Commits 规范)*
+
 
 ```shell
-pnpm add --save-dev @commitlint/{config-conventional,cli}
+# npm
+npm install --save-dev @commitlint/config-conventional @commitlint/cli
+
+# pnpm
+pnpm add --save-dev @commitlint/config-conventional @commitlint/cli
 ```
 
 添加 配置文件
 
-```shell
-echo "module.exports = { extends: ['@commitlint/config-conventional'] };" > commitlint.config.js
+`@commitlint/cli` 支持以下这些默认的配置文件名：
+
+- `commitlint.config.js`
+- `.commitlintrc.js`
+- `.commitlintrc`
+- `.commitlintrc.json`
+- `.commitlintrc.yml`
+
+为了避免切换模块化语法问题，接下来使用 `.commitlintrc.yml` 作为配置文件
+
+```yml
+# .commitlintrc.yml
+
+# 使用 extends 引用 @commitlint/config-conventional 规范
+extends:
+  - '@commitlint/config-conventional'
 ```
 
-设置 配置文件路径
+更多的配置项参考：[Commitlint > Configuration]
+
+![Test Commitlint-CLI](./Automated-Changelog-Manual/test_commitlint.gif)
+
+
+### Husky + Commitlint
+
+使用 Husky 设置 `commit-msg` 钩子执行 `commitlint-cli`, 对 `git commit` 动作提交的信息进行校验。
 
 ```shell
-commitlint --config commitlint.config.js
+npx husky add .husky/commit-msg  'npx --no -- commitlint --edit ${1}'
 ```
 
-添加 Git Hook 拦截提交的 commit
+在这个命令中，`--no` 参数是用来禁用 `npx` 的默认行为的。
 
-```shell
-npm pkg set scripts.commitlint="commitlint --edit"
-npx husky add .husky/commit-msg 'npm run commitlint ${1}'
-```
+默认情况下，`npx` 会在运行目标命令之前检查本地是否已经安装了目标命令所在的包，如果没有安装，则会先安装该包，然后再运行目标命令。这种行为通常是有用的，因为它可以确保运行的命令使用的是最新的包版本，并且可以避免不同版本之间的兼容性问题。
 
-安装 husky
+但是，在某些情况下，我们可能不想让 `npx` 自动安装包，而是希望使用本地已经安装的包。在这种情况下，可以使用 `--no` 参数来禁用 `npx` 的默认行为，以便直接使用本地安装的包。
 
-```shell
-pnpm add husky --save-dev
-```
+在这个具体的命令中，`--no` 参数用来禁用 `npx` 自动安装 `commitlint` 包，而是使用本地已经安装的 `commitlint` 包。
 
-开启 Git Hook
-
-```shell
-npx husky install
-```
-
-To automatically have Git hooks enabled after install, edit package.json
-
-```shell
-npm pkg set scripts.prepare="husky install"
-```
+`--edit ${1}` 是用来编辑指定文件的第一个参数的提交信息，`${1}` 代表第一个参数的值，通常是一个文件路径。这个命令的作用是使用本地安装的 `commitlint` 包来检查指定文件的提交信息是否符合规范，并在编辑器中打开该文件，以便修改提交信息。
 
 
-
-
+## 半自动编写 Commit
 
 
 
@@ -372,12 +407,35 @@ Husky 支持大部分 Git hook，以下是 Husky 支持的 Git hook 列表：
 
 - [githooks - Hooks used by Git]
 - [How npm handles the "scripts" field]
+- [Commitlint > Configuration]
+- [Npx | Run a command from a local or remote npm package]
+- [Husky | Modern native git hooks made easy](https://typicode.github.io/husky/)
+- [Commitlint | Helps your team adhere to a commit convention](https://commitlint.js.org/#/)
 
 <!-- Link Defined -->
-[Commitlint ↗]:https://commitlint.js.org/#/?id=getting-started
-[githooks - Hooks used by Git]:https://git-scm.com/docs/githooks#_commit_msg
-[`@commitlint/config-conventional`]:https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional
-[How npm handles the "scripts" field]:https://docs.npmjs.com/cli/v9/using-npm/scripts
+[Commitlint ↗]: https://commitlint.js.org/#/?id=getting-started
+
+[githooks - Hooks used by Git]: https://git-scm.com/docs/githooks#_commit_msg
+
+[`@commitlint/config-conventional`]: https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional
+
+[How npm handles the "scripts" field]: https://docs.npmjs.com/cli/v9/using-npm/scripts
+
+[`@commitlint/cli`]: https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/cli
+
+[`@commitlint/config-conventional`]: https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional
+
+[`@commitlint/load`]: https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/load
+
+[`@commitlint/config-angular`]: https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-angular
+
+[`@commitlint/config-lerna-scopes`]: https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-lerna-scopes
+
+[`Lerna`]: https://github.com/lerna/lerna
+
+[Commitlint > Configuration]: https://commitlint.js.org/#/reference-configuration?id=configuration
+
+[Npx | Run a command from a local or remote npm package]: https://docs.npmjs.com/cli/v9/commands/npx
 
 
 常用的遵循 Angular 规范、Conventional Commits 规范和 Gitmoji 规范的工具：
