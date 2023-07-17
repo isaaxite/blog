@@ -255,7 +255,7 @@ npx husky install
     <p>使用<code>npx</code>，可以直接在命令行中指定需要运行的包和命令，<code>npx</code>将会自动查找并运行该包中的命令。例如，可以使用以下命令运行&quot;<code>create-react-app</code>&quot;包中的命令来创建一个新的React应用程序：</p>
     <pre><code>npx create-react-app my-app</code></pre>
     <p>在这个例子中，<code>npx</code>将在本地查找&quot;<code>create-react-app</code>&quot;包，并运行它中的&quot;<code>create-react-app</code>&quot;命令，然后使用&quot;<code>my-app</code>&quot;作为应用程序的名称创建一个新的React应用程序。</p>
-    <p>更多 npx 相关信息可参考：<a href="https://docs.npmjs.com/cli/v9/commands/npx">npx | Run a command from a local or remote npm package</a></p>
+    <p>更多 npx 相关信息可参考：<a href="https://docs.npmjs.com/cli/v9/commands/npx">Npx | Run a command from a local or remote npm package</a></p>
     <br/>
   </blockquote>
 </details>
@@ -371,10 +371,83 @@ npx husky add .husky/commit-msg  'npx --no -- commitlint --edit ${1}'
 
 `--edit ${1}` 是用来编辑指定文件的第一个参数的提交信息，`${1}` 代表第一个参数的值，通常是一个文件路径。这个命令的作用是使用本地安装的 `commitlint` 包来检查指定文件的提交信息是否符合规范，并在编辑器中打开该文件，以便修改提交信息。
 
+![Commitlint by hook](./Automated-Changelog-Manual/commitlint_by_hook.gif)
 
 ## 半自动编写 Commit
 
+以下是使用 Markdown 表格输出 @commitlint/prompt-cli 和 Commitizen 的信息：
 
+| 工具名称 | 描述 | npm周下载量（2023/07/17） |
+| --- | --- | --- |
+| [@commitlint/prompt-cli ↗](https://www.npmjs.com/package/@commitlint/prompt-cli) | 一个命令行交互式工具，用于帮助开发人员规范化提交信息。它使用 `commitlint` 配置文件中定义的规则来检查提交信息，确保它们符合预定的格式和风格。该工具还提供了一些提示，帮助开发人员更好地理解如何编写符合规则的提交信息。 | *67,802* |
+| [Commitizen ↗](github.com/commitizen/cz-cli) | 一个命令行交互式工具，用于帮助开发人员规范化提交信息。它使用预定义的提交信息模板来引导开发人员编写符合规则的提交信息，并根据模板中的规则进行验证。与@commitlint/prompt-cli不同的是，Commitizen不检查提交信息是否符合commitlint配置文件中定义的规则，而是依靠模板中的规则来确保提交信息的正确性。此外，Commitizen还提供了一些功能，例如自动填充提交信息，以帮助开发人员更快地编写提交信息。 | *917,033* |
+
+
+```shell
+# npm
+npm add @commitlint/prompt-cli --save-dev
+
+# pnpm
+pnpm add @commitlint/prompt-cli --save-dev
+```
+
+![Test prompt-cli](./Automated-Changelog-Manual/test_prompt-cli.gif)
+
+
+
+# CHANGELOG自动化
+
+`conventional-changelog-cli` 是一个命令行工具，用于生成符合规范的 changelog。它可以根据项目的 commit message 格式，自动解析 commit 信息，并将其转换为人类可读的 changelog。
+
+这个工具的基本原理是将符合规范的 commit message 按照类型（type）和 scope 等信息进行分类，然后根据分类的结果生成 changelog。
+
+`conventional-changelog-cli` 支持使用多种预设（preset）来生成 changelog，包括 `angular`、`atom`、`codemirror`、`conventionalcommits`、`ember`、`eslint`、`express`、`jquery` 和 `jshint` 等。你也可以使用自定义的配置文件来生成 changelog。
+
+以下是 `conventional-changelog-cli` 的一些常用命令：
+
+- `conventional-changelog`: 生成 changelog，默认使用 Angular 规范。
+
+- `conventional-changelog -p [preset]`: 生成指定预设的 changelog。
+
+- `conventional-changelog -i [file]`: 将 changelog 写入到指定文件中。
+
+- `conventional-changelog -s`: 将 changelog 添加到文件的开头而不是结尾。
+
+- `conventional-changelog --release-count [number]`: 指定要包括的版本数量。
+
+- `conventional-changelog --config [file]`: 使用自定义的配置文件生成 changelog。
+
+通过 `conventional-changelog-cli`，你可以方便地生成符合规范的 changelog，并且可以根据自己的需要进行自定义配置和预设，以满足项目的需求。
+
+<blockquote>
+  <br/>
+  <pre><code class="language-shell">npm install -g conventional-changelog-cli
+  cd my-project
+  conventional-changelog -p angular -i CHANGELOG.md -s
+  </code></pre>
+  <p>This will not overwrite any previous changelogs. The above generates a changelog based on commits since the last semver tag that matches the pattern of &quot;Feature&quot;, &quot;Fix&quot;, &quot;Performance Improvement&quot; or &quot;Breaking Changes&quot;.</p>
+  <br/>
+</blockquote>
+
+- 配置不方便
+
+- 难以找到或没有官方的配置文档
+
+## 版本 commit
+
+### 手动设置
+
+```shell
+npm version patch -m "chore: bump version to %s"
+```
+
+### 配置文件设置
+
+```shell
+commit-hooks=true
+tag-version-prefix=v
+message="chore: bump version to %s"
+```
 
 # 附录
 
@@ -402,6 +475,32 @@ Husky 支持大部分 Git hook，以下是 Husky 支持的 Git hook 列表：
 - `sendemail-validate`：在 Git 执行 `git send-email` 命令前触发
 
 以上 Git hook 具体作用可以参考 Git 的官方文档。Husky 可以通过在 package.json 文件的 `husky.hooks` 中定义相应的命令，来自动触发这些 Git hook。例如，在 `husky.hooks` 中定义 `pre-commit` 命令，就可以在每次执行 `git commit` 命令时自动触发该命令。
+
+## `conventional-changelog-cli` 配置文件详细设置
+
+以下是可以在 `conventional-changelog-cli` 的配置文件中添加的一些自定义选项及其说明：
+
+- `projectName`: 项目名称，用于生成 changelog 标题。
+- `projectUrl`: 项目 URL，用于生成 changelog 标题和 commit URL。
+- `authorName`: 作者名称，用于生成 commit URL。
+- `authorEmail`: 作者邮箱，用于生成 commit URL。
+- `issueTrackerUrl`: issue 跟踪器 URL，用于生成 issue URL。
+- `versionFile`: 版本信息文件路径，用于从文件中获取版本信息。
+- `exclude`: 要排除的 commit 类型列表。
+- `include`: 要包含的 commit 类型列表。
+- `types`: 使用自定义的 commit 类型和部分标题。
+- `commitFormat`: 自定义 commit message 的格式。
+- `headerFormat`: 自定义头部的格式。
+- `footerFormat`: 自定义尾部的格式。
+- `notesSort`: 自定义注释的排序方式。
+- `commitGroupsSort`: 自定义 commit 组的排序方式。
+- `commitsSort`: 自定义 commit 的排序方式。
+- `hideUnreleased`: 如果为 `true`，则不包括未发布的 commit。
+- `hideTags`: 如果为 `true`，则不包括版本标签。
+- `reverse`: 如果为 `true`，则按照相反的顺序生成 changelog。
+- `normalize`: 如果为 `true`，则规范化 commit message。
+
+你可以在 `.conventional-changelogrc` 或 `.conventional-changelogrc.js` 文件中添加这些自定义选项，以满足项目的需求。
 
 ## 参考
 
