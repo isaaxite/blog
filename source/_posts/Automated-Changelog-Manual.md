@@ -397,6 +397,8 @@ pnpm add @commitlint/prompt-cli --save-dev
 
 # CHANGELOG自动化
 
+## conventional-changelog-cli
+
 `conventional-changelog-cli` 是一个命令行工具，用于生成符合规范的 changelog。它可以根据项目的 commit message 格式，自动解析 commit 信息，并将其转换为人类可读的 changelog。
 
 这个工具的基本原理是将符合规范的 commit message 按照类型（type）和 scope 等信息进行分类，然后根据分类的结果生成 changelog。
@@ -433,21 +435,411 @@ pnpm add @commitlint/prompt-cli --save-dev
 
 - 难以找到或没有官方的配置文档
 
-## 版本 commit
 
-### 手动设置
+### 安装
+
+```shell
+# npm
+npm install conventional-changelog-cli --save-dev
+
+# pnpm
+pnpm add conventional-changelog-cli --save-dev
+```
+
+### 使用
+
+结合 `npm version`
+
+```js
+{
+  "scripts": {
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+  }
+}
+```
+
+这是一个命令行命令，用于生成符合 Angular 规范的 CHANGELOG 文件并将其提交到 Git 仓库中。
+
+该命令的具体含义如下：
+
+- `conventional-changelog`：用于生成符合指定规范的 CHANGELOG 文件的命令行工具。
+- `-p angular`：指定使用 Angular 规范生成 CHANGELOG 文件。`angular` 是一种常见的规范，适用于大多数项目。
+- `-i CHANGELOG.md`：指定将生成的 CHANGELOG 文件输出到名为 `CHANGELOG.md` 的文件中。如果该文件不存在，则会创建它；如果已存在，则会覆盖它。
+- `-s`：指定生成的 CHANGELOG 文件中是否应包含当前版本之前的所有版本的变更记录。默认情况下，只会生成当前版本的变更记录。
+- `git add CHANGELOG.md`：将生成的 CHANGELOG 文件添加到 Git 仓库中。
+
+综上，执行该命令将会生成符合 Angular 规范的 CHANGELOG 文件，并将其添加到 Git 仓库中。该文件将包含当前版本之前的所有版本的变更记录。如果您的项目使用的不是 Angular 规范，则需要将 `-p` 参数替换为适用于您的规范的值。
+
+### 配置
+
+从 `conventional-changelog-cli` 的 README 中没有太多关于配置的信息，仅仅是引导去查阅 `conventional-changelog` 和 `conventional-changelog-core`。
+
+从其他的一些参考资料确实有介绍 `conventional-changelog-cli` 是基于 `conventional-changelog-core` 开发的。
+
+>To fully customize the tool, please checkout <mark>conventional-changelog</mark> and <mark>conventional-changelog-core</mark> docs. You can find more details there. Note: config here can work with preset, which is different than options.config in conventional-changelog.
+
+但是，实际上 `conventional-changelog` 并没有太多关于配置的信息，仅仅是一个类似一个一级引导页的README!
+
+而 `conventional-changelog-core` 相对有用一点，会介绍 API 的参数，但是并没有明确那些参数是可以复用到配置文件上的。
+
+使用 `conventional-changelog --help` 有看到关于配置相关的描述：
+
+
+> `-n, --config`  A filepath of your config script Example of a config script: https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-cli/test/fixtures/config.js
+
+
+打开的是一个过于简单的页面，并没有注释介绍参数作用，有用的参考信息约等于没有！
+
+```js
+'use strict'
+
+module.exports = {
+  writerOpts: {
+    mainTemplate: '{{commitGroups.[0].commits.[0].type}}{{testContext}}template'
+  }
+}
+```
+
+*综合以上，基本可以认识到一个事实：*
+
+**`conventional-changelog-cli` 具备配置的能力，但是缺少配置指引，以致配置体验不友好。基本可以认为这个工具的配置能力约等于“无”**
+
+---
+
+*本着研究的态度阅读 `conventional-changelog-cli` 的源码，探索它的配置详情！*
+
+通过阅读 `conventional-changelog-cli/cli.js` 代码，发现以下5个配置项可以从从配置文件中读取：
+
+- `options`
+
+- `templateContext`
+
+- `gitRawCommitsOpts`
+
+- `parserOpts`
+
+- `writerOpts`
+
+```js
+try {
+  if (flags.context) {
+|   templateContext = require(resolve(process.cwd(), flags.context))
+  }
+
+  if (flags.config) {
+|   config = require(resolve(process.cwd(), flags.config))
+    options.config = config
+
+    if (config.options) {
+|     options = {
+        ...options,
+        ...config.options,
+        pkg: {
+          ...options.pkg,
+          ...config.options.pkg
+        }
+      }
+    }
+  } else {
+    config = {}
+  }
+} catch (err) {
+  console.error('Failed to get file. ' + err)
+  process.exit(1)
+}
+
+const gitRawCommitsOpts = {
+| ...config.gitRawCommitsOpts
+}
+
+const changelogStream = conventionalChangelog(
+  options, 
+  templateContext, 
+  gitRawCommitsOpts, 
+| config.parserOpts, 
+| config.writerOpts
+)
+```
+
+在源码中可以知道, 以上 5 个配置项分别读取自不同的2个文件，它们分别是 `context` 配置文件 和 `config` 配置文件。
+
+```js
+// context
+templateContext = require(resolve(process.cwd(), flags.context))
+
+// config
+config = require(resolve(process.cwd(), flags.config))
+```
+
+`context` 配置文件：
+
+- `templateContext`
+
+
+`config` 配置文件：
+
+- `options`
+
+- `gitRawCommitsOpts`
+
+- `parserOpts`
+
+- `writerOpts`
+
+`npx conventional-changelog --help` 中关于 `context` 配置文件 和 `config` 配置文件的描述
+
+> `-c, --context` A filepath of a json that is used to define template variables
+>
+> `-n, --config`  A filepath of your config script. Example of a config script: https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-cli/test/fixtures/config.js
+
+
+结合 `--help`的描述和配置文件的引入方式（`require`），可以推断 `context` 配置文件 和 `config` 配置文件的内容和语法。
+
+*`context` 配置文件*
+
+支持的配置项及其详情参考：[conventional-changelog-writer > context](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#context)
+
+```js
+/*
+conventional-changelog.context.js
+
+支持的配置项参考：
+https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#context
+*/
+module.exports = {
+  // ...
+}
+```
+
+使用`context` 配置文件：
+
+```shell
+npx conventional-changelog --context conventional-changelog.context.js
+```
+
+
+*`config` 配置文件*
+
+支持的4个配置项及其详情参考：
+
+- `gitRawCommitsOpts`: [conventional-changelog/packages/git-raw-commits > gitopts](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits#gitopts)
+
+- `parserOpts`: [conventional-commits-parser > options](https://github.com/conventional-changelog-archived-repos/conventional-commits-parser#options)
+
+- `writerOpts`: [conventional-changelog-writer > options](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#options)
+
+- `options`: [conventional-changelog-core > options](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-core#options)
+
+```js
+// conventional-changelog.config.js
+
+module.exports = {
+  // 参考：https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits#gitopts
+  gitRawCommitsOpts: {
+    // ...
+  },
+
+  // 参考：https://github.com/conventional-changelog-archived-repos/conventional-commits-parser#conventionalcommitsparseroptions
+  parserOpts: {
+    // ...
+  },
+
+  // 参考：https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#options
+  writerOpts: {
+    // ...
+  },
+
+  // 参考：https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-core#options
+  options: {
+    // ...
+  }
+}
+```
+
+使用`config` 配置文件：
+
+```shell
+npx conventional-changelog --config conventional-changelog.config.js
+```
+
+
+### preset
+
+Standard Version 是一个命令行工具，可用于自动生成符合语义化版本规范的版本标签和 CHANGELOG。它使用 Git 元数据（如提交消息）来确定下一个版本号，然后生成标签和更新日志。
+
+`standard-version` 和 `conventional-changelog-cli` 都是基于 `conventional-changelog` 实现的工具。
+
+但是有别于 `conventional-changelog-cli`, `standard-version` 是明确支持配置文件，并且有较为详细的指引介绍如何配置([Standard Version > configuration](https://github.com/conventional-changelog/standard-version#configuration))。
+
+> **Configuration**
+>
+> You can configure `standard-version` either by:
+>
+> Placing a `standard-version` stanza in your package.json (assuming your project is JavaScript).
+<mark>Creating a '.versionrc', '.versionrc.json' or '.versionrc.js'.</mark>
+> If you are using a `.versionrc.js` your default export must be a configuration object, or a function returning a configuration object.
+> Any of the command line parameters accepted by `standard-version` can instead be provided via configuration. <mark>Please refer to the [conventional-changelog-config-spec](https://github.com/conventional-changelog/conventional-changelog-config-spec/) for details on available configuration options.</mark>
+
+`standard-version` 配置文件的包含全部设置项的例子：
+```js
+// .versionrc.js
+
+module.exports = {
+  header: '# Changelog',
+  types: [
+    { type: 'feat', section: 'Features' },
+    { type: 'fix', section: 'Bug Fixes' },
+    { type: 'chore', hidden: true },
+    { type: 'docs', hidden: true },
+    { type: 'style', hidden: true },
+    { type: 'refactor', hidden: true },
+    { type: 'perf', hidden: true },
+    { type: 'test', hidden: true }
+  ],
+  preMajor: false,
+  commitUrlFormat: '{{host}}/{{owner}}/{{repository}}/commit/{{hash}}',
+  compareUrlFormat: '{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}',
+  issueUrlFormat: '{{host}}/{{owner}}/{{repository}}/issues/{{id}}',
+  userUrlFormat: '{{host}}/{{user}}',
+  releaseCommitMessageFormat: 'chore(release): {{currentTag}}',
+  issuePrefixes: [ '#' ]
+}
+```
+
+*两者都基于相同上游库开发，但是只有 `standard-version` 支持配置，而且是有别于上面 `conventional-changelog-cli` 介绍过的配置方式。这是为什么？*
+
+*抱着这个疑问阅读 `standard-version` 相关的代码！*
+
+
+```js
+// standard-version/lib/lifecycles/changelog.js
+
+const changelogStream = conventionalChangelog({
+  debug: args.verbose && console.info.bind(console, 'conventional-changelog'),
+  preset: presetLoader(args),
+  tagPrefix: args.tagPrefix
+}, context, { merges: null, path: args.path })
+```
+ 
+**🔬 通过“打印”的方式确认了是 `presetLoader(args)` 引入了 `.versionrc.js` 的配置内容**
+
+*与上面例子有所区别是，在例子的基础上有增了 `name` 属性：*
+
+```js
+{
+  // ...
+  name: '/home/isaac/workspace/temp/node_modules/.pnpm/conventional-changelog-conventionalcommits@4.6.3/node_modules/conventional-changelog-conventionalcommits/index.js',
+  // ...
+}
+```
+
+从 `npx conventional-changelog --help` 的描述上看，`--preset` 是指定 commit 规范。而 `--preset` 的设置值仅仅一个较短字符串，而不是上面探索到的对象形式的值。
+
+> `-p, --preset`  Name of the preset you want to use. Must be one of the following: angular, atom, codemirror, conventionalcommits, ember, eslint, express, jquery or jshint
+
+从上面 `standard-version` 的源码可知道， `preset` 是对应到前文 `conventional-changelog.config.js` 中的 `options.preset`，基于以上信息，进行下面的尝试。
+
+```js
+// conventional-changelog.config.js
+
+module.exports = {
+  // ...
+  options: {
+    preset: {
+      name: '/home/isaac/workspace/temp/node_modules/.pnpm/conventional-changelog-conventionalcommits@4.6.3/node_modules/conventional-changelog-conventionalcommits/index.js',
+      header: '# Changelog',
+      types: [
+        { type: 'feat', section: 'Features' },
+        { type: 'fix', section: 'Bug Fixes' },
+        { type: 'chore', hidden: true },
+        { type: 'docs', hidden: true },
+        { type: 'style', hidden: true },
+        { type: 'refactor', hidden: true },
+        { type: 'perf', hidden: true },
+        { type: 'test', hidden: true }
+      ],
+      preMajor: false,
+      commitUrlFormat: '{{host}}/{{owner}}/{{repository}}/commit/{{hash}}',
+      compareUrlFormat: '{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}',
+      issueUrlFormat: '{{host}}/{{owner}}/{{repository}}/issues/{{id}}',
+      userUrlFormat: '{{host}}/{{user}}',
+      releaseCommitMessageFormat: 'chore(release): {{currentTag}}',
+      issuePrefixes: [ '#' ]
+    }
+  }
+};
+```
+
+详细设置项参考：[conventional-changelog-config-spec](https://github.com/conventional-changelog/conventional-changelog-config-spec/) 
+
+**结论是可以的！**
+
+但是，并不是全部属性都有效果！下面是几个尝试后得到的结论：
+
+- `name`，必选设置，preset 的设置项生效的前提是们需要设置 `name` 属性。这是测试出来的结果，没有继续深挖！`name` 属性在两种设置方式下有效：1）如上面文件的；2）`name: 'conventional-changelog-conventionalcommits'`;
+
+- `header`，无效。查阅了 `standard-version` 的源码。关于 header 的实现，是独立与 `conventional-changelog` 的，所以不生效也正常。
+
+- `types`，正常有效的。
+
+- 其他，正常有效。
+  - `preMajor`
+  - `commitUrlFormat`
+  - `compareUrlFormat`
+  - `issueUrlFormat`
+  - `userUrlFormat`
+  - `releaseCommitMessageFormat`
+  - `issuePrefixes`
+
+#### 小结
+
+通过 preset 配置 `conventional-changelog-cli` 是从源码中得到的非正道的知识，在 conventional-changelog 的工具集中并没有相关的资料说明可以使用preset通过对象形式值去配置。所以这是一个不推荐在生产项目下使用的功能，是个不被保证的功能。
+
+
+## Standard Version
+
+Standard Version 是一个命令行工具，可用于自动生成符合语义化版本规范的版本标签和 CHANGELOG。它使用 Git 元数据（如提交消息）来确定下一个版本号，然后生成标签和更新日志。
+
+以下是 Standard Version 工具的主要特点：
+
+- 自动生成版本标签和 CHANGELOG。
+- 支持语义化版本规范。
+- 可以使用多种提交消息格式，包括 Angular、Conventional Commits 和自定义格式。
+- 支持多种版本管理工具，包括 Git 和 Mercurial。
+- 可以自定义版本号前缀、后缀、格式和版本号的增量。
+- 支持预发布版本和稳定版本的发布。
+
+```shell
+# npm
+npm install standard-version --save-dev
+
+# pnpm
+pnpm add standard-version --save-dev
+```
+
+# 版本管理
+
+TODO
+
+
+# 版本 commit
+
+## 手动设置
 
 ```shell
 npm version patch -m "chore: bump version to %s"
 ```
 
-### 配置文件设置
+
+## 配置文件设置
 
 ```shell
 commit-hooks=true
 tag-version-prefix=v
 message="chore: bump version to %s"
 ```
+
+# 工作流
 
 # 附录
 
@@ -476,31 +868,117 @@ Husky 支持大部分 Git hook，以下是 Husky 支持的 Git hook 列表：
 
 以上 Git hook 具体作用可以参考 Git 的官方文档。Husky 可以通过在 package.json 文件的 `husky.hooks` 中定义相应的命令，来自动触发这些 Git hook。例如，在 `husky.hooks` 中定义 `pre-commit` 命令，就可以在每次执行 `git commit` 命令时自动触发该命令。
 
-## `conventional-changelog-cli` 配置文件详细设置
+## `conventional-changelog-cli` 配置详细
 
-以下是可以在 `conventional-changelog-cli` 的配置文件中添加的一些自定义选项及其说明：
+```js
+conventionalChangelog(
+  // 不可配置
+  options,
+  // 可配置
+  templateContext,
+  // 可配置
+  gitRawCommitsOpts,
+  // 可配置
+  config.parserOpts,
+  // 可配置
+  config.writerOpts
+);
+```
 
-- `projectName`: 项目名称，用于生成 changelog 标题。
-- `projectUrl`: 项目 URL，用于生成 changelog 标题和 commit URL。
-- `authorName`: 作者名称，用于生成 commit URL。
-- `authorEmail`: 作者邮箱，用于生成 commit URL。
-- `issueTrackerUrl`: issue 跟踪器 URL，用于生成 issue URL。
-- `versionFile`: 版本信息文件路径，用于从文件中获取版本信息。
-- `exclude`: 要排除的 commit 类型列表。
-- `include`: 要包含的 commit 类型列表。
-- `types`: 使用自定义的 commit 类型和部分标题。
-- `commitFormat`: 自定义 commit message 的格式。
-- `headerFormat`: 自定义头部的格式。
-- `footerFormat`: 自定义尾部的格式。
-- `notesSort`: 自定义注释的排序方式。
-- `commitGroupsSort`: 自定义 commit 组的排序方式。
-- `commitsSort`: 自定义 commit 的排序方式。
-- `hideUnreleased`: 如果为 `true`，则不包括未发布的 commit。
-- `hideTags`: 如果为 `true`，则不包括版本标签。
-- `reverse`: 如果为 `true`，则按照相反的顺序生成 changelog。
-- `normalize`: 如果为 `true`，则规范化 commit message。
+### templateContext
 
-你可以在 `.conventional-changelogrc` 或 `.conventional-changelogrc.js` 文件中添加这些自定义选项，以满足项目的需求。
+配置 templateContext 需要当都指定配置文件
+
+显式指定上下文配置文件
+
+```shell
+npx conventional-changelog --context conventional-changelog.context.js
+```
+
+```js
+/*
+conventional-changelog.context.js
+
+支持的配置项参考：
+https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#context
+*/
+module.exports = {
+  // ...
+}
+```
+
+### gitRawCommitsOpts, parserOpts, writerOpts and options.preset
+
+显式指定配置文件
+
+```shell
+npx conventional-changelog --config conventional-changelog.config.js
+```
+
+- gitRawCommitsOpts: [conventional-changelog/packages/git-raw-commits > gitopts](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits#gitopts)
+
+- parserOpts: [conventional-commits-parser > options](https://github.com/conventional-changelog-archived-repos/conventional-commits-parser#options)
+
+- writerOpts: [conventional-changelog-writer > options](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#options)
+
+- options.preset: [conventional-changelog-config-spec](https://github.com/conventional-changelog/conventional-changelog-config-spec/blob/master/versions/2.2.0/README.md)
+
+```js
+// conventional-changelog.config.js
+
+module.exports = {
+  // 参考：https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits#gitopts
+  gitRawCommitsOpts: {
+    // ...
+  },
+
+  // 参考：https://github.com/conventional-changelog-archived-repos/conventional-commits-parser#conventionalcommitsparseroptions
+  parserOpts: {
+    // ...
+  },
+
+  // 参考：https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#options
+  writerOpts: {
+    // ...
+  },
+
+  options: {
+    // 参考：https://github.com/conventional-changelog/conventional-changelog-config-spec/blob/master/versions/2.2.0/README.md
+    preset: {
+      // ...
+    }
+  }
+}
+```
+
+`options.preset` 例子：
+```js
+{
+  options: {
+    preset: {
+      name: 'conventional-changelog-conventionalcommits',
+      header: '# Changelog',
+      types: [
+        { type: 'feat', section: 'Features' },
+        { type: 'fix', section: 'Bug Fixes' },
+        { type: 'chore', section: 'Chores' },
+        { type: 'docs', hidden: true },
+        { type: 'style', hidden: true },
+        { type: 'refactor', hidden: true },
+        { type: 'perf', hidden: true },
+        { type: 'test', hidden: true }
+      ],
+      preMajor: false,
+      commitUrlFormat: '{{host}}/{{owner}}/{{repository}}/commit/{{hash}}',
+      compareUrlFormat: '{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}',
+      issueUrlFormat: '{{host}}/{{owner}}/{{repository}}/issues/{{id}}',
+      userUrlFormat: '{{host}}/{{user}}',
+      releaseCommitMessageFormat: 'chore(release): {{currentTag}}',
+      issuePrefixes: [ '#' ]
+    }
+  }
+}
+```
 
 ## 参考
 
