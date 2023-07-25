@@ -927,9 +927,7 @@ module.exports = {
 6. 发布版本至 npm；
 
 
-
-
-# 版本管理
+## 版本管理
 
 Node.js 遵循的版本号命名规范是 **语义化版本号**（SemVer）规范。很多 Node.js 模块和库的版本号也同样如此。
 
@@ -955,88 +953,234 @@ SemVer 规范定义了一个三位数字的版本号，格式为 `MAJOR.MINOR.PA
 
 *以下是常用的几个命令：*
 
+- 补丁（patch）预发布版本
+
 ```shell
-# 补丁预发布版本
+# npm-version
+npm version prepatch --preid <preid-1>
+# ~ or ~
 npm version prepatch --preid=<preid-1>
 
-# 次预发布版本
+# standard-version
+npx standard-version --release-as patch --prerelease <preid-1>
+# ~ or ~
+npx standard-version -r patch -p <preid-1>
+```
+
+- 次（minor）预发布版本
+
+```shell
+# npm-version
 npm version preminor --preid=<preid-1>
 
-# 主预发布版本
+# standard-version
+npx standard-version -r minor -p <preid-1>
+```
+
+- 主（major）预发布版本
+
+```shell
+# npm-version
 npm version premajor --preid=<preid-1>
 
-# 基于当前预发布tag自增预发布版号
+# standard-version
+npx standard-version -r major -p <preid-1>
+```
+
+- 基于当前预发布的 `preid` 自增预发布版号
+
+```shell
+# npm-version
 npm version prerelease
 
-# 切换预发布tag
-npm version prerelease --preid=<preid-2>
+# standard-version
+npx standard-version -p
+```
 
-# 正式发布
+- 切换至下一个阶段的 `preid`
+
+```shell
+# npm-version
+npm version prerelease --preid=<preid-next>
+
+# standard-version
+npx standard-version -p <preid-next>
+```
+
+- 正式发布
+
+```shell
 # 如果最初是以 npm version prepatch 开始
+# npm-version
 npm version patch
+# ~ or ~
+# standard-version
+npx standard-version -r patch
 
 # 如果最初是以 npm version preminor 开始
+# npm-version
 npm version minor
+# ~ or ~
+# standard-version
+npx standard-version -r minor
 
 # 如果最初是以 npm version premajor 开始
+# npm-version
 npm version major
+# ~ or ~
+# standard-version
+npx standard-version -r major
 ```
 
 *下面以发布补丁的预发布版本为例，假定初始版本是 `0.0.1`*
 
-step-1：更新补丁的 `alpha` 预发布版本
+**Step-1**：更新补丁的 `alpha` 预发布版本
 
 ```shell
 npm version prepatch --preid=alpha
 # output: 0.0.2-alpha.0
+
+# standard-version
+npx standard-version --release-as patch --prerelease alpha
+# ~ or ~
+npx standard-version -r patch -p alpha
 ```
 
-step-2：更新补丁的 `alpha` 预发布版本版号自增
+**Step-2**：更新补丁的 `alpha` 预发布版本版号自增
 
 ```shell
 npm version prerelease
 # output: 0.0.2-alpha.1
+
+# standard-version
+npx standard-version -p
 ```
 
-step-3：更新补丁的下一个阶段的预发布版本，`beta`
+**Step-3**：更新补丁的下一个阶段的预发布版本，`beta`
 
 ```shell
 # 切换预发布版本至 beta
 npm version prerelease --preid=beta
 # output: 0.0.2-beta.0
+
+# standard-version
+npx standard-version -p beta
 ```
 
-step-4：更新补丁的 `beta` 预发布版本版号自增
+**Step-4**：更新补丁的 `beta` 预发布版本版号自增
 
 ```shell
 # 在beta上，自增预发布版号
 npm version prerelease
 # output: 0.0.2-beta.1
+
+# standard-version
+npx standard-version -p
 ```
 
-step-5：更新补丁的下一个阶段的预发布版本，`rc`
+**Step-5**：更新补丁的下一个阶段的预发布版本，`rc`
 
 ```shell
 # 切换预发布版本至 rc
 npm version prerelease --preid=rc
 # output: 0.0.2-rc.0
+
+# standard-version
+npx standard-version -p rc
 ```
 
-step-6：更新补丁的 `rc` 预发布版本版号自增
+**Step-6**：更新补丁的 `rc` 预发布版本版号自增
 
 ```shell
 # 在rc上，自增预发布版号
 npm version prerelease
 # output: 0.0.2-rc.1
+
+# standard-version
+npx standard-version -p
 ```
 
-step-7: 发布正式版本
+**Step-7**: 发布正式版本
 
 ```shell
 npm version patch
 # output: 0.0.2
+
+# standard-version
+npx standard-version -r patch
 ```
 ![Example for version manage](./Automated-Changelog-Manual/Snipaste_2023-07-25_18-23-41.png)
+
+
+## Npm-Version生命周期
+
+`npm version <cmd>` 在执行后，按顺序先后执行以下流程：
+
+1. 执行 `preversion` 脚本（如果有定义）；
+
+2. 更新 `package.json` 文件中的版本号；
+
+3. 执行 `version` 脚本（如果有定义）；
+
+4. 提交版本更新；
+
+5. 执行 `postversion` 脚本（如果有定义）；
+
+6. 创建 Git 标签；
+
+7. 推送变更和标签；
+
+![LifeCycle of npm-version](./Automated-Changelog-Manual/Snipaste_2023-07-25_23-15-02.png)
+
+
+*例如，执行 `npm version patch` 命令会触发以下操作：*
+
+**1. 执行 `preversion` 脚本（如果有定义）**：在执行版本更新操作之前执行 `preversion` 脚本。例如，如果在 `package.json` 文件中定义了以下 `preversion` 脚本：
+
+```json
+{
+  "scripts": {
+    "preversion": "npm run lint"
+  }
+}
+```
+
+则在执行 `npm version patch` 命令时，会先执行 `npm run lint` 命令，检查代码是否符合规范。
+
+**2. 更新 `package.json` 文件中的版本号**：`npm version patch` 命令会将 `package.json` 文件中的版本号自动加1，并将新版本号写回 `package.json` 文件中。
+
+**3. 执行 `version` 脚本（如果有定义）**：在更新版本号之后执行 `version` 脚本。例如，如果在 `package.json` 文件中定义了以下 `version` 脚本：
+
+```json
+{
+  "scripts": {
+    "version": "npm run build"
+  }
+}
+```
+
+则在执行 `npm version patch` 命令时，会执行 `npm run build` 命令，自动生成构建文件。
+
+**4. 提交版本更新**：`npm version patch` 命令会自动执行 `git add` 和 `git commit` 命令，将更新后的 `package.json` 文件提交到 Git 仓库中。提交信息默认为 `"v<new-version>"`，例如，如果新版本号为 1.0.1，则提交信息为 "v1.0.1"。
+
+**5. 执行 `postversion` 脚本（如果有定义）**：在提交版本更新之后执行 `postversion` 脚本。例如，如果在 `package.json` 文件中定义了以下 `postversion` 脚本：
+
+```json
+{
+  "scripts": {
+    "postversion": "npm publish"
+  }
+}
+```
+
+则在执行 `npm version patch` 命令并成功提交版本更新后，会执行 `npm publish` 命令，将新版本发布到 npm 仓库中。
+
+**6. 创建 Git 标签**：`npm version patch` 命令会自动执行 `git tag` 命令，为当前提交创建一个新的 Git 标签。标签名默认为 `"v<new-version>"`，例如，如果新版本号为 1.0.1，则标签名为 "v1.0.1"。
+
+**7. 推送变更和标签**：`npm version patch` 命令会自动执行 `git push` 和 `git push --tags` 命令，将提交和标签推送到远程 Git 仓库中。
+
+需要注意的是，`preversion`、 `version` 和 `postversion` 脚本以及 Git 操作都是可选的，如果 `package.json` 文件中没有定义这些脚本或者执行 Git 操作，则相应的步骤不会被触发。此外，在执行 `npm version patch` 命令之前，需要确保代码已经按照新版本号进行了更新。
+
 
 # 附录
 
