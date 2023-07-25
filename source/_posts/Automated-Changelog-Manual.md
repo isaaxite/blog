@@ -421,19 +421,17 @@ pnpm add @commitlint/prompt-cli --save-dev
 
 通过 `conventional-changelog-cli`，你可以方便地生成符合规范的 changelog，并且可以根据自己的需要进行自定义配置和预设，以满足项目的需求。
 
+📢 *在默认情况下，`conventional-changelog-cli` 会匹配 `feat`、`fix` 类型的commits，并根据它们生成CHANGELOG*
+
 <blockquote>
   <br/>
   <pre><code class="language-shell">npm install -g conventional-changelog-cli
   cd my-project
   conventional-changelog -p angular -i CHANGELOG.md -s
   </code></pre>
-  <p>This will not overwrite any previous changelogs. The above generates a changelog based on commits since the last semver tag that matches the pattern of &quot;Feature&quot;, &quot;Fix&quot;, &quot;Performance Improvement&quot; or &quot;Breaking Changes&quot;.</p>
+  <p>This will not overwrite any previous changelogs. <mark>The above generates a changelog based on commits since the last semver tag that matches the pattern of &quot;Feature&quot;, &quot;Fix&quot;, &quot;Performance Improvement&quot; or &quot;Breaking Changes&quot;.</mark></p>
   <br/>
 </blockquote>
-
-- 配置不方便
-
-- 难以找到或没有官方的配置文档
 
 
 ### 安装
@@ -448,27 +446,71 @@ pnpm add conventional-changelog-cli --save-dev
 
 ### 使用
 
-结合 `npm version`
+```shell
+npx conventional-changelog -p conventionalcommits -i CHANGELOG.md -s
+```
+- `-p conventionalcommit`：指定使用 conventionalcommit 规范生成 CHANGELOG 文件。`conventionalcommit` 是一种常见的规范，适用于大多数项目。
 
-```js
+- `-i CHANGELOG.md`：指定将生成的 CHANGELOG 文件输出到名为 `CHANGELOG.md` 的文件中。如果该文件不存在，则会创建它；如果已存在，则会覆盖它。
+
+- `-s`：指定生成的 CHANGELOG 文件中是否应包含当前版本之前的所有版本的变更记录。默认情况下，只会生成当前版本的变更记录。
+
+
+**结合 `npm version` 使用**
+
+```shell
+# package.json
 {
   "scripts": {
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   }
 }
+
+# cli
+npm version <version>
 ```
 
-这是一个命令行命令，用于生成符合 Angular 规范的 CHANGELOG 文件并将其提交到 Git 仓库中。
+具体来说，当您执行 `npm version` 命令时，会按照以下顺序执行：
 
-该命令的具体含义如下：
+- 执行 `scripts.version` 脚本，如果已经定义的话。`scripts.version` 脚本会返回一个字符串，表示新的版本号，如果没有定义 `scripts.version` 脚本，则使用默认的 SemVer 规范生成版本号。
 
-- `conventional-changelog`：用于生成符合指定规范的 CHANGELOG 文件的命令行工具。
-- `-p angular`：指定使用 Angular 规范生成 CHANGELOG 文件。`angular` 是一种常见的规范，适用于大多数项目。
-- `-i CHANGELOG.md`：指定将生成的 CHANGELOG 文件输出到名为 `CHANGELOG.md` 的文件中。如果该文件不存在，则会创建它；如果已存在，则会覆盖它。
-- `-s`：指定生成的 CHANGELOG 文件中是否应包含当前版本之前的所有版本的变更记录。默认情况下，只会生成当前版本的变更记录。
-- `git add CHANGELOG.md`：将生成的 CHANGELOG 文件添加到 Git 仓库中。
+- 将新的版本号更新到 package.json 文件中。
 
-综上，执行该命令将会生成符合 Angular 规范的 CHANGELOG 文件，并将其添加到 Git 仓库中。该文件将包含当前版本之前的所有版本的变更记录。如果您的项目使用的不是 Angular 规范，则需要将 `-p` 参数替换为适用于您的规范的值。
+- 自动化执行 Git 操作，包括添加修改的 package.json 和生成的 changelog 文件、提交代码并打 Git tag。
+
+因此执行 `npm version <version>`的结果是：1）更新 `package.json` 的 `version` 字段；2）更新 CHANGELOG；3）生成包含 1、2 的 commit 和 git-tag。
+
+**修改 version-commit**
+
+默认的 `version-commit` 是下面这样的：
+
+```shell
+commit 1d37dcf6dc685d0a49319d0c2e0a0a272af8fa7a (tag: v3.3.8)
+Author: isaaxite <isaacgun@outlook.com>
+Date:   Tue Jul 25 05:00:36 2023 +0800
+
+    3.3.8
+```
+
+显然这样是不符合规范的。下面有 2 个方法可是使之合乎规范。
+
+*手动设置*
+
+```shell
+# %s 是版本号的占位符
+
+npm version patch -m "chore: bump version to %s"
+```
+
+*配置文件设置*
+
+```shell
+# .npmrc
+
+commit-hooks=true
+tag-version-prefix=v
+message="chore: bump version to %s"
+```
 
 ### 配置
 
@@ -798,16 +840,14 @@ module.exports = {
 
 ## Standard Version
 
-Standard Version 是一个命令行工具，可用于自动生成符合语义化版本规范的版本标签和 CHANGELOG。它使用 Git 元数据（如提交消息）来确定下一个版本号，然后生成标签和更新日志。
+Standard Version 和 conventional-changelog-cli 都是用于自动生成版本更新和 CHANGELOG 的命令行工具。它们都是基于 `conventional-changelog` 事先。
 
-以下是 Standard Version 工具的主要特点：
+Standard Version 除了能够生成 CHANGELOG 之外，还能够自动创建 Git 标签、增加版本号，以及自动推送标签到 Git 仓库等。conventional-changelog-cli 则只是生成 CHANGELOG 文件。
 
-- 自动生成版本标签和 CHANGELOG。
-- 支持语义化版本规范。
-- 可以使用多种提交消息格式，包括 Angular、Conventional Commits 和自定义格式。
-- 支持多种版本管理工具，包括 Git 和 Mercurial。
-- 可以自定义版本号前缀、后缀、格式和版本号的增量。
-- 支持预发布版本和稳定版本的发布。
+Standard Version 的社区支持度相对来说更高，有较多的用户和贡献者，开发维护更新也更加频繁。而 conventional-changelog-cli 的社区支持度相对较低，开发维护更新也不如 Standard Version 频繁。
+
+
+### 安装
 
 ```shell
 # npm
@@ -817,29 +857,186 @@ npm install standard-version --save-dev
 pnpm add standard-version --save-dev
 ```
 
-# 版本管理
+### 使用
 
-TODO
+```js
+{
+  "scripts": {
+    "release": "standard-version"
+  }
+}
+```
+Standard Version 是推荐使用它来代替 `npm version` 进行版本管理的。
 
-
-# 版本 commit
-
-## 手动设置
+Standard Version 将版本管理与 CHANGELOG 结合在一起，在使用 `standard-version` 更新版本号时，会自动触发 CHANGELOG 的更新。
 
 ```shell
-npm version patch -m "chore: bump version to %s"
+# release
+npx standard-version -r 0.0.1
+
+npx standard-version -r 0.0.1-0
+npx standard-version -r 0.0.1-1
+
+npx standard-version -r 0.0.1-beta.0
+npx standard-version -r 0.0.1-beta.1
 ```
 
+### 配置
 
-## 配置文件设置
+默认的配置文件名是：`.versionrc`, `.versionrc.json` or `.versionrc.js`
 
-```shell
-commit-hooks=true
-tag-version-prefix=v
-message="chore: bump version to %s"
+详细设置项参考：[conventional-changelog-config-spec](https://github.com/conventional-changelog/conventional-changelog-config-spec/) 
+
+```js
+// .versionrc.js
+
+module.exports = {
+  header: '# Changelog',
+  types: [
+    { type: 'feat', section: 'Features' },
+    { type: 'fix', section: 'Bug Fixes' },
+    { type: 'chore', hidden: true },
+    { type: 'docs', hidden: true },
+    { type: 'style', hidden: true },
+    { type: 'refactor', hidden: true },
+    { type: 'perf', hidden: true },
+    { type: 'test', hidden: true }
+  ],
+  preMajor: false,
+  commitUrlFormat: '{{host}}/{{owner}}/{{repository}}/commit/{{hash}}',
+  compareUrlFormat: '{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}',
+  issueUrlFormat: '{{host}}/{{owner}}/{{repository}}/issues/{{id}}',
+  userUrlFormat: '{{host}}/{{user}}',
+  releaseCommitMessageFormat: 'chore(release): {{currentTag}}',
+  issuePrefixes: [ '#' ]
+};
 ```
 
 # 工作流
+
+1. 添加修改；
+
+2. 提交 commits；
+
+3. 重复1、2直到需要发布版本；
+
+4. 生成 CHANGELOG, 并将 CHANGELOG 的变动添加version commit中，生成git-tag；
+
+5. 提交git-tag；
+
+6. 发布版本至 npm；
+
+
+
+
+# 版本管理
+
+Node.js 遵循的版本号命名规范是 **语义化版本号**（SemVer）规范。很多 Node.js 模块和库的版本号也同样如此。
+
+SemVer 规范定义了一个三位数字的版本号，格式为 `MAJOR.MINOR.PATCH`，其中：
+
+- `MAJOR`：主版本号，表示不兼容的 API 变化或重大功能变化。
+- `MINOR`：次版本号，表示向后兼容的新功能添加。
+- `PATCH`：补丁版本号，表示向后兼容的 bug 修复。
+
+除了这三位数字之外，SemVer 规范还可以包含一个预发布版本号和一个构建版本号。预发布版本号以连字符 `-` 开头，构建版本号以加号 `+` 开头，例如 `1.2.3-beta+build.123` 表示预发布版本号为 `beta`，构建版本号为 `build.123`。
+
+预发布版本号可以使用以下标识符：
+
+- `alpha`：表示内部测试版本或仍在开发中的不稳定版本，可能会包含较多的 bug，不建议用于生产环境。
+
+- `beta`：表示公开测试版本，已经完成了主要功能的开发，但仍需要进行测试和 bug 修复，建议用于测试环境和开发环境。
+
+- `rc`：表示候选版本（Release Candidate），已经完成了所有的功能开发和测试，可以用于生产环境，但仍需要进行最后的测试和验证。
+
+需要注意的是，不同的项目可能会有自己的预发布版本号约定，以上标识符仅是语义化版本号规范中常见的预发布版本号标识符。在实际项目中，可以根据项目的特点和需求，自定义预发布版本号标识符。
+
+![SemVer Manage](./Automated-Changelog-Manual/Snipaste_2023-07-25_18-24-32.png)
+
+*以下是常用的几个命令：*
+
+```shell
+# 补丁预发布版本
+npm version prepatch --preid=<preid-1>
+
+# 次预发布版本
+npm version preminor --preid=<preid-1>
+
+# 主预发布版本
+npm version premajor --preid=<preid-1>
+
+# 基于当前预发布tag自增预发布版号
+npm version prerelease
+
+# 切换预发布tag
+npm version prerelease --preid=<preid-2>
+
+# 正式发布
+# 如果最初是以 npm version prepatch 开始
+npm version patch
+
+# 如果最初是以 npm version preminor 开始
+npm version minor
+
+# 如果最初是以 npm version premajor 开始
+npm version major
+```
+
+*下面以发布补丁的预发布版本为例，假定初始版本是 `0.0.1`*
+
+step-1：更新补丁的 `alpha` 预发布版本
+
+```shell
+npm version prepatch --preid=alpha
+# output: 0.0.2-alpha.0
+```
+
+step-2：更新补丁的 `alpha` 预发布版本版号自增
+
+```shell
+npm version prerelease
+# output: 0.0.2-alpha.1
+```
+
+step-3：更新补丁的下一个阶段的预发布版本，`beta`
+
+```shell
+# 切换预发布版本至 beta
+npm version prerelease --preid=beta
+# output: 0.0.2-beta.0
+```
+
+step-4：更新补丁的 `beta` 预发布版本版号自增
+
+```shell
+# 在beta上，自增预发布版号
+npm version prerelease
+# output: 0.0.2-beta.1
+```
+
+step-5：更新补丁的下一个阶段的预发布版本，`rc`
+
+```shell
+# 切换预发布版本至 rc
+npm version prerelease --preid=rc
+# output: 0.0.2-rc.0
+```
+
+step-6：更新补丁的 `rc` 预发布版本版号自增
+
+```shell
+# 在rc上，自增预发布版号
+npm version prerelease
+# output: 0.0.2-rc.1
+```
+
+step-7: 发布正式版本
+
+```shell
+npm version patch
+# output: 0.0.2
+```
+![Example for version manage](./Automated-Changelog-Manual/Snipaste_2023-07-25_18-23-41.png)
 
 # 附录
 
@@ -867,118 +1064,6 @@ Husky 支持大部分 Git hook，以下是 Husky 支持的 Git hook 列表：
 - `sendemail-validate`：在 Git 执行 `git send-email` 命令前触发
 
 以上 Git hook 具体作用可以参考 Git 的官方文档。Husky 可以通过在 package.json 文件的 `husky.hooks` 中定义相应的命令，来自动触发这些 Git hook。例如，在 `husky.hooks` 中定义 `pre-commit` 命令，就可以在每次执行 `git commit` 命令时自动触发该命令。
-
-## `conventional-changelog-cli` 配置详细
-
-```js
-conventionalChangelog(
-  // 不可配置
-  options,
-  // 可配置
-  templateContext,
-  // 可配置
-  gitRawCommitsOpts,
-  // 可配置
-  config.parserOpts,
-  // 可配置
-  config.writerOpts
-);
-```
-
-### templateContext
-
-配置 templateContext 需要当都指定配置文件
-
-显式指定上下文配置文件
-
-```shell
-npx conventional-changelog --context conventional-changelog.context.js
-```
-
-```js
-/*
-conventional-changelog.context.js
-
-支持的配置项参考：
-https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#context
-*/
-module.exports = {
-  // ...
-}
-```
-
-### gitRawCommitsOpts, parserOpts, writerOpts and options.preset
-
-显式指定配置文件
-
-```shell
-npx conventional-changelog --config conventional-changelog.config.js
-```
-
-- gitRawCommitsOpts: [conventional-changelog/packages/git-raw-commits > gitopts](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits#gitopts)
-
-- parserOpts: [conventional-commits-parser > options](https://github.com/conventional-changelog-archived-repos/conventional-commits-parser#options)
-
-- writerOpts: [conventional-changelog-writer > options](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#options)
-
-- options.preset: [conventional-changelog-config-spec](https://github.com/conventional-changelog/conventional-changelog-config-spec/blob/master/versions/2.2.0/README.md)
-
-```js
-// conventional-changelog.config.js
-
-module.exports = {
-  // 参考：https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits#gitopts
-  gitRawCommitsOpts: {
-    // ...
-  },
-
-  // 参考：https://github.com/conventional-changelog-archived-repos/conventional-commits-parser#conventionalcommitsparseroptions
-  parserOpts: {
-    // ...
-  },
-
-  // 参考：https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#options
-  writerOpts: {
-    // ...
-  },
-
-  options: {
-    // 参考：https://github.com/conventional-changelog/conventional-changelog-config-spec/blob/master/versions/2.2.0/README.md
-    preset: {
-      // ...
-    }
-  }
-}
-```
-
-`options.preset` 例子：
-```js
-{
-  options: {
-    preset: {
-      name: 'conventional-changelog-conventionalcommits',
-      header: '# Changelog',
-      types: [
-        { type: 'feat', section: 'Features' },
-        { type: 'fix', section: 'Bug Fixes' },
-        { type: 'chore', section: 'Chores' },
-        { type: 'docs', hidden: true },
-        { type: 'style', hidden: true },
-        { type: 'refactor', hidden: true },
-        { type: 'perf', hidden: true },
-        { type: 'test', hidden: true }
-      ],
-      preMajor: false,
-      commitUrlFormat: '{{host}}/{{owner}}/{{repository}}/commit/{{hash}}',
-      compareUrlFormat: '{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}',
-      issueUrlFormat: '{{host}}/{{owner}}/{{repository}}/issues/{{id}}',
-      userUrlFormat: '{{host}}/{{user}}',
-      releaseCommitMessageFormat: 'chore(release): {{currentTag}}',
-      issuePrefixes: [ '#' ]
-    }
-  }
-}
-```
 
 ## 参考
 
@@ -1013,13 +1098,3 @@ module.exports = {
 [Commitlint > Configuration]: https://commitlint.js.org/#/reference-configuration?id=configuration
 
 [Npx | Run a command from a local or remote npm package]: https://docs.npmjs.com/cli/v9/commands/npx
-
-
-常用的遵循 Angular 规范、Conventional Commits 规范和 Gitmoji 规范的工具：
-
-| 工具名称 | 描述 | 支持的规范 |
-| --- | --- | --- |
-| [Commitizen ↗](https://github.com/commitizen/cz-cli) | 一个用于生成符合规范的 commit message 的命令行工具。可以使用预设的配置或自定义配置。 | Angular 规范、Conventional Commits 规范、Gitmoji 规范等 |
-| [Commitlint ↗](https://github.com/conventional-changelog/commitlint) | 一个用于检查 commit message 是否符合规范的工具。可以自定义规则和配置。 | Angular 规范、Conventional Commits 规范等 |
-| [Semantic Release ↗](https://github.com/semantic-release/semantic-release) | 一个用于自动化版本控制和发布的工具。支持 Conventional Commits 规范。 | Conventional Commits 规范 |
-| [Gitmoji CLI ↗](https://github.com/carloscuesta/gitmoji-cli) | 一个用于在命令行中快速添加 Gitmoji 表情符号的工具。可以自定义配置。 | Gitmoji 规范 |
