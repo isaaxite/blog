@@ -1409,9 +1409,6 @@ Husky 支持大部分 Git hook，以下是 Husky 支持的 Git hook 列表：
 
 以上 Git hook 具体作用可以参考 Git 的官方文档。Husky 可以通过在 package.json 文件的 `husky.hooks` 中定义相应的命令，来自动触发这些 Git hook。例如，在 `husky.hooks` 中定义 `pre-commit` 命令，就可以在每次执行 `git commit` 命令时自动触发该命令。
 
-## standard-version
-
-`npx standard-version -p` 不会触发 `package.json` 中的 `scripts` 脚本
 
 ## 参考
 
