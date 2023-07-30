@@ -262,6 +262,9 @@ nvm uninstall <node version>
 
 # 切换
 nvm use <node version>
+
+# 设置默认 nodejs 版本
+nvm alias default <node version>
 ```
 ![](WSL开发环境/Snipaste_2023-07-10_12-18-35.png)
 
