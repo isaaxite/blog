@@ -8,28 +8,30 @@ excerpt: Automated Changelog Manual
 
 # 前言
 
+最近在开发使用 Github Issue 编写 blog 的项目。目前还在持续开发中，已经 300+ commits，npm 上已经发布的版本迭代有 9个。后面仍然会继续维护，有许多准备增加的能供，需要优化的点，以及已知的需要重构的逻辑，应该还会有相当的bug需要修复。
 
-## 需要自动化changelog的原因？
+抱着负责任的态度，个人认为需要一个渠道使得 Isubo 的使用者获知这些一系列的变动。因此，需要编写 CHANGELOG 记录每个项目版本的变动。
 
-- 最近开发issue-blog，isubo
+但是，由于目前还是一个人在开发此项目，精力有限，需要更多地聚焦在功能新增、优化、重构和Bug修复。
 
-- 已经 有300commit的体量；
+*CHANGELOG 自动化是最终的答案！*
 
-- 版本迭代已经有 9个
+## 自动化的优点
 
-- 后面有想增加的功能、优化、重构的计划，应该还会有bug的修复；
+- **简化了 changelog 的创建流程**：手动创建 changelog 可能需要花费大量的时间和精力，特别是对于大型项目来说。自动化创建 changelog 可以减少这种繁琐的工作，允许开发者更专注于编写代码和解决问题。
 
-- 需要一个渠道、方式告诉使用者、这些版本变动，写changelog；
+- **提高了 changelog 的准确性**：手动创建 changelog 可能会出现遗漏或错误，因为开发者需要手动记录每个版本的更改。自动化创建 changelog 可以消除这些错误，因为它们会自动从版本控制系统中提取信息。
 
-- changelog
+- **帮助团队更好地协作**：自动化创建 changelog 可以帮助团队更好地协作和沟通。开发者可以更轻松地了解项目的演变历史和当前状态，从而更好地协调和分配任务。
 
-- 一个人开发，精力聚焦在 功能新增、优化、重构 和 bug修复
+- **提高了项目的可维护性**：自动化创建 changelog 可以提高项目的可维护性。由于 changelog 可以自动生成，因此开发者可以更容易地了解每个版本的更改，从而更好地维护和更新代码。
 
-## changelog的预期
+总之，自动化创建 changelog 可以提高项目的开发效率、降低错误率、加强团队协作，从而提高项目的可维护性和稳定性。
 
-- 一个版本说明列表
 
-- 每个版本包含标题和内容，标题主要内容是版本号，内容的主要内容是介绍新增的功能、修复的bug，实现的优化 和 bug修复等等。
+## CHANGELOG 的预期
+
+页面是列表的结构，列表的子项是版本变动说明。下面是子项的结构：
 
 ```markdown
 // 标题
@@ -42,96 +44,56 @@ excerpt: Automated Changelog Manual
 - ...
 ```
 
-## 自动化changelog的优点
+主要由标题和内容两部分构成：
 
-来自 gpt 的自动化changle的优点：
+- 标题：版本号
+- 内容：子列表描述变动，包含但不限于功能新增、Bug修复等等
 
-自动化生成 changelog 的好处如下：
-
-1. 简化了 changelog 的创建流程：手动创建 changelog 可能需要花费大量的时间和精力，特别是对于大型项目来说。自动化创建 changelog 可以减少这种繁琐的工作，允许开发者更专注于编写代码和解决问题。
-
-2. 提高了 changelog 的准确性：手动创建 changelog 可能会出现遗漏或错误，因为开发者需要手动记录每个版本的更改。自动化创建 changelog 可以消除这些错误，因为它们会自动从版本控制系统中提取信息。
-
-3. 帮助团队更好地协作：自动化创建 changelog 可以帮助团队更好地协作和沟通。开发者可以更轻松地了解项目的演变历史和当前状态，从而更好地协调和分配任务。
-
-4. 提高了项目的可维护性：自动化创建 changelog 可以提高项目的可维护性。由于 changelog 可以自动生成，因此开发者可以更容易地了解每个版本的更改，从而更好地维护和更新代码。
-
-总之，自动化创建 changelog 可以提高项目的开发效率、降低错误率、加强团队协作，从而提高项目的可维护性和稳定性。
+## 自动化思路
 
 
-## 自动化changelog的思路
+**1. Commits 规范**
 
-1. changlog 基于 commit 生成，所以需要规范 commit；
+所谓巧妇难为无米之炊，所以得先有“米”才有 CHANGELOG，这里的“米”就是commits。
 
-2. 有哪些规范？
+既然要描述新增的功能、修复的bug 和 优化等不同类型的实现，那些就要让这些实现对应的 commits 符合规范。
 
-3. 约束 commit，让它合符规范；
+因此，第一步是了解现有那些 commits 的规范。选择需要遵循的规范或者基于它们指定符合预期的规范。
 
-4. 优化：降低心智成本，半自动化commit编写；
-
-5. 由创建版本这个行为，产生changelog。以版本为节点生成 changelog，所以版本管理；
-
-6. 制定合理的版本管理策略：
-
-  - 版本管理工具，常见有哪些？
-
-  - 使用工具约束 版本号
-
-  - 了解版本管理工具的生命周期和原理，这样可以让changlog的生成更加舒服、顺滑。
-
-7. 生成changelog，现成的解决方案有哪些？
-
-  - conventional-changelog-cli；
-
-  - Standard Version；
-
-8. conventional-changelog-cli 怎么生成？
-
-9. Standard Version 怎么生成？
-
-10. 工作流
-
-*单人开发*
-
-  - commit 变动；
-
-  - 版本管理内含的2个基本行为：1）生成changlog；2）生成 git-tag
-
-  - 发布 git-tag，push 分支commits；
-
-  - 打包源码，发布版本到npm；
-
-*多人开发*
-
-1. 只能在main分支做版本管理；
-  1）添加禁用其他分支常见版本的逻辑；
-
-2. 自动化版本管理，在合于main分支时通过 githook 触发版本管理逻辑
-  思考：*不能每个meged都发包，需要有逻辑判断。*
-  思路1：上一个版本到HEAD的commit，检查是否包含需要发包的commit；
-  思路2：根据分支名，限定仅仅 feat/xxx、fix/xxx等等分支的合并才需要发包
-
-  - 所以，将 *单人开发的逻辑*
-
-  - 限制 main 分支可以做的commit事情：
-    合并的动作可能发生在本地；可能发生在远端仓库，比如github，发起PR，master负责通过PR。
-    1）版本commit；
-    2）合并子分支：合并前先拉去最新变动，然后合并；
+*下面将分别详细介绍：Angular规范、Conventional Commits规范 和 Gitmoji规范。*
 
 
-TODO
+**2. 约束 Commit 编写**
 
-- 为什么要开始自动化 CHANGELOG?
+既有规范，则需要有 commit msg 的校验逻辑。使用 `git-hooks` 钩子拦截开发者输入的 commit msg，然后对其进行校验，打回或通过后提交commit到 `git-log`。
 
-- 现成的自动化 CHANGELOG 有那些解决方案？
+*下文将使用 husky 拦截 `commit-msg` 钩子，然后使用 `Commitlint` 校验。*
 
-- CHANGELOG 的来源是 commits，那些 commmit 应该 自动化到 CHANGELOG ?
+**3. 优化 Commit 编写**
 
-- commits 可以被筛选的前提是commits有规律的，意味commits需要被规范化。commits 的规范化标准如何制定？
+校验终归是校验而已。如果对所遵循的规范不熟悉，编写格式正确的 commit 存在一定的心智成本。或许该增加辅助工具降低心智成本，无需数值规范，按着步骤输入即可。
 
-- 人类的特性是混乱，人类是不可信的。需要强制执行 commits 规范，尽管是要求的自动化的自己！强制执行的解决方案有那些，是否存在现成的？
+*下文将分别介绍 2 款 prompt 工具辅助commit的编写，它们分别是 [@commitlint/prompt-cli ↗] 和 [Commitizen ↗]。*
 
-- 强制commit规范的原理探讨一下。
+**4. 版本管理**
+
+CHANGELOG 的生成节点是版本的创建。由创建版本这个行为，产生 CHANGELOG 这个结果，因此得先处理如何进行版本管理这个问题。
+
+制定合理的版本管理策略前，同样需要了解现有的版本管理规范，在前人路上汲取养分。同样是需要工具去约束，以版本创建的结果符合规范。
+
+*下文将介绍SemVer规范，版本管理工具 `npm-version` 和 `standard-version`。包含2个工具的使用和各自工作的生命周期*
+
+**5. CHANGELOG自动化**
+
+结合前面提到的 2 个版本管理工具，利用它们各自的生命周期，适时触发 CHANGELOG 的生成。
+
+`standard-version` 的功能不限于版本管理，还兼具 CHANGELOG 的生成。以及与 `standard-version` 来自同一个工具集的 `conventional-changelog-cli`。2 个都是比较常用的工具。
+
+*下文将 [CHANGELOG自动化](#CHANGELOG自动化) 详细价绍它们的安装、使用、配置。*
+
+**6. 工作流**
+
+
 
 
 # Git Commit 规范
@@ -1554,3 +1516,6 @@ Husky 支持大部分 Git hook，以下是 Husky 支持的 Git hook 列表：
 [Commitlint > Configuration]: https://commitlint.js.org/#/reference-configuration?id=configuration
 
 [Npx | Run a command from a local or remote npm package]: https://docs.npmjs.com/cli/v9/commands/npx
+
+[@commitlint/prompt-cli ↗]:https://www.npmjs.com/package/@commitlint/prompt-cli
+[Commitizen ↗]:github.com/commitizen/cz-cli
