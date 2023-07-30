@@ -91,9 +91,19 @@ CHANGELOG 的生成节点是版本的创建。由创建版本这个行为，产�
 
 *下文将 [CHANGELOG自动化](#CHANGELOG自动化) 详细价绍它们的安装、使用、配置。*
 
-**6. 工作流**
+## 工作流
 
+*1. 基于 main 分支创建 develop 分支（feat/xxx、fix/xxx、...）；*
 
+*2. commit 变动；*
+
+*3. develop 分支内容开发完成，push分支；*
+
+*4. 在 main 分支。更新 main 分支，并合并 develop 分支，触发 `post-merge` Git 钩子；*
+
+*5. 创建版本、创建 git-tag 和生成 CHANGELOG*
+
+*6. 发布 git-tag 和 CHANGELOG 变动、build 源码并发布至 npm*
 
 
 # Git Commit 规范
@@ -261,17 +271,8 @@ Gitmoji 规范的制定者 Carlos Cuesta 在规范的 Github 页面上并没有�
 
 
 
-# 强制 commit 规范
 
-从上面知道了有Angular 规范、Conventional Commits 规范和 Gitmoji 规范。当然，我们可以自发遵循的这些规范去编写 commit，可是人不是机器，最大的特性是混乱，难免有出错的时候。因此，需要一些工具来辅助输出符合规范的commit。
-
-下面从两个方向去操作：
-
-1. 基础：添加 commit 语法检测；
-
-2. 优化：添加工具辅助编写 commit，提高易用性。
-
-## Commit 语法检测
+# Commit 语法检测
 
 [Commitlint ↗] 是一个用于检查 commit message 是否符合规范的工具，可以自定义规则和配置。它支持多种规范，如 Angular 规范、Conventional Commits 规范、ESLint 规范等。
 
@@ -299,7 +300,7 @@ Gitmoji 规范的制定者 Carlos Cuesta 在规范的 Github 页面上并没有�
 
 *因此，接下来需要做的事情是，安装 Husky，配置 `commit-msg` 拦截`git commit` 动作，再安装 Commitlint 对拦截到的 commit 信息进行校验。*
 
-### 安装 Husky
+## 安装 Husky
 
 ```shell
 # npm
@@ -372,7 +373,7 @@ npx husky add .husky/pre-commit "npm test"
 
 至此，Git Hooks 的准备工作已经完成，`commit-msg` 钩子的配置要在 commitlint 安装完成后配置。
 
-### 安装 Commitlint
+## 安装 Commitlint
 
 `@commitlint` 是一个由多个相关包组成的集合，可以根据需要安装和配置这些包来实现不同的功能。
 
@@ -426,7 +427,7 @@ extends:
 ![Test Commitlint-CLI](./Automated-Changelog-Manual/test_commitlint.gif)
 
 
-### Husky + Commitlint
+## Husky + Commitlint
 
 使用 Husky 设置 `commit-msg` 钩子执行 `commitlint-cli`, 对 `git commit` 动作提交的信息进行校验。
 
@@ -445,6 +446,9 @@ npx husky add .husky/commit-msg  'npx --no -- commitlint --edit ${1}'
 `--edit ${1}` 是用来编辑指定文件的第一个参数的提交信息，`${1}` 代表第一个参数的值，通常是一个文件路径。这个命令的作用是使用本地安装的 `commitlint` 包来检查指定文件的提交信息是否符合规范，并在编辑器中打开该文件，以便修改提交信息。
 
 ![Commitlint by hook](./Automated-Changelog-Manual/commitlint_by_hook.gif)
+
+
+
 
 ## 半自动编写 Commit
 
@@ -465,6 +469,435 @@ pnpm add @commitlint/prompt-cli --save-dev
 ```
 
 ![Test prompt-cli](./Automated-Changelog-Manual/test_prompt-cli.gif)
+
+
+
+# 版本管理
+
+Node.js 遵循的版本号命名规范是 **语义化版本号**（SemVer）规范。很多 Node.js 模块和库的版本号也同样如此。
+
+SemVer 规范定义了一个三位数字的版本号，格式为 `MAJOR.MINOR.PATCH`，其中：
+
+- `MAJOR`：主版本号，表示不兼容的 API 变化或重大功能变化。
+- `MINOR`：次版本号，表示向后兼容的新功能添加。
+- `PATCH`：补丁版本号，表示向后兼容的 bug 修复。
+
+除了这三位数字之外，SemVer 规范还可以包含一个预发布版本号和一个构建版本号。预发布版本号以连字符 `-` 开头，构建版本号以加号 `+` 开头，例如 `1.2.3-beta+build.123` 表示预发布版本号为 `beta`，构建版本号为 `build.123`。
+
+预发布版本号可以使用以下标识符：
+
+- `alpha`：表示内部测试版本或仍在开发中的不稳定版本，可能会包含较多的 bug，不建议用于生产环境。
+
+- `beta`：表示公开测试版本，已经完成了主要功能的开发，但仍需要进行测试和 bug 修复，建议用于测试环境和开发环境。
+
+- `rc`：表示候选版本（Release Candidate），已经完成了所有的功能开发和测试，可以用于生产环境，但仍需要进行最后的测试和验证。
+
+需要注意的是，不同的项目可能会有自己的预发布版本号约定，以上标识符仅是语义化版本号规范中常见的预发布版本号标识符。在实际项目中，可以根据项目的特点和需求，自定义预发布版本号标识符。
+
+![SemVer Manage](./Automated-Changelog-Manual/Snipaste_2023-07-25_18-24-32.png)
+
+
+## 常用命令
+
+*以下是常用的几个命令：*
+
+- 补丁（patch）预发布版本
+
+```shell
+# npm-version
+npm version prepatch --preid <preid-1>
+# ~ or ~
+npm version prepatch --preid=<preid-1>
+
+# standard-version
+npx standard-version --release-as patch --prerelease <preid-1>
+# ~ or ~
+npx standard-version -r patch -p <preid-1>
+```
+
+- 次（minor）预发布版本
+
+```shell
+# npm-version
+npm version preminor --preid=<preid-1>
+
+# standard-version
+npx standard-version -r minor -p <preid-1>
+```
+
+- 主（major）预发布版本
+
+```shell
+# npm-version
+npm version premajor --preid=<preid-1>
+
+# standard-version
+npx standard-version -r major -p <preid-1>
+```
+
+- 基于当前预发布的 `preid` 自增预发布版号
+
+```shell
+# npm-version
+npm version prerelease
+
+# standard-version
+npx standard-version -p
+```
+
+- 切换至下一个阶段的 `preid`
+
+```shell
+# npm-version
+npm version prerelease --preid=<preid-next>
+
+# standard-version
+npx standard-version -p <preid-next>
+```
+
+- 正式发布
+
+```shell
+# 如果最初是以 npm version prepatch 开始
+# npm-version
+npm version patch
+# ~ or ~
+# standard-version
+npx standard-version -r patch
+
+# 如果最初是以 npm version preminor 开始
+# npm-version
+npm version minor
+# ~ or ~
+# standard-version
+npx standard-version -r minor
+
+# 如果最初是以 npm version premajor 开始
+# npm-version
+npm version major
+# ~ or ~
+# standard-version
+npx standard-version -r major
+```
+
+## 例子
+
+*下面以发布补丁的预发布版本为例，假定初始版本是 `0.0.1`*
+
+**Step-1**：更新补丁的 `alpha` 预发布版本
+
+```shell
+npm version prepatch --preid=alpha
+# output: 0.0.2-alpha.0
+
+# standard-version
+npx standard-version --release-as patch --prerelease alpha
+# ~ or ~
+npx standard-version -r patch -p alpha
+```
+
+**Step-2**：更新补丁的 `alpha` 预发布版本版号自增
+
+```shell
+npm version prerelease
+# output: 0.0.2-alpha.1
+
+# standard-version
+npx standard-version -p
+```
+
+**Step-3**：更新补丁的下一个阶段的预发布版本，`beta`
+
+```shell
+# 切换预发布版本至 beta
+npm version prerelease --preid=beta
+# output: 0.0.2-beta.0
+
+# standard-version
+npx standard-version -p beta
+```
+
+**Step-4**：更新补丁的 `beta` 预发布版本版号自增
+
+```shell
+# 在beta上，自增预发布版号
+npm version prerelease
+# output: 0.0.2-beta.1
+
+# standard-version
+npx standard-version -p
+```
+
+**Step-5**：更新补丁的下一个阶段的预发布版本，`rc`
+
+```shell
+# 切换预发布版本至 rc
+npm version prerelease --preid=rc
+# output: 0.0.2-rc.0
+
+# standard-version
+npx standard-version -p rc
+```
+
+**Step-6**：更新补丁的 `rc` 预发布版本版号自增
+
+```shell
+# 在rc上，自增预发布版号
+npm version prerelease
+# output: 0.0.2-rc.1
+
+# standard-version
+npx standard-version -p
+```
+
+**Step-7**: 发布正式版本
+
+```shell
+npm version patch
+# output: 0.0.2
+
+# standard-version
+npx standard-version -r patch
+```
+![Example for version manage](./Automated-Changelog-Manual/Snipaste_2023-07-25_18-23-41.png)
+
+
+
+## Npm-Version生命周期
+
+
+在介绍 `conventional-changelog-cli` 使用的章节中，它配合了 `package.json` 的 `scripts` 脚本使用。
+
+```json
+# package.json
+{
+  "scripts": {
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+  }
+}
+```
+
+通过 `npm version <patch | minor | major ...>` 命令生成 CHANGELOG。
+
+❓ *为什么是 `version` 脚本？*
+
+❓ *为什么是 `npm version` 而不是 `npm run version`？*
+
+下面将带着这两个疑问拆解 `npm-version` 的生命周期。
+
+---
+
+`npm version <cmd>` 在执行后，按顺序先后执行以下流程：
+
+1. 执行 `preversion` 脚本（如果有定义）；
+
+2. 更新 `package.json` 文件中的版本号；
+
+3. 执行 `version` 脚本（如果有定义）；
+
+4. 提交版本更新；
+
+5. 创建 Git 标签；
+
+6. 执行 `postversion` 脚本（如果有定义）；
+
+![LifeCycle of npm-version](./Automated-Changelog-Manual/Snipaste_2023-07-26_11-28-57.png)
+
+
+*例如，执行 `npm version patch` 命令会触发以下操作：*
+
+**1. 执行 `preversion` 脚本（如果有定义）**：在执行版本更新操作之前执行 `preversion` 脚本。例如，如果在 `package.json` 文件中定义了以下 `preversion` 脚本：
+
+```json
+{
+  "scripts": {
+    "preversion": "npm run lint"
+  }
+}
+```
+
+则在执行 `npm version patch` 命令时，会先执行 `npm run lint` 命令，检查代码是否符合规范。
+
+**2. 更新 `package.json` 文件中的版本号**：`npm version patch` 命令会将 `package.json` 文件中的版本号自动加1，并将新版本号写回 `package.json` 文件中。
+
+**3. 执行 `version` 脚本（如果有定义）**：在更新版本号之后执行 `version` 脚本。例如，如果在 `package.json` 文件中定义了以下 `version` 脚本：
+
+```json
+{
+  "scripts": {
+    "version": "npm run build"
+  }
+}
+```
+
+则在执行 `npm version patch` 命令时，会执行 `npm run build` 命令，自动生成构建文件。
+
+**4. 提交版本更新**：`npm version patch` 命令会自动执行 `git add` 和 `git commit` 命令，将更新后的 `package.json` 文件提交到 Git 仓库中。提交信息默认为 `"v<new-version>"`，例如，如果新版本号为 1.0.1，则提交信息为 "v1.0.1"。
+
+**5. 创建 Git 标签**：`npm version patch` 命令会自动执行 `git tag` 命令，为当前提交创建一个新的 Git 标签。标签名默认为 `"v<new-version>"`，例如，如果新版本号为 1.0.1，则标签名为 "v1.0.1"。
+
+**6. 执行 `postversion` 脚本（如果有定义）**：在提交版本更新之后执行 `postversion` 脚本。例如，如果在 `package.json` 文件中定义了以下 `postversion` 脚本：
+
+```json
+{
+  "scripts": {
+    "postversion": "npm publish"
+  }
+}
+```
+
+则在执行 `npm version patch` 命令并成功提交版本更新后，会执行 `npm publish` 命令，将新版本发布到 npm 仓库中。
+
+---
+
+上面提到了 `standard-version` 和 `conventional-changelog-cli`，它们都被用于生成 CHANGELOG。
+
+在使用 `conventional-changelog-cli` 时，生成 CHANGELOG 的命令被设置到了 `package.json` 中的 `scripts.version`:
+
+```json
+# package.json
+{
+  "scripts": {
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+  }
+}
+```
+
+### 小结
+
+❓ *为什么是 `npm version` 而不是 `npm run version`？*
+
+从上面可以知道，`version` 脚本的触发，是 `npm-version` 生命周期的一部分。所以可以通过 `npm-version` 命令更新版本的同时触发 `version` 脚本生成 CHANGELOG。
+
+❓ *为什么是 `version` 脚本？*
+
+```shell
+conventional-changelog -p angular -i CHANGELOG.md -s \
+  && git add CHANGELOG.md
+```
+
+这段命令包含了两部分：
+
+- 生成 CHANGELOG, `conventional-changelog -p angular -i CHANGELOG.md -s`;
+
+- 将新版本对应的 CHANGELOG 变动添加到 Git 仓库的暂存区，`git add CHANGELOG.md`。
+
+`version` 脚本的触发介乎于 “更新 package.json 文件中的版本号” 与 “提交版本更新” 之间。
+
+生成 CHANGELOG 需要知道 新的版号。`version` 脚本的触发在 “提交版本更新” 之前，所以只要在 `version` 触发时将变动添加到Git仓库暂存区，“提交版本更新” 的 commit 就可以包含 CHANGELOG 的变动。
+
+
+## Standard-Version的生命周期
+
+在上一节 [Npm-version生命周期]() 中提到了 `conventional-changelog-cli`，但是没有提到 `standard-version`。因为 `standard-version` 有它自己的生命周期，而且在使用 `standard-version` 做版本号更新和 CHANGELOG 生成时，**并不会触发 `npm-version` 的脚本（`preversion`、`version` 和 `postversion`）**！
+
+**`standard-version` 的生命周期:**
+
+1. 更新项目版本号；
+
+2. 生成 CHANGELOG；
+
+3. 提交版本 commit（包含 package.json的version 和 changelog的变动）；
+
+4. 创建版本的 `git-tag`；
+
+![lifecycle of standard-version](./Automated-Changelog-Manual/Snipaste_2023-07-26_21-57-36.png)
+
+📢 **注意**：*上图中的这句命令并没有执行，仅仅是提示！*
+
+```shell
+Run `git push --follow-tags origin master && npm publish --tag prerelease` to publish
+```
+
+**`standard-version` 的生命周期中触发的脚本**
+
+- `prerelease`: 在任何事情发生之前执行。 如果 `prerelease` 脚本返回非零退出代码（`process.exit()`），版本控制将中止，但对进程没有其他影响。
+
+- `prebump/postbump`: 在版本更新之前和之后执行。 如果 `prebump` 脚本返回一个版本号，将使用它而不是 `standard-version` 计算的版本。
+
+- `prechangelog/postchangelog`: 在生成 CHANGELOG 之前和之后执行。
+
+- `precommit/postcommit`: 在提交版本 commit 之前和之后调用。
+
+- `pretag/posttag`: 在添加 `git-tag` 步骤之前和之后调用。
+
+> **Lifecycle Scripts**
+> standard-version supports lifecycle scripts. These allow you to execute your own supplementary commands during the release. The following hooks are available and execute in the order documented:
+>
+> - `prerelease`: executed before anything happens. If the `prerelease` script returns a non-zero exit code, versioning will be aborted, but it has no other effect on the process.
+>
+> - `prebump/postbump`: executed before and after the version is bumped. If the `prebump` script returns a version #, it will be used rather than the version calculated by `standard-version`.
+>
+> - `prechangelog/postchangelog`: executes before and after the CHANGELOG is generated.
+>
+> - `precommit/postcommit`: called before and after the commit step.
+>
+> - `pretag/posttag`: called before and after the tagging step.
+
+
+![](./Automated-Changelog-Manual/Snipaste_2023-07-27_04-51-22.png)
+
+**📢 注意**：*`standard-version` 触发的脚本是 `strandard-version.scripts.*`，而不是 `scripts.*`。*
+
+
+![](./Automated-Changelog-Manual/Snipaste_2023-07-26_20-14-55.png)
+
+
+### 小结
+
+`standard-version` 并非基于 `npm-version` 实现，它与 `npm-version` 相互独立。`standard-version` 有自己的生命周期，与 `npm-version` 不重合，在 `standard-version` 工作过程中不会触发 `npm-version` 生命周期脚本（`preversion`、`version` 和 `postversion`）。
+
+`standard-version` 的生命周期中，*包含 4 个工作点*：
+
+- 更新项目版本号；
+
+- 生成 CHANGELOG；
+
+- 提交版本 commit（包含 package.json的version 和 changelog的变动）；
+
+- 创建版本的 `git-tag`；
+
+*包含 9 个钩子脚本*：
+
+- `prerelease`
+
+- `prebump/postbump`
+
+- `prechangelog/postchangelog`
+
+- `precommit/postcommit`
+
+- `pretag/posttag`
+
+`standard-version` 与 `npm-version` 在 `package.json` 中定义脚本的格式不一样：
+
+```shell
+# npm-version
+{
+  "scripts": {
+    "preversion": ""
+  }
+}
+
+# standard-version
+{
+  "standard-version": {
+    "scripts": {
+      "prerelease": ""
+    }
+  }
+}
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -985,423 +1418,11 @@ module.exports = {
 };
 ```
 
+
+
 # 工作流
 
 ![work flow](./Automated-Changelog-Manual/Snipaste_2023-07-26_11-57-45.png)
-
-## 版本管理
-
-Node.js 遵循的版本号命名规范是 **语义化版本号**（SemVer）规范。很多 Node.js 模块和库的版本号也同样如此。
-
-SemVer 规范定义了一个三位数字的版本号，格式为 `MAJOR.MINOR.PATCH`，其中：
-
-- `MAJOR`：主版本号，表示不兼容的 API 变化或重大功能变化。
-- `MINOR`：次版本号，表示向后兼容的新功能添加。
-- `PATCH`：补丁版本号，表示向后兼容的 bug 修复。
-
-除了这三位数字之外，SemVer 规范还可以包含一个预发布版本号和一个构建版本号。预发布版本号以连字符 `-` 开头，构建版本号以加号 `+` 开头，例如 `1.2.3-beta+build.123` 表示预发布版本号为 `beta`，构建版本号为 `build.123`。
-
-预发布版本号可以使用以下标识符：
-
-- `alpha`：表示内部测试版本或仍在开发中的不稳定版本，可能会包含较多的 bug，不建议用于生产环境。
-
-- `beta`：表示公开测试版本，已经完成了主要功能的开发，但仍需要进行测试和 bug 修复，建议用于测试环境和开发环境。
-
-- `rc`：表示候选版本（Release Candidate），已经完成了所有的功能开发和测试，可以用于生产环境，但仍需要进行最后的测试和验证。
-
-需要注意的是，不同的项目可能会有自己的预发布版本号约定，以上标识符仅是语义化版本号规范中常见的预发布版本号标识符。在实际项目中，可以根据项目的特点和需求，自定义预发布版本号标识符。
-
-![SemVer Manage](./Automated-Changelog-Manual/Snipaste_2023-07-25_18-24-32.png)
-
-*以下是常用的几个命令：*
-
-- 补丁（patch）预发布版本
-
-```shell
-# npm-version
-npm version prepatch --preid <preid-1>
-# ~ or ~
-npm version prepatch --preid=<preid-1>
-
-# standard-version
-npx standard-version --release-as patch --prerelease <preid-1>
-# ~ or ~
-npx standard-version -r patch -p <preid-1>
-```
-
-- 次（minor）预发布版本
-
-```shell
-# npm-version
-npm version preminor --preid=<preid-1>
-
-# standard-version
-npx standard-version -r minor -p <preid-1>
-```
-
-- 主（major）预发布版本
-
-```shell
-# npm-version
-npm version premajor --preid=<preid-1>
-
-# standard-version
-npx standard-version -r major -p <preid-1>
-```
-
-- 基于当前预发布的 `preid` 自增预发布版号
-
-```shell
-# npm-version
-npm version prerelease
-
-# standard-version
-npx standard-version -p
-```
-
-- 切换至下一个阶段的 `preid`
-
-```shell
-# npm-version
-npm version prerelease --preid=<preid-next>
-
-# standard-version
-npx standard-version -p <preid-next>
-```
-
-- 正式发布
-
-```shell
-# 如果最初是以 npm version prepatch 开始
-# npm-version
-npm version patch
-# ~ or ~
-# standard-version
-npx standard-version -r patch
-
-# 如果最初是以 npm version preminor 开始
-# npm-version
-npm version minor
-# ~ or ~
-# standard-version
-npx standard-version -r minor
-
-# 如果最初是以 npm version premajor 开始
-# npm-version
-npm version major
-# ~ or ~
-# standard-version
-npx standard-version -r major
-```
-
-*下面以发布补丁的预发布版本为例，假定初始版本是 `0.0.1`*
-
-**Step-1**：更新补丁的 `alpha` 预发布版本
-
-```shell
-npm version prepatch --preid=alpha
-# output: 0.0.2-alpha.0
-
-# standard-version
-npx standard-version --release-as patch --prerelease alpha
-# ~ or ~
-npx standard-version -r patch -p alpha
-```
-
-**Step-2**：更新补丁的 `alpha` 预发布版本版号自增
-
-```shell
-npm version prerelease
-# output: 0.0.2-alpha.1
-
-# standard-version
-npx standard-version -p
-```
-
-**Step-3**：更新补丁的下一个阶段的预发布版本，`beta`
-
-```shell
-# 切换预发布版本至 beta
-npm version prerelease --preid=beta
-# output: 0.0.2-beta.0
-
-# standard-version
-npx standard-version -p beta
-```
-
-**Step-4**：更新补丁的 `beta` 预发布版本版号自增
-
-```shell
-# 在beta上，自增预发布版号
-npm version prerelease
-# output: 0.0.2-beta.1
-
-# standard-version
-npx standard-version -p
-```
-
-**Step-5**：更新补丁的下一个阶段的预发布版本，`rc`
-
-```shell
-# 切换预发布版本至 rc
-npm version prerelease --preid=rc
-# output: 0.0.2-rc.0
-
-# standard-version
-npx standard-version -p rc
-```
-
-**Step-6**：更新补丁的 `rc` 预发布版本版号自增
-
-```shell
-# 在rc上，自增预发布版号
-npm version prerelease
-# output: 0.0.2-rc.1
-
-# standard-version
-npx standard-version -p
-```
-
-**Step-7**: 发布正式版本
-
-```shell
-npm version patch
-# output: 0.0.2
-
-# standard-version
-npx standard-version -r patch
-```
-![Example for version manage](./Automated-Changelog-Manual/Snipaste_2023-07-25_18-23-41.png)
-
-
-## Npm-Version生命周期
-
-
-在介绍 `conventional-changelog-cli` 使用的章节中，它配合了 `package.json` 的 `scripts` 脚本使用。
-
-```json
-# package.json
-{
-  "scripts": {
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
-  }
-}
-```
-
-通过 `npm version <patch | minor | major ...>` 命令生成 CHANGELOG。
-
-❓ *为什么是 `version` 脚本？*
-
-❓ *为什么是 `npm version` 而不是 `npm run version`？*
-
-下面将带着这两个疑问拆解 `npm-version` 的生命周期。
-
----
-
-`npm version <cmd>` 在执行后，按顺序先后执行以下流程：
-
-1. 执行 `preversion` 脚本（如果有定义）；
-
-2. 更新 `package.json` 文件中的版本号；
-
-3. 执行 `version` 脚本（如果有定义）；
-
-4. 提交版本更新；
-
-5. 创建 Git 标签；
-
-6. 执行 `postversion` 脚本（如果有定义）；
-
-![LifeCycle of npm-version](./Automated-Changelog-Manual/Snipaste_2023-07-26_11-28-57.png)
-
-
-*例如，执行 `npm version patch` 命令会触发以下操作：*
-
-**1. 执行 `preversion` 脚本（如果有定义）**：在执行版本更新操作之前执行 `preversion` 脚本。例如，如果在 `package.json` 文件中定义了以下 `preversion` 脚本：
-
-```json
-{
-  "scripts": {
-    "preversion": "npm run lint"
-  }
-}
-```
-
-则在执行 `npm version patch` 命令时，会先执行 `npm run lint` 命令，检查代码是否符合规范。
-
-**2. 更新 `package.json` 文件中的版本号**：`npm version patch` 命令会将 `package.json` 文件中的版本号自动加1，并将新版本号写回 `package.json` 文件中。
-
-**3. 执行 `version` 脚本（如果有定义）**：在更新版本号之后执行 `version` 脚本。例如，如果在 `package.json` 文件中定义了以下 `version` 脚本：
-
-```json
-{
-  "scripts": {
-    "version": "npm run build"
-  }
-}
-```
-
-则在执行 `npm version patch` 命令时，会执行 `npm run build` 命令，自动生成构建文件。
-
-**4. 提交版本更新**：`npm version patch` 命令会自动执行 `git add` 和 `git commit` 命令，将更新后的 `package.json` 文件提交到 Git 仓库中。提交信息默认为 `"v<new-version>"`，例如，如果新版本号为 1.0.1，则提交信息为 "v1.0.1"。
-
-**5. 创建 Git 标签**：`npm version patch` 命令会自动执行 `git tag` 命令，为当前提交创建一个新的 Git 标签。标签名默认为 `"v<new-version>"`，例如，如果新版本号为 1.0.1，则标签名为 "v1.0.1"。
-
-**6. 执行 `postversion` 脚本（如果有定义）**：在提交版本更新之后执行 `postversion` 脚本。例如，如果在 `package.json` 文件中定义了以下 `postversion` 脚本：
-
-```json
-{
-  "scripts": {
-    "postversion": "npm publish"
-  }
-}
-```
-
-则在执行 `npm version patch` 命令并成功提交版本更新后，会执行 `npm publish` 命令，将新版本发布到 npm 仓库中。
-
----
-
-上面提到了 `standard-version` 和 `conventional-changelog-cli`，它们都被用于生成 CHANGELOG。
-
-在使用 `conventional-changelog-cli` 时，生成 CHANGELOG 的命令被设置到了 `package.json` 中的 `scripts.version`:
-
-```json
-# package.json
-{
-  "scripts": {
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
-  }
-}
-```
-
-### 小结
-
-❓ *为什么是 `npm version` 而不是 `npm run version`？*
-
-从上面可以知道，`version` 脚本的触发，是 `npm-version` 生命周期的一部分。所以可以通过 `npm-version` 命令更新版本的同时触发 `version` 脚本生成 CHANGELOG。
-
-❓ *为什么是 `version` 脚本？*
-
-```shell
-conventional-changelog -p angular -i CHANGELOG.md -s \
-  && git add CHANGELOG.md
-```
-
-这段命令包含了两部分：
-
-- 生成 CHANGELOG, `conventional-changelog -p angular -i CHANGELOG.md -s`;
-
-- 将新版本对应的 CHANGELOG 变动添加到 Git 仓库的暂存区，`git add CHANGELOG.md`。
-
-`version` 脚本的触发介乎于 “更新 package.json 文件中的版本号” 与 “提交版本更新” 之间。
-
-生成 CHANGELOG 需要知道 新的版号。`version` 脚本的触发在 “提交版本更新” 之前，所以只要在 `version` 触发时将变动添加到Git仓库暂存区，“提交版本更新” 的 commit 就可以包含 CHANGELOG 的变动。
-
-
-## Standard-Version的生命周期
-
-在上一节 [Npm-version生命周期]() 中提到了 `conventional-changelog-cli`，但是没有提到 `standard-version`。因为 `standard-version` 有它自己的生命周期，而且在使用 `standard-version` 做版本号更新和 CHANGELOG 生成时，**并不会触发 `npm-version` 的脚本（`preversion`、`version` 和 `postversion`）**！
-
-**`standard-version` 的生命周期:**
-
-1. 更新项目版本号；
-
-2. 生成 CHANGELOG；
-
-3. 提交版本 commit（包含 package.json的version 和 changelog的变动）；
-
-4. 创建版本的 `git-tag`；
-
-![lifecycle of standard-version](./Automated-Changelog-Manual/Snipaste_2023-07-26_21-57-36.png)
-
-📢 **注意**：*上图中的这句命令并没有执行，仅仅是提示！*
-
-```shell
-Run `git push --follow-tags origin master && npm publish --tag prerelease` to publish
-```
-
-**`standard-version` 的生命周期中触发的脚本**
-
-- `prerelease`: 在任何事情发生之前执行。 如果 `prerelease` 脚本返回非零退出代码（`process.exit()`），版本控制将中止，但对进程没有其他影响。
-
-- `prebump/postbump`: 在版本更新之前和之后执行。 如果 `prebump` 脚本返回一个版本号，将使用它而不是 `standard-version` 计算的版本。
-
-- `prechangelog/postchangelog`: 在生成 CHANGELOG 之前和之后执行。
-
-- `precommit/postcommit`: 在提交版本 commit 之前和之后调用。
-
-- `pretag/posttag`: 在添加 `git-tag` 步骤之前和之后调用。
-
-> **Lifecycle Scripts**
-> standard-version supports lifecycle scripts. These allow you to execute your own supplementary commands during the release. The following hooks are available and execute in the order documented:
->
-> - `prerelease`: executed before anything happens. If the `prerelease` script returns a non-zero exit code, versioning will be aborted, but it has no other effect on the process.
->
-> - `prebump/postbump`: executed before and after the version is bumped. If the `prebump` script returns a version #, it will be used rather than the version calculated by `standard-version`.
->
-> - `prechangelog/postchangelog`: executes before and after the CHANGELOG is generated.
->
-> - `precommit/postcommit`: called before and after the commit step.
->
-> - `pretag/posttag`: called before and after the tagging step.
-
-
-![](./Automated-Changelog-Manual/Snipaste_2023-07-27_04-51-22.png)
-
-**📢 注意**：*`standard-version` 触发的脚本是 `strandard-version.scripts.*`，而不是 `scripts.*`。*
-
-
-![](./Automated-Changelog-Manual/Snipaste_2023-07-26_20-14-55.png)
-
-
-### 小结
-
-`standard-version` 并非基于 `npm-version` 实现，它与 `npm-version` 相互独立。`standard-version` 有自己的生命周期，与 `npm-version` 不重合，在 `standard-version` 工作过程中不会触发 `npm-version` 生命周期脚本（`preversion`、`version` 和 `postversion`）。
-
-`standard-version` 的生命周期中，*包含 4 个工作点*：
-
-- 更新项目版本号；
-
-- 生成 CHANGELOG；
-
-- 提交版本 commit（包含 package.json的version 和 changelog的变动）；
-
-- 创建版本的 `git-tag`；
-
-*包含 9 个钩子脚本*：
-
-- `prerelease`
-
-- `prebump/postbump`
-
-- `prechangelog/postchangelog`
-
-- `precommit/postcommit`
-
-- `pretag/posttag`
-
-`standard-version` 与 `npm-version` 在 `package.json` 中定义脚本的格式不一样：
-
-```shell
-# npm-version
-{
-  "scripts": {
-    "preversion": ""
-  }
-}
-
-# standard-version
-{
-  "standard-version": {
-    "scripts": {
-      "prerelease": ""
-    }
-  }
-}
-```
-
-
-
 
 
 ## 发布版本
