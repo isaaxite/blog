@@ -99,7 +99,7 @@ CHANGELOG 的生成节点是版本的创建。由创建版本这个行为，产�
 
 *3. develop 分支内容开发完成，push分支；*
 
-*4. 在 main 分支。更新 main 分支，并合并 develop 分支，触发 `post-merge` Git 钩子；*
+*4. 合并 develop 分支，触发 `post-merge` Git 钩子；*
 
 *5. 创建版本、创建 git-tag 和生成 CHANGELOG*
 
@@ -1424,56 +1424,70 @@ module.exports = {
 
 ![work flow](./Automated-Changelog-Manual/Snipaste_2023-07-26_11-57-45.png)
 
-
-## 发布版本
-
-版本发布包含两部分内容：1）推送当前版本对应的 `git-tag` 到远程的Git仓库；2）build项目源码，发布到 npm。
-
-
-### 推送 `git-tag`
-
-
-接下来将使用 `--follow-tags` 命令推送包含新创建的 `git-tag` 的所有 `git-tag` 到远端的Git仓库。
+**1. 创建开发分支**
 
 ```shell
-git push --follow-tags
+git fetch origin main
+
+git checkout -b feat/xxx origin/main
 ```
 
-上面已经详细了解 Npm-Version生命周期 与 Standard-Version的生命周期，
+**2. Commit 变动**
 
-如果是基于 Npm-Version，那么版本发布的逻辑应该放在 `scripts.postversion`。
+```shell
+# 全手动commit，让commitlint检测
+git add .
 
-```json
-{
-  "scripts": {
-    "postversion": "git push --follow-tags"
-  }
-}
+git commit -m "feat(scope): add a new feat"
+
+
+# 半自动辅助编辑commit
+git add .
+
+npx commit
 ```
 
+**3. Push开发分支**
 
-如果是基于 Standard-Version，那么版本发布的逻辑则应该放在 `standard-version.scripts.posttag`。
-
-```json
-{
-  "standard-version": {
-    "scripts": {
-      "posttag": "git push --follow-tags"
-    }
-  }
-}
+```shell
+git push origin feat/xxx
 ```
 
-### 发布到 npm
+**4. 合并开发分支**
 
-将项目源码发布到 npm，需要做下面 3 件事：
+**5. 版本管理**
 
-- build 源码；
+切换到主分支，并更新到最新的commit点
 
-- `npm login`；
+```shell
+git checkout main
 
-- `npm publish`；
+git fetch origin main && git pull origin main
+```
 
+创建版本
+
+```shell
+npx standard-version -r patch -p alpha
+```
+
+**6. 发布**
+
+推送commit 与 git-tag 到远端git仓库
+
+```shell
+git push origin main && git push --tags
+```
+
+发布到 npm
+
+```shell
+# 登录
+npm login
+
+# 发布
+npm publish --tag alpha
+```
 
 
 # 附录
@@ -1503,6 +1517,29 @@ Husky 支持大部分 Git hook，以下是 Husky 支持的 Git hook 列表：
 
 以上 Git hook 具体作用可以参考 Git 的官方文档。Husky 可以通过在 package.json 文件的 `husky.hooks` 中定义相应的命令，来自动触发这些 Git hook。例如，在 `husky.hooks` 中定义 `pre-commit` 命令，就可以在每次执行 `git commit` 命令时自动触发该命令。
 
+
+## post-merge 钩子触发prompt失败
+
+配置 post-merge 钩子，合并开发分支后触发版本更新逻辑。版本管理选择使用 `@isubo-org/version`，它是prompt工具，选择的方式设定新版号。
+
+*配置 post-merge 钩子*
+
+```shell
+npx husky add .husky/post-merge  'npm run post-merge'
+```
+
+*配置post-merge脚本*
+```json
+"scripts": {
+  "post-merge": "npx isubo-version"
+}
+```
+
+测试结果是：行不通！
+
+合并后确实可以触发脚本，但是完全跳过选择流程
+
+![](./Automated-Changelog-Manual/Snipaste_2023-08-07_00-58-17.png)
 
 ## 参考
 
