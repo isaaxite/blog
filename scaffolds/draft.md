@@ -1,4 +1,4 @@
 ---
 title: {{ title }}
-tags:
+excerpt: {{ title }}
 ---
