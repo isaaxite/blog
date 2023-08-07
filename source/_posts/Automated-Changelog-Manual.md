@@ -1,9 +1,16 @@
 ---
-title: Automated Changelog Manual
+title: 自动化CHANGELOG，持续集成
 date: 2023-07-13 11:06:20
 tags:
+  - CHANGELOG
+  - 自动化
+  - Commit规范
+  - 版本控制
+  - Git Hook
 categories:
-excerpt: Automated Changelog Manual
+  - [CI/CD]
+  - [持续集成]
+  - [npm]
 ---
 
 # 前言
@@ -15,6 +22,8 @@ excerpt: Automated Changelog Manual
 但是，由于目前还是一个人在开发此项目，精力有限，需要更多地聚焦在功能新增、优化、重构和Bug修复。
 
 *CHANGELOG 自动化是最终的答案！*
+
+<!-- more -->
 
 ## 自动化的优点
 
