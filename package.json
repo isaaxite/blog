@@ -7,7 +7,8 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
-    "publish": "hexo g -d && git checkout ."
+    "publish": "hexo g -d && git checkout .",
+    "new-journal": "node ./journal.script.js"
   },
   "hexo": {
     "version": "7.0.0-rc1"
@@ -32,5 +33,11 @@
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^0.0.3",
     "object-assign": "^4.1.1"
+  },
+  "devDependencies": {
+    "chalk": "^2.4.2",
+    "dayjs": "^1.11.9",
+    "fs-extra": "^11.1.1",
+    "hexo-log": "^4.1.0"
   }
 }

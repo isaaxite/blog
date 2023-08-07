@@ -34,7 +34,7 @@ skip_render: README.md
 
 # Writing
 new_post_name: :title/index.md # File name of new posts
-default_layout: post
+default_layout: draft
 titlecase: false # Transform title into titlecase
 external_link:
   enable: true # Open external links in new tab
