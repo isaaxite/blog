@@ -34,7 +34,7 @@ skip_render: README.md
 
 # Writing
 new_post_name: :title/index.md # File name of new posts
-default_layout: draft
+default_layout: post
 titlecase: false # Transform title into titlecase
 external_link:
   enable: true # Open external links in new tab
@@ -42,7 +42,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 marked:
   prependRoot: true
   postAsset: true
@@ -148,3 +148,9 @@ neat_enable: true
 relitive_src_filter:
   enable: true
   # prefix: https://raw.githubusercontent.com/isaaxite/blog/master/resources
+
+search:
+  path: search.xml
+  field: all
+  content: true
+  format: html
