@@ -74,20 +74,14 @@ devDependencies:
     specifier: ^11.1.1
     version: 11.1.1
   hexo-filter-hidden-source:
-    specifier: 0.0.2-alpha.0
-    version: 0.0.2-alpha.0
+    specifier: ^0.0.2
+    version: 0.0.2
   hexo-log:
     specifier: ^4.1.0
     version: 4.1.0
   isubo:
     specifier: 0.0.11-beta.0
     version: 0.0.11-beta.0
-  js-yaml:
-    specifier: ^4.1.0
-    version: 4.1.0
-  yargs:
-    specifier: ^17.7.2
-    version: 17.7.2
 
 packages:
 
@@ -1835,8 +1829,8 @@ packages:
       - chokidar
     dev: false
 
-  /hexo-filter-hidden-source@0.0.2-alpha.0:
-    resolution: {integrity: sha512-h4IePT072U4U99IFGdo85d6p/rRnhTMGHYukAKbqnc+xFgzo1sd6hh7xtHYJ8VjDzAXSNkvFPbsf5tVFixeslw==}
+  /hexo-filter-hidden-source@0.0.2:
+    resolution: {integrity: sha512-Bkp5esz8nLMVRJMyFh4JhPRZFj5YiycclJ4aOkpzLXv3ja3o41JpU9OgtiHkEXImkpJ5t1NG/WwOzq2F8bURIQ==}
     hasBin: true
     dependencies:
       chalk: 2.4.2
