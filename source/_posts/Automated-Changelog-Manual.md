@@ -8,9 +8,10 @@ tags:
   - 版本控制
   - Git Hook
 categories:
-  - [CI/CD]
-  - [持续集成]
-  - [npm]
+  - - CI/CD
+  - - 持续集成
+  - - npm
+issue_number: 311
 ---
 
 # 前言

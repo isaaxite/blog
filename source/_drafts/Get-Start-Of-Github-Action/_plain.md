@@ -79,6 +79,164 @@ CI/CD 的好处包括减少手动操作、提高开发团队的效率、加速�
 > 
 > For more information about workflows, see "Using workflows."
 
+
+*events的作用是触发工作流*
+
+> Events
+> <mark>An event is a specific activity in a repository that triggers a workflow run.</mark> For example, activity can originate from GitHub when someone creates a pull request, opens an issue, or pushes a commit to a repository. You can also trigger a workflow to run on a schedule, by posting to a REST API, or manually.
+>
+> For a complete list of events that can be used to trigger workflows, see Events that trigger workflows.
+
+Events 有那些预设？
+
+文章中列出了支持的预设：[Events that trigger workflows](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
+
+合并到主分支应该监听那个event？
+
+可以使用 [pull_request](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request)
+
+它包含众多子类型：
+抱歉我之前的回答遗漏了一些类型。以下是完整的 `pull_request` 事件的 `types` 属性列表及其含义：
+
+- **assigned:** 当有人被分配为 pull request 的负责人时触发工作流。
+- **unassigned:** 当有人被解除分配为 pull request 的负责人时触发工作流。
+- **labeled:** 当为 pull request 添加标签时触发工作流。
+- **unlabeled:** 当从 pull request 移除标签时触发工作流。
+- **opened:** 当有新的 pull request 被创建时触发工作流。
+- **edited:** 当 pull request 的标题、描述或分支发生更改时触发工作流。
+- **closed:** 当任何一个 pull request 被关闭时触发工作流。
+- **reopened:** 当之前关闭的 pull request 被重新打开时触发工作流。
+- **synchronize:** 当某个已打开的 pull request 中的提交发生更改时触发工作流。
+- **converted_to_draft:** 当 pull request 被转为草稿状态时触发工作流。
+- **ready_for_review:** 当 pull request 被标记为 "ready for review" 时触发工作流。
+- **locked:** 当 pull request 被锁定时触发工作流。
+- **unlocked:** 当 pull request 被解锁时触发工作流。
+- **review_requested:** 当为 pull request 请求代码审查时触发工作流。
+- **review_request_removed:** 当从 pull request 移除代码审查请求时触发工作流。
+- **auto_merge_enabled:** 当自动合并功能被启用时触发工作流。
+- **auto_merge_disabled:** 当自动合并功能被禁用时触发工作流。
+
+这些类型提供了丰富的事件触发选项，您可以根据需要选择适当的类型以实现特定的工作流程。
+
+其中在需要
+
+- 测试分支质量时可以监听 opened 类型；
+
+- 持续继承与发布时可以监听 closed 类型
+
+
+*jobs是什么？*
+
+jobs 描述工作流的内容，比测试、版本管理，发布等等。
+
+> Jobs
+> A job is a set of steps in a workflow that is executed on the same runner. Each step is either a shell script that will be executed, or an action that will be run. Steps are executed in order and are dependent on each other. Since each step is executed on the same runner, you can share data from one step to another. For example, you can have a step that builds your application followed by a step that tests the application that was built.
+>
+> You can configure a job's dependencies with other jobs; by default, jobs have no dependencies and run in parallel with each other. When a job takes a dependency on another job, it will wait for the dependent job to complete before it can run. For example, you may have multiple build jobs for different architectures that have no dependencies, and a packaging job that is dependent on those jobs. The build jobs will run in parallel, and when they have all completed successfully, the packaging job will run.
+>
+> For more information about jobs, see "Using jobs."
+
+
+jobs 有一组job组成，每个job应该是对单一功能的描述，比如测试。
+
+而每个 job 则由一组step组成。
+
+*job支持那些预设？*
+
+在 GitHub Actions 的作业（job）中，您可以使用多个属性来配置和自定义作业的行为。以下是一些常见的作业属性：
+
+- **`name`**：定义作业的名称。
+- **`needs`**：指定作业依赖的其他作业，确保在依赖的作业完成后再执行当前作业。
+- **`runs-on`**：指定作业的运行环境，可以是预设值（如 `ubuntu-latest`、`windows-latest`、`macos-latest`）或自定义的虚拟环境。
+- **`env`**：设置作业的环境变量。
+- **`if`**：定义一个条件表达式，根据条件的结果来决定是否运行该作业。
+- **`steps`**：指定作业的步骤，即要执行的操作和任务。
+- **`timeout-minutes`**：设置作业执行的最大超时时间（以分钟为单位）。
+- **`continue-on-error`**：指定是否在步骤执行失败时继续执行后续步骤。
+- **`strategy`**：定义作业的策略，如矩阵构建、并行构建等。
+- **`outputs`**：定义作业的输出结果，可以供其他作业或工作流使用。
+- **`container`**：指定作业运行时使用的容器配置。
+- **`services`**：指定作业运行时使用的服务配置。
+- **`defaults`**：为作业中的所有步骤定义默认值。
+
+这些属性提供了广泛的配置选项，使您能够根据需要自定义作业的行为和环境。您可以根据具体的工作流程和需求来选择适当的属性，并将它们添加到作业的配置中。
+
+---
+
+要设定 run-on，设定默认的ubuntu就好，应该是指定执行工作流（job）的运行时
+
+*steps 由一些了的step组成，描述每一个步骤做了什么*
+
+
+在 GitHub Actions 的作业（job）中，`steps` 属性用于定义作业中的步骤，每个步骤可以配置多个属性以自定义其行为。以下是一些常用的步骤属性配置：
+
+- **`name`**：定义步骤的名称，用于标识该步骤。
+- **`id`**：为步骤指定一个唯一的标识符，以便在后续的步骤中引用该步骤的输出。
+- **`run`**：指定要执行的命令或脚本，可以是单行命令或多行脚本。
+- **`uses`**：指定要使用的操作或动作，可以是内置操作、自定义操作或其他仓库中的操作。
+- **`with`**：为步骤提供参数和输入值，可以是命名参数或键值对。
+- **`env`**：设置步骤的环境变量，可以是单个变量或多个变量。
+- **`if`**：定义一个条件表达式，根据条件的结果来决定是否执行该步骤。
+- **`continue-on-error`**：指定是否在步骤执行失败时继续执行后续步骤。
+- **`timeout-minutes`**：设置步骤执行的最大超时时间（以分钟为单位）。
+
+这些属性提供了灵活的配置选项，使您能够根据需要自定义步骤的行为和环境。您可以根据具体的任务和要执行的操作选择适当的属性，并将它们添加到步骤的配置中。
+
+以下是一个示例，展示了如何配置步骤的属性：
+
+```yaml
+steps:
+  - name: Checkout code
+    uses: actions/checkout@v2
+
+  - name: Build project
+    run: |
+      npm install
+      npm run build
+
+  - name: Run tests
+    run: npm test
+    env:
+      TEST_ENV: "true"
+```
+
+在上述示例中，步骤包括了 `name`、`uses`、`run` 和 `env` 属性的配置。每个步骤都根据其特定的任务和需求进行了属性的设置。请注意，这只是一些常用的属性，您可以根据实际需要选择和配置更多的属性。
+
+*uses有那些配置可以设置？*
+
+在 GitHub Actions 中，`uses` 属性用于指定要使用的操作或动作。它可以接受多种配置形式，以满足不同的需求。以下是 `uses` 属性的几种常见配置方式：
+
+1. **内置操作**：使用 GitHub 提供的内置操作来执行特定的任务。配置示例：`uses: actions/checkout@v2`，其中 `actions/checkout@v2` 是一个内置操作的引用。
+
+2. **自定义操作**：使用自定义操作来执行任务。配置示例：`uses: ./path/to/custom-action`，其中 `./path/to/custom-action` 是存储在仓库中的自定义操作的路径。
+
+3. **其他仓库中的操作**：使用其他仓库中的操作来执行任务。配置示例：`uses: organization/repo/action@v1`，其中 `organization/repo/action@v1` 是其他仓库中操作的引用。
+
+4. **Docker 容器**：使用 Docker 容器来执行任务。配置示例：`uses: docker://image:tag`，其中 `docker://image:tag` 是 Docker 镜像的引用。
+
+5. **JavaScript/TypeScript 模块**：使用 JavaScript/TypeScript 模块来执行任务。配置示例：`uses: actions/github-script@v4`，其中 `actions/github-script@v4` 是 JavaScript/TypeScript 模块的引用。
+
+这些配置方式提供了灵活性和可扩展性，使您能够根据需要选择适当的操作或动作。您可以根据任务的要求来选择和配置适当的 `uses` 属性。
+
+请注意，`uses` 属性的具体配置方式可能会根据操作或动作的来源和类型而有所不同。在使用特定操作或动作时，建议查阅其文档以了解正确的配置方式和参数选项。
+
+
+---
+
+工作流应该要有所调整
+
+原来：合并触发版本创建，changelog，build，发布
+
+这里有个问题：版本创建时，版本号有非唯一性，需要手动选择下一个版本号
+
+调整：上面工作不在合并后触发。推送主分支时触发比较好。版本创建应该在本地做，在推送后触发build和发布。
+
+但版本创建肯定是不能在开发分支做的，因为预设有多个开发分支在并行，可能出现版本号冲突的问题。
+
+思路1：增加一个release分支，在main分支做版本更新，合并main分支到release分支时触发build和发布！
+
+思路2：上文有提到可以通过非事件触发工作流，所以尝试在开发分支合并到。。。
+
 # 参考
 
 - https://docs.github.com/en/actions/quickstart
