@@ -237,6 +237,88 @@ steps:
 
 思路2：上文有提到可以通过非事件触发工作流，所以尝试在开发分支合并到。。。
 
+
+*如何通过非事件触发工作流？*
+
+要通过手动触发 GitHub Actions 工作流，您可以使用 GitHub 的 REST API 或 GitHub 用户界面上的操作来完成。下面是两种常见的方法：
+
+**方法 1：通过 GitHub 用户界面触发**
+
+1. 打开 GitHub 仓库：导航到包含您要触发的工作流的 GitHub 仓库。
+
+2. 转到 "Actions" 选项卡：在仓库的顶部菜单中，点击 "Actions" 选项卡，进入工作流页面。
+
+3. 选择要触发的工作流：在工作流页面中，找到您要触发的工作流。单击工作流的名称，进入工作流的详细页面。
+
+4. 点击 "Run workflow"：在工作流详细页面的右上方，会有一个绿色的按钮，标有 "Run workflow"。单击该按钮，将手动触发该工作流。
+
+5. 提供可选参数（如果需要）：某些工作流可能需要您提供一些可选参数或配置选项。在触发工作流后，您可能需要填写表单或提供必要的输入数据。
+
+6. 确认触发：一旦您提供了必要的参数（如果适用），点击 "Run workflow" 按钮，确认触发工作流的执行。
+
+7. 监视执行：在 GitHub 用户界面上，您可以监视工作流的执行状态、输出日志和任何相关信息。您可以在工作流页面中查看工作流的执行历史记录。
+
+**方法 2：通过 GitHub REST API 触发**
+
+1. 获取 Personal Access Token (PAT)：首先，您需要生成一个具有适当权限的 Personal Access Token。在 GitHub 的 "Settings" 页面中，转到 "Developer settings" 下的 "Personal access tokens"，然后点击 "Generate new token" 创建新的 PAT。确保为 PAT 授予适当的权限（例如 repo 指定仓库权限）。
+
+2. 使用 REST API 触发工作流：使用以下 cURL 命令或任何其他适合您的工具来触发工作流。将 `<repo>` 替换为您的仓库所有者和仓库名称，将 `<workflow_id>` 替换为要触发的工作流的 ID（可以在工作流文件中找到）。
+
+```shell
+curl -X POST \
+  -H "Authorization: Bearer <PAT>" \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/<repo>/actions/workflows/<workflow_id>/dispatches \
+  -d '{"ref":"<branch>"}'
+```
+
+确保将 `<PAT>` 替换为您生成的 PAT，`<repo>` 替换为您的仓库所有者和仓库名称，`<workflow_id>` 替换为要触发的工作流的 ID，`<branch>` 替换为要触发的分支名称。
+
+---
+
+思路3：本地在main分支创建版本，然后push，工作流监听新tag的推送，触发build和发布的工作流。
+
+*如何通过监听tag的创建触发工作流*
+
+下面是xgpt的答案，我未在官网文档找到出处
+
+要在 GitHub Actions 工作流中在标签（tag）创建时触发工作流，您可以使用 `on` 关键字来配置工作流的触发条件。以下是在标签创建时触发工作流的配置示例：
+
+```yaml
+name: My Workflow
+
+on:
+  create:
+    tags:
+      - '*'
+```
+
+上述示例中的工作流配置文件是一个 YAML 文件，其中 `on` 关键字指定了工作流的触发条件。在 `on` 关键字下，使用 `create` 子关键字指定了触发工作流的事件类型，而 `tags` 子关键字指定了要触发工作流的标签名称。
+
+在示例中，`tags` 的值设置为 `'*'`，表示匹配任何标签名称。您也可以使用具体的标签名称来指定要触发工作流的特定标签。
+
+当仓库中新建一个标签时，该工作流将被触发并开始执行。
+
+请注意，您需要将上述工作流配置文件添加到您的 GitHub 仓库中的 `.github/workflows/` 目录下，并确保文件命名为适当的名称（例如 `workflow.yml`）。GitHub Actions 会自动检测并加载该目录下的工作流配置文件。
+
+希望这些信息对您有所帮助，并能帮助您在标签创建时触发 GitHub Actions 工作流！
+
+
+---
+
+![Alt text](image-1.png)
+
+
+![Alt text](image-2.png)
+
+点击 build job 卡片可以看详情
+
+![Alt text](image-3.png)
+
+需要解决github_token的问题
+
+![Alt text](image-4.png)
+
 # 参考
 
 - https://docs.github.com/en/actions/quickstart
