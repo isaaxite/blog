@@ -319,6 +319,13 @@ on:
 
 ![Alt text](image-4.png)
 
+---
+
+GITHUB_TOKEN 不需要手动创建，工作流在触发时会自动创建。
+
+> 在每个工作流作业开始时，GitHub 会自动创建唯一的 GITHUB_TOKEN 机密以在工作流中使用。 可以使用 GITHUB_TOKEN 在工作流作业中进行身份验证。
+> https://docs.github.com/zh/actions/security-guides/automatic-token-authentication#about-the-github_token-secret
+
 # 参考
 
 - https://docs.github.com/en/actions/quickstart
