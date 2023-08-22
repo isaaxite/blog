@@ -16,11 +16,11 @@ issue_number: 313
 ---
 
 
-# 前言
+# 摘要
 
-最近持续迭代的npm包，[isubo]。功能已经完成得七七八八，因此开始逐渐完成包开发的一些基本设施，比如自动化的能力。在项目代码使用Github管理，在它开始之初已经略有了解 GitHub-Actions，模糊地知道Gtihub Actions 是 Github 提供的 CICD 工具。由于各种原因的将此增加自动化能力的工作置后到最近。
+最近持续迭代的 npm 包，[isubo]。功能已经完成得七七八八，因此开始逐渐完善与之相关的基本设施，比如自动化的能力。该项目代码使用 Github 管理，在它启动之初已经略有了解 GitHub-Actions，模糊地知道Gtihub Actions 是 Github 提供的 CI/CD 工具。由于各种原因的将此增加自动化能力的工作置后到最近。
 
-本文将围绕Github Actions展开，了解Gtihub Actions、CICD概念，常见的CICD。接着回归实际问题，详细了解Github Actions的使用、配置文件的常用配置项。最后，实践上面提到的 [isubo] 的自动化能力。
+本文将围绕 Github Actions 展开，了解 Gtihub Actions、CI/CD概念以及常见的CI/CD工具或平台。接着回归实际问题，详细了解 Github Actions 的使用、配置文件的常用配置项。最后，再实践上面提到的 [isubo] 的自动化能力。通过实践让我们具备一定的，使用 Gtihub Actions 实现CI/CD的能力；具备解决新的Github Actions 相关新的需求点的能力，比如在工作流中增加代码静态分析能力。
 
 
 <!-- more -->
