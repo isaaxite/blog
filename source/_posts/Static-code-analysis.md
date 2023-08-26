@@ -118,6 +118,7 @@ npm init @eslint/config
 # ~ or ~
 npx eslint --init
 ```
+![](./Static-code-analysis/eslint-init.gif)
 
 上面 init 命令分别做了下面几件事：
 
@@ -153,6 +154,29 @@ npx eslint --init
 | [XO](https://github.com/xojs/eslint-config-xo)         | - 具有严格规则集的JavaScript代码规范和代码检查工具<br>- 基于ESLint构建<br>- 提供零配置的规范<br>- 强制执行高级规则，如使用ES6模块、禁止使用`console`等<br>- 提供可选的规则来适应不同的开发需求 | 2 个空格 | 单引号 | 禁止  | 推荐使用       | 推荐排序      | 248 |
 
 请注意，以上表格只列出了一些主要的规范特点，并不能穷尽所有规范的细节。对于更详细的规范内容和具体规则，建议查阅各自的官方文档或 GitHub 仓库。选择适合自己或团队的代码规范时，可以深入研究每个规范的详细规则，并根据实际需求进行定制。
+
+在 init 的过程中选择了 airbnb。airbnb发布的ESLint配置规则广为人知,我们可以从以下几个方面对其规则进行分类:
+
+- **代码质量**：包含无用代码检测、最佳实践、复杂度限制等,如no-unused-vars、no-implicit-globals、complexity等。
+
+- **错误防范**：包含可能导致错误的代码模式检测,如no-console、no-debugger、no-alert等。
+
+- **风格统一**：包含代码风格方面的规则,强制一致的代码风格,如quotes、indent、space-before-function-paren等。
+
+- **ES6优先**：包含优先使用ES6新特性的规则,如prefer-const、prefer-rest-params、prefer-spread等。
+
+- **浏览器环境**：包含针对浏览器环境的规则,如no-restricted-globals、no-alert等。
+
+- **Node.js环境**：包含针对Node.js环境的规则,如handle-callback-err、no-mixed-requires等。
+
+- **规范与习惯**：根据通用代码编写规范制定的规则,如camelcase、new-cap、curly等。
+
+- **可读性**：关注代码可读性的规则,如max-len、max-lines、max-params等。
+
+- **变量声明**：规范变量声明方式的规则,如no-var、prefer-const等。
+
+以上分类让我们更直观地看到airbnb规则的覆盖面和侧重点。
+
 
 初始化完成后，会得到如下的配置文件：
 
@@ -198,6 +222,24 @@ module.exports = {
   },
   // ...
 ```
+
+下面对生成的配置文件中几个配置项做简单说明：
+
+- `env`：指定代码运行的环境，如浏览器环境 (browser)、Node.js 环境 (node) 等；
+
+- `extends`：引用其他配置文件或扩展，可以是已经定义好的配置（如 airbnb-base）、共享配置（如 eslint:recommended）或自定义的配置；
+
+- `globals`：定义全局变量，避免因为全局变量未定义而产生警告；
+
+- `parser`：指定代码解析器，例如 Babel 解析器 (babel-eslint) 或 TypeScript 解析器 (@typescript-eslint/parser)；
+
+- `parserOptions`：指定解析器选项，如 ECMAScript 版本 (ecmaVersion)、源代码类型 (sourceType)、额外的语言特性支持等；
+
+- `plugins`：加载并使用 ESLint 插件，扩展额外的规则和功能；
+
+- `rules`：定义规则，用于检查和强制执行代码的编码规范，可以启用、禁用、配置规则的错误级别等；
+
+- `overrides`：允许对特定文件或文件类型进行额外的配置，可以覆盖全局配置；
 
 ## 扫描代码
 
