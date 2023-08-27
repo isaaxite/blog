@@ -211,7 +211,7 @@ module.exports = {
 };
 ```
 
-其中 env 的配置与上面init过程中选择运行时明显不同，下面手动修改为：
+其中 env 的配置与上面 init 过程中选择运行时明显不同，下面手动修改为：
 
 ```js
   // ...
@@ -240,6 +240,40 @@ module.exports = {
 - `rules`：定义规则，用于检查和强制执行代码的编码规范，可以启用、禁用、配置规则的错误级别等；
 
 - `overrides`：允许对特定文件或文件类型进行额外的配置，可以覆盖全局配置；
+
+ESLint 常用的插件包括:
+
+- [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) - 检查 React 代码,支持 JSX 语法等。
+
+- [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue) - 检查 Vue 代码,支持 *.vue 文件。
+
+- [eslint-plugin-angular](https://github.com/Gillespie59/eslint-plugin-angular) - 检查 Angular 代码,支持指令、模块等特性。
+
+- [eslint-plugin-jquery](https://github.com/jquery/eslint-plugin-jquery) - 检查 jQuery 代码。
+
+- [eslint-plugin-node](https://github.com/mysticatea/eslint-plugin-node) - 添加Node.js环境下的JavaScript代码检查。
+
+- [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import) - 检查ES6+ 的 import/export 语法。
+
+- [eslint-plugin-jsx-a11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y) - 辅助检查JSX元素的可访问性。
+
+- [eslint-plugin-promise](https://github.com/xjamundx/eslint-plugin-promise) - 添加Promise相关的规则。
+
+- [eslint-plugin-standard](https://github.com/standard/eslint-plugin-standard) - 实现standard代码风格的规则。
+
+- [eslint-plugin-html](https://github.com/BenoitZugmeyer/eslint-plugin-html) - 检查HTML文件中的JavaScript代码。
+
+- [eslint-plugin-markdown](https://github.com/eslint/eslint-plugin-markdown) - 检查Markdown文件中的代码。
+
+- [eslint-plugin-compat](https://github.com/amilajack/eslint-plugin-compat) - 检查浏览器兼容性问题。
+
+- [eslint-plugin-jest](https://github.com/jest-community/eslint-plugin-jest) - 检查Jest测试框架的代码。
+
+- [eslint-plugin-typescript](https://github.com/typescript-eslint/typescript-eslint) - 添加TypeScript语法支持。
+
+- [eslint-plugin-security](https://github.com/eslint-community/eslint-plugin-security) - 用于检测 JavaScript 代码中的潜在安全漏洞。它提供了一系列规则，用于查找并警告可能导致安全问题的代码模式。
+
+通过使用不同的插件可以大大扩展ESLint的功能范围,适应不同的项目需求。
 
 ## 扫描代码
 
@@ -273,10 +307,161 @@ npx eslint ./lib/ ./bin/
 
 ![](./Static-code-analysis/Snipaste_2023-08-24_10-05-38.png)
 
+
+## 质量报告
+
+```shell
+npx eslint ./lib ./bin --format=html --output-file=reports/eslint-report.html
+```
+
+使用 anywhere 启动 http 服务:
+
+![](./Static-code-analysis/Snipaste_2023-08-24_05-44-28.png)
+
+其他支持的输出的格式：
+
+- checkstyle：以 Checkstyle XML 格式输出，适合与其他工具集成；
+
+- compact：以紧凑的格式输出，适合在终端上显示；
+
+- html：以 HTML 格式输出，适合在浏览器中查看；
+
+- jslint-xml：以 JSLint XML 格式输出，适合与其他工具集成；
+
+- json-with-metadata：以 JSON 格式输出，包含元数据信息；
+
+- json：以纯 JSON 格式输出；
+
+- junit：以 JUnit XML 格式输出，适合与持续集成工具集成；
+
+- stylish：以类似于代码样式的格式输出，适合在终端上显示；
+
+- tap：以 TAP（Test Anything Protocol）格式输出，适合与测试框架集成；
+
+- unix：以类 Unix 风格的格式输出，适合在终端上显示；
+
+- visualstudio：以 Visual Studio Code 的问题报告格式输出，适合在编辑器中显示。
+
+
 ## 自动修复
+
+使用 `--fix` 可选项修复部分问题。
 
 ```shell
 npx eslint --fix ./lib/ ./bin/
 ```
 
+修复后的报告见下。对比前面的报告，eslint 修复了大部分问题，但实际上 eslint 尽可以修复部分类型的问题。
+
+以下是一些常见的 ESLint 可以自动修复的问题类型：
+
+- 格式问题：例如缩进、空格、换行等方面的问题可以通过自动修复功能进行修复；
+
+- 引号问题：例如单引号和双引号之间的一致性问题可以自动修复；
+
+- 无用代码：例如未使用的变量、未使用的导入等可以通过自动修复进行删除；
+
+- 标准化问题：例如统一函数命名、统一变量命名等可以通过自动修复进行标准化；
+
+- 基本语法问题：例如缺少分号、多余的逗号等可以通过自动修复进行修复。
+
 ![](./Static-code-analysis/Snipaste_2023-08-24_10-06-16.png)
+
+在了解自动修复的相关内容时，另一款据说相较 Eslint 更强的工具，prettier 出现在我的视线。
+
+根据 prettier 的文档（[Integrating with Linters](https://prettier.io/docs/en/integrating-with-linters)）指引安装了扩展（eslint-config-prettier）和插件（eslint-plugin-prettier）。最终修过没有达到预期，剩下大部分问题依然无法自动格式化，下面是使用 prettier 前（左）后（右）的对比：
+
+![](./Static-code-analysis/Snipaste_2023-08-26_18-37-50.png)
+
+- 使用后，问题从162个减少到153个，共11个；
+
+- 对比后得知，被自动修复的问题是 `max-len` 类问题（如下）；
+
+  ```log
+  11:1	Error	This line has a length of 105. Maximum allowed is 100.	max-len
+  ```
+
+
+根据 ESLint 报告里面的错误信息,可以将检测到的问题分类如下:
+
+1. 导入语句问题
+
+- Unexpected use of file extension "js" for imports: 应该直接导入模块名,不需要添加.js后缀
+
+- Prefer default export on a file with single export: 当模块只有一个导出时应设置为default导出
+
+2. 代码质量问题
+
+- no-use-before-define: 在定义前使用变量
+- no-nested-ternary: 不要嵌套三元表达式 
+- no-plusplus: 不要使用++/--运算符
+- no-restricted-syntax: 不允许使用语法结构generate/yield
+
+3. 最佳实践问题
+
+- no-param-reassign: 不要修改函数参数
+- no-console: 不要使用console语句
+- no-alert: 不要使用alert
+
+4. 风格问题
+
+- camelcase: 变量名应使用驼峰命名
+- max-classes-per-file: 每个文件类的数量不应超过1个
+
+5. 可读性问题
+
+- no-magic-numbers: 不要使用难懂的数字常量
+- no-nested-ternary: 不要嵌套三元表达式
+
+6. 未使用变量问题  
+
+- no-unused-vars: 定义后未使用的变量
+
+7. 循环问题
+
+- no-loop-func: 循环中不要定义函数
+
+以上这些问题都是确实 Eslint 和 prettier 无法自动格式化的问题。实际上，EsLint 的官网也有对那些规则无法格式化有做简短说明，可查阅：[Rules Reference](https://eslint.org/docs/latest/rules/)。
+
+> ![](./Static-code-analysis/Snipaste_2023-08-26_18-51-04.png)
+
+
+# 统计报告
+
+Plato 是一个基于 JavaScript 的代码分析和可视化工具，用于生成代码复杂度报告和可视化图表。它提供了对圈复杂度、函数长度、类复杂度等指标的详细分析和可视化展示。
+
+安装与使用
+
+```shell
+# 安装
+pnpm add plato --save-dev
+
+# 使用
+npx plato -r -d ./reports/plato -e .eslintrc.cjs ./lib ./bin
+```
+
+这句命令是使用 `plato` 工具生成代码复杂度报告的命令。它的作用是在指定的目录下分析 JavaScript 文件，并生成递归的代码复杂度报告，报告输出到 `./reports/plato` 目录。同时，还会使用指定的 ESLint 配置文件进行代码分析。
+
+下面对命令中的各个部分进行解释：
+
+- `-r`: 表示生成递归报告。递归报告会分析指定目录下的所有 JavaScript 文件及其子目录中的文件。
+
+- `-d ./reports/plato`: `-d` 是 `plato` 的一个命令行选项，用于指定报告输出目录。在这个命令中，将报告输出到 `./reports/plato` 目录。
+
+- `-e .eslintrc.cjs`: `-e` 是 `plato` 的一个命令行选项，用于指定 ESLint 配置文件。在这个命令中，使用 `.eslintrc.cjs` 文件作为 ESLint 的配置文件。
+
+- `./lib ./bin`: `./lib ./bin` 是指定要分析的 JavaScript 文件或目录。在这个命令中，分析 `./lib` 和 `./bin` 目录下的 JavaScript 文件。
+
+*遇到第一个问题：不支持 `cjs` 扩展名的配置文件，根据提示推断是要求 json 格式的。*
+
+![](./Static-code-analysis/Snipaste_2023-08-27_02-21-07.png)
+
+这个先按下，跳过指定 eslint 的配置文件。
+
+```shell
+npx plato -r -d ./reports/plato ./lib ./bin
+```
+
+出现了第二个问题：plato 不支持 ES6+ 的 Class 死有属性语法。时至今日，不支持这个语法，或许可以认为这个工具已经被抛弃。从目前的状况确实是这样，最后一次更新已经是 7 年前！但是它确实目前我可以找到功能比较完备的带质量报告生成工具。
+
+![](./Static-code-analysis/Snipaste_2023-08-27_02-28-03.png)
