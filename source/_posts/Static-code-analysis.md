@@ -465,3 +465,81 @@ npx plato -r -d ./reports/plato ./lib ./bin
 出现了第二个问题：plato 不支持 ES6+ 的 Class 死有属性语法。时至今日，不支持这个语法，或许可以认为这个工具已经被抛弃。从目前的状况确实是这样，最后一次更新已经是 7 年前！但是它确实目前我可以找到功能比较完备的带质量报告生成工具。
 
 ![](./Static-code-analysis/Snipaste_2023-08-27_02-28-03.png)
+
+既然是语法的兼容性问题，那就用 babel 做转译兼容。最终目的是在保留目录解构的前提下，做最小程度的兼容：
+
+安装 babel 相关 pkg：
+
+```shell
+pnpm add --save-dev @babel/core @babel/cli
+```
+
+添加插件编译私有方法与属性：
+
+```shell
+pnpm add --save-dev \
+  @babel/plugin-transform-class-properties \
+  @babel/plugin-transform-private-methods \
+  @babel/plugin-transform-private-property-in-object
+```
+
+配置文件（`.babelrc`）
+
+```json
+{
+  "plugins": [
+    "@babel/plugin-transform-class-properties",
+    "@babel/plugin-transform-private-property-in-object",
+    "@babel/plugin-transform-private-methods"
+  ]
+}
+```
+
+编译与生成质量报告：
+
+```shell
+rm -rf temp/dist ./reports/plato && \
+  npx babel lib --out-dir temp/dist && \
+  npx plato -r -d ./reports/plato ./temp/dist
+```
+
+出现另外的问题：plato 不支持点操作符的可选语法。安装 `@babel/plugin-transform-optional-chaining` 插件转译此语法，再此生成报告：
+
+![](./Static-code-analysis/Snipaste_2023-08-27_10-56-23.png)
+
+生成 html 格式的质量报告，使用 `anywhere` 渲染后，在浏览器打开：
+
+![](./Static-code-analysis/Snipaste_2023-08-27_10-59-57.png)
+
+Plato 提供了一系列质量指标来评估代码的质量和复杂性。以下是一些常见的 Plato 提供的质量指标：
+好的,我来重新说明一下Plato的各项代码质量指标以及数值变化的含义:
+
+- Lines of Code(LOC) - 源代码总行数。
+
+- Total Complexity - 整体复杂度评分。增加表示代码整体复杂度上升。
+
+- Average Complexity - 每个函数的平均复杂度。增加表示每个函数复杂度提高。
+
+- Dependency Graph - 依赖关系图。节点和边增加表示依赖更复杂。 
+
+- Assignments - 变量赋值次数。增加表示变量赋值更频繁。
+
+- Function Declarations - 函数声明数量。增加表示函数数增多。
+
+- Global Variables - 全局变量使用数量。增加表示使用更多全局变量。
+
+- Cyclomatic Complexity - 圈复杂度。增加表示代码路径增加,逻辑更复杂。
+
+- Halstead metrics - 几项代码复杂度度量。提高表示代码更复杂。
+
+- Maintainability Index - 可维护性指数。下降代表可维护性降低。
+
+- Lint Errors - Lint检查出的错误数。增加表示代码质量问题更多。 
+
+- Estimated Errors - 预测出的错误数。增加表示可能出错机会上升。
+
+综上,Plato的指标上升通常代表代码质量和可维护性下降,复杂度提高,这可以帮助我们分析和改进代码。
+
+
+## 依赖分析
+
