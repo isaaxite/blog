@@ -46,6 +46,23 @@ categories:
 
 # 实践背景
 
+## 系统
+
+WSL2 - Debian 12
+
+```shell
+$ cat /etc/os-release
+PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+NAME="Debian GNU/Linux"
+VERSION_ID="12"
+VERSION="12 (bookworm)"
+VERSION_CODENAME=bookworm
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+```
+
 ## 项目
 
 下面将使用 [deploy-posts-to-github-issue] 作为实践的项目，期间部分实践内容会以此项目的克隆作为载体实现。
@@ -801,6 +818,65 @@ npm run build
 ### 小结
 
 TODO
+
+
+## Dependency cruiser
+
+### 安装与配置
+
+```shell
+pnpm add --save-dev dependency-cruiser
+```
+
+```shell
+npx depcruise --init
+```
+
+![dependency-cruiser init](./Static-code-analysis/dependency-cruiser_init.gif)
+
+### 生成报告
+
+根据README的指引，可以使用以下命令生成依赖报告：
+
+```shell
+npx depcruise src --include-only "^src" --output-type dot | dot -T svg > dependency-graph.svg
+```
+
+- `--include-only "^src"`: `--include-only` 参数用于指定只包括满足特定正则表达式的文件或目录。在这个命令中，它指定只包括以 `src` 开头的文件或目录。
+
+- `--output-type dot`: `--output-type` 参数用于指定生成的输出类型。在这个命令中，它指定生成 DOT 格式的输出。
+
+- `dot -T svg`: `dot` 是 GraphViz 工具包中的一部分，用于将 DOT 格式的输入转换为不同的图形输出格式。`-T svg` 参数指定将输出转换为 SVG 格式。
+
+- `> dependency-graph.svg`: `>` 是重定向操作符，用于将命令的输出重定向到一个文件。在这个命令中，它将生成的 SVG 图形输出重定向到名为 `dependency-graph.svg` 的文件。
+
+
+`dot` 是 GraphViz 工具包中的一部分，因此需要安装相关的工具，`graphviz`。
+
+```shell
+sudo apt update
+
+sudo apt install graphviz -y
+```
+
+准备工作完成，下面根据上面的指引略作修改，然后生成报告：
+
+```shell
+npx depcruise bin --output-type dot | dot -T svg > dependency-graph.svg
+```
+
+![](./Static-code-analysis/Snipaste_2023-08-30_20-27-01.png)
+
+生成交互性更强的报告：
+
+```shell
+npx depcruise -v -T dot bin \
+  | dot -T svg \
+  | npx depcruise-wrap-stream-in-html \
+  > dependency-graph.html
+```
+
+![](./Static-code-analysis/Snipaste_2023-08-30_20-37-11.png)
 
 <!-- ref dep -->
 
