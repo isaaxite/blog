@@ -348,30 +348,6 @@ ESLint 常用的插件包括:
 ## 扫描代码
 
 ```shell
-deploy-posts-to-github-issue
-├── assets
-├── bin
-├── CHANGELOG.md
-├── commitlint.config.js
-├── dist
-├── index.js
-├── inspiration-flash.md
-├── jest.config.mjs
-├── jest.dev.config.mjs
-├── jest.js
-├── lib
-├── LICENSE
-├── MANUAL.md
-├── package.json
-├── pnpm-lock.yaml
-├── README.md
-├── reports
-├── rollup.config.js
-├── scripts
-└── __test__
-```
-
-```shell
 npx eslint ./lib/ ./bin/
 ```
 
@@ -616,7 +592,6 @@ rm -rf temp/dist ./reports/plato && \
 ## Plato报告概述
 
 Plato 提供了一系列质量指标来评估代码的质量和复杂性。以下是一些常见的 Plato 提供的质量指标：
-好的,我来重新说明一下Plato的各项代码质量指标以及数值变化的含义:
 
 - Lines of Code(LOC) - 源代码总行数。
 
@@ -734,7 +709,19 @@ Webpack Bundle Analyzer 是以往有使用过的一款工具，确实不错。�
 
 **因此，就目前情况优先考虑 Rollup Plugin Visualizer 和 Dependency-Cruiser。**
 
+![Dependency cruiser](./Static-code-analysis/Dependency%20cruiser.png)
+
+![Rollup Plugin Visualizer](./Static-code-analysis/Rollup%20Plugin%20Visualizer.png)
+
 下面将先后安装 Rollup Plugin Visualizer 和 Dependency-Cruiser，在看它们最后的实际效果。如果两者相差不大，考虑到实践项目背景，当优先选择前者。
+
+## Rollup Plugin Visualizer
+
+安装
+
+```shell
+pnpm add --save-dev rollup-plugin-visualizer
+```
 
 <!-- ref dep -->
 
