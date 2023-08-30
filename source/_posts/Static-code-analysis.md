@@ -717,11 +717,90 @@ Webpack Bundle Analyzer 是以往有使用过的一款工具，确实不错。�
 
 ## Rollup Plugin Visualizer
 
-安装
+### 安装
 
 ```shell
 pnpm add --save-dev rollup-plugin-visualizer
 ```
+
+### 配置
+
+修改 rollup 配置文件
+
+```js
+import { terser } from 'rollup-plugin-terser';
+import copy from 'rollup-plugin-copy';
++ import { visualizer } from 'rollup-plugin-visualizer';
+
+export default {
+  input: {
+    index: 'index.js',
+    'bin/index': 'bin/index.js'
+  },
+  output: {
+    dir: 'dist',
+    format: 'es',
+    plugins: [terser()]
+  },
+  plugins: [
+    copy({
+      targets: [
+        // { src: 'assets/conf.template.yml', dest: 'dist/assets' },
+        { src: ['package.json', 'README.md'], dest: 'dist/' },
+      ]
+    }),
++   ...[
++     'sunburst',
++     'list',
++     'treemap',
++     'network',
++     'raw-data'
++   ].map((template) => visualizer({
++     template,
++     filename: `reports/visualizer/${template}.html`,
++     gzipSize: true,
++     brotliSize: true
++   })),
+};
+
+```
+
+见配置文件，rollup-plugin-visualizer 提供 5 中输出样式，其中 `list` 和 `raw-data` 输出的是数据，而其他则是输出可视化图表。
+
+### 生成图表
+
+执行 `build` 脚本触发 rollup 构建。
+
+```shell
+npm run build
+```
+
+下面是生成的三种可视化的依赖图表：
+
+`rollup-plugin-visualizer` 提供了以下几种可视化图表来帮助分析 Rollup 打包的结果：
+
+**`Sunburst Chart`（旭日图）**
+
+旭日图以圆形层级结构的方式展示模块之间的依赖关系。每个模块在图表中表示为一个扇形区域，其大小表示模块的体积或大小。模块之间的依赖关系通过扇形的嵌套关系来表示。你可以通过旭日图快速了解模块之间的依赖关系和体积占比。
+
+![Sunburst Chart](./Static-code-analysis/Snipaste_2023-08-30_17-35-51.png)
+
+
+**`Treemap Chart`（矩形树图）**
+
+矩形树图以矩形的层级结构展示模块之间的依赖关系和体积占比。每个模块在图表中表示为一个矩形，其大小表示模块的体积或大小。模块之间的依赖关系通过矩形的嵌套关系来表示。你可以通过矩形树图直观地了解模块之间的依赖关系和体积占比。
+
+![Treemap Chart](./Static-code-analysis/Snipaste_2023-08-30_17-36-22.png)
+
+**`Network Graph`（网络图）**
+
+网络图以节点和边的形式展示模块之间的依赖关系。每个模块在图表中表示为一个节点，模块之间的依赖关系通过边连接。你可以通过网络图观察模块之间的依赖关系和体积占比，并通过交互式操作来探索图表。
+
+![Network Graph](./Static-code-analysis/Snipaste_2023-08-30_17-37-14.png)
+
+### 小结
+
+TODO
 
 <!-- ref dep -->
 
