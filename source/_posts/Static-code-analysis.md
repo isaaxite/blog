@@ -44,7 +44,77 @@ categories:
 
 这些能力使得静态代码分析工具成为 JavaScript 开发中有力的辅助工具，可以帮助开发者提高代码质量、发现潜在问题，并改进代码风格和实践。常见的静态代码分析工具包括 ESLint、JSHint、JSLint、TSLint 等。
 
-# 常见的工具
+# 实践背景
+
+## 项目
+
+下面将使用 [deploy-posts-to-github-issue] 作为实践的项目，期间部分实践内容会以此项目的克隆作为载体实现。
+
+[![](./Static-code-analysis/Snipaste_2023-08-30_10-02-04.png)](https://github.com/isaaxite/deploy-posts-to-github-issue)
+
+- 模块打包器：rollup
+
+- 测试框架：jest
+
+- 其他：
+  - husky：是一个用于在 Git 提交和推送前执行脚本的工具，帮助开发者在关键事件发生前自动运行定制化的操作和脚本。
+
+## 目录结构
+
+```shell
+deploy-posts-to-github-issue
+├── assets
+├── bin
+├── CHANGELOG.md
+├── commitlint.config.js
+├── dist
+├── index.js
+├── inspiration-flash.md
+├── jest.config.mjs
+├── jest.dev.config.mjs
+├── jest.js
+├── lib
+├── LICENSE
+├── MANUAL.md
+├── package.json
+├── pnpm-lock.yaml
+├── README.md
+├── reports
+├── rollup.config.js
+├── scripts
+└── __test__
+```
+
+核心代码目录：
+
+```shell
+bin/
+  └── index.js
+
+lib/
+  ├── asset_finder.js
+  ├── asset_publisher.js
+  ├── conf_reader.js
+  ├── constants
+  │   ├── asset.js
+  │   ├── enum.js
+  │   └── index.js
+  ├── hinter.js
+  ├── link_formater.js
+  ├── md_frontmatter.js
+  ├── post_finder.js
+  ├── post_manager.js
+  ├── post_parse.js
+  ├── post_path.js
+  └── utils
+      ├── common.js
+      ├── error.js
+      └── index.js
+```
+
+# 分析工具
+
+## 选型
 
 | 工具                                            | 描述                                                                                | 提出时间  | GitHub Star 数量 |
 | ----------------------------------------------- | --------------------------------------------------------------------------------- | ----- | -------------- |
@@ -425,12 +495,35 @@ npx eslint --fix ./lib/ ./bin/
 
 > ![](./Static-code-analysis/Snipaste_2023-08-26_18-51-04.png)
 
+## IDE 集成
+
+TODO
+
+## 强制执行
+
+### git-hook
+
+TODO
+
+## 小结
+
+- [x] 语法检查
+- [x] 代码规范检查
+- [x] 代码质量评估
+- [ ] 依赖关系分析
+- [ ] 安全漏洞检测
+- [ ] 性能优化建议
+- [ ] 异步代码分析
+- [ ] 可读性和一致性评估
+
 
 # 统计报告
 
+## Plato
+
 Plato 是一个基于 JavaScript 的代码分析和可视化工具，用于生成代码复杂度报告和可视化图表。它提供了对圈复杂度、函数长度、类复杂度等指标的详细分析和可视化展示。
 
-安装与使用
+## 安装与使用
 
 ```shell
 # 安装
@@ -451,6 +544,11 @@ npx plato -r -d ./reports/plato -e .eslintrc.cjs ./lib ./bin
 - `-e .eslintrc.cjs`: `-e` 是 `plato` 的一个命令行选项，用于指定 ESLint 配置文件。在这个命令中，使用 `.eslintrc.cjs` 文件作为 ESLint 的配置文件。
 
 - `./lib ./bin`: `./lib ./bin` 是指定要分析的 JavaScript 文件或目录。在这个命令中，分析 `./lib` 和 `./bin` 目录下的 JavaScript 文件。
+
+## 遇到的问题
+
+
+### 配置文件扩展名
 
 *遇到第一个问题：不支持 `cjs` 扩展名的配置文件，根据提示推断是要求 json 格式的。*
 
@@ -503,6 +601,8 @@ rm -rf temp/dist ./reports/plato && \
   npx plato -r -d ./reports/plato ./temp/dist
 ```
 
+### 点操作符的可选语法
+
 出现另外的问题：plato 不支持点操作符的可选语法。安装 `@babel/plugin-transform-optional-chaining` 插件转译此语法，再此生成报告：
 
 ![](./Static-code-analysis/Snipaste_2023-08-27_10-56-23.png)
@@ -510,6 +610,10 @@ rm -rf temp/dist ./reports/plato && \
 生成 html 格式的质量报告，使用 `anywhere` 渲染后，在浏览器打开：
 
 ![](./Static-code-analysis/Snipaste_2023-08-27_10-59-57.png)
+
+
+
+## Plato报告概述
 
 Plato 提供了一系列质量指标来评估代码的质量和复杂性。以下是一些常见的 Plato 提供的质量指标：
 好的,我来重新说明一下Plato的各项代码质量指标以及数值变化的含义:
@@ -519,10 +623,6 @@ Plato 提供了一系列质量指标来评估代码的质量和复杂性。以�
 - Total Complexity - 整体复杂度评分。增加表示代码整体复杂度上升。
 
 - Average Complexity - 每个函数的平均复杂度。增加表示每个函数复杂度提高。
-
-- Dependency Graph - 依赖关系图。节点和边增加表示依赖更复杂。 
-
-- Assignments - 变量赋值次数。增加表示变量赋值更频繁。
 
 - Function Declarations - 函数声明数量。增加表示函数数增多。
 
@@ -538,8 +638,104 @@ Plato 提供了一系列质量指标来评估代码的质量和复杂性。以�
 
 - Estimated Errors - 预测出的错误数。增加表示可能出错机会上升。
 
-综上,Plato的指标上升通常代表代码质量和可维护性下降,复杂度提高,这可以帮助我们分析和改进代码。
+综上, Plato的指标上升通常代表代码质量和可维护性下降,复杂度提高,这可以帮助我们分析和改进代码。
 
 
-## 依赖分析
 
+## 最终实现
+
+
+### Palto 报告
+
+使用 babel 解决 palto 的兼容问题。babel 将核心源码配合下面示例中的四个插件做最小程序的编译，输出到 `./temp/dist` 目录。
+
+palto 基于 `./temp/dist` 目录的代码生成报告，输出到 `./reports/plato`。
+
+
+**`./scripts/plato.report.js`：**
+
+```js
+import { execSync } from 'child_process';
+
+const plugins = [
+  '@babel/plugin-transform-optional-chaining',
+  '@babel/plugin-transform-class-properties',
+  '@babel/plugin-transform-private-property-in-object',
+  '@babel/plugin-transform-private-methods',
+].join(',');
+
+const cmd = [
+  'rm -rf temp/dist ./reports/plato',
+  `npx babel ./bin ./lib --plugins ${plugins} --out-dir temp/dist`,
+  'npx plato -r -d ./reports/plato ./temp/dist',
+  'rm -rf temp/dist',
+].join(' && ');
+
+process.stderr.write(`${cmd}\n`);
+
+execSync(cmd, {
+  stdio: 'inherit',
+  shell: true,
+});
+```
+
+**`package.json`：**
+
+```json
+"scripts": {
+  // ...
+  "plato-report": "node scripts/plato.report.js",
+  // ...
+},
+```
+
+### 组合 Eslint
+
+简单组合 Eslint。同时生成 Eslint 与 Palto 报告。
+
+**`package.json`：**
+
+```json
+"scripts": {
+  // ...
+  "plato-report": "node scripts/plato.report.js",
+  "eslint-report": "rm -rf reports/eslint-report.html && npx eslint ./lib ./bin --format=html --output-file=reports/eslint-report.html",
+  "static-report": "npm run plato-report && npm run eslint-report"
+},
+```
+
+使用 `npm run static-report` 生成两份报告。
+
+## 小结
+
+进一步加强“代码质量评估”部分的实践。增加更多的代码质量指标，比如“整体复杂度”、“圈复杂度”、“预测出的错误数”等等。
+
+但是由于 Palto 对于 ES6+ 的语法兼容性不足，以致需要使用 Babel 做向下兼容的编译。导致报告中出现非预期的兼容性代码和报告内容，让报告的可读性下降。虽然如此，Palto 生成的报告依然比Eslint的更加详尽。
+
+# 依赖分析
+
+下面将使用其他工具针对 “依赖关系分析” 部分进行实践。将列出常用几款工具做对比，然后会选择其中一款进行安装与使用。
+
+## 常见工具
+
+| 工具  | 指标  | 说明   | GitHub Star |
+|------|--------|-------|---|
+| [Code Maat ↗](https://github.com/adamtornhill/code-maat)                | - 模块间的循环依赖关系<br>- 无效引用<br>- 模块的入度和出度<br>- 模块的内部复杂性<br>- 模块的外部复杂性<br>- 模块的深度<br>- 模块的大小                | Code Maat 是一个通用的代码度量工具，支持多种指标，包括循环依赖关系、无效引用、模块的入度和出度、模块的内部复杂性、模块的外部复杂性、模块的深度和模块的大小等。它提供了灵活的配置选项和可视化功能，适用于多种编程语言。 | 2.2k        |
+| [Dependency-Cruiser ↗](https://github.com/sverweij/dependency-cruiser)       | - 可持续性指标<br>- 简单性指标<br>- 复杂性指标<br>- 规模指标                                     | Dependency-Cruiser 提供了可持续性指标、简单性指标、复杂性指标和规模指标。可持续性指标包括模块间的循环依赖关系和无效引用。简单性指标包括模块的入度和出度、模块的内部复杂性。复杂性指标包括模块的外部复杂性和模块的深度。规模指标包括模块的大小。它提供了自定义规则和配置的功能，可用于 JavaScript 项目的依赖分析和优化。| 4.4k        |
+| [Webpack Bundle Analyzer ↗](https://github.com/webpack-contrib/webpack-bundle-analyzer)  | - 模块大小<br>- 模块依赖关系<br>- 模块的引用路径<br>- 模块的体积占比                         | Webpack Bundle Analyzer 提供了模块大小、模块依赖关系、模块的引用路径和模块的体积占比等指标。它通过可视化图表和图形的方式展示这些指标，帮助你分析和优化 Webpack 打包后的代码。 | 12.4k       |
+| [Rollup Plugin Visualizer ↗](https://github.com/btd/rollup-plugin-visualizer) | - 模块大小<br>- 模块依赖关系<br>- 模块的引用路径<br>- 模块的体积占比                         | Rollup Plugin Visualizer 提供了模块大小、模块依赖关系、模块的引用路径和模块的体积占比等指标。它通过可视化图表和图形的方式展示这些指标，帮助你分析和优化使用 Rollup 打包后的代码。 | 1.5k        |
+
+
+Code Maat 是一个通用的代码度量工具，由于它是基于 Java 开发的，所以要在 Node.js 环境中安装和使用 Code Maat，你需要确保你的系统已经安装了 Java 运行时环境 (JRE) 或者 Java 开发工具包 (JDK)。
+
+*考虑到环境配置的复杂度问题，Code Maat 的优先级会下降，暂不考虑它！*
+
+Webpack Bundle Analyzer 是以往有使用过的一款工具，确实不错。它提供的参考指标也符合预期，流行程度也是上面 4 款中最高的，但是考虑到当前实践项目的背景（rollup），因此优先级也是往下降的。
+
+**因此，就目前情况优先考虑 Rollup Plugin Visualizer 和 Dependency-Cruiser。**
+
+下面将先后安装 Rollup Plugin Visualizer 和 Dependency-Cruiser，在看它们最后的实际效果。如果两者相差不大，考虑到实践项目背景，当优先选择前者。
+
+<!-- ref dep -->
+
+[deploy-posts-to-github-issue]: https://github.com/isaaxite/deploy-posts-to-github-issue
