@@ -726,9 +726,14 @@ Webpack Bundle Analyzer 是以往有使用过的一款工具，确实不错。�
 
 **因此，就目前情况优先考虑 Rollup Plugin Visualizer 和 Dependency-Cruiser。**
 
-![Dependency cruiser](./Static-code-analysis/Dependency%20cruiser.png)
-
-![Rollup Plugin Visualizer](./Static-code-analysis/Rollup%20Plugin%20Visualizer.png)
+<details>
+  <summary><strong>预览效果</strong></summary>
+  <blockquote>
+    <img src="./Static-code-analysis/Dependency%20cruiser.png" alt="Dependency cruiser" />
+    <img src="./Static-code-analysis/Rollup%20Plugin%20Visualizer.png" alt="Rollup Plugin Visualizer" />
+  </blockquote>
+</details>
+<br/>
 
 下面将先后安装 Rollup Plugin Visualizer 和 Dependency-Cruiser，在看它们最后的实际效果。如果两者相差不大，考虑到实践项目背景，当优先选择前者。
 
@@ -800,20 +805,37 @@ npm run build
 
 旭日图以圆形层级结构的方式展示模块之间的依赖关系。每个模块在图表中表示为一个扇形区域，其大小表示模块的体积或大小。模块之间的依赖关系通过扇形的嵌套关系来表示。你可以通过旭日图快速了解模块之间的依赖关系和体积占比。
 
-![Sunburst Chart](./Static-code-analysis/Snipaste_2023-08-30_17-35-51.png)
-
+<details>
+  <summary><strong>预览效果</strong></summary>
+  <blockquote>
+    <img src="./Static-code-analysis/Snipaste_2023-08-30_17-35-51.png" alt="Sunburst Chart" />
+  </blockquote>
+</details>
+<br/>
 
 **`Treemap Chart`（矩形树图）**
 
 矩形树图以矩形的层级结构展示模块之间的依赖关系和体积占比。每个模块在图表中表示为一个矩形，其大小表示模块的体积或大小。模块之间的依赖关系通过矩形的嵌套关系来表示。你可以通过矩形树图直观地了解模块之间的依赖关系和体积占比。
 
-![Treemap Chart](./Static-code-analysis/Snipaste_2023-08-30_17-36-22.png)
+<details>
+  <summary><strong>预览效果</strong></summary>
+  <blockquote>
+    <img src="./Static-code-analysis/Snipaste_2023-08-30_17-36-22.png" alt="Treemap Chart" />
+  </blockquote>
+</details>
+<br/>
 
 **`Network Graph`（网络图）**
 
 网络图以节点和边的形式展示模块之间的依赖关系。每个模块在图表中表示为一个节点，模块之间的依赖关系通过边连接。你可以通过网络图观察模块之间的依赖关系和体积占比，并通过交互式操作来探索图表。
 
-![Network Graph](./Static-code-analysis/Snipaste_2023-08-30_17-37-14.png)
+<details>
+  <summary><strong>预览效果</strong></summary>
+  <blockquote>
+    <img src="./Static-code-analysis/Snipaste_2023-08-30_17-37-14.png" alt="Network Graph" />
+  </blockquote>
+</details>
+<br/>
 
 ### 小结
 
@@ -824,9 +846,13 @@ TODO
 
 ### 安装与配置
 
+安装：
+
 ```shell
 pnpm add --save-dev dependency-cruiser
 ```
+
+初始化，将在当前目录下生成 `.dependency-cruiser.cjs` 文件。
 
 ```shell
 npx depcruise --init
@@ -839,7 +865,9 @@ npx depcruise --init
 根据README的指引，可以使用以下命令生成依赖报告：
 
 ```shell
-npx depcruise src --include-only "^src" --output-type dot | dot -T svg > dependency-graph.svg
+npx depcruise src --include-only "^src" --output-type dot \
+  | dot -T svg \
+  > dependency-graph.svg
 ```
 
 - `--include-only "^src"`: `--include-only` 参数用于指定只包括满足特定正则表达式的文件或目录。在这个命令中，它指定只包括以 `src` 开头的文件或目录。
@@ -862,10 +890,18 @@ sudo apt install graphviz -y
 准备工作完成，下面根据上面的指引略作修改，然后生成报告：
 
 ```shell
-npx depcruise bin --output-type dot | dot -T svg > dependency-graph.svg
+npx depcruise bin --output-type dot \
+  | dot -T svg \
+  > dependency-graph.svg
 ```
 
-![](./Static-code-analysis/Snipaste_2023-08-30_20-27-01.png)
+<details>
+  <summary><strong>预览效果</strong></summary>
+  <blockquote>
+    <img src="./Static-code-analysis/Snipaste_2023-08-30_20-27-01.png" alt="" />
+  </blockquote>
+</details>
+<br/>
 
 生成交互性更强的报告：
 
@@ -876,7 +912,163 @@ npx depcruise -v -T dot bin \
   > dependency-graph.html
 ```
 
-![](./Static-code-analysis/Snipaste_2023-08-30_20-37-11.png)
+<details>
+  <summary><strong>预览效果</strong></summary>
+  <blockquote>
+    <img src="./Static-code-analysis/Snipaste_2023-08-30_20-37-11.png" alt="" />
+  </blockquote>
+</details>
+<br/>
+
+*上面两种方式生成的报告都依赖系统软件 `graphviz`，在特定情况下，或许无法安装。下面介绍无需系统软件便可生成的方式。*
+
+```shell
+dependency-cruise -T html -f dependencies.html bin
+```
+
+<details>
+  <summary><strong>预览效果</strong></summary>
+  <blockquote>
+    <img src="./Static-code-analysis/Snipaste_2023-08-31_15-30-56.png" alt="" />
+  </blockquote>
+</details>
+<br/>
+
+
+除了上面实践的 3 种报告外，Dependency cruiser 还支持更多的报告输出方式，想要了解更多可查阅：[dependency-cruiser command line interface](https://github.com/sverweij/dependency-cruiser/blob/main/doc/cli.md)。
+
+### 集成到 IDE
+
+Dependency cruiser 除了可以通过 CLI 生成报告外，还可以集成到 VS Code。见下：
+
+![Dependency Cruiser Extension](./Static-code-analysis/Snipaste_2023-08-31_15-55-07.png)
+
+Extension ID：`juanallo.vscode-dependency-cruiser`
+
+<details>
+  <summary><strong>预览效果</strong></summary>
+  <blockquote>
+    <img src="./Static-code-analysis/Snipaste_2023-08-31_15-58-54.png" alt="" />
+  </blockquote>
+</details>
+<br/>
+
+### 小结
+
+TODO
+
+## 最终实现
+
+生成交互性更强的报告，输出到与 rollup-plugin-visualizer 相同的报告目录
+
+```shell
+npx depcruise -v -T dot bin \
+  | dot -T svg \
+  | npx depcruise-wrap-stream-in-html \
+  > reports/visualizer/dependency.html
+```
+
+将此命令与 rollup 的 build 关联到一起：
+
+```json
+"scripts": {
+  // ...
+  "dependency-report": "npx depcruise -v -T dot bin | dot -T svg | npx depcruise-wrap-stream-in-html > reports/visualizer/dependency.html",
+  "build": "node ./scripts/build.js && npm run dependency-report",
+  // ...
+},
+```
+
+如此这边，只有运行 `npm run build`，即可生成以上 rollup-plugin-visualizer 与 Dependency cruiser 的 4 个依赖报告。
+
+为方便查看，当增加入口查看这 4 个报告。添加一个简单的 `index.html` 文件到 `reports/visualizer/` 目录下，通过 `iframe` 引入 4 个报告的 html 文件。
+
+
+<details>
+  <summary><strong>reports/visualizer/index.html</strong></summary>
+  <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>visualizer<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+    <span class="hljs-selector-tag">html</span>, <span class="hljs-selector-tag">body</span> {
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-selector-tag">body</span> {
+      <span class="hljs-attribute">margin</span>: auto;
+    }
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+  <span class="hljs-keyword">const</span> getViewportSize = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> width = <span class="hljs-built_in">window</span>.innerWidth || <span class="hljs-built_in">document</span>.documentElement.clientWidth || <span class="hljs-built_in">document</span>.body.clientWidth;
+    <span class="hljs-keyword">const</span> height = <span class="hljs-built_in">window</span>.innerHeight || <span class="hljs-built_in">document</span>.documentElement.clientHeight || <span class="hljs-built_in">document</span>.body.clientHeight;
+    <span class="hljs-keyword">return</span> {
+      width,
+      height
+    };
+  };
+  <span class="hljs-keyword">const</span> insertIframeAfterPageLoad = <span class="hljs-function">(<span class="hljs-params">{ title, src, width, height }</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> iframe = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'iframe'</span>);
+    iframe.title = title;
+    iframe.src = src;
+    iframe.width = <span class="hljs-built_in">Math</span>.ceil(width);
+    iframe.height = <span class="hljs-built_in">Math</span>.ceil(height);
+    iframe.style = <span class="hljs-string">"border:none;"</span>;
+    <span class="hljs-built_in">document</span>.body.appendChild(iframe);
+  };<br/>
+  <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, () =&gt; {
+    <span class="hljs-keyword">const</span> viewportSize = getViewportSize();
+    <span class="hljs-keyword">let</span> size = viewportSize.width / <span class="hljs-number">2</span> - <span class="hljs-number">10</span>;
+    insertIframeAfterPageLoad({
+      <span class="hljs-attr">src</span>: <span class="hljs-string">'./network.html'</span>,
+      <span class="hljs-attr">title</span>: <span class="hljs-string">'network'</span>,
+      <span class="hljs-attr">width</span>: size,
+      <span class="hljs-attr">height</span>: size,
+    });<br/>
+    insertIframeAfterPageLoad({
+      <span class="hljs-attr">src</span>: <span class="hljs-string">'./sunburst.html'</span>,
+      <span class="hljs-attr">title</span>: <span class="hljs-string">'sunburst'</span>,
+      <span class="hljs-attr">width</span>: size,
+      <span class="hljs-attr">height</span>: size,
+    });<br/>
+    insertIframeAfterPageLoad({
+      <span class="hljs-attr">src</span>: <span class="hljs-string">'./dependency.html'</span>,
+      <span class="hljs-attr">title</span>: <span class="hljs-string">'dependency'</span>,
+      <span class="hljs-attr">width</span>: size,
+      <span class="hljs-attr">height</span>: size,
+    });<br/>
+    insertIframeAfterPageLoad({
+      <span class="hljs-attr">src</span>: <span class="hljs-string">'./treemap.html'</span>,
+      <span class="hljs-attr">title</span>: <span class="hljs-string">'treemap'</span>,
+      <span class="hljs-attr">width</span>: size,
+      <span class="hljs-attr">height</span>: size,
+    });
+  });
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+</details>
+<br/>
+
+<details>
+  <summary><strong>预览效果</strong></summary>
+  <blockquote>
+    <img src="./Static-code-analysis/Snipaste_2023-08-31_19-11-09.png" alt="" />
+  </blockquote>
+</details>
+<br/>
+
+# 附录
+
+## 参考
+
+- [治理项目模块依赖关系，试试这艘「依赖巡洋舰」](https://juejin.cn/post/7096650413209813029)
 
 <!-- ref dep -->
 
