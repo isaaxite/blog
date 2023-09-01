@@ -839,8 +839,11 @@ npm run build
 
 ### 小结
 
-TODO
+上面是对 Rollup Plugin Visualizer 的实践。它包含 5 种依赖分析输出格式，其中两种原始数据（list 和 raw-data），三种 HTML 可视化报告（Sunburst Chart、Treemap Chart 和 Network Graph）
 
+HTML 可视化报告中，除了提供模块间的依赖关系信息外，每个模块还提供 Rendered （原始大小）、Gzip 算法压缩后大小 和 Brotli 算法压缩后的大小。
+
+安装简单，无单独的配置文件。需要在 rollup 配置文件中引入，声明依赖报告的输入输出。不能单独生成报告，需要配置 rollup 打包流程使用。另外，三个可视化报告不支持一同输出到同一个 HTML 文件，相互独立。
 
 ## Dependency cruiser
 
@@ -955,11 +958,23 @@ Extension ID：`juanallo.vscode-dependency-cruiser`
 
 ### 小结
 
-TODO
+上面做了 Dependency cruiser 的实践。生成报告前需要初始化配置文件。实践了 3 种报告，其中 2 种需要依赖系统软件 graphviz，1 种不需要。前 2 种类似，区别在于可交互性（可高亮模块的引入路线），相较后面 1 种可读性强。
+
+Dependency cruiser 支持配置文件，可配置多种规则和报告输出格式，除了上面实践的三种外，还支持很多，大部分依赖系统软件，或需要特定应用层级软件查看，更多信息可查阅 [dependency-cruiser command line interface](https://github.com/sverweij/dependency-cruiser/blob/main/doc/cli.md)。
+
+Dependency cruiser 除了支持 CLI 单独生成依赖报告外，还支持集成到 IDE（VS Code），可以查阅单个模块的依赖上下文，生成的报告支持在 VS CODE 跳转到相应模块文件。
+
+Dependency cruiser 提供多种样式与格式的依赖图，可读性强。它专注于依赖关系的描述，无其他更多信息提供，比如模块大小，压缩后大小等等。
 
 ## 最终实现
 
-生成交互性更强的报告，输出到与 rollup-plugin-visualizer 相同的报告目录
+从上面 rollup-plugin-visualizer 与 Dependency cruiser 的实践中发现，相比前者，后者的可读性更强，如果单纯追求可视化依赖关系，Dependency cruiser 是不二之选。可惜 Dependency cruiser 仅仅如此，若果可以展示模块大小等等数据会更优，而这是 rollup-plugin-visualizer 相对它的优势。
+
+*因此何不将两者结合，毕竟它们是开发的辅助工具，它们臃肿与否不影响最终源码体积。*
+
+上面对 rollup-plugin-visualizer 的最终实现已经说明，不做赘述，下面说明 Dependency cruiser 的最终实现并将两者结合。
+
+首先，生成交互性更强的报告，输出到与 rollup-plugin-visualizer 相同的报告目录
 
 ```shell
 npx depcruise -v -T dot bin \
