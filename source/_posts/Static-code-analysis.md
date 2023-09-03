@@ -488,6 +488,48 @@ npx eslint --fix ./lib/ ./bin/
 
 > ![](./Static-code-analysis/Snipaste_2023-08-26_18-51-04.png)
 
+
+## 安全检测
+
+eslint-plugin-security：https://github.com/eslint-community/eslint-plugin-security
+
+ESLint内置对XSS漏洞的检测规则,但是需要安装额外的插件才能启用。
+
+具体操作如下:
+
+1. 安装eslint-plugin-security插件
+
+```
+npm install eslint-plugin-security
+```
+
+2. 在.eslintrc.js配置文件中添加plugins和rules:
+
+```js
+module.exports = {
+  plugins: ['security'],
+  
+  rules: {
+    'security/detect-object-injection': 'error',
+    'security/detect-non-literal-fs-filename': 'error',
+    'security/detect-non-literal-regexp': 'error',
+    'security/detect-possible-timing-attacks': 'error',
+    // ...
+    'security/detect-non-literal-require': 'off'
+  }
+}
+```
+
+3. 运行ESLint,它会检查可能导致XSS的内容注入风险。
+
+如变量直接插入到HTML中而未经过滤、模板字符串注入等情况。
+
+4. 需要进一步配置白名单或黑名单来去除误报。
+
+使用这个插件可以在开发阶段及早发现XSS问题,但不可完全替代动态测试。
+
+
+
 ## IDE 集成
 
 TODO
@@ -497,6 +539,8 @@ TODO
 ### git-hook
 
 TODO
+
+
 
 ## 小结
 
@@ -1078,6 +1122,27 @@ npx depcruise -v -T dot bin \
   </blockquote>
 </details>
 <br/>
+
+## 小结
+
+以上是对依赖分析的实践。挑选了常见的分析工具（Code Maat、Dependency-Cruiser、Webpack Bundle Analyzer 和 Rollup Plugin Visualizer）对比，结合实际请款，选择 Dependency-Cruiser 和 Rollup Plugin Visualizer 作为实践内容。分别先后安装 Rollup Plugin Visualizer 和 Dependency-Cruiser。
+
+Rollup Plugin Visualizer 是 rollup 常见，需要配置 rollup 的打包流程使用。它支持 Sunburst Chart、Treemap Chart 和 Network Graph 3 种可视化报告，除了依赖关系信息外，还提供压缩与原始的模块大小信息。
+
+Dependency-Cruiser 单纯提供依赖关系信息，支持多种样式报告，但多依赖系统软件。它生成的报告，在模块依赖关系的信息方面比起 Rollup Plugin Visualizer 更强。
+
+鉴于 Rollup Plugin Visualizer 与 Dependency-Cruiser 有一定的互补关系，在实践中，选择同时生成它们的报告，总共 4 个可视化的报告，为方便对比查看，通过 iframe 将它们缝合到一个 HTML 文件中。
+
+下面回顾 [内容构成](#内容构成) 中提到的一系列实践内容：
+
+- [x] 语法检查
+- [x] 代码规范检查
+- [x] 代码质量评估
+- [x] 依赖关系分析
+- [ ] 安全漏洞检测
+- [ ] 性能优化建议
+- [ ] 异步代码分析
+- [ ] 可读性和一致性评估
 
 # 附录
 
