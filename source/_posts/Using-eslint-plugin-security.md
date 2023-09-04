@@ -676,7 +676,86 @@ detect-no-csrf-before-method-override 规则不仅可以检测 Express 的中间
 
 # detect-non-literal-fs-filename
 
-TODO
+```js
+'security/detect-non-literal-fs-filename': 'warn'
+```
+
+这个规则用于检测代码中是否向 fs 模块的文件操作方法传入了非字面量的文件名参数。
+
+例如:
+
+```js
+const filename = getFilenameFromUser(); 
+
+fs.readFile(filename, ...);
+```
+
+传入可以由用户控制的 filename 变量是危险的，可能会导致路径遍历（[Path Traversal]） 攻击。
+
+攻击者可以通过 `../` 构造文件名，访问任意文件。
+
+所以该规则会检测以下情况：
+
+1. 调用了 fs 模块的文件操作函数（readFile 等）；
+
+2. 文件名参数不是字符串字面量，可能是变量或表达式计算；
+
+一旦满足上述条件，就会报出警告。
+
+建议的更安全写法是使用字面量文件名：
+
+```js
+fs.readFile('./somefile.txt', ...); 
+```
+
+或者进行文件名校验：
+
+```js
+validateFilename(filename);
+fs.readFile(filename, ...);
+```
+
+该规则通过静态分析帮助发现路径遍历问题，提升了代码安全性。
+
+<details open>
+  <summary><strong>路径遍历（[Path Traversal]） 攻击是什么 ？</strong></summary>
+  <blockquote>
+    <br/>
+    <p>路径遍历（Path Traversal）漏洞允许攻击者通过操纵目标文件的路径字符串访问超出预定范围的文件系统区域。</p>
+    <p>常见的攻击手法包括：</p>
+    <ul>
+    <li><p>使用 <code>../</code> 绕过文件系统限制，访问任意文件；</p>
+    </li>
+    <li><p>利用可替换组件如用户名访问其他文件名；</p>
+    </li>
+    <li><p>乱码等绕过过滤。</p>
+    </li>
+    </ul>
+    <p>该漏洞常见于将用户输入直接用于文件读取的函数，例如 <code>fs.readFile()</code>。</p>
+    <p>影响范围从信息泄露到远程代码执行不等。</p>
+    <p>防范措施：</p>
+    <ul>
+    <li><p>对用户输入进行校验，过滤特殊字符；</p>
+    </li>
+    <li><p>使用白名单验证文件名；</p>
+    </li>
+    <li><p>Restrict file system access；</p>
+    </li>
+    <li><p>使用不包含用户输入的随机文件名；</p>
+    </li>
+    <li><p>对路径组件进行标准化处理；</p>
+    </li>
+    <li><p>CDN 或存储服务器的访问控制；</p>
+    </li>
+    <li><p>其他输入验证方式。</p>
+    </li>
+    </ul>
+    <p>开发人员应该意识到这样的风险，在代码中采取防范措施，避免导致路径遍历漏洞。</p>
+    <br/>
+  </blockquote>
+</details>
+<br/>
+
 
 # detect-non-literal-regexp
 
@@ -707,9 +786,12 @@ TODO
 ## 参考
 
 - [双向文稿](https://www.wikiwand.com/zh-hans/%E9%9B%99%E5%90%91%E6%96%87%E7%A8%BF)
-- [Trojan Source attack for introducing invisible vulnerabilities](https://pvs-studio.com/en/blog/posts/cpp/0933/)
+- [Path Traversal]
+- [Denial-of-service attack]
 - [Cross Site Scripting (XSS)]
+- [Cross Site Request Forgery (CSRF)]
 - [What are the security issues with eval in JavaScript?]
+- [Trojan Source attack for introducing invisible vulnerabilities]
 
 <!-- refs defined -->
 [Mustache 模板引擎]:http://mustache.github.io/
@@ -719,3 +801,7 @@ TODO
 [Fastify ↗]:https://fastify.dev/
 [Koa ↗]:https://koajs.com/
 [Nestjs ↗]:https://nestjs.com/
+[Path Traversal]:https://owasp.org/www-community/attacks/Path_Traversal
+[Trojan Source attack for introducing invisible vulnerabilities]:https://pvs-studio.com/en/blog/posts/cpp/0933/
+[Cross Site Request Forgery (CSRF)]:https://owasp.org/www-community/attacks/csrf
+[Denial-of-service attack]:https://www.wikiwand.com/en/Denial-of-service_attack
