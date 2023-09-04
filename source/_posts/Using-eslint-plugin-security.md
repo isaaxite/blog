@@ -819,7 +819,8 @@ const reg = /abc/;
     <li><p>提高应用异步容错能力，避免全局阻塞。</p>
     </li>
     </ul>
-    <p>开发者需要谨慎处理用户提供的正则表达式，识别ReDoS攻击模式，采取防御措施。</p>
+    <p>开发者需要谨慎处理用户提供的正则表达式，识别 ReDoS 攻击模式，采取防御措施。</p>
+    <p>更多关于 ReDoS 的信息可参考：<a href="https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS">Regular expression Denial of Service - ReDoS</a></p>
     <br/>
   </blockquote>
 </details>
@@ -868,7 +869,7 @@ const module = require(moduleName);
 该规则通过静态分析帮助发现非字面量 `require` 的风险，提升了代码安全性。
 
 <details open>
-  <summary><strong>ReDoS（正则拒绝服务）攻击是什么 ？</strong></summary>
+  <summary><strong>allow 攻击是什么 ？</strong></summary>
   <blockquote>
     <br/>
     <p>allow 攻击（Arbitrary Code Execution）是一种通过植入恶意代码并执行来进行的攻击方式。</p>
@@ -935,6 +936,7 @@ TODO
 - [Cross Site Scripting (XSS)]
 - [Cross Site Request Forgery (CSRF)]
 - [Regular Expression DoS and Node.js]
+- [Regular expression Denial of Service - ReDoS]
 - [What are the security issues with eval in JavaScript?]
 - [Trojan Source attack for introducing invisible vulnerabilities]
 
@@ -951,3 +953,4 @@ TODO
 [Cross Site Request Forgery (CSRF)]:https://owasp.org/www-community/attacks/csrf
 [Denial-of-service attack]:https://www.wikiwand.com/en/Denial-of-service_attack
 [Regular Expression DoS and Node.js]:https://github.com/eslint-community/eslint-plugin-security/blob/main/docs/regular-expression-dos-and-node.md
+[Regular expression Denial of Service - ReDoS]:https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS
