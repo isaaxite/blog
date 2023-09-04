@@ -408,7 +408,7 @@ Mustache.render('<p>{{{text}}}</p>', data);
 Mustache.render('<p>{{text}}</p>', data);
 ```
 
-<details>
+<details open>
   <summary><strong>XSS 是什么？</strong></summary>
   <blockquote>
     <br/>
@@ -426,7 +426,9 @@ Mustache.render('<p>{{text}}</p>', data);
     </ol>
     <p>XSS因此可以让攻击者得到目标用户的敏感信息,篡改页面内容,以受害者的身份执行操作等。</p>
     <p>防范XSS需要对用户输入进行校验和输出编码,避免直接暴露给浏览器,即输入验证和输出编码。现在也有许多静态扫描工具可以检测XSS漏洞。</p>
+    <p>关于更多 XSS 的内容可参考：<a href="https://owasp.org/www-community/attacks/xss/">Cross Site Scripting (XSS)</a></p>
     <br/>
+  </blockquote> 
 </details>
 <br/>
 
@@ -488,7 +490,41 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 
 # detect-eval-with-expression
 
-TODO
+```js
+'security/detect-eval-with-expression': 'warn'
+```
+
+检测代码中调用 `eval()` 时是否传入了表达式，这可能会导致代码注入漏洞。
+
+这个规则的主要逻辑是：
+
+1. 检查代码中是否调用了 `eval()` 函数；
+
+2. 检查 `eval()` 调用时的参数是否是一个表达式，而不是 `String` 类型的代码文本；
+
+3. 如果同时满足上述两个条件，则会报告高级别的警告。
+
+因为直接传入表达式给 `eval` 可能会执行用户可控制的代码。示例：
+
+```js
+const userInput = '{"foo": 1}';
+eval(userInput); 
+```
+
+这里用户可以输入任意 JavaScript 表达式。
+
+建议的更安全写法是:
+
+```js
+const userInput = '{"foo": 1}';
+eval('(' + userInput + ')'); 
+```
+
+把输入包装为字符串，限制为表达式形式。
+
+这个规则通过静态分析帮助发现可能的 `eval` 注入漏洞，提高代码的安全性。但如果输入来源可信，或者有其他安全保障措施，也可以通过配置忽略该规则。
+
+更多关于 `eval` 可能引起的问题可参考：[What are the security issues with eval in JavaScript?](http://security.stackexchange.com/questions/94017/what-are-the-security-issues-with-eval-in-javascript)
 
 # detect-new-buffer
 
@@ -532,6 +568,8 @@ TODO
 
 - [双向文稿](https://www.wikiwand.com/zh-hans/%E9%9B%99%E5%90%91%E6%96%87%E7%A8%BF)
 - [Trojan Source attack for introducing invisible vulnerabilities](https://pvs-studio.com/en/blog/posts/cpp/0933/)
+- [Cross Site Scripting (XSS)]
 
 <!-- refs defined -->
 [Mustache 模板引擎]:http://mustache.github.io/
+[Cross Site Scripting (XSS)]:https://owasp.org/www-community/attacks/xss/
