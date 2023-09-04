@@ -141,6 +141,10 @@ module.exports = {
 
 # detect-bidi-characters
 
+```js
+'security/detect-bidi-characters': 'warn'
+```
+
 检测利用 unicode bidi（"bidirectional"的缩写,是指双向书写或双向格式的意思） 攻击注入恶意代码的 [trojan source attacks](https://trojansource.codes/) 案例。
 
 <details open>
@@ -264,11 +268,110 @@ trojan source attacks 属于源代码层面的攻击，需要攻击者能获取�
 
 # detect-buffer-noassert
 
-TODO
+```js
+'security/detect-buffer-noassert': 'warn'
+```
+
+这个规则用于检测代码中没有做边界检查直接调用 buffer 的情况，这可能会导致缓冲区溢出漏洞。`noAssert` 标志禁用了边界检查，所以使用这个标志调用 buffer 是危险的做法。
+
+主要的检测逻辑是：
+
+1. 检测对 `buffer()` 的调用；
+
+2. 检查调用是否设置了 `noAssert` 标志；
+
+3. 如果同时满足以上两点，则报告警告
+
+这可以帮助开发者发现危险的 buffer 调用，进行修改以避免引入安全漏洞。总体来说,这个规则通过静态分析提高了代码安全性,防止缓冲区溢出等问题的产生。
+
+下面是一个使用 `noAssert` 标志调用 `buffer()` 的错误示例：
+
+```js
+const buf = Buffer.alloc(100);
+
+// 错误示例
+buf.write('some data', 0, 120, 'ascii', noAssert);
+
+// 正确示例
+buf.write('some data', 0, buf.length, 'ascii'); 
+```
+
+在这个例子中，`write()` 方法可能会向 buf 缓冲区写入超过其长度的数据，因为传入的长度参数为 120，大于 buf 的长度 100。而且使用了 `noAssert` 标志来禁用长度检查。
+
+这就可能导致缓冲区溢出，造成内存污染、崩溃或安全漏洞。
+
+`security/detect-buffer-noassert` 规则会捕获像这样危险的 `noAssert` 调用，从而帮助发现并修复类似的问题。
 
 # detect-child-process
 
-TODO
+```js
+'security/detect-child-process': 'warn'
+```
+
+这条规则用来检测代码中是否存在潜在的子进程命令注入漏洞。
+
+子进程模块 `child_process` 可以用来生成子进程，如果拼接用户输入到子进程命令中，可能会导致命令注入攻击。
+
+例如:
+
+```js
+const cp = require('child_process');
+const userInput = process.argv[2];
+
+cp.exec('ping ' + userInput);
+```
+
+如果用户输入包含特殊字符，可能会造成命令注入。
+
+detect-child-process 规则会检查代码中是否：
+
+1. 使用了 child_process 模块；
+
+2. 构造子进程命令时，拼接了用户可控变量。
+
+如果同时满足上述条件，则会报告高优先级警告,提示这里存在潜在的命令注入风险。
+
+**如果实在需要拼接用户的输入，可以参考以下常见的安全措施：**
+
+1. 使用白名单过滤用户输入，只允许安全的字符，过滤掉特殊字符；
+
+2. 对用户输入进行转义，防止特殊字符被解析为命令语法；
+
+3. 使用参数数组传入用户输入，而不是直接拼接字符串；
+
+4. 设置子进程的用户权限，限制它可以执行的命令；
+
+5. 使用沙箱机制限制子进程访问系统资源；
+
+6. 不直接使用用户输入，而是根据白名单映射为内部命令；
+
+7. 监控子进程的执行情况，设置超时时间，防止阻塞；
+
+8. 如果可能，避免直接使用用户输入，使用预定义的命令集合；
+
+9. 其他输入验证和输出编码等手段。
+
+在确认已经确认采取防范措施，可以使用内联的规则忽略方式去掉警告，如下：
+
+
+1. 单行注释
+
+    ```js
+    // eslint-disable-next-line security/detect-child-process
+    cp.exec('ping ' + userInput);
+    ```
+
+2. 范围注释
+
+    ```js
+    function safeExec() {
+      /* eslint-disable security/detect-child-process */
+
+      cp.exec('ping ' + userInput);
+      
+      /* eslint-enable security/detect-child-process */
+    }
+    ```
 
 # detect-child-process
 
