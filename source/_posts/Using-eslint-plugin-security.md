@@ -141,7 +141,7 @@ module.exports = {
 
 # detect-bidi-characters
 
-检测利用unicode bidi攻击注入恶意代码的 [trojan source attacks](https://trojansource.codes/) 案例。
+检测利用 unicode bidi（"bidirectional"的缩写,是指双向书写或双向格式的意思） 攻击注入恶意代码的 [trojan source attacks](https://trojansource.codes/) 案例。
 
 <details open>
   <summary><strong>什么是 <code>trojan source attacks</code> ？</strong></summary>
@@ -168,3 +168,159 @@ module.exports = {
   </blockquote>
 </details>
 <br/>
+
+这里给一个利用双向书写格式控制字符隐藏注入代码的 JavaScript 示例:
+
+```js
+console.log('正常源码...'); 
+
+// 使用双向书写格式左到右控制码插入隐藏代码
+\u202a
+alert('被注入的代码!');
+\u202c 
+
+console.log('正常源码...');
+```
+
+当使用支持双向书写的浏览器/环境解析此源码时,会出现如下效果：
+
+1. 首先正常显示"正常源码..."日志；
+
+2. 然后遇到 `\u202a` 控制码,切换解释方向从右到左；
+
+3. 这会导致 `alert('被注入的代码!');` 这段码变成隐藏状态,在源码中不可见；
+
+4. 再遇到 `\u202c` 控制码后切换回正常左到右方向；
+
+5. 最后再正常显示尾部"正常源码..."日志。
+
+而普通浏览器直接查看源码只会看到：
+
+```js 
+console.log('正常源码...');
+
+console.log('正常源码...');
+```
+
+中间隐藏的 `alert` 调用无法见到，从而实现了代码注入的攻击目的。
+
+<details>
+  <summary><strong><code>\u202a</code> 和 <code>\u202c</code> 这两个控制码的作用是什么 ？</strong></summary>
+  <blockquote>
+    <br/>
+    <p><code>\u202a</code> 和 <code>\u202c</code> 是 <code>Unicode</code> 的双向格式控制字符。</p>
+    <p>它们的作用是控制文本书写的方向：</p>
+    <ul>
+    <li><p><code>\u202a</code> 是 <code>Unicode</code> 左到右标记(LRE)。它可以切换当前文本流的书写方向为从右到左；</p>
+    </li>
+    <li><p><code>\u202c</code> 是 <code>Unicode</code> 弹性冲突终止(PDF)。它可以把当前文本流的书写方向切换回正常的左到右。</p>
+    </li>
+    </ul>
+    <p>这两个控制字符常被用在支持双向书写的语言环境中，以控制阿拉伯数字和希伯来字母等文本的流向。</p>
+    <p>在 trojan source attacks 中，攻击者会利用它们来隐藏代码注入：</p>
+    <ul>
+    <li><p>使用 <code>\u202a</code> 指令切换流向右到左；</p>
+    </li>
+    <li><p>在这段流中插入要隐藏的代码，因为流向右到左，代码就会处于隐藏状态；</p>
+    </li>
+    <li><p>再使用 <code>\u202c</code> 指令切换流向回正常左到右。</p>
+    </li>
+    </ul>
+    <p>这样一来，正常查看源代码就看不见被隐藏的代码段了。但在支持双向的运行环境中，隐藏代码依然会被执行。</p>
+    <p>所以说,<code>\u202a</code> 和 <code>\u202c</code> 具有控制文本显示方向的关键作用，能很好地实现源代码层面的&quot;隐写术&quot;攻击手法。</p>
+    <br/>
+  </blockquote>
+</details>
+<br/>
+
+以下是相关 Unicode 双向格式字符的表格及描述：
+
+| 序号 | 缩写 | Unicode字符 | 名称         | 描述                                      |
+|------|:-----|:------------|:-------------|:------------------------------------------|
+| 1    | LRE  | U+202A      | 左到右嵌入   | 将以下文本处理为从左到右                  |
+| 2    | RLE  | U+202B      | 右到左嵌入   | 将以下文本处理为从右到左                  |
+| 3    | LRO  | U+202D      | 左到右重写   | 强制将以下文本作为从左到右处理            |
+| 4    | RLO  | U+202E      | 右到左重写   | 强制将以下文本作为从右到左处理            |
+| 5    | LRI  | U+2066      | 左到右隔离   | 将以下文本作为从左到右处理,不影响相邻文本 |
+| 6    | RLI  | U+2067      | 右到左隔离   | 将以下文本作为从右到左处理,不影响相邻文本 |
+| 7    | FSI  | U+2068      | 首个强隔离   | 根据接下来的字符强制处理以下文本的方向    |
+| 8    | PDF  | U+202C      | 弹出方向格式 | 终止最近的LRE、RLE、LRO或RLO              |
+| 9    | PDI  | U+2069      | 弹出方向隔离 | 终止最近的LRI或RLI                        |
+
+
+trojan source attacks 属于源代码层面的攻击，需要攻击者能获取和修改受保护源代码，一般来说这需要内部人员参与恶意行为才行。
+
+更具体地说:
+
+- 如果源代码完全开源，任何人都可以下载和修改，那么外部人也可能进行这种攻击；
+
+- 但如果源代码受到良好控制和管理，只有内部开发和维护人员可以访问和提交代码，那么进行 trojan 源代码改动的就很可能是内部人员之一；
+
+- 除非通过其他漏洞获得源代码写入权限，否则外部人很难直接进行源代码层面改动；
+
+- 所以大多数情况下，这种攻击更可能源自内部人员的恶意行为，如内鬼、骇客入侵内部系统等。
+
+所以总之，trojan source attacks 强调源代码方面的改动，这更需要内部人员的参与进行，而不太可能是外部直接攻击。这也是它与其他类型攻击的一个区别。
+
+# detect-buffer-noassert
+
+TODO
+
+# detect-child-process
+
+TODO
+
+# detect-child-process
+
+TODO
+
+# detect-disable-mustache-escape
+
+TODO
+
+# detect-eval-with-expression
+
+TODO
+
+# detect-new-buffer
+
+TODO
+
+# detect-no-csrf-before-method-override
+
+TODO
+
+# detect-non-literal-fs-filename
+
+TODO
+
+# detect-non-literal-regexp
+
+TODO
+
+# detect-non-literal-require
+
+TODO
+
+# detect-object-injection
+
+TODO
+
+# detect-possible-timing-attacks
+
+TODO
+
+# detect-pseudoRandomBytes
+
+TODO
+
+# detect-unsafe-regex
+
+TODO
+
+# 附录
+
+## 参考
+
+- [双向文稿](https://www.wikiwand.com/zh-hans/%E9%9B%99%E5%90%91%E6%96%87%E7%A8%BF)
+- [Trojan Source attack for introducing invisible vulnerabilities](https://pvs-studio.com/en/blog/posts/cpp/0933/)
