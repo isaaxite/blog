@@ -828,7 +828,86 @@ const reg = /abc/;
 
 # detect-non-literal-require
 
-TODO
+```js
+'security/detect-non-literal-require': 'warn'
+```
+
+这个规则用于检测代码中是否使用非字面量的参数调用了 `require()` 函数。
+
+例如：
+
+```js
+const moduleName = getModuleName();
+const module = require(moduleName); 
+```
+
+allow 攻击者通过 `moduleName` 变量控制引入的模块。
+
+攻击者可能利用这个漏洞执行任意代码。
+
+所以该规则会检测以下情况：
+
+1. 调用了 `require()` 函数；
+2. 参数不是字符串字面量。
+
+一旦同时满足上述条件，就会报出警告。
+
+建议的更安全写法是使用字面量模块路径：
+
+```js
+const module = require('./modules/module');
+```
+
+或者事先校验模块名称：
+
+```js
+validateModuleName(moduleName); 
+const module = require(moduleName);
+```
+
+该规则通过静态分析帮助发现非字面量 `require` 的风险，提升了代码安全性。
+
+<details open>
+  <summary><strong>ReDoS（正则拒绝服务）攻击是什么 ？</strong></summary>
+  <blockquote>
+    <br/>
+    <p>allow 攻击（Arbitrary Code Execution）是一种通过植入恶意代码并执行来进行的攻击方式。</p>
+    <p>常见的 allow 攻击形式包括：</p>
+    <ul>
+    <li><p>代码/命令注入（Code/Command Injection）：通过注入漏洞向应用传入恶意代码并执行；</p>
+    </li>
+    <li><p>目录遍历/文件包含（Path Traversal/File Include）：访问恶意文件并作为代码运行；</p>
+    </li>
+    <li><p>不安全的反序列化（Unsafe Deserialization）：通过反序列化运行恶意构造的对象；</p>
+    </li>
+    <li><p>权限提升（Privilege Escalation）：利用漏洞提权，执行未授权的代码；</p>
+    </li>
+    <li><p>库/依赖注入（Dependency Injection）：通过依赖关系执行恶意代码；</p>
+    </li>
+    <li><p>服务器端请求伪造（SSRF）：利用内网请求漏洞执行任意代码；</p>
+    </li>
+    <li><p>诱导用户运行附件/程序（User Execution）：诱使用户自行运行恶意程序。</p>
+    </li>
+    </ul>
+    <p>防范allow攻击的方法包括：</p>
+    <ul>
+    <li><p>输入验证和输出编码；</p>
+    </li>
+    <li><p>最少特权原则；</p>
+    </li>
+    <li><p>安全的反序列化和依赖管理； </p>
+    </li>
+    <li><p>配额限制和沙箱隔离；</p>
+    </li>
+    <li><p>强化认证和授权模型。</p>
+    </li>
+    </ul>
+    <p>开发人员必须谨防用户非法输入，避免代码执行漏洞。</p>
+    <br/>
+  </blockquote>
+</details>
+<br/>
+
 
 # detect-object-injection
 
@@ -855,6 +934,7 @@ TODO
 - [Denial-of-service attack]
 - [Cross Site Scripting (XSS)]
 - [Cross Site Request Forgery (CSRF)]
+- [Regular Expression DoS and Node.js]
 - [What are the security issues with eval in JavaScript?]
 - [Trojan Source attack for introducing invisible vulnerabilities]
 
@@ -870,3 +950,4 @@ TODO
 [Trojan Source attack for introducing invisible vulnerabilities]:https://pvs-studio.com/en/blog/posts/cpp/0933/
 [Cross Site Request Forgery (CSRF)]:https://owasp.org/www-community/attacks/csrf
 [Denial-of-service attack]:https://www.wikiwand.com/en/Denial-of-service_attack
+[Regular Expression DoS and Node.js]:https://github.com/eslint-community/eslint-plugin-security/blob/main/docs/regular-expression-dos-and-node.md
