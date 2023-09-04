@@ -525,11 +525,65 @@ eval('(' + userInput + ')');
 
 这个规则通过静态分析帮助发现可能的 `eval` 注入漏洞，提高代码的安全性。但如果输入来源可信，或者有其他安全保障措施，也可以通过配置忽略该规则。
 
-更多关于 `eval` 可能引起的问题可参考：[What are the security issues with eval in JavaScript?](http://security.stackexchange.com/questions/94017/what-are-the-security-issues-with-eval-in-javascript)
+更多关于 `eval` 可能引起的问题可参考：[What are the security issues with eval in JavaScript?]
 
 # detect-new-buffer
 
-TODO
+```js
+'security/detect-new-buffer': 'warn'
+```
+
+用于检测代码直接通过 `new Buffer()` 创建 Buffer 的情况,推荐使用 `Buffer.from()` 来替代。
+
+主要原因是:
+
+1. `new Buffer()` 已被 Node.js 废弃（v6.0.0开始，v15.0.0完全废弃），可能会导致应用出现警告；
+
+2. `new Buffer()` 在处理参数时有一定风险；比如：
+
+    ```js
+    const userInput = 'abc';
+    const buf = new Buffer(userInput);
+    ```
+
+    如果 `userInput` 是数字，可能会分配非常大的内存空间， 造成 DoS 攻击。
+
+3. `Buffer.from()` 在处理参数时更安全可靠。
+
+所以该规则会对 `new Buffer()` 的使用报出警告，推荐更安全的 `Buffer.from()`，比如：
+
+```js 
+const buf = Buffer.from('abc');
+```
+
+如果业务需要兼容旧版本 Node.js，可以通过注释或配置的方式忽略此规则，但需要注意风险。
+
+总之该规则推荐使用新的 Buffer API 来避免潜在问题，提升代码质量和安全性。
+
+
+<details open>
+  <summary><strong>DoS 攻击是什么 ？</strong></summary>
+  <blockquote>
+    <br/>
+    <p>DoS(拒绝服务)攻击是一种使目标失去提供正常服务能力的攻击。常见的DoS攻击有:</p>
+    <ol>
+    <li><p>带宽攻击:通过大量流量淹没目标,消耗网络带宽。比如UDP flood, ICMP flood等。</p>
+    </li>
+    <li><p>资源攻击:消耗关键系统资源如CPU、内存等。比如fork bomb。</p>
+    </li>
+    <li><p>协议攻击:利用网络协议漏洞进行攻击。比如SYN flood利用TCP三次握手漏洞。</p>
+    </li>
+    <li><p>应用层攻击:针对应用程序漏洞进行攻击。比如HTTP flood。</p>
+    </li>
+    <li><p>分布式DoS:使用多台攻击源同时进行攻击。</p>
+    </li>
+    </ol>
+    <p>DoS攻击的目的是使服务暂时不可用。与DoS类似但有差别的是DDoS攻击,它利用了大量的分布式节点参与攻击,造成更大的威胁。 </p>
+    <p>预防DoS攻击需要从网络架构、系统资源、应用程序等不同层面进行保护,比如使用过滤、限速、负载均衡、堆栈随机化等技术。</p>
+    <br/>
+  </blockquote>
+</details>
+<br/>
 
 # detect-no-csrf-before-method-override
 
@@ -570,7 +624,9 @@ TODO
 - [双向文稿](https://www.wikiwand.com/zh-hans/%E9%9B%99%E5%90%91%E6%96%87%E7%A8%BF)
 - [Trojan Source attack for introducing invisible vulnerabilities](https://pvs-studio.com/en/blog/posts/cpp/0933/)
 - [Cross Site Scripting (XSS)]
+- [What are the security issues with eval in JavaScript?]
 
 <!-- refs defined -->
 [Mustache 模板引擎]:http://mustache.github.io/
 [Cross Site Scripting (XSS)]:https://owasp.org/www-community/attacks/xss/
+[What are the security issues with eval in JavaScript?]:http://security.stackexchange.com/questions/94017/what-are-the-security-issues-with-eval-in-javascript
