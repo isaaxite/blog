@@ -718,7 +718,7 @@ fs.readFile(filename, ...);
 该规则通过静态分析帮助发现路径遍历问题，提升了代码安全性。
 
 <details open>
-  <summary><strong>路径遍历（[Path Traversal]） 攻击是什么 ？</strong></summary>
+  <summary><strong>路径遍历（Path Traversal）攻击是什么 ？</strong></summary>
   <blockquote>
     <br/>
     <p>路径遍历（Path Traversal）漏洞允许攻击者通过操纵目标文件的路径字符串访问超出预定范围的文件系统区域。</p>
@@ -759,7 +759,72 @@ fs.readFile(filename, ...);
 
 # detect-non-literal-regexp
 
-TODO
+```js
+'security/detect-non-literal-regexp': 'warn'
+```
+
+这个规则用于检测代码中是否构造正则表达式时使用了非字面量的参数。
+
+例如：
+
+```js
+const userInput = '...';
+const reg = new RegExp(userInput);
+```
+
+如果用户输入是正则特殊字符，可能会导致 ReDoS（正则拒绝服务）攻击。
+
+攻击者可以构造谐音回退、组合重复等看似合法的正则，但处理非常缓慢。这可能占用大量 CPU 资源，成为 DoS 攻击。
+
+所以该规则会检测以下情况：
+
+1. 构造了正则表达式；
+2. 参数不是字符串字面量。
+
+建议的更安全写法是使用字面量：
+
+```js
+const reg = /abc/;
+```
+
+如果必须使用变量，也需要先对其进行过滤，移除危险的正则特殊字符。
+
+该规则通过静态分析帮助发现潜在的 ReDoS 问题，提升了代码安全性。但如果有其他防范手段，也可以通过配置忽略该规则。
+
+<details open>
+  <summary><strong>ReDoS（正则拒绝服务）攻击是什么 ？</strong></summary>
+  <blockquote>
+    <br/>
+    <p>ReDoS（Regular expression Denial of Service）即正则拒绝服务攻击，是一种对目标应用程序正则表达式引擎进行的拒绝服务攻击。</p>
+    <p>攻击方式是构造非常复杂的正则表达式，这些正则语法上合法，但是处理会非常缓慢。这样就可以让目标服务器 cpu 耗尽，无法响应正常请求。</p>
+    <p>例如：</p>
+    <ul>
+    <li><p>重复高次方数：<code>/(a+)+/</code>；</p>
+    </li>
+    <li><p>谐音回退：<code>/([a-z]+)*/</code>；</p>
+    </li>
+    </ul>
+    <p>防范 ReDoS 攻击的方法：</p>
+    <ul>
+    <li><p>使用简单正则，避免递归、重复、回溯等高危结构；</p>
+    </li>
+    <li><p>对用户输入正则进行过滤和限制；</p>
+    </li>
+    <li><p>设置正则处理超时；</p>
+    </li>
+    <li><p>使用安全的正则引擎，如 Rust 的 Regex；</p>
+    </li>
+    <li><p>限制正则复杂度，如匹配长度、分支数等</p>
+    </li>
+    <li><p>提高应用异步容错能力，避免全局阻塞。</p>
+    </li>
+    </ul>
+    <p>开发者需要谨慎处理用户提供的正则表达式，识别ReDoS攻击模式，采取防御措施。</p>
+    <br/>
+  </blockquote>
+</details>
+<br/>
+
 
 # detect-non-literal-require
 
