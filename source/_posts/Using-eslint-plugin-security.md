@@ -18,9 +18,9 @@ categories:
 - 包管理器：pnpm；
 
 - 已安装的包：
-  - eslint 8.48.0
-  - eslint-config-airbnb-base 15.0.0
-  - eslint-plugin-import 2.28.1
+  - eslint `8.48.0`
+  - eslint-config-airbnb-base `15.0.0`
+  - eslint-plugin-import `2.28.1`
 
 # eslint-plugin-security
 
@@ -145,7 +145,7 @@ module.exports = {
 'security/detect-bidi-characters': 'warn'
 ```
 
-检测利用 unicode bidi（"bidirectional"的缩写,是指双向书写或双向格式的意思） 攻击注入恶意代码的 [trojan source attacks](https://trojansource.codes/) 案例。
+检测利用 unicode bidi（"bidirectional"的缩写，是指双向书写或双向格式的意思） 攻击注入恶意代码的 [trojan source attacks](https://trojansource.codes/) 案例。
 
 <details open>
   <summary><strong>什么是 <code>trojan source attacks</code> ？</strong></summary>
@@ -208,7 +208,7 @@ console.log('正常源码...');
 
 中间隐藏的 `alert` 调用无法见到，从而实现了代码注入的攻击目的。
 
-<details>
+<details open>
   <summary><strong><code>\u202a</code> 和 <code>\u202c</code> 这两个控制码的作用是什么 ？</strong></summary>
   <blockquote>
     <br/>
@@ -237,7 +237,7 @@ console.log('正常源码...');
 </details>
 <br/>
 
-以下是相关 Unicode 双向格式字符的表格及描述：
+除了上面 2 个 Unicode 的双向格式控制字符外，还有其他的。以下是相关 Unicode 双向格式字符的表格及描述：
 
 | 序号 | 缩写 | Unicode字符 | 名称         | 描述                                      |
 |------|:-----|:------------|:-------------|:------------------------------------------|
@@ -373,13 +373,118 @@ detect-child-process 规则会检查代码中是否：
     }
     ```
 
-# detect-child-process
-
-TODO
-
 # detect-disable-mustache-escape
 
-TODO
+```js
+'security/detect-disable-mustache-escape': 'warn'
+```
+
+它用于检测是否在使用 [Mustache 模板引擎] 时关闭了 HTML 转义，这可能会导致 XSS 漏洞。
+
+这个规则的主要逻辑是：
+
+1. 检查代码中是否使用了 [Mustache 模板引擎]；
+
+2. 检查 `Mustache` 的调用是否通过 `disableEscape` 选项关闭了 HTML 转义；
+
+3. 如果同时满足上述两个条件，则会报告警告；
+
+示例危险代码：
+
+```js
+const Mustache = require('mustache');
+
+const data = {text: '<script>alert(1)</script>'};
+
+// 禁用转义,导致 XSS 漏洞
+Mustache.render('<p>{{{text}}}</p>', data); 
+```
+
+关闭转义后，用户输入的数据就可能包含恶意代码而没有被过滤。
+
+这个规则可以帮助开发者识别 Mustache 模板中关闭转义的危险用法，修正为：
+
+```js
+Mustache.render('<p>{{text}}</p>', data);
+```
+
+<details>
+  <summary><strong>XSS 是什么？</strong></summary>
+  <blockquote>
+    <br/>
+    <p>XSS(跨站脚本)攻击是一种代码注入攻击,它允许攻击者将恶意脚本注入到易受攻击的Web应用程序中。</p>
+    <p>简单来说,XSS攻击的过程是:</p>
+    <ol>
+    <li><p>攻击者构造出特殊的恶意代码(通常是JavaScript)。</p>
+    </li>
+    <li><p>恶意代码被提交到易受攻击的网站,并保存在服务器端(比如用户提交表单,注入恶意JavaScript代码)。</p>
+    </li>
+    <li><p>网站将未过滤的恶意代码发送给其他用户(比如在结果页面直接输出用户输入的内容)。</p>
+    </li>
+    <li><p>其他用户的浏览器执行了这段恶意JavaScript代码,导致账号被盗用、页面被篡改等后果。</p>
+    </li>
+    </ol>
+    <p>XSS因此可以让攻击者得到目标用户的敏感信息,篡改页面内容,以受害者的身份执行操作等。</p>
+    <p>防范XSS需要对用户输入进行校验和输出编码,避免直接暴露给浏览器,即输入验证和输出编码。现在也有许多静态扫描工具可以检测XSS漏洞。</p>
+    <br/>
+</details>
+<br/>
+
+<details open>
+  <summary><strong>Mustache 模板引擎是什么？</strong></summary>
+  <blockquote>
+    <br/>
+    <p>Mustache 是一种流行的 JavaScript 模板引擎，它可以用来根据视图模板和数据渲染 HTML。</p>
+    <p>Mustache 的一些关键特点包括：</p>
+    <ul>
+    <li><p>语法简单，双大括号表示变量插入点。如：<code>Hello {{name}}</code>；</p>
+    </li>
+    <li><p>不需要预编译，在客户端实时渲染模板；</p>
+    </li>
+    <li><p>支持主流前端框架，可以配合 React、Vue 等使用；</p>
+    </li>
+    <li><p>默认进行 HTML 转义，防止 XSS 攻击；</p>
+    </li>
+    <li><p>支持自定义语法扩展；</p>
+    </li>
+    <li><p>无依赖，体积小。</p>
+    </li>
+    </ul>
+    <p>Mustache 的用法示例:</p>
+    <pre>
+<code class="lang-js"><span class="hljs-comment">// 定义模板 </span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">template</span> = <span class="hljs-string">"Hello {{name}}"</span>; 
+<span class="hljs-comment">// 渲染函数</span>
+<span class="hljs-keyword">const</span> render = Mustache.render(<span class="hljs-keyword">template</span>, {name: <span class="hljs-string">"Jack"</span>});
+<span class="hljs-comment">// 得到渲染结果</span>
+render; <span class="hljs-comment">// "Hello Jack"</span>
+</code></pre>
+    <p>必须注意的是，在使用 Mustache 时不要关闭 HTML 转义选项，否则可能会导致XSS漏洞。建议配合 ESLint 的 <code>detect-disable-mustache-escape</code> 规则进行静态检查。</p>
+    <p>总体上，Mustache是一个轻量简单的模板引擎，可以快速实现数据渲染，但需要注意安全性。</p>
+    <p>保持默认的转义打开，然后再根据需要通过白名单等手段过滤用户输入数据，从而避免 XSS 漏洞。</p>
+    <br/>
+</details>
+<br/>
+
+目前常见的前端框架大多**基于或可以集成** Mustache 模板引擎，比如：
+
+- React - 可以通过 react-mustache 这个库集成 Mustache；
+
+- Vue - 可以通过 vue-mustache 这个库集成 Mustache；
+
+- Angular - 可以通过 ngx-mustache 库集成；
+
+- Ember - Ember 内置对 Mustache 的支持；
+
+- Backbone - Backbone 推荐的模板引擎就是 Mustache；
+
+- Meteor - Meteor 提供了空间风格(Spacebars)模板，语法与 Mustache 类似；
+
+- Node.js - 可以通过 mustache 模块在后端使用；
+
+- Vanilla JS - 直接通过嵌入式 JS 或从 CDN 引入 Mustache。
+
+支持多种语言，其中 JavaScript 由 [mustache.js](https://github.com/janl/mustache.js) 支持。
 
 # detect-eval-with-expression
 
@@ -427,3 +532,6 @@ TODO
 
 - [双向文稿](https://www.wikiwand.com/zh-hans/%E9%9B%99%E5%90%91%E6%96%87%E7%A8%BF)
 - [Trojan Source attack for introducing invisible vulnerabilities](https://pvs-studio.com/en/blog/posts/cpp/0933/)
+
+<!-- refs defined -->
+[Mustache 模板引擎]:http://mustache.github.io/
