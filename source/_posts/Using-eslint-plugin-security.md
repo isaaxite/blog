@@ -412,20 +412,20 @@ Mustache.render('<p>{{text}}</p>', data);
   <summary><strong>XSS 是什么？</strong></summary>
   <blockquote>
     <br/>
-    <p>XSS(跨站脚本)攻击是一种代码注入攻击,它允许攻击者将恶意脚本注入到易受攻击的Web应用程序中。</p>
-    <p>简单来说,XSS攻击的过程是:</p>
+    <p>XSS（Cross-Site Scripting，跨站脚本）攻击是一种代码注入攻击，它允许攻击者将恶意脚本注入到易受攻击的Web应用程序中。</p>
+    <p>简单来说，XSS 攻击的过程是：</p>
     <ol>
-    <li><p>攻击者构造出特殊的恶意代码(通常是JavaScript)。</p>
+    <li><p>攻击者构造出特殊的恶意代码（通常是 JavaScript）。</p>
     </li>
-    <li><p>恶意代码被提交到易受攻击的网站,并保存在服务器端(比如用户提交表单,注入恶意JavaScript代码)。</p>
+    <li><p>恶意代码被提交到易受攻击的网站，并保存在服务器端（比如用户提交表单，注入恶意 JavaScript 代码）。</p>
     </li>
-    <li><p>网站将未过滤的恶意代码发送给其他用户(比如在结果页面直接输出用户输入的内容)。</p>
+    <li><p>网站将未过滤的恶意代码发送给其他用户（比如在结果页面直接输出用户输入的内容）。</p>
     </li>
-    <li><p>其他用户的浏览器执行了这段恶意JavaScript代码,导致账号被盗用、页面被篡改等后果。</p>
+    <li><p>其他用户的浏览器执行了这段恶意 JavaScript 代码，导致账号被盗用、页面被篡改等后果。</p>
     </li>
     </ol>
-    <p>XSS因此可以让攻击者得到目标用户的敏感信息,篡改页面内容,以受害者的身份执行操作等。</p>
-    <p>防范XSS需要对用户输入进行校验和输出编码,避免直接暴露给浏览器,即输入验证和输出编码。现在也有许多静态扫描工具可以检测XSS漏洞。</p>
+    <p>XSS 因此可以让攻击者得到目标用户的敏感信息，篡改页面内容，以受害者的身份执行操作等。</p>
+    <p>防范 XSS 需要对用户输入进行校验和输出编码，避免直接暴露给浏览器，即输入验证和输出编码。现在也有许多静态扫描工具可以检测 XSS 漏洞。</p>
     <p>关于更多 XSS 的内容可参考：<a href="https://owasp.org/www-community/attacks/xss/">Cross Site Scripting (XSS)</a></p>
     <br/>
   </blockquote> 
@@ -565,21 +565,21 @@ const buf = Buffer.from('abc');
   <summary><strong>DoS 攻击是什么 ？</strong></summary>
   <blockquote>
     <br/>
-    <p>DoS(拒绝服务)攻击是一种使目标失去提供正常服务能力的攻击。常见的DoS攻击有:</p>
+    <p>DoS（Denial of Service，拒绝服务）攻击是一种使目标失去提供正常服务能力的攻击。常见的 DoS 攻击有：</p>
     <ol>
-    <li><p>带宽攻击:通过大量流量淹没目标,消耗网络带宽。比如UDP flood, ICMP flood等。</p>
+    <li><p>带宽攻击：通过大量流量淹没目标，消耗网络带宽。比如 UDP flood，ICMP flood 等；</p>
     </li>
-    <li><p>资源攻击:消耗关键系统资源如CPU、内存等。比如fork bomb。</p>
+    <li><p>资源攻击：消耗关键系统资源如 CPU、内存等。比如 fork bomb；</p>
     </li>
-    <li><p>协议攻击:利用网络协议漏洞进行攻击。比如SYN flood利用TCP三次握手漏洞。</p>
+    <li><p>协议攻击：利用网络协议漏洞进行攻击。比如 SYN flood 利用 TCP 三次握手漏洞；</p>
     </li>
-    <li><p>应用层攻击:针对应用程序漏洞进行攻击。比如HTTP flood。</p>
+    <li><p>应用层攻击：针对应用程序漏洞进行攻击。比如 HTTP flood；</p>
     </li>
-    <li><p>分布式DoS:使用多台攻击源同时进行攻击。</p>
+    <li><p>分布式 DoS：使用多台攻击源同时进行攻击。</p>
     </li>
     </ol>
-    <p>DoS攻击的目的是使服务暂时不可用。与DoS类似但有差别的是DDoS攻击,它利用了大量的分布式节点参与攻击,造成更大的威胁。 </p>
-    <p>预防DoS攻击需要从网络架构、系统资源、应用程序等不同层面进行保护,比如使用过滤、限速、负载均衡、堆栈随机化等技术。</p>
+    <p>DoS 攻击的目的是使服务暂时不可用。与 DoS 类似但有差别的是 DDoS 攻击，它利用了大量的分布式节点参与攻击，造成更大的威胁。 </p>
+    <p>预防 DoS 攻击需要从网络架构、系统资源、应用程序等不同层面进行保护，比如使用过滤、限速、负载均衡、堆栈随机化等技术。</p>
     <br/>
   </blockquote>
 </details>
@@ -587,7 +587,92 @@ const buf = Buffer.from('abc');
 
 # detect-no-csrf-before-method-override
 
-TODO
+```js
+'security/detect-no-csrf-before-method-override': 'warn'
+```
+
+用于检测 Node.js **Express** 应用中是否在 [method-override] 中间件之前使用了 csrf 中间件。
+
+在 Express 应用中，[method-override] 中间件允许通过查询参数或者请求体改变 HTTP 请求方法。
+
+**如果在 method override 之前没有 csrf 保护，那么攻击者可以通过构造查询参数轻易地绕过 csrf 防护，以 POST 的权限调用敏感的 GET 操作。**
+
+例如，正常的 csrf 校验路由：
+
+```js
+app.use(csrf()) // csrf中间件
+app.use(methodOverride()) // 方法重写中间件
+
+app.get('/transfer', (req, res) => {
+  // 转账逻辑
+}) 
+```
+
+攻击者可以直接构造查询参数执行：
+
+```js
+/transfer?_method=POST
+```
+
+绕过 csrf 防护，以 POST 权限调用转账接口。
+
+所以该规则会检测 [method-override] 是否在 csrf 之前，以发现这个潜在的问题。解决方式是确保 csrf 中间件在 [method-override] 之前。
+
+detect-no-csrf-before-method-override 规则不仅可以检测 Express 的中间件使用顺序，也可以检测其他框架中的类似用法。
+
+该规则的基本检测逻辑是：
+
+1. 检测是否使用了方法覆盖（method override）功能；
+
+2. 检测方法覆盖是否在 CSRF 防护之前。
+
+只要代码中具有这种“方法覆盖先于 CSRF 防护”的结构，该规则都能检测出来。
+
+除了 Express 路由之外，它也能够检测：
+
+- [Fastify ↗] 中类似的中间件使用顺序；
+- [Koa ↗] 中间件注册顺序；
+- [NestJS ↗] 中间件顺序；
+- 其他类框架的中间件/拦截器顺序。
+
+只要框架提供了方法覆盖和 CSRF 防护机制，并可能存在方法覆盖先于 CSRF 校验的情况，该规则就可以起到检测作用。
+
+所以更准确地说，这条规则是框架无关的，只要保证方法覆盖不会绕过 CSRF 即可。
+
+<details open>
+  <summary><strong>CSRF 是什么 ？</strong></summary>
+  <blockquote>
+    <br/>
+    <p>CSRF（Cross-Site Request Forgery，跨站请求伪造）是一种网络攻击，它冒充受信任用户的身份，在目标网站上执行未授权的命令。</p>
+    <p>CSRF攻击的过程通常如下：</p>
+    <ol>
+    <li><p>用户登录受信任网站 A，并在本地生成了 cookie；</p>
+    </li>
+    <li><p>用户打开另一个网站 B，网站 B 包含了点击链接、提交表单等向网站 A 发起请求的操作；</p>
+    </li>
+    <li><p>用户被诱导在网站 B 上触发了操作，同时利用用户本地的 cookie，在网站A中完成了未授权的动作。</p>
+    </li>
+    </ol>
+    <p>例如：</p>
+    <p>网站 B 包含了向网站 A 转账的表单，利用用户本地 cookie 可以完成转账动作。</p>
+    <p>常见的CSRF防御手段有：</p>
+    <ul>
+    <li><p>检查 HTTP Referer，拒绝外域请求；</p>
+    </li>
+    <li><p>在请求中设置 token，并验证 token 是否合法；</p>
+    </li>
+    <li><p>在提交敏感请求时重新验证用户身份；</p>
+    </li>
+    <li><p>GET 请求不对数据进行修改；</p>
+    </li>
+    <li><p>关键操作使用 POST 请求，并进行 token 验证。</p>
+    </li>
+    </ul>
+    <p>CSRF 攻击依赖于用户认证状态，可以进行敏感操作篡改或数据窃取。正确的防范手段可以有效防止 CSRF 攻击。</p>
+    <br/>
+  </blockquote>
+</details>
+<br/>
 
 # detect-non-literal-fs-filename
 
@@ -630,3 +715,7 @@ TODO
 [Mustache 模板引擎]:http://mustache.github.io/
 [Cross Site Scripting (XSS)]:https://owasp.org/www-community/attacks/xss/
 [What are the security issues with eval in JavaScript?]:http://security.stackexchange.com/questions/94017/what-are-the-security-issues-with-eval-in-javascript
+[method-override]:https://github.com/expressjs/method-override
+[Fastify ↗]:https://fastify.dev/
+[Koa ↗]:https://koajs.com/
+[Nestjs ↗]:https://nestjs.com/
