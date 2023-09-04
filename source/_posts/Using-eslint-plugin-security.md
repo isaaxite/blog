@@ -465,6 +465,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
     <p>总体上，Mustache是一个轻量简单的模板引擎，可以快速实现数据渲染，但需要注意安全性。</p>
     <p>保持默认的转义打开，然后再根据需要通过白名单等手段过滤用户输入数据，从而避免 XSS 漏洞。</p>
     <br/>
+  </blockquote>
 </details>
 <br/>
 
