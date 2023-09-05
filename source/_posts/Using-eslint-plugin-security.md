@@ -1,13 +1,30 @@
 ---
-title: Using eslint-plugin-security
-excerpt: Using eslint-plugin-security
+title: 从 eslint-plugin-security 看前端安全
 date: 2023-09-02 17:35:02
 tags:
-  - writting
+  - eslint-plugin-security
+  - 实践
+  - trojan source attacks
+  - 安全漏洞
+  - 命令注入攻击
+  - XSS
+  - DoS
+  - CSRF
+  - 路径遍历
+  - ReDoS
+  - allow 攻击
+  - 对象注入漏洞
+  - 计时攻击
 categories:
+  - - 静态代码分析
+  - - 前端安全
 ---
 
 # 前言
+
+近来，主要的研究课题是 JavaScript 代码的静态分析。在研究期间用到 Eslint 对此做实践，了解到它的一个插件，`eslint-plugin-security`。如其名，它的作用是安全相关方面的代码扫描。在看了它的配置规则后，觉得甚是有趣，不少规则都涉及到常见的前端安全的问题。故有了想法，为什么不以它为引子，来个管中窥豹。
+
+<!-- more -->
 
 背景：
 
@@ -30,13 +47,13 @@ categories:
 
 - **名称**：eslint-plugin-security
 
-- **作用**：通过ESLint规则检查JavaScript代码中的安全隐患
+- **作用**：通过 ESLint 规则检查 JavaScript 代码中的安全隐患
 
 - **检测项**：
 
-    - XSS(跨站脚本)；
+    - XSS（跨站脚本）；
     
-    - SQL注入；
+    - SQL 注入；
     
     - 缓冲区溢出；
     
@@ -451,7 +468,7 @@ Mustache.render('<p>{{text}}</p>', data);
   <summary><strong>XSS 是什么？</strong></summary>
   <blockquote>
     <br/>
-    <p>XSS（Cross-Site Scripting，跨站脚本）攻击是一种代码注入攻击，它允许攻击者将恶意脚本注入到易受攻击的Web应用程序中。</p>
+    <p>XSS（Cross-Site Scripting，跨站脚本）攻击是一种代码注入攻击，它允许攻击者将恶意脚本注入到易受攻击的 Web 应用程序中。</p>
     <p>简单来说，XSS 攻击的过程是：</p>
     <ol>
     <li><p>攻击者构造出特殊的恶意代码（通常是 JavaScript）。</p>
@@ -888,6 +905,7 @@ allow 攻击者通过 `moduleName` 变量控制引入的模块。
 所以该规则会检测以下情况：
 
 1. 调用了 `require()` 函数；
+
 2. 参数不是字符串字面量。
 
 一旦同时满足上述条件，就会报出警告。
@@ -1179,7 +1197,61 @@ Web 前端中如果需要高安全性的随机数，要注意不要直接使用 
 
 这个规则可以帮助开发者提前发现不安全的正则表达式，防止被利用为 DoS 攻击的向量。但有时也会误报，需要结合业务场景处理。
 
+# 总结
+
+上面通过安装 `eslint-plugin-security`，实践了它所支持的 14 个规则。对每个规则都站来了较为详尽的描述，了解规则的配置方式、起到的作用，涉及到的安全问题。并以此简述了规则所预防的网络攻击。
+
+通过本次实践，了解以下网络攻击：
+
+- trojan source attacks：利用双向书写系统中的特殊字符实现隐藏代码注入的攻击方式；
+
+- 以 `noAsset` 标志使用 `Buffer` 引发的缓冲区溢出，造成内存污染、崩溃或安全漏洞；
+
+- 命令注入攻击（Command Injection）：将操作系统命令通过利用程序漏洞注入到执行环境中的代码注入攻击；
+
+- XSS（Cross-Site Scripting，跨站脚本）攻击；
+
+- DoS（Denial of Service，拒绝服务）攻击；
+
+- CSRF（Cross-Site Request Forgery，跨站请求伪造）；
+
+- 路径遍历（Path Traversal）漏洞；
+
+- ReDoS（Regular expression Denial of Service）即正则拒绝服务攻击；
+
+- allow 攻击（Arbitrary Code Execution）；
+
+- 对象注入漏洞；
+
+- 计时攻击（Timing Attack）：是一种侧信道攻击，它通过分析代码执行时间的不同来获取敏感信息；
+
+- 伪随机数生成函数引发的密码类安全问题；
+
+- 不安全正则表达式引发的 ReDoS 攻击 或 DoS 攻击；
+
+
 # 附录
+
+## 完整规则
+
+```js
+rules: {
+  'security/detect-buffer-noassert': 'warn',
+  'security/detect-child-process': 'warn',
+  'security/detect-disable-mustache-escape': 'warn',
+  'security/detect-eval-with-expression': 'warn',
+  'security/detect-new-buffer': 'warn',
+  'security/detect-no-csrf-before-method-override': 'warn',
+  'security/detect-non-literal-fs-filename': 'warn',
+  'security/detect-non-literal-regexp': 'warn',
+  'security/detect-non-literal-require': 'warn',
+  'security/detect-object-injection': 'warn',
+  'security/detect-possible-timing-attacks': 'warn',
+  'security/detect-pseudoRandomBytes': 'warn',
+  'security/detect-unsafe-regex': 'warn',
+  'security/detect-bidi-characters': 'warn',
+},
+```
 
 ## 参考
 
