@@ -310,7 +310,7 @@ buf.write('some data', 0, buf.length, 'ascii');
 
 这条规则用来检测代码中是否存在潜在的子进程命令注入漏洞。
 
-子进程模块 `child_process` 可以用来生成子进程，如果拼接用户输入到子进程命令中，可能会导致命令注入攻击。
+子进程模块 `child_process` 可以用来生成子进程，如果拼接用户输入到子进程命令中，可能会导致 *命令注入攻击*。
 
 例如:
 
@@ -373,13 +373,52 @@ detect-child-process 规则会检查代码中是否：
     }
     ```
 
+<details open>
+  <summary><strong>命令注入攻击是什么？</strong></summary>
+  <blockquote>
+    <br/>
+    <p>命令注入攻击（Command Injection）是一种常见的代码注入攻击，其方法是将操作系统命令通过利用程序漏洞注入到执行环境中。</p>
+    <p>攻击场景通常是：</p>
+    <ul>
+    <li><p>应用程序将用户输入当作命令参数执行；</p>
+    </li>
+    <li><p>但没有对用户输入进行足够验证和过滤；</p>
+    </li>
+    <li><p>攻击者通过特殊字符注入额外的命令。</p>
+    </li>
+    </ul>
+    <p>例如在未过滤用户输入的情况下执行：</p>
+    <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-title">runProgram</span><span class="hljs-params">(‘ls ‘ + userInput)</span></span>
+    </code></pre>
+    <p>攻击者可以通过 <code>userInput</code> 注入额外命令：</p>
+    <pre><code class="lang-js"><span class="hljs-attribute">userInput</span> = ‘-la<span class="hljs-comment">; rm *’</span>
+    </code></pre>
+    <p>从而读取目录内容并删除文件。</p>
+    <p>防范命令注入需要：</p>
+    <ul>
+    <li><p>对用户所有输入进行校验过滤，移除特殊字符；</p>
+    </li>
+    <li><p>使用参数化接口避免直接拼接命令字符串；</p>
+    </li>
+    <li><p>为子进程设置最少特权原则；</p>
+    </li>
+    <li><p>采用沙箱机制限制子进程权限。</p>
+    </li>
+    </ul>
+    <p>命令注入是常见且危险的攻击方式，开发人员必须警惕。</p>
+    <p>更多信息可参考：<a href="https://owasp.org/www-community/attacks/Command_Injection">OWASP - Command Injection</a></p>
+    <br/>
+  </blockquote> 
+</details>
+<br/>
+
 # detect-disable-mustache-escape
 
 ```js
 'security/detect-disable-mustache-escape': 'warn'
 ```
 
-它用于检测是否在使用 [Mustache 模板引擎] 时关闭了 HTML 转义，这可能会导致 XSS 漏洞。
+它用于检测是否在使用 [Mustache 模板引擎] 时关闭了 HTML 转义，这可能会导致 *XSS 漏洞*。
 
 这个规则的主要逻辑是：
 
@@ -546,7 +585,7 @@ eval('(' + userInput + ')');
     const buf = new Buffer(userInput);
     ```
 
-    如果 `userInput` 是数字，可能会分配非常大的内存空间， 造成 DoS 攻击。
+    如果 `userInput` 是数字，可能会分配非常大的内存空间， 造成 *DoS 攻击*。
 
 3. `Buffer.from()` 在处理参数时更安全可靠。
 
@@ -690,7 +729,7 @@ const filename = getFilenameFromUser();
 fs.readFile(filename, ...);
 ```
 
-传入可以由用户控制的 filename 变量是危险的，可能会导致路径遍历（[Path Traversal]） 攻击。
+传入可以由用户控制的 filename 变量是危险的，可能会导致 *路径遍历（[Path Traversal]） 攻击* 。
 
 攻击者可以通过 `../` 构造文件名，访问任意文件。
 
@@ -772,7 +811,7 @@ const userInput = '...';
 const reg = new RegExp(userInput);
 ```
 
-如果用户输入是正则特殊字符，可能会导致 ReDoS（正则拒绝服务）攻击。
+如果用户输入是正则特殊字符，可能会导致 *ReDoS（正则拒绝服务）* 攻击。
 
 攻击者可以构造谐音回退、组合重复等看似合法的正则，但处理非常缓慢。这可能占用大量 CPU 资源，成为 DoS 攻击。
 
@@ -912,19 +951,233 @@ const module = require(moduleName);
 
 # detect-object-injection
 
-TODO
+```js
+'security/detect-object-injection': 'warn'
+```
+
+这个规则用于检测代码中可能存在的对象注入漏洞。
+
+对象注入漏洞形成的原因是将用户输入直接用于对象构造，用户可以修改对象原型行为。例如：
+
+```js
+const userInput = 'constructor';
+const obj = { [userInput]: 'test' };
+```
+
+用户可以通过输入 `constructor` 来改写原型，进而可能执行任意代码。
+
+所以该规则检测以下情况：
+
+1. 从外部输入构造了对象字面量；
+
+2. 字面量中可能包含危险属性名，如 `constructor`、`prototype`、`proto` 等。
+
+一旦同时满足上述条件，就会报出警告。
+
+建议的安全写法是先校验用户输入，过滤危险属性名：
+
+```js
+filterInput(userInput);
+const obj = { [userInput]: 'test' };
+```
+
+也可以通过 `Proto.freeze()` 冻结原型防止扩展。
+
+该规则通过静态分析帮助发现对象注入问题，提升了代码安全性。但有时候可能会产生误报，需要结合业务逻辑处理。
+
+更多关于对象注入漏洞的信息可参考：[The Dangers of Square Bracket Notation]
 
 # detect-possible-timing-attacks
 
-TODO
+```js
+'security/detect-possible-timing-attacks': 'warn'
+```
+
+这个规则是用来检测代码中可能存在的 *计时攻击* 风险的。
+
+计时攻击是一种侧信道攻击，通过比较操作时间差异来猜测敏感信息。
+
+例如下面的登录验证逻辑：
+
+```js
+function login(user, password) {
+  if (password === secretPassword) { 
+    // 登录成功
+  } else {
+    // 登录失败  
+  }
+}
+```
+
+攻击者可以通过测量验证时间的不同来猜测密码。
+
+因此，该规则会检测
+
+1. 代码中是否存在涉及秘密的基于时序的比较；
+
+2. 这个时序是否可以被外部观测到。
+
+如果检测到这样的模式，则会报出警告。
+
+修复方式是避免基于时序的密码学比较，改用定时算法等加密方法。
+
+该规则可以帮助开发者提前发现这类风险，防止将来被计时攻击利用。
+
+
+<details open>
+  <summary><strong>计时攻击是什么 ？</strong></summary>
+  <blockquote>
+    <br/>
+    <p>计时攻击（Timing Attack）是一种侧信道攻击，它通过分析代码执行时间的不同来获取敏感信息。</p>
+    <p>计时攻击的基本原理是：</p>
+    <ul>
+    <li><p>程序中的加密验证等算法，时序会随着输入的不同而有细微变化；</p>
+    </li>
+    <li><p>通过观测大量运行时间，可以统计出时间与输入值的关联性；</p>
+    </li>
+    <li><p>最终可以推导出敏感信息，如密码、密钥等。</p>
+    </li>
+    </ul>
+    <p>例如在登录验证过程中，验证时间随密码的不同而变化，这可以被利用来破解密码。</p>
+    <p>常见的计时攻击场景还包括：</p>
+    <ul>
+    <li><p>比较密码哈希时的时间差异；</p>
+    </li>
+    <li><p>加解密运算时间微差；</p>
+    </li>
+    <li><p>TCP 序列号预测等。</p>
+    </li>
+    </ul>
+    <p>防范计时攻击的方法：</p>
+    <ul>
+    <li><p>使用定时算法，避免时序依据；</p>
+    </li>
+    <li><p>在非密文区添加随机等待；</p>
+    </li>
+    <li><p>防止外部精确计时；</p>
+    </li>
+    <li><p>整体设计上避免秘密相关的时序依据。</p>
+    </li>
+    </ul>
+    <p>计时攻击有时效性较差，但成功可能导致严重后果。识别时序依据并采取防范措施非常重要。</p>
+    <br/>
+  </blockquote>
+</details>
+<br/>
+
 
 # detect-pseudoRandomBytes
 
-TODO
+```js
+'security/detect-pseudoRandomBytes': 'warn'
+```
+
+这个规则用来检测代码中是否使用了伪随机数生成函数 `Math.random()`。
+
+`Math.random()` 这个函数生成的随机数质量较差，存在确定性，不适用于要求高强度随机数的场景，比如生成密码或密钥。
+
+该规则会检测调用了 `Math.random()` 的情况，并给出警告。
+
+需要随机数的更好选择是使用 Node.js 中的 `crypto` 模块，例如:
+
+```js
+const crypto = require('crypto');
+
+const bytes = crypto.randomBytes(32);
+```
+
+`crypto.randomBytes` 使用更强的随机数生成器，可以应对密码学和安全场景。
+
+该规则提醒开发者不要使用 `Math.random()`，而是考虑使用 `crypto.randomBytes()` 来获取更强质量的随机数。
+
+当然，如果不是用于安全相关的随机数，用 `Math.random()` 也可以接受。可以通过注释或配置的方式绕过该规则。
+
+
+在 Web 场景中，也存在一些需要高质量随机数的 case，比如：
+
+- 生成用户登录、注册等的验证码；
+
+- 生成安全令牌和会话 ID；
+
+- 加密通信中的初始化向量；
+
+- 在浏览器中生成密码或密钥。
+
+这时使用 `Math.random()` 都是不合适的。更好的处理方式是：
+
+- 使用浏览器提供的加密安全随机数生成器：[crypto.getRandomValues()]，它利用系统熵源。
+
+- 将随机数生成服务端化，由后端生成并提供给前端。
+
+- 使用第三方的加密库，如 [Stanford Javascript Crypto Library]。
+
+- 对 `Math.random()` 进行种子混淆、hash 运算等提升随机性。
+
+- 根据业务场景允许弱随机性，但注明其限制。
+
+Web 前端中如果需要高安全性的随机数，要注意不要直接使用 `Math.random()`，而要考虑浏览器/服务端的加密安全替代方案。
+
+同时，也要明确什么场景可以接受弱随机，什么场景要强随机，针对性应用正确的随机数源。
+
+<details open>
+  <summary><strong>为什么说 <code>Math.random()</code> 这个函数生成的随机数质量较差，存在确定性？</strong></summary>
+  <blockquote>
+    <br/>
+    <p><code>Math.random()</code> 生成的随机数质量较差，主要有以下原因：</p>
+    <ol>
+    <li><p>确定性：<code>Math.random()</code> 的种子通常是基于时间戳的，在同一毫秒内会生成同样的序列，有确定性。</p>
+    </li>
+    <li><p>复现性：种子是可预测的，给定种子可以复现整个随机数序列。</p>
+    </li>
+    <li><p>周期性：序列会重复循环使用，较短的周期。</p>
+    </li>
+    <li><p>随机性缺陷：统计测试结果不达标，比如游程测试。</p>
+    </li>
+    <li><p>算法缺陷：线性同余或类似的伪随机算法。</p>
+    </li>
+    <li><p>语言运行时缺陷：部分语言运行时 <code>Math.random()</code> 实现存在缺陷。</p>
+    </li>
+    <li><p>环境固有缺陷：比如虚拟机可预测的熵源。</p>
+    </li>
+    </ol>
+    <p>相比之下，像 Node.js 的 <code>crypto.randomBytes()</code> 使用杂凑和系统熵源，可以生成不可预测的加密安全随机数，适用于对安全和随机性要求非常高的场景。</p>
+    <p>所以 <code>Math.random()</code> 不应被滥用于密码学和安全相关场景中。</p>
+    <br/>
+    <p>关于更多不应使用<code>Math.random()</code>的信息可参考：<a href="https://security.stackexchange.com/questions/181580/why-is-math-random-not-designed-to-be-cryptographically-secure">Why is Math.random() not designed to be cryptographically secure?</a></p>
+    <br/>
+  </blockquote>
+</details>
+<br/>
 
 # detect-unsafe-regex
 
-TODO
+```js
+'security/detect-unsafe-regex': 'warn'
+```
+
+这个规则用来检测代码中是否存在潜在的不安全正则表达式。
+
+不安全正则表达式的典型问题有：
+
+- 具有指数级别复杂度的正则，可能成为 ReDoS 攻击的受害者；
+
+- 容易回溯的正则，如递归正则，也可能导致复杂度爆炸；
+
+- 利用特殊字符做键控注入的正则。
+
+该规则通过匹配一些模式,来检测像 `(a+)+` 这样复杂度高的正则，以及像 `/[Designer match Sajon]/` 这样可能存在注入风险的正则。一旦匹配到则会给出警告。
+
+更安全的做法是：
+
+- 尽量使用简单的正则;
+
+- 对用户输入的正则进行过滤和转义;  
+
+- 设置正则处理的超时和长度限制;
+
+- 使用正则引擎的安全匹配模式。
+
+这个规则可以帮助开发者提前发现不安全的正则表达式，防止被利用为 DoS 攻击的向量。但有时也会误报，需要结合业务场景处理。
 
 # 附录
 
@@ -933,12 +1186,20 @@ TODO
 - [双向文稿](https://www.wikiwand.com/zh-hans/%E9%9B%99%E5%90%91%E6%96%87%E7%A8%BF)
 - [Path Traversal]
 - [Denial-of-service attack]
+- [Wikiwand - Timing attack]
 - [Cross Site Scripting (XSS)]
+- [OWASP - Command Injection]
+- [Wikiwand - Denial-of-service attack]
+- [Wikiwand - Arbitrary code execution]
 - [Cross Site Request Forgery (CSRF)]
 - [Regular Expression DoS and Node.js]
+- [The Dangers of Square Bracket Notation]
 - [Regular expression Denial of Service - ReDoS]
 - [What are the security issues with eval in JavaScript?]
+- [Where Does Node.js And Require() Look For Modules?]
 - [Trojan Source attack for introducing invisible vulnerabilities]
+- [Why is Math.random() not designed to be cryptographically secure?]
+
 
 <!-- refs defined -->
 [Mustache 模板引擎]:http://mustache.github.io/
@@ -954,3 +1215,12 @@ TODO
 [Denial-of-service attack]:https://www.wikiwand.com/en/Denial-of-service_attack
 [Regular Expression DoS and Node.js]:https://github.com/eslint-community/eslint-plugin-security/blob/main/docs/regular-expression-dos-and-node.md
 [Regular expression Denial of Service - ReDoS]:https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS
+[Wikiwand - Arbitrary code execution]:https://www.wikiwand.com/en/Arbitrary_code_execution
+[Wikiwand - Denial-of-service attack]:https://www.wikiwand.com/en/Denial-of-service_attack
+[Where Does Node.js And Require() Look For Modules?]:https://www.bennadel.com/blog/2169-where-does-node-js-and-require-look-for-modules.htm
+[The Dangers of Square Bracket Notation]:https://github.com/eslint-community/eslint-plugin-security/blob/main/docs/the-dangers-of-square-bracket-notation.md
+[Wikiwand - Timing attack]:https://www.wikiwand.com/en/Timing_attack
+[OWASP - Command Injection]:https://owasp.org/www-community/attacks/Command_Injection
+[Why is Math.random() not designed to be cryptographically secure?]:https://security.stackexchange.com/questions/181580/why-is-math-random-not-designed-to-be-cryptographically-secure
+[Stanford Javascript Crypto Library]:https://github.com/bitwiseshiftleft/sjcl
+[crypto.getRandomValues()]:https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues
