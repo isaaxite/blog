@@ -34,7 +34,6 @@ issue_number: 317
 - 仓库：[isaaxite/practices - eslint-security](https://github.com/isaaxite/practices/tree/main/packages/eslint-security)；
 
 - 包管理器：pnpm；
-
 - 已安装的包：
   - eslint `8.48.0`
   - eslint-config-airbnb-base `15.0.0`
@@ -266,8 +265,8 @@ console.log('正常源码...');
 | 5    | LRI  | U+2066      | 左到右隔离   | 将以下文本作为从左到右处理,不影响相邻文本 |
 | 6    | RLI  | U+2067      | 右到左隔离   | 将以下文本作为从右到左处理,不影响相邻文本 |
 | 7    | FSI  | U+2068      | 首个强隔离   | 根据接下来的字符强制处理以下文本的方向    |
-| 8    | PDF  | U+202C      | 弹出方向格式 | 终止最近的LRE、RLE、LRO或RLO              |
-| 9    | PDI  | U+2069      | 弹出方向隔离 | 终止最近的LRI或RLI                        |
+| 8    | PDF  | U+202C      | 弹出方向格式 | 终止最近的 LRE、RLE、LRO 或 RLO           |
+| 9    | PDI  | U+2069      | 弹出方向隔离 | 终止最近的 LRI 或 RLI                     |
 
 
 trojan source attacks 属于源代码层面的攻击，需要攻击者能获取和修改受保护源代码，一般来说这需要内部人员参与恶意行为才行。
