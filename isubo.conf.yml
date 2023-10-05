@@ -110,6 +110,13 @@ hide_frontmatter: true
 ## 2: isubo-blog
 post_title_seat: 0
 
+## [optional]
+## Inserting a statement at the top of the post.
+## By default, it is disable. If you want to use it, you can refer to the following example:
+## e.g.
+## source_statement:
+##  enable: [boolean], default=false
+##  content: Array<string>, a list of string, default=[]
 source_statement:
   enable: true
   content:
@@ -118,11 +125,28 @@ source_statement:
   - 版权声明：本博客所有文章除特别声明外，均采用 © BY-NC-SA 许可协议。转载请注明出处！
   - Power By：[Isubo](https://www.npmjs.com/package/isubo) | A lightweight issue-blog CLI.
 
-back2top:
-  enable: true
+## [optional]
+## Insert a "back-to-top" button at the bottom of a paragraph.
+## back2top:
+##  enable: [boolean], default=true
+##  text: [string], text of 'back-to-top' buttion, default='⬆ back to top'
+##  link: [string], link of the buttion, default='#'
+##  insert_deep: [number], the max inserting depth of paragraph(#=1,##=2), default=3
+# back2top:
+#   enable: true
+#   text: ⬆ back to top
+#   link: '#'
+#   insert_deep: 3
 
-toc:
-  enable: true
-  title: Table Of Content
-  depth: 3
-  bullets: '-'
+## [optional]
+## Insert table-of-content based on the content at the top of the post.
+## toc:
+##  enable: [boolean], default=true
+##  title: [string], text of table-of-content, default='Table Of Content'
+##  depth: [number], the maximum depth of generated toc, default=3
+##  bullets: [string], the flag of list item, '-' | '*', default='-'
+# toc:
+#   enable: true
+#   title: Table Of Content
+#   depth: 3
+#   bullets: '-'
