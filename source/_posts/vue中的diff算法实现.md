@@ -11,38 +11,18 @@ categories:
 top: true
 ---
 
-# 大纲
- 
- - [前言]
- - [diff算法是什么]
-    - [1.新头与旧头垂直对比]
-    - [2.新尾与旧尾垂直对比]
-    - [3.新尾与旧头交叉对比]
-    - [4.新头与旧尾交叉对比]
-    - [5.当前新vnode与旧头尾之间的vnode对比]
-    - [-1.跳过左边已经复用的vnode]
-    - [0.跳过右边已经复用的vnode]
-    - [while中的控制流顺序]
- - [while之外]
- - [新旧vnode与真实元素elm的关系]
- - [附录]
-    - [sameVnode的功能与实现逻辑]
-    - [patchVnode函数的关键实现]
-
-<!-- more -->
-
 # 前言
-
-[回到顶部]
 
 **vue版本：2.6.10**
 
 每次更新视图前都会根据视图模板生成vnode（虚拟的节点树），vnode类似dom树，但更简陋，每个vnode都与页面的上的元素html元素一一对应！为了更好的性能，因此要复用元素。那么就要知道怎么复用！就要对比newVnode（当前生成的vnode）和oldVnode（上次生成的vnode），对比完之后才知道那些是要删除，那些是需要重新创建，那些需要移动、移动到哪里！？
 而diff算法则是对比的一种比较好的方式，更好的更快地对比，谁被谁复用！
 
+<!-- more -->
+
 newVnode和oldVnode的比对仅限于同层级之间对比，兄弟之间相互比较，如下图。不会出现跨层级的对比。
 
-<img src="diff-vnode.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="./vue中的diff算法实现/diff-vnode.png" width="100%" alt="vue中的diff算法实现"/>
 
 
 # diff算法是什么
@@ -55,7 +35,7 @@ diff算法不是一种对比的方法，而是一种寻找与当前节点匹配�
 
 **ps：无需过于在意图中所表达的逻辑，图只是用于辅助说明下面的源码**
 
-<img src="diff-vnode-children.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="./vue中的diff算法实现/diff-vnode-children.png" width="100%" alt="vue中的diff算法实现"/>
 
 ```typescript
 function updateChildren (
@@ -84,7 +64,7 @@ function updateChildren (
 
 [回到顶部]
 
-<img src="diff-vnode-children-01.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="./vue中的diff算法实现/diff-vnode-children-01.png" width="100%" alt="vue中的diff算法实现"/>
 
 新旧头部vnode进行对比，判断是否匹配，以复用。sameVnode的功能与实现逻辑参考[附录：sameVnode的功能与实现逻辑]，值得一提的是：a.是input元素，更新前后type不一致；b.变动的是key属性；c.元素更新前后将所有属性删除，或从无到有；只要不是以上三种情况之一，不论怎么增删、修改元素上的属性，都不会影响是否匹配的结果！
 
@@ -727,7 +707,7 @@ class VNode {
 ```
 
 
-[回到顶部]: #大纲
+[回到顶部]: #
 [前言]: #前言
 [diff算法是什么]: #diff算法是什么
 [while之外]: #while之外
