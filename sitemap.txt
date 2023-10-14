@@ -1,7 +1,8 @@
+https://isaaxite.github.io/blog/coder_manual/index.html
+https://isaaxite.github.io/blog/coder_manual/Kitty%20Terminal/index.html
 https://isaaxite.github.io/blog/resources/Get-Start-Of-VScode-Ext-Dev/
 https://isaaxite.github.io/blog/resources/Plan-Of-Split-Isubo-Code/
 https://isaaxite.github.io/blog/resources/vue%E4%B8%AD%E7%9A%84diff%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/
-https://isaaxite.github.io/blog/coder_manual/index.html
 https://isaaxite.github.io/blog/daily/index.html
 https://isaaxite.github.io/blog/games/index.html
 https://isaaxite.github.io/blog/plan/index.html

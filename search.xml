@@ -9220,6 +9220,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
     <url>/blog/coder_manual/index.html</url>
     <content><![CDATA[<ul>
 <li><a href="Autocomplete%20cmd%20invoked%20by%20npx">自动补全被npx的局部命令</a></li>
+<li><a href="Kitty%20Terminal">Kitty 终端模拟器配置指南</a></li>
 </ul>
 ]]></content>
   </entry>
@@ -11240,6 +11241,54 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://kgajera.com/blog/how-to-test-yargs-cli-with-jest/">How to Test Yargs CLI with Jest</a></li>
 </ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>Kitty 终端模拟器配置指南</title>
+    <url>/blog/coder_manual/Kitty%20Terminal/index.html</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>背景：</p>
+<p>System:<br>  Kernel: 5.15.0-86-generic x86_64 bits: 64 compiler: gcc v: 11.4.0 Desktop: Cinnamon 5.8.4<br>    tk: GTK 3.24.33 wm: Tabby dm: LightDM Distro: Linux Mint 21.2 Victoria base: Ubuntu 22.04 jammy</p>
+<h1 id="Kitty"><a href="#Kitty" class="headerlink" title="Kitty"></a>Kitty</h1><p>kitty是一个跨平台的终端模拟器，它被设计为一个快速、灵活和可定制的终端应用程序。以下是一些关于kitty终端的特点和功能的介绍：</p>
+<ol>
+<li><p>GPU 渲染：kitty利用现代显卡的能力，使用GPU进行终端内容的渲染，以提供更快的显示速度和更平滑的滚动体验。</p>
+</li>
+<li><p>支持多窗口布局：kitty允许你在一个终端窗口中创建多个分割窗格，以同时运行和管理多个终端会话。</p>
+</li>
+<li><p>内置图像和图标支持：kitty可以直接在终端中显示图像和图标，包括常见的图像格式和TrueType字体中的图标。</p>
+</li>
+<li><p>支持不透明度和背景模糊：kitty允许你调整终端窗口的不透明度，并提供背景模糊效果，以增强视觉效果。</p>
+</li>
+<li><p>内置跨平台脚本支持：kitty支持通过脚本来自动化和扩展其功能。你可以使用脚本来创建自定义键绑定、自动化任务、自定义外观等。</p>
+</li>
+<li><p>Unicode 和字体支持：kitty完全支持Unicode字符集，并允许你在终端中使用各种字体，包括等宽字体和图标字体。</p>
+</li>
+<li><p>高级配置选项：kitty提供了广泛的配置选项，允许你自定义终端的外观、行为和键绑定，以满足个人偏好和需求。</p>
+</li>
+<li><p>跨平台支持：kitty可以在多个操作系统上运行，包括Linux、macOS和Windows。</p>
+</li>
+</ol>
+<p>总而言之，kitty终端模拟器通过其快速性能、多窗口布局、图像支持、定制能力和跨平台支持等特点，为用户提供了一个功能强大且灵活的终端环境。无论是日常使用还是开发工作，kitty都是一个值得考虑的终端选择。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install kitty -y</span><br></pre></td></tr></table></figure>
+
+<p><img src="image.png" alt="Alt text"></p>
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>配置文件的位置在：<code>～/.config/kitty/kitty.conf</code>，如果没有则新建配置文件。</p>
+<p>修改配置后，需要重新启动 Kitty 才会生效！</p>
+<h1 id="窗口分割（Split-Pane）"><a href="#窗口分割（Split-Pane）" class="headerlink" title="窗口分割（Split Pane）"></a>窗口分割（Split Pane）</h1><p>默认情况下，Kitty 没有提供快捷键对窗口进行分割。需要手动编辑配置文件，配置分割、关闭窗口的快捷键。</p>
+<p>下面是手动配置的 3 个快捷键，分别是：</p>
+<p><code>ctrl+r</code>：在水平方向上左右分割窗口。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">map ctrl+d launch --location=hsplit</span><br></pre></td></tr></table></figure>
+
+<p><code>ctrl+r</code>：在竖直方向上上下分割窗口。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">map ctrl+r launch --location=vsplit</span><br></pre></td></tr></table></figure>
+
+<p><code>ctrl+w</code>：关闭当前分割的窗口</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">map Ctrl+W close_window</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置字体"><a href="#配置字体" class="headerlink" title="配置字体"></a>配置字体</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Fonts</span></span><br><span class="line">font_family      Fira Code</span><br><span class="line">bold_font        auto</span><br><span class="line">italic_font      auto</span><br><span class="line">bold_italic_font auto</span><br><span class="line"></span><br><span class="line">font_size 14.0</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置背景色"><a href="#配置背景色" class="headerlink" title="配置背景色"></a>配置背景色</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Background</span></span><br><span class="line">background #282c34</span><br></pre></td></tr></table></figure>
+
+<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><h2 id="Kitty-无法切换输入法"><a href="#Kitty-无法切换输入法" class="headerlink" title="Kitty 无法切换输入法"></a>Kitty 无法切换输入法</h2><p>TODO</p>
 ]]></content>
   </entry>
 </search>
