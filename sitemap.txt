@@ -1,3 +1,4 @@
+https://isaaxite.github.io/blog/resources/Linux-Terminal-Emulator-Tilix/
 https://isaaxite.github.io/blog/coder_manual/index.html
 https://isaaxite.github.io/blog/coder_manual/Kitty%20Terminal/index.html
 https://isaaxite.github.io/blog/resources/Get-Start-Of-VScode-Ext-Dev/
