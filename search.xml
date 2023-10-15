@@ -8232,10 +8232,14 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 </ul>
 <p>以上提及的功能都是 Tilix 开箱即有的。我大概只需要调节一下配色方案与字体，配置也是可视化，要做只是选择！</p>
 <p>并且 Tilix 还有 Quake 模式！简直是加分项！</p>
+<p>分屏</p>
+<p><img src="Peek%202023-10-15%2015-10.gif"></p>
+<p>漂亮且聪明的滚动条</p>
+<p><img src="Peek%202023-10-15%2014-54.gif"></p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install tilix -y</span><br></pre></td></tr></table></figure>
 
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>Tilix 支持可视化配置，只需要右击右上菜单按钮的 <code>preferences</code> 即可进入设置面板！</p>
-<p><img src="2023-10-15_12-36.png"></p>
+<p><img src="Peek%202023-10-15%2014-59.gif"></p>
 <p>简单得不值得你为此写什么配置教程！</p>
 ]]></content>
       <tags>
