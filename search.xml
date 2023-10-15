@@ -8234,10 +8234,9 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <p>并且 Tilix 还有 Quake 模式！简直是加分项！</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install tilix -y</span><br></pre></td></tr></table></figure>
 
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="分屏"><a href="#分屏" class="headerlink" title="分屏"></a>分屏</h3><p>自带的分屏功能，无需配置。右键菜单和顶部 menu bar 就可以快捷分屏，并且可以基于任何已经分割的窗口分屏！</p>
-<p>并且支持使用鼠标指针拖动调节窗口的大小，双击左键恢复原有分屏窗口大小。</p>
-<h3 id="配色"><a href="#配色" class="headerlink" title="配色"></a>配色</h3><p>Tilix 支持可视化配置，在“设置”中即可快捷选择配色方案！</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>Tilix 支持可视化配置，只需要右击右上菜单按钮的 <code>preferences</code> 即可进入设置面板！</p>
 <p><img src="2023-10-15_12-36.png"></p>
+<p>简单得不值得你为此写什么配置教程！</p>
 ]]></content>
       <tags>
         <tag>writting</tag>
