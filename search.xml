@@ -8118,17 +8118,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <p>接下来，文章详细介绍了 Tilix 的特性和功能。它强调了 Tilix 的分屏功能对于多任务处理的便利性，用户可以轻松地在一个窗口中切换和管理多个终端会话。文章还提到了 Tilix 支持的其他功能，如标签页、会话管理、快捷键等，这些功能使得 Tilix 成为一个强大而灵活的终端模拟器。</p>
 <p>此外，文章还探讨了 Tilix 的外观定制性。它介绍了 Tilix 提供的丰富的配色方案和字体选项，以及与桌面环境整体外观风格一致的 GTK 主题集成。这使得用户可以根据自己的喜好和需求来个性化定制终端的外观。</p>
 <p>最后，文章总结了 Tilix 的优点，并提到了它与其他终端模拟器（如 kitty、tmux、gnome-terminal 和 konsole）的比较。它强调了 Tilix 在配置简单性、原生分屏支持和外观美观性方面的优势，使得 Tilix 成为一个备受欢迎的终端模拟器。</p>
-<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><ul>
-<li>Kernel: 5.15.0-86-generic x86_64 </li>
-<li>bits: 64 </li>
-<li>compiler: gcc </li>
-<li>v: 11.4.0 </li>
-<li>Desktop: <mark>Cinnamon 5.8.4</mark></li>
-<li>tk: GTK 3.24.33</li>
-<li>dm: LightDM </li>
-<li>Distro: <mark>Linux Mint 21.2 Victoria</mark></li>
-<li>base: Ubuntu 22.04 jammy</li>
-</ul>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">System:</span><br><span class="line">  Kernel: 5.15.0-86-generic x86_64 bits: 64 compiler: gcc v: 11.4.0 Desktop: Cinnamon 5.8.4</span><br><span class="line">    tk: GTK 3.24.33 wm: muffin dm: LightDM Distro: Linux Mint 21.2 Victoria base: Ubuntu 22.04 jammy</span><br><span class="line">Machine:</span><br><span class="line">  Type: Desktop Mobo: ASUSTeK model: TUF B360M-PLUS GAMING S v: Rev X.0x</span><br><span class="line">    serial: &lt;superuser required&gt; UEFI: American Megatrends v: 2418 date: 06/04/2019</span><br><span class="line">CPU:</span><br><span class="line">  Info: 6-core model: Intel Core i5-8600K bits: 64 type: MCP arch: Coffee Lake rev: A cache:</span><br><span class="line">    L1: 384 KiB L2: 1.5 MiB L3: 9 MiB</span><br><span class="line">  Speed (MHz): avg: 4100 min/max: 800/4300 cores: 1: 4100 2: 4100 3: 4100 4: 4100 5: 4100</span><br><span class="line">    6: 4100 bogomips: 43200</span><br><span class="line">  Flags: avx avx2 ht lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx</span><br></pre></td></tr></table></figure>
 <h1 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h1><p><img src="2023-10-15_11-14.png" alt="Tmux + Gnome Terminal"></p>
 <h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><p>Tmux 是一个终端复用器，可以在一个终端窗口中同时运行多个终端会话。它允许用户在一个终端中创建、管理和切换多个虚拟终端，从而提高工作效率。</p>
 <p>使用 tmux，你可以在一个终端窗口中创建多个窗格和标签页，每个窗格和标签页都可以运行独立的终端会话。这意味着你可以同时查看和操作多个终端，而无需打开多个终端窗口。</p>
