@@ -1596,6 +1596,20 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://isaaxite.github.io/blog/tags/tilix/</loc>
+    <lastmod>2023-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/tags/terminal/</loc>
+    <lastmod>2023-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>

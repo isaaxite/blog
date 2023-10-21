@@ -195,6 +195,8 @@ https://isaaxite.github.io/blog/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/
 https://isaaxite.github.io/blog/tags/TypeScript/
 https://isaaxite.github.io/blog/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/
 https://isaaxite.github.io/blog/tags/LCOF/
+https://isaaxite.github.io/blog/tags/tilix/
+https://isaaxite.github.io/blog/tags/terminal/
 https://isaaxite.github.io/blog/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/
 https://isaaxite.github.io/blog/categories/%E7%AE%97%E6%B3%95%E9%A2%98/
 https://isaaxite.github.io/blog/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/
