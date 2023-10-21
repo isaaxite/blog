@@ -8114,15 +8114,10 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用 Linux 很久，用过多个发行版本，每个版本都有内置的终端模拟器。有 Gnome Terminal、Konsole、GUAKE 等等。使用 MacOS 时遇到了让我觉得刚刚好的终端模拟器 - Iterm2，各种原因下，我不再使用 MacOS，后来就很少让我觉得趁手的终端模拟器。后来，一直使用 Windows 和 Linux。Windows 下用的是 Windows Terminal（这是应用名），配合 WSL2，够用也漂亮，知道在开发中遇到 WSL2 无法解决的情况，再次投身到 Linux 的海洋中。目前使用 Linux Mint 21，它是个漂亮且好用的发行版本。Linux 下的终端始终是我内心深处的刺呢，一直在尝试着其他终端：Konsole、Kitty、tmux、Tabby、Terminator、Tilda等等，花了不少的时间安装、配置，遇到不少的问题，都没有达到心目中期望的样子。直到遇到了 Tilix。</p>
 <span id="more"></span>
 
-<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>todo</p>
-<ul>
-<li><p>提 tmux、kconsole 和 kitty，他们都是不错的。为什么最后没有继续用。</p>
-</li>
-<li><p>我期待的终端是怎么样的？</p>
-</li>
-<li><p>tilix 的安装、配置</p>
-</li>
-</ul>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>该文章首先介绍了 Tilix 终端模拟器的基本信息和特点。它强调了 Tilix 的配置简单性，通过直观的图形界面使得用户可以轻松地自定义终端的外观和行为。此外，文章还强调了 Tilix 的原生分屏功能，允许用户在一个终端窗口中同时运行多个程序或命令。</p>
+<p>接下来，文章详细介绍了 Tilix 的特性和功能。它强调了 Tilix 的分屏功能对于多任务处理的便利性，用户可以轻松地在一个窗口中切换和管理多个终端会话。文章还提到了 Tilix 支持的其他功能，如标签页、会话管理、快捷键等，这些功能使得 Tilix 成为一个强大而灵活的终端模拟器。</p>
+<p>此外，文章还探讨了 Tilix 的外观定制性。它介绍了 Tilix 提供的丰富的配色方案和字体选项，以及与桌面环境整体外观风格一致的 GTK 主题集成。这使得用户可以根据自己的喜好和需求来个性化定制终端的外观。</p>
+<p>最后，文章总结了 Tilix 的优点，并提到了它与其他终端模拟器（如 kitty、tmux、gnome-terminal 和 konsole）的比较。它强调了 Tilix 在配置简单性、原生分屏支持和外观美观性方面的优势，使得 Tilix 成为一个备受欢迎的终端模拟器。</p>
 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><ul>
 <li>Kernel: 5.15.0-86-generic x86_64 </li>
 <li>bits: 64 </li>
