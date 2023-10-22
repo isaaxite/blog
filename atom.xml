@@ -6,7 +6,7 @@
   <link href="https://isaaxite.github.io/blog/atom.xml" rel="self"/>
   
   <link href="https://isaaxite.github.io/blog/"/>
-  <updated>2023-10-21T05:33:09.689Z</updated>
+  <updated>2023-10-22T02:15:46.751Z</updated>
   <id>https://isaaxite.github.io/blog/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://isaaxite.github.io/blog/resources/Linux-Terminal-Emulator-Tilix/"/>
     <id>https://isaaxite.github.io/blog/resources/Linux-Terminal-Emulator-Tilix/</id>
     <published>2023-10-14T06:36:24.000Z</published>
-    <updated>2023-10-21T05:33:09.689Z</updated>
+    <updated>2023-10-22T02:15:46.751Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;使用 Linux 很久，用过多个发行版本，每个版本都有内置的终端模拟器。有 Gnome Terminal、Konsole、GUAKE 等等。使用 MacOS 时遇到了让我觉得刚刚好的终端模拟器 - Iterm2，各种原因下，我不再使用 MacOS，后来就很少让我觉得趁手的终端模拟器。后来，一直使用 Windows 和 Linux。Windows 下用的是 Windows Terminal（这是应用名），配合 WSL2，够用也漂亮，知道在开发中遇到 WSL2 无法解决的情况，再次投身到 Linux 的海洋中。目前使用 Linux Mint 21，它是个漂亮且好用的发行版本。Linux 下的终端始终是我内心深处的刺呢，一直在尝试着其他终端：Konsole、Kitty、tmux、Tabby、Terminator、Tilda等等，花了不少的时间安装、配置，遇到不少的问题，都没有达到心目中期望的样子。直到遇到了 Tilix。&lt;/p&gt;</summary>
