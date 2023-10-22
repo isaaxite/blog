@@ -208,7 +208,7 @@ sudo apt install tilix -y
 
 ### 分屏
 
-![](./Linux-Terminal-Emulator-Tilix/Peek%202023-10-15%2015-10.gif)
+![](./Linux-Terminal-Emulator-Tilix/Peek_2023-10-15_15-10.gif)
 
 Tilix 原生支持分屏功能。各个分屏窗口相互独立，不会相互影响，至少目前没有发现类似 tmux 旧版的“选中内容跨窗口”的现象。
 
@@ -222,7 +222,7 @@ Tilix 原生支持分屏功能。各个分屏窗口相互独立，不会相互�
 
 Tilix 支持可以可视化配置，基本功能的配置都可以通过此方式配置，只需要右击右上菜单按钮的 `preferences` 即可进入设置面板！。是不想折腾人的福音，如我，并不打算花大量的时间在配置、调节上。这样做对于我来说是本末倒置。花费的时间不一定获得好的结果。退一步说，假如是好的结果。在新的环境中，我不得不继续花大量的时间配置才能获得相同的体验。
 
-![](./Linux-Terminal-Emulator-Tilix/Peek%202023-10-15%2014-59.gif)
+![](./Linux-Terminal-Emulator-Tilix/Peek_2023-10-15_14-59.gif)
 
 
 下面是我所关注的几个配置：
@@ -237,7 +237,7 @@ Tilix 支持可以可视化配置，基本功能的配置都可以通过此方�
 
 - 聪明的滚动条：适时地出现，不如 konsole 那样，不可设置地固定常驻，并且是丑陋的拉老旧样式；鼠标指针悬浮时有“激活”的交互效果以便更容易拖动；
 
-![](./Linux-Terminal-Emulator-Tilix/Peek%202023-10-15%2014-54.gif)
+![](./Linux-Terminal-Emulator-Tilix/Peek_2023-10-15_14-54.gif)
 
 - **Quake 模式**：Tilix 原生支持 Quake 模式，通过快捷键即可快捷弹出终端窗口；
 
