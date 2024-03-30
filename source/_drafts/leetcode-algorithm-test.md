@@ -1,7 +1,9 @@
 ---
 title: 算法题目分析与解答
-date: 2024-03-30 14:33:13
+date: 2020-04-17 07:26:51
 tags:
+  - 算法题
+  - Leetcode
 categories:
 ---
 
@@ -2184,7 +2186,7 @@ function lastRemaining1(n, m) {
 
 ## 2.约瑟夫自杀环
 
-![2020-04-16_17-00](yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof.assets/2020-04-16_17-00.png)
+![2020-04-16_17-00](./leetcode-algorithm-test/2020-04-16_17-00.png)
 
 ```js
 /**
