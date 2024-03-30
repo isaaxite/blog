@@ -138,7 +138,7 @@ PS：*为一定程度的严谨性，在执行命令后会重启微信，后面�
 
 ## 实践三
 
-[Archlinux Wiki | Flatpak](https://wiki.archlinux.org/title/Flatpak#) 有着关于 Flatpak 较为全面的信息，其中 [Archlinux | Flatpak | Troubleshooting  | Applications do not use the correct cursor theme] 更是直指 Flatpak 的 cursor 问题，一定程度上也印证了前面关于 cursor 异常的推测。
+[Archlinux Wiki | Flatpak](https://wiki.archlinux.org/title/Flatpak#) 有着关于 Flatpak 较为全面的信息，其中 [Archlinux Wiki | Flatpak | Troubleshooting  | Applications do not use the correct cursor theme] 更是直指 Flatpak 的 cursor 问题，一定程度上也印证了前面关于 cursor 异常的推测。
 
 > **5.6 Applications do not use the correct cursor theme**
 > Applications do not use the correct cursor theme
@@ -484,7 +484,7 @@ $ tree -L 1
 
 重启微信的结果：无明显变化，无异常。
 
-至此，可以确定：*`--nofilesystem` 不是预期的禁用效果，而是其他。*
+至此，可以确定： *`--nofilesystem` 不是预期的禁用效果，而是其他。*
 
 ### 结论
 
@@ -505,9 +505,19 @@ flatpak --user override --filesystem=/home/$USER/.icons/:ro
 flatpak --user override --filesystem=/usr/share/icons/:ro
 ```
 
-由第 1 点可以断定*针对 `/home/$USER/.icons/` 目录的覆盖，在当前环境下是没有必要的。*
+由第 1 点可以断定：*针对 `/home/$USER/.icons/` 目录的覆盖，在当前环境下是没有必要的。*
 
 由于 `--nofilesystem` 的作用未达预期，且暂无其他方式撤销对 `/usr/share/icons/` 目录的覆盖，因此暂无法确定。
+
+根据 [Archlinux Wiki | Flatpak | Managing runtimes and applications | Override sandbox permissions of applications] 中提到的应该有阻止应用访问目标目录：
+
+> **3.12 Override sandbox permissions of applications**
+> If you find the predefined permissions of the application too lax or too restrictive you can change to anything you want using flatpak override command. For example:
+> 
+> ```
+> flatpak override --nofilesystem=home name
+> ```
+> <mark>This will prevent the application access to your home folder.</mark>
 
 ## 使用 `--reset` 参数
 
@@ -592,7 +602,17 @@ $ flatpak --user override --env=XCURSOR_THEME=Adwaita
 
 # 扩展
 
-GTK
+GTK？
+
+reddit？
+
+archlinux wiki？
+
+全文阅读archlinux wiki for flatpak，从中挑选值得记录学习的知识点
+
+如何查看 flatpak app 的已经被授予的权限（推荐查阅官方文档，可以参考 https://man.archlinux.org/man/flatpak-override.1， 但需对比官方文档）
+
+
 
 # 附录
 
@@ -793,21 +813,25 @@ XCURSOR_SIZE=
 
 - [Reddit | Flatpak App Changing Cursor Theme And Size (Is This Normal Behavior?)]
 
-- [Archlinux | Flatpak | Troubleshooting  | Applications do not use the correct cursor theme]
+- [Archlinux Wiki | Flatpak | Troubleshooting  | Applications do not use the correct cursor theme]
 
-### 未使用
+- [Archlinux Wiki | Flatpak | Managing runtimes and applications | Override sandbox permissions of applications]
 
-- [Archlinux | xdg-desktop-portal-gtk 1.15.1-1](https://archlinux.org/packages/extra/x86_64/xdg-desktop-portal-gtk/)
+<!-- ### 未使用 -->
+
+- [Official | Flatpak documentation](https://docs.flatpak.org/en/latest/index.html)
+
+- [Archlinux Wiki | xdg-desktop-portal-gtk 1.15.1-1](https://archlinux.org/packages/extra/x86_64/xdg-desktop-portal-gtk/)
 
 - [Github repository | flatpak/xdg-desktop-portal-gtk](https://github.com/flatpak/xdg-desktop-portal-gtk)
 
-- [Archlinux | XDG Desktop Portal](https://wiki.archlinux.org/title/XDG_Desktop_Portal)
+- [Archlinux Wiki | XDG Desktop Portal](https://wiki.archlinux.org/title/XDG_Desktop_Portal)
 
-- [Archlinux | Flatpak | Flatpak applications not picking up the default system theme](https://wiki.archlinux.org/title/Flatpak#Flatpak_applications_not_picking_up_the_default_system_theme)
+- [Archlinux Wiki | Flatpak | Flatpak applications not picking up the default system theme](https://wiki.archlinux.org/title/Flatpak#Flatpak_applications_not_picking_up_the_default_system_theme)
 
 - [Github issue | flatpak/flatpak | Apps are not aware of desktop themes #114](https://github.com/flatpak/flatpak/issues/114)
 
-- [Archlinux | stylepak-git 16.124fbdc-1](https://aur.archlinux.org/packages/stylepak-git)
+- [Archlinux Wiki | stylepak-git 16.124fbdc-1](https://aur.archlinux.org/packages/stylepak-git)
 
 - [Reddit | Is there any way to manually install/copy themes into flatpak, that aren't available via flathub?]
 
@@ -828,4 +852,6 @@ XCURSOR_SIZE=
 
 [Github issue | flatpak/flatpak | Different cursor theme in flatpak apps #709 | the solution too on Linux Mint]:https://github.com/flatpak/flatpak/issues/709#issuecomment-1381482007
 
-[Archlinux | Flatpak | Troubleshooting | Applications do not use the correct cursor theme]:https://wiki.archlinux.org/title/Flatpak#Applications_do_not_use_the_correct_cursor_theme
+[Archlinux Wiki | Flatpak | Troubleshooting | Applications do not use the correct cursor theme]:https://wiki.archlinux.org/title/Flatpak#Applications_do_not_use_the_correct_cursor_theme
+
+[Archlinux Wiki | Flatpak | Managing runtimes and applications | Override sandbox permissions of applications]:https://wiki.archlinux.org/title/Flatpak#Override_sandbox_permissions_of_applications
