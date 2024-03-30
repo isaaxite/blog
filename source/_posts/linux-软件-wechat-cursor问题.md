@@ -602,15 +602,17 @@ $ flatpak --user override --env=XCURSOR_THEME=Adwaita
 
 # 扩展
 
-GTK？
+TODO
 
-reddit？
+- GTK？
 
-archlinux wiki？
+- reddit？
 
-全文阅读archlinux wiki for flatpak，从中挑选值得记录学习的知识点
+- archlinux wiki？
 
-如何查看 flatpak app 的已经被授予的权限（推荐查阅官方文档，可以参考 https://man.archlinux.org/man/flatpak-override.1， 但需对比官方文档）
+- 全文阅读archlinux wiki for flatpak，从中挑选值得记录学习的知识点
+
+- 如何查看 flatpak app 的已经被授予的权限（推荐查阅官方文档，可以参考 https://man.archlinux.org/man/flatpak-override.1， 但需对比官方文档）
 
 
 
