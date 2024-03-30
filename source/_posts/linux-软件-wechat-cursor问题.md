@@ -1,5 +1,5 @@
 ---
-title: Linux-Wechat 体验导向的 Flatpak 探索
+title: 🚧 Linux-Wechat 体验导向的 Flatpak 探索
 date: 2024-03-22 17:21:12
 tags:
 categories:
