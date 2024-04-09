@@ -2,6 +2,8 @@
 title: 🚧 Linux-Wechat 体验导向的 Flatpak 探索
 date: 2024-03-22 17:21:12
 tags:
+  - linux
+  - Flatpak
 categories:
 ---
 
@@ -32,7 +34,7 @@ categories:
 
 缘法妙不可言（估计是推荐机制），后面了解到 [web1n](https://github.com/web1n) 打包了 [fatpak 版本的 wechat-universal-flatpak](https://github.com/web1n/wechat-universal-flatpak)，基于 flatpak 的沙盒特性，我认为可以顺利使用的可能性很大。安装后体验确实如此！基本使用无问题：
 
-![](./linux-软件-wechat-cursor问题/ksnip_20240325-144047.png)
+![](ksnip_20240325-144047.png)
 
 直接可见的 bug 是 cursor 的样式异常：
 
@@ -256,8 +258,7 @@ $ mv ~/.icons/icons/* ~/.icons/
 # isaac @ Mint-Yoga in ~/.icons [21:46:32] C:1
 $ rm -rf icons
 ```
-
-![](./linux-软件-wechat-cursor问题/ksnip_20240325-143839.png)
+![](ksnip_20240325-143839.png)
 
 # 复盘
 
@@ -498,7 +499,7 @@ $ tree -L 1
 
 2. `XCURSOR_PATH` 的默认值是单一值，而非优先级队列。
 
-回顾[回溯“实践一”]()的目的：是为确定以下两条命令是否必要：
+回顾[回溯“实践一”](#回溯“实践一”)的目的：是为确定以下两条命令是否必要：
 
 ```shell
 flatpak --user override --filesystem=/home/$USER/.icons/:ro
@@ -600,9 +601,7 @@ $ flatpak --user override --env=XCURSOR_THEME=Adwaita
 
 - **实践四**：成功的原因是解决了实践三中的问题——`~/.icons/Adwaita/` 是空目录。
 
-# 扩展
-
-TODO
+# 扩展（todo）
 
 - GTK？
 
@@ -614,6 +613,15 @@ TODO
 
 - 如何查看 flatpak app 的已经被授予的权限（推荐查阅官方文档，可以参考 https://man.archlinux.org/man/flatpak-override.1， 但需对比官方文档）
 
+
+- [Flatpak documentation | Sandbox Permissions Reference](https://docs.flatpak.org/en/latest/sandbox-permissions-reference.html)有提到 `--nofilesystem` 的作用
+- 使用 docker 创建隔离环境以实验
+
+- [Flathub | Flatseal](https://flathub.org/apps/com.github.tchx84.Flatseal) 安装，它是什么？
+
+- [Github Repository | tchx84/Flatseal]
+
+[Github Repository | tchx84/Flatseal]:https://github.com/tchx84/Flatseal
 
 
 # 附录
