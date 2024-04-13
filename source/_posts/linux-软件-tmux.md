@@ -1,5 +1,5 @@
 ---
-title: 一次性理清 tmux 的概念与基本使用
+title: Tmux 的相关概念与基本使用
 tags:
   - tmux
   - terminal
