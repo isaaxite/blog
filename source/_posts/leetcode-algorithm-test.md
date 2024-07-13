@@ -15,6 +15,112 @@ categories:
 
 <!-- more -->
 
+
+# [两数之和](https://leetcode.cn/problems/two-sum/)
+
+## 题目描述
+
+给定一个整数数组 `nums` 和一个整数目标值 `target`，请你在该数组中找出 **和为目标值** _`target`_  的那 **两个** 整数，并返回它们的数组下标。
+
+你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
+
+你可以按任意顺序返回答案。
+
+**示例 1：**
+
+**输入：** `nums = [2,7,11,15], target = 9`
+**输出：** `[0,1]`
+**解释：** 因为 `nums[0] + nums[1] == 9` ，返回 `[0, 1] `。
+
+**示例 2：**
+
+**输入：** `nums = [3,2,4], target = 6`
+**输出：** `[1,2]`
+
+**示例 3：**
+
+**输入：** `nums = [3,3], target = 6`
+**输出：** `[0,1]`
+
+**提示：**
+
+- `2 <= nums.length <= 104`
+- `-109 <= nums[i] <= 109`
+- `-109 <= target <= 109`
+- **只会存在一个有效答案**
+
+**进阶：** 你可以想出一个时间复杂度小于 `O(n2)` 的算法吗？
+
+## 暴力求解
+
+核心思路是挑一个，找一个。
+
+使用双重遍历。第一重遍历用于挑选元素，可以按索引逐步升序的方式遍历，每访问一个元素，即根据它算出与 target 的差，即为要在 nums 中寻找的元素，此时进行第二重遍历找前面提到的差。由于使用了双重遍历，可以预见时间复杂度为 O(n^2)。
+
+
+```js
+  
+
+/**
+
+* @param {number[]} nums
+
+* @param {number} target
+
+* @return {number[]}
+
+*/
+
+var twoSum = function(nums, target) {
+	for (let i = 0; i < nums.length - 1; i += 1) {
+		const v1 = nums[i];
+		const v2 = target - v1;
+		for (let j = 0; j < nums.length - 1; j += 1) {
+			if (v2 === nums[j] && i !== j) {
+				return [i, j];
+			}
+		}
+	}
+	return [];
+};
+```
+
+上面的暴力方法中可以再优化一下运算时间（虽然时间的复杂度不变）。`j` 其实可以不从 0 开始找，而是从 `i+1` 开始！因为在第一层遍历的前 `0`～`i-1` 轮中，索引为`i`的元素值已经与索引为`0`～`i-1`的元素值进行过比较。并且因为题目要求不可使用同一个元素，因此排除从 `j=i` 开始。
+
+
+## 哈希表
+
+双重遍历的时间复杂度是O(n^2)，要将时间复杂度降为 O(n)，可以简单理解为去掉一层循环。
+
+使用哈希表，将 nums，以元素值为键名，索引为对应健名的元素值。这样即可去掉第二重遍历，在“挑”完一个元素后，即可在哈希表中确认是否存在目标值。
+
+```js
+/**
+
+* @param {number[]} nums
+
+* @param {number} target
+
+* @return {number[]}
+
+*/
+
+var twoSum = function(nums, target) {
+	const hashTable = nums.reduce((ret, val, idx) => {
+		ret[val] = idx;
+		return ret;
+	}, {});
+
+	for (let i = 0; i < nums.length - 1; i += 1) {
+		const v1 = nums[i];
+		const v2 = target - v1;
+		if (typeof hashTable[v2] !== 'undefined' && i !== j) {
+			return [i, j];
+		}
+	}
+};
+```
+
 # 变态跳台阶||
 
 ## 题目描述

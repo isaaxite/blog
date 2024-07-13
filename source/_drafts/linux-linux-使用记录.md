@@ -298,3 +298,78 @@ GNU coreutils online help: <https://www.gnu.org/software/coreutils/>
 Full documentation <https://www.gnu.org/software/coreutils/ln>
 or available locally via: info '(coreutils) ln invocation'
 ```
+
+
+# 安装中文输入法
+
+
+# 随手记
+
+背景
+
+- debian12
+
+## 安装 fctix5
+
+```shell
+sudo apt install fcitx5 -y
+```
+
+据实践的结果观察，安装 `fcitx5` 的同时会安装 `fcitx5-config-qt` 、`fcitx5-configtool`、`fcitx5-diagnose`、`fcitx5-migrator` 和 `fcitx5-remote`。
+
+## 使用 fcitx5-pinyin
+
+```shell
+sudo apt install fcitx5-pinyin -y
+```
+
+使用 `fcitx5-configtool` 添加拼音输入法（小鹤双拼）
+
+```shell
+fcitx5-configtool
+```
+
+![](image-20240419032425784.png)
+
+将 `Shuangpin` 从右侧添加至左侧，保存即可。
+
+## 使用 rime
+
+安装 `fcitx5-rime`
+
+```shell
+sudo apt install fcitx5-rime -y
+```
+
+在 `fcitx5-configtool` 中添加 `rime` 即可使用，`rime` 默认已经支持几种拼音方案（朙月拼音、地球拼音等等，可在切换输入法到 `rime` 后，使用热键——`Ctrl`+ `~` 或 `F4`——切换拼音方案）。
+
+### 添加小鹤双拼
+
+#### 下载 rime-double-pinyin
+
+下载 [rime-double-pinyin](https://github.com/rime/rime-double-pinyin)。使用浏览器直接下载 zip 包，将 zip 包解压到 rime 的目录下（具体位置以[官方文档](https://github.com/rime/home/wiki/UserData)为准），以下是成文时官方对于 rime 目录的说明：
+
+- **ibus-rime:** `~/.config/ibus/rime`
+- **fcitx-rime:** `~/.config/fcitx/rime`
+- **fcitx5-rime:** `~/.local/share/fcitx5/rime/`
+
+注意：官方的方案推荐使用 [rime/plum](https://github.com/rime/plum) 安装 `rime-double-pinyin`，但实测无效。据观察：`rime` 会将结合 rime 目录下的 `*.schema.yaml` 和 `default.custom.yaml` 等文件进行构建，故有以上行为。
+
+#### 配置小鹤双拼
+
+编辑 `~/.local/share/fcitx5/rime/default.custom.yaml`（无则创建），添加：
+
+```shell
+patch:
+  schema_list:
+    - schema: luna_pinyin          # 拼音输入方案
+    - schema: double_pinyin_flypy  # 双拼输入方案
+```
+
+*注意：`double_pinyin_flypy` 即为小鹤双拼，其他拼音方案的名称可在 ``~/.local/share/fcitx5/rime/` 目录下使用 `ls` 命令查看。*
+
+保存文件，重新登陆桌面会话（logout / login）或重启设备后即可使用 `rime` 的热键切换到“小鹤双拼”拼音方案。
+
+参考：
+- https://github.com/rime/rime-double-pinyin
+- https://fcitx-im.org/wiki/Install_Fcitx_5/zh-cn
