@@ -12,7 +12,7 @@
     "hidden-source": "node ./npm_scripts/hidden_source/index.js"
   },
   "hexo": {
-    "version": "7.0.0-rc1"
+    "version": "7.3.0"
   },
   "dependencies": {
     "hexo": "^7.0.0-rc1",
