@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Isaac Kam&#39;s Blog</title>
+  <icon>https://isaaxite.github.io/blog/icon.png</icon>
+  <subtitle>I am a slow walker, but I never walk backwards.</subtitle>
+  <link href="https://isaaxite.github.io/blog/atom.xml" rel="self"/>
+  
+  <link href="https://isaaxite.github.io/blog/"/>
+  <updated>2025-03-07T23:26:45.928Z</updated>
+  <id>https://isaaxite.github.io/blog/</id>
+  
+  <author>
+    <name>Isaac Kam</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>WSL搭建丝滑的开发环境</title>
+    <link href="https://isaaxite.github.io/blog/resources/WSL%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <id>https://isaaxite.github.io/blog/resources/WSL%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</id>
+    <published>2025-03-07T23:26:45.928Z</published>
+    <updated>2025-03-07T23:26:45.928Z</updated>
+    
+    
+    <summary type="html">Windows系统对于日常使用与娱乐不可否认是优秀的，但对于程序开发的普适性却稍微逊其他系统一筹。WSL2的出现对此让人嗅到了一丝改变。本文旨在使用WSL2搭建NodeJs开发环境。在Windows环境下，使用VSCode、Windows Termial 和 Debian，以WSL2连结三者，搭建NodeJS开发环境，以获得丝滑的Linux开发体验。</summary>
+    
+    
+    
+    
+    <category term="环境配置" scheme="https://isaaxite.github.io/blog/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+    <category term="NodeJS" scheme="https://isaaxite.github.io/blog/tags/NodeJS/"/>
+    
+    <category term="VSCode" scheme="https://isaaxite.github.io/blog/tags/VSCode/"/>
+    
+    <category term="Linux" scheme="https://isaaxite.github.io/blog/tags/Linux/"/>
+    
+    <category term="Debian" scheme="https://isaaxite.github.io/blog/tags/Debian/"/>
+    
+    <category term="Windows" scheme="https://isaaxite.github.io/blog/tags/Windows/"/>
+    
+    <category term="WSL" scheme="https://isaaxite.github.io/blog/tags/WSL/"/>
+    
+    <category term="Windows Terminal" scheme="https://isaaxite.github.io/blog/tags/Windows-Terminal/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tmux 的相关概念与基本使用</title>
+    <link href="https://isaaxite.github.io/blog/resources/linux-%E8%BD%AF%E4%BB%B6-tmux/"/>
+    <id>https://isaaxite.github.io/blog/resources/linux-%E8%BD%AF%E4%BB%B6-tmux/</id>
+    <published>2024-03-31T08:59:23.000Z</published>
+    <updated>2025-03-07T23:26:45.939Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;本文的首要目的是记录，而非完全性的指南，不免会有缺漏。目标是随时间的推移逐步完善此记录，最终达到指南的程度。将以 tmux 的官方文档为核心其他资料为辅介绍 tmux 的基本概念和术语，让 tmux 的潜在用户对它有基本的了解，以达到无痛入门，降低心智消耗的作用。涉及 tmux 的会话（session）、视窗（window）、窗格（pane）和其他的核心内容的基本使用，以达到开箱即用，为 tmux 拾一根薪火（赞美太阳🔥）。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Linux 工具" scheme="https://isaaxite.github.io/blog/categories/Linux-%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="linux" scheme="https://isaaxite.github.io/blog/tags/linux/"/>
+    
+    <category term="terminal" scheme="https://isaaxite.github.io/blog/tags/terminal/"/>
+    
+    <category term="tmux" scheme="https://isaaxite.github.io/blog/tags/tmux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>🚧 Linux-Wechat 体验导向的 Flatpak 探索</title>
+    <link href="https://isaaxite.github.io/blog/resources/linux-%E8%BD%AF%E4%BB%B6-wechat-cursor%E9%97%AE%E9%A2%98/"/>
+    <id>https://isaaxite.github.io/blog/resources/linux-%E8%BD%AF%E4%BB%B6-wechat-cursor%E9%97%AE%E9%A2%98/</id>
+    <published>2024-03-22T09:21:12.000Z</published>
+    <updated>2025-03-07T23:26:45.939Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;我当前使用的大部分软件都有被 Deb（Chromium、VS Code 等） Appimage （Motrix、Qv2ray等）覆盖到，其他一部分使用 WebApp （Neat Reader、Google Translate等）代替，实在无解则使用 win7 虚拟机（微信、迅雷等）。&lt;/p&gt;
+&lt;p&gt;最近听闻微信发布了 linux 版本，但实际并无较为正式的公告。仅在一些视频网站偶尔刷到 linux 版本微信的演示，才让人对此有了一定的可信度。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="linux" scheme="https://isaaxite.github.io/blog/tags/linux/"/>
+    
+    <category term="Flatpak" scheme="https://isaaxite.github.io/blog/tags/Flatpak/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Learn more about the nodejs package manager - npm | pnpm | yarn</title>
+    <link href="https://isaaxite.github.io/blog/resources/Learn-more-about-the-nodejs-package-manager-npm-pnpm-yarn/"/>
+    <id>https://isaaxite.github.io/blog/resources/Learn-more-about-the-nodejs-package-manager-npm-pnpm-yarn/</id>
+    <published>2023-10-23T07:06:14.000Z</published>
+    <updated>2025-03-07T23:26:45.797Z</updated>
+    
+    
+    <summary type="html">Learn more about the nodejs package manager - npm | pnpm | yarn</summary>
+    
+    
+    
+    
+    <category term="writting" scheme="https://isaaxite.github.io/blog/tags/writting/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 下刚刚好的终端模拟器 - Tilix</title>
+    <link href="https://isaaxite.github.io/blog/resources/Linux-Terminal-Emulator-Tilix/"/>
+    <id>https://isaaxite.github.io/blog/resources/Linux-Terminal-Emulator-Tilix/</id>
+    <published>2023-10-14T06:36:24.000Z</published>
+    <updated>2025-03-07T23:26:45.797Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;使用 Linux 很久，用过多个发行版本，每个版本都有内置的终端模拟器。有 Gnome Terminal、Konsole、GUAKE 等等。使用 MacOS 时遇到了让我觉得刚刚好的终端模拟器 - Iterm2，各种原因下，我不再使用 MacOS，后来就很少让我觉得趁手的终端模拟器。后来，一直使用 Windows 和 Linux。Windows 下用的是 Windows Terminal（这是应用名），配合 WSL2，够用也漂亮，知道在开发中遇到 WSL2 无法解决的情况，再次投身到 Linux 的海洋中。目前使用 Linux Mint 21，它是个漂亮且好用的发行版本。Linux 下的终端始终是我内心深处的刺呢，一直在尝试着其他终端：Konsole、Kitty、tmux、Tabby、Terminator、Tilda等等，花了不少的时间安装、配置，遇到不少的问题，都没有达到心目中期望的样子。直到遇到了 Tilix。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="linux" scheme="https://isaaxite.github.io/blog/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="https://isaaxite.github.io/blog/tags/linux/"/>
+    
+    <category term="tilix" scheme="https://isaaxite.github.io/blog/tags/tilix/"/>
+    
+    <category term="terminal" scheme="https://isaaxite.github.io/blog/tags/terminal/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Plan Of Split Isubo Code</title>
+    <link href="https://isaaxite.github.io/blog/resources/Plan-Of-Split-Isubo-Code/"/>
+    <id>https://isaaxite.github.io/blog/resources/Plan-Of-Split-Isubo-Code/</id>
+    <published>2023-09-23T02:47:16.000Z</published>
+    <updated>2025-03-07T23:26:45.831Z</updated>
+    
+    
+    <summary type="html">Plan Of Split Isubo Code</summary>
+    
+    
+    
+    
+    <category term="writting" scheme="https://isaaxite.github.io/blog/tags/writting/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>practices of vscode-plugin&#39;s development</title>
+    <link href="https://isaaxite.github.io/blog/resources/practices-of-vscode-plugin-s-development/"/>
+    <id>https://isaaxite.github.io/blog/resources/practices-of-vscode-plugin-s-development/</id>
+    <published>2023-09-22T13:50:26.000Z</published>
+    <updated>2025-03-07T23:26:45.949Z</updated>
+    
+    
+    <summary type="html">practices of vscode-plugin&#39;s development</summary>
+    
+    
+    
+    
+    <category term="writting" scheme="https://isaaxite.github.io/blog/tags/writting/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>The Plan Of Isubo&#39;s Vscode Plugin Development</title>
+    <link href="https://isaaxite.github.io/blog/resources/The-Plan-Of-Isubo-s-Vscode-Plugin-Development/"/>
+    <id>https://isaaxite.github.io/blog/resources/The-Plan-Of-Isubo-s-Vscode-Plugin-Development/</id>
+    <published>2023-09-18T04:33:45.000Z</published>
+    <updated>2025-03-07T23:26:45.926Z</updated>
+    
+    
+    <summary type="html">The Plan Of Isubo&#39;s Vscode Plugin Development</summary>
+    
+    
+    
+    
+    <category term="writting" scheme="https://isaaxite.github.io/blog/tags/writting/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Get-Start-Of-VScode-Ext-Dev</title>
+    <link href="https://isaaxite.github.io/blog/resources/Get-Start-Of-VScode-Ext-Dev/"/>
+    <id>https://isaaxite.github.io/blog/resources/Get-Start-Of-VScode-Ext-Dev/</id>
+    <published>2023-09-18T02:10:59.000Z</published>
+    <updated>2025-03-07T23:26:45.796Z</updated>
+    
+    
+    <summary type="html">Get-Start-Of-VScode-Ext-Dev</summary>
+    
+    
+    
+    
+    <category term="writting" scheme="https://isaaxite.github.io/blog/tags/writting/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从 eslint-plugin-security 看前端安全</title>
+    <link href="https://isaaxite.github.io/blog/resources/Using-eslint-plugin-security/"/>
+    <id>https://isaaxite.github.io/blog/resources/Using-eslint-plugin-security/</id>
+    <published>2023-09-02T09:35:02.000Z</published>
+    <updated>2025-03-07T23:26:45.928Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;近来，主要的研究课题是 JavaScript 代码的静态分析。在研究期间用到 Eslint 对此做实践，了解到它的一个插件，&lt;code&gt;eslint-plugin-security&lt;/code&gt;。如其名，它的作用是安全相关方面的代码扫描。在看了它的配置规则后，觉得甚是有趣，不少规则都涉及到常见的前端安全的问题。故有了想法，为什么不以它为引子，来个管中窥豹。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="静态代码分析" scheme="https://isaaxite.github.io/blog/categories/%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    <category term="前端安全" scheme="https://isaaxite.github.io/blog/categories/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="eslint-plugin-security" scheme="https://isaaxite.github.io/blog/tags/eslint-plugin-security/"/>
+    
+    <category term="实践" scheme="https://isaaxite.github.io/blog/tags/%E5%AE%9E%E8%B7%B5/"/>
+    
+    <category term="trojan source attacks" scheme="https://isaaxite.github.io/blog/tags/trojan-source-attacks/"/>
+    
+    <category term="安全漏洞" scheme="https://isaaxite.github.io/blog/tags/%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E/"/>
+    
+    <category term="命令注入攻击" scheme="https://isaaxite.github.io/blog/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/"/>
+    
+    <category term="XSS" scheme="https://isaaxite.github.io/blog/tags/XSS/"/>
+    
+    <category term="DoS" scheme="https://isaaxite.github.io/blog/tags/DoS/"/>
+    
+    <category term="CSRF" scheme="https://isaaxite.github.io/blog/tags/CSRF/"/>
+    
+    <category term="路径遍历" scheme="https://isaaxite.github.io/blog/tags/%E8%B7%AF%E5%BE%84%E9%81%8D%E5%8E%86/"/>
+    
+    <category term="ReDoS" scheme="https://isaaxite.github.io/blog/tags/ReDoS/"/>
+    
+    <category term="allow 攻击" scheme="https://isaaxite.github.io/blog/tags/allow-%E6%94%BB%E5%87%BB/"/>
+    
+    <category term="对象注入漏洞" scheme="https://isaaxite.github.io/blog/tags/%E5%AF%B9%E8%B1%A1%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/"/>
+    
+    <category term="计时攻击" scheme="https://isaaxite.github.io/blog/tags/%E8%AE%A1%E6%97%B6%E6%94%BB%E5%87%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 包管理器 - APT</title>
+    <link href="https://isaaxite.github.io/blog/resources/Linux-Package-Manager-Apt/"/>
+    <id>https://isaaxite.github.io/blog/resources/Linux-Package-Manager-Apt/</id>
+    <published>2023-09-02T05:11:55.000Z</published>
+    <updated>2025-03-07T23:26:45.797Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;本文将介绍 Advanced Packaging Tool (APT) 包管理器，以及其在 Debian 系统及其衍生发行版（如 Ubuntu）中的配置方式和使用方法。我们将探讨如何配置 APT，包括软件源的设置和更新策略。我们还将深入了解 APT 的使用方式，包括通过命令行工具 apt 进行软件包的安装、升级和移除等操作。通过本文，读者将能够全面了解 APT 的功能和特性，并能够有效地使用 APT 管理软件包，提升系统的稳定性和安全性。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://isaaxite.github.io/blog/categories/Linux/"/>
+    
+    
+    <category term="apt" scheme="https://isaaxite.github.io/blog/tags/apt/"/>
+    
+    <category term="linux包管理器" scheme="https://isaaxite.github.io/blog/tags/linux%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Practice of lerna</title>
+    <link href="https://isaaxite.github.io/blog/resources/Practice-of-lerna/"/>
+    <id>https://isaaxite.github.io/blog/resources/Practice-of-lerna/</id>
+    <published>2023-09-02T05:11:55.000Z</published>
+    <updated>2025-03-07T23:26:45.831Z</updated>
+    
+    
+    <summary type="html">Practice of lerna</summary>
+    
+    
+    
+    
+    <category term="writting" scheme="https://isaaxite.github.io/blog/tags/writting/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Static code analysis</title>
+    <link href="https://isaaxite.github.io/blog/resources/Static-code-analysis/"/>
+    <id>https://isaaxite.github.io/blog/resources/Static-code-analysis/</id>
+    <published>2023-08-21T03:08:54.000Z</published>
+    <updated>2025-03-07T23:26:45.842Z</updated>
+    
+    
+    <summary type="html">Static code analysis</summary>
+    
+    
+    
+    
+    <category term="writting" scheme="https://isaaxite.github.io/blog/tags/writting/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Github Action 入门指南</title>
+    <link href="https://isaaxite.github.io/blog/resources/Get-Start-Of-Github-Action/"/>
+    <id>https://isaaxite.github.io/blog/resources/Get-Start-Of-Github-Action/</id>
+    <published>2023-08-07T07:23:25.000Z</published>
+    <updated>2025-03-07T23:26:45.787Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h1&gt;&lt;p&gt;最近持续迭代的 npm 包，&lt;a href=&quot;https://github.com/isaaxite/deploy-posts-to-github-issue&quot;&gt;isubo&lt;/a&gt;。功能已经完成得七七八八，因此开始逐渐完善与之相关的基本设施，比如自动化的能力。该项目代码使用 Github 管理，在它启动之初已经略有了解 GitHub-Actions，模糊地知道Gtihub Actions 是 Github 提供的 CI&amp;#x2F;CD 工具。由于各种原因的将此增加自动化能力的工作置后到最近。&lt;/p&gt;
+&lt;p&gt;本文将围绕 Github Actions 展开，了解 Gtihub Actions、CI&amp;#x2F;CD概念以及常见的CI&amp;#x2F;CD工具或平台。接着回归实际问题，详细了解 Github Actions 的使用、配置文件的常用配置项。最后，再实践上面提到的 &lt;a href=&quot;https://github.com/isaaxite/deploy-posts-to-github-issue&quot;&gt;isubo&lt;/a&gt; 的自动化能力。通过实践让我们具备一定的，使用 Gtihub Actions 实现CI&amp;#x2F;CD的能力；具备解决新的Github Actions 相关新的需求点的能力，比如在工作流中增加代码静态分析能力。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="CI/CD" scheme="https://isaaxite.github.io/blog/categories/CI-CD/"/>
+    
+    <category term="程序员手册" scheme="https://isaaxite.github.io/blog/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Github Actions" scheme="https://isaaxite.github.io/blog/tags/Github-Actions/"/>
+    
+    <category term="自动化发布node.js" scheme="https://isaaxite.github.io/blog/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8F%91%E5%B8%83node-js/"/>
+    
+    <category term="入门指南" scheme="https://isaaxite.github.io/blog/tags/%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"/>
+    
+    <category term="actions/cache" scheme="https://isaaxite.github.io/blog/tags/actions-cache/"/>
+    
+    <category term="actions/upload-artifact" scheme="https://isaaxite.github.io/blog/tags/actions-upload-artifact/"/>
+    
+    <category term="actions/download" scheme="https://isaaxite.github.io/blog/tags/actions-download/"/>
+    
+    <category term="workflow" scheme="https://isaaxite.github.io/blog/tags/workflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自动化CHANGELOG，持续集成</title>
+    <link href="https://isaaxite.github.io/blog/resources/Automated-Changelog-Manual/"/>
+    <id>https://isaaxite.github.io/blog/resources/Automated-Changelog-Manual/</id>
+    <published>2023-07-13T03:06:20.000Z</published>
+    <updated>2025-03-07T23:26:45.780Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;最近在开发使用 Github Issue 编写 blog 的项目。目前还在持续开发中，已经 300+ commits，npm 上已经发布的版本迭代有 9个。后面仍然会继续维护，有许多准备增加的能供，需要优化的点，以及已知的需要重构的逻辑，应该还会有相当的bug需要修复。&lt;/p&gt;
+&lt;p&gt;抱着负责任的态度，个人认为需要一个渠道使得 Isubo 的使用者获知这些一系列的变动。因此，需要编写 CHANGELOG 记录每个项目版本的变动。&lt;/p&gt;
+&lt;p&gt;但是，由于目前还是一个人在开发此项目，精力有限，需要更多地聚焦在功能新增、优化、重构和Bug修复。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;CHANGELOG 自动化是最终的答案！&lt;/em&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="CI/CD" scheme="https://isaaxite.github.io/blog/categories/CI-CD/"/>
+    
+    <category term="持续集成" scheme="https://isaaxite.github.io/blog/categories/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+    <category term="npm" scheme="https://isaaxite.github.io/blog/categories/npm/"/>
+    
+    
+    <category term="CHANGELOG" scheme="https://isaaxite.github.io/blog/tags/CHANGELOG/"/>
+    
+    <category term="自动化" scheme="https://isaaxite.github.io/blog/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+    <category term="Commit规范" scheme="https://isaaxite.github.io/blog/tags/Commit%E8%A7%84%E8%8C%83/"/>
+    
+    <category term="版本控制" scheme="https://isaaxite.github.io/blog/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
+    
+    <category term="Git Hook" scheme="https://isaaxite.github.io/blog/tags/Git-Hook/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一次性搞懂浏览器扩展程序开发</title>
+    <link href="https://isaaxite.github.io/blog/resources/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F/"/>
+    <id>https://isaaxite.github.io/blog/resources/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F/</id>
+    <published>2023-06-08T02:18:55.000Z</published>
+    <updated>2025-03-07T23:26:45.960Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;概览&quot;&gt;&lt;a href=&quot;#概览&quot; class=&quot;headerlink&quot; title=&quot;概览&quot;&gt;&lt;/a&gt;概览&lt;/h1&gt;&lt;p&gt;本文将介绍浏览器扩展是什么，怎么安装。详细分述关于浏览器扩展程序的开发，它项目结构，各个文件文件负者的职能，作为开发者我们可以怎么运用它们实现我们的功能。在开发到一定程度之后，该如何去调式，发现问题，解决问题。之后，如何发布开发好的浏览器开发程序。&lt;/p&gt;
+&lt;p&gt;全线保姆级别手把手教导&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="JavaScript" scheme="https://isaaxite.github.io/blog/categories/JavaScript/"/>
+    
+    <category term="浏览器扩展程序" scheme="https://isaaxite.github.io/blog/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F/"/>
+    
+    
+    <category term="JavaScript" scheme="https://isaaxite.github.io/blog/tags/JavaScript/"/>
+    
+    <category term="浏览器扩展程序" scheme="https://isaaxite.github.io/blog/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F/"/>
+    
+    <category term="浏览器扩展程序开发" scheme="https://isaaxite.github.io/blog/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/"/>
+    
+    <category term="浏览器扩展程序安装" scheme="https://isaaxite.github.io/blog/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%AE%89%E8%A3%85/"/>
+    
+    <category term="浏览器扩展程序发布" scheme="https://isaaxite.github.io/blog/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%8F%91%E5%B8%83/"/>
+    
+    <category term="content script" scheme="https://isaaxite.github.io/blog/tags/content-script/"/>
+    
+    <category term="background script" scheme="https://isaaxite.github.io/blog/tags/background-script/"/>
+    
+    <category term="popup" scheme="https://isaaxite.github.io/blog/tags/popup/"/>
+    
+    <category term="options" scheme="https://isaaxite.github.io/blog/tags/options/"/>
+    
+    <category term="chrome extension" scheme="https://isaaxite.github.io/blog/tags/chrome-extension/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo插件</title>
+    <link href="https://isaaxite.github.io/blog/resources/Hexo%E6%8F%92%E4%BB%B6/"/>
+    <id>https://isaaxite.github.io/blog/resources/Hexo%E6%8F%92%E4%BB%B6/</id>
+    <published>2023-06-02T02:21:16.000Z</published>
+    <updated>2025-03-07T23:26:45.796Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;按文档描述，操作之后没有加载自己写的插件！&lt;/p&gt;
+&lt;p&gt;再npm i 了之后才出现加载到！&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://hexo.io/docs/plugins.html&quot;&gt;Hexo Docs |</summary>
+        
+      
+    
+    
+    
+    
+    <category term="bottoming" scheme="https://isaaxite.github.io/blog/tags/bottoming/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LICENSE的选择与生成</title>
+    <link href="https://isaaxite.github.io/blog/resources/license/"/>
+    <id>https://isaaxite.github.io/blog/resources/license/</id>
+    <published>2023-05-30T08:50:28.000Z</published>
+    <updated>2025-03-07T23:26:45.937Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;本文旨在介绍何为license，如何选择license，以及开发常用的MIT license如何使用。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="开发标准" scheme="https://isaaxite.github.io/blog/tags/%E5%BC%80%E5%8F%91%E6%A0%87%E5%87%86/"/>
+    
+    <category term="LICENSE" scheme="https://isaaxite.github.io/blog/tags/LICENSE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>初识WSL2</title>
+    <link href="https://isaaxite.github.io/blog/resources/%E5%88%9D%E8%AF%86WSL2/"/>
+    <id>https://isaaxite.github.io/blog/resources/%E5%88%9D%E8%AF%86WSL2/</id>
+    <published>2023-04-11T11:10:24.000Z</published>
+    <updated>2025-03-07T23:26:45.955Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;本文旨在记录WSL2的安装，让WSL基本可用。&lt;/p&gt;
+&lt;p&gt;接着是Linux发行版本的替换，以至于可以自由选择自己熟悉、喜欢的distribution。&lt;/p&gt;
+&lt;p&gt;最后，是有选择地介绍WSL的基础配置及其略详细的情况，目的是让WSL可以更加适合开发者使用。如果后面有需要会继续补充常用的配置使用。以及linux发行版本的替换。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="WSL" scheme="https://isaaxite.github.io/blog/tags/WSL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo deploy失败问题</title>
+    <link href="https://isaaxite.github.io/blog/resources/hexo-deploy%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/"/>
+    <id>https://isaaxite.github.io/blog/resources/hexo-deploy%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/</id>
+    <published>2023-03-10T15:22:46.000Z</published>
+    <updated>2025-03-07T23:26:45.932Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;当前在WSL的Debian系统中使用hexo写作以及发布部署。&lt;/p&gt;
+&lt;p&gt;在Win和Mac系统环境下，在deploy的时候，会自动跳转浏览器做OAuth2授权，不影响使用。&lt;/p&gt;
+&lt;p&gt;但是在WSL环境或者说Linux环境（可能）下，会直接在终端 prompt。要求输入账号和密码，但是无论输入对或错都会失败。本文旨在解决此问题以及deploy的部分逻辑分析。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://isaaxite.github.io/blog/categories/hexo/"/>
+    
+    <category term="deploy" scheme="https://isaaxite.github.io/blog/categories/hexo/deploy/"/>
+    
+    
+    <category term="debian" scheme="https://isaaxite.github.io/blog/tags/debian/"/>
+    
+    <category term="hexo" scheme="https://isaaxite.github.io/blog/tags/hexo/"/>
+    
+    <category term="deploy" scheme="https://isaaxite.github.io/blog/tags/deploy/"/>
+    
+    <category term="wsl" scheme="https://isaaxite.github.io/blog/tags/wsl/"/>
+    
+    <category term="github" scheme="https://isaaxite.github.io/blog/tags/github/"/>
+    
+  </entry>
+  
+</feed>
