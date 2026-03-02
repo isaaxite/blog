@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /resources/
+Allow: /tags/
+Disallow: /css/
+Disallow: /images/
+Disallow: /js/
+Disallow: /page/
+
+Sitemap: https://isaaxite.github.io/blog/sitemap.xml
+Sitemap: https://isaaxite.github.io/blog/baidusitemap.xml
