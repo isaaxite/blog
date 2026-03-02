@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "hexo": "^7.0.0-rc1",
+    "hexo-asset-img": "^1.2.0",
     "hexo-deployer-git": "^4.0.0",
-    "hexo-filter-relative-src": "1.0.6-beta.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-baidu-sitemap": "^0.1.9",
     "hexo-generator-category": "^2.0.0",

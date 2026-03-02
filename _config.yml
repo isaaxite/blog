@@ -148,10 +148,6 @@ language: zh-CN
 
 neat_enable: true
 
-relitive_src_filter:
-  enable: true
-  # prefix: https://raw.githubusercontent.com/isaaxite/blog/master/resources
-
 search:
   path: search.xml
   field: all

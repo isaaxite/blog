@@ -11,12 +11,12 @@ importers:
       hexo:
         specifier: ^7.0.0-rc1
         version: 7.3.0(chokidar@3.6.0)
+      hexo-asset-img:
+        specifier: ^1.2.0
+        version: 1.2.0
       hexo-deployer-git:
         specifier: ^4.0.0
         version: 4.0.0(chokidar@3.6.0)
-      hexo-filter-relative-src:
-        specifier: 1.0.6-beta.0
-        version: 1.0.6-beta.0
       hexo-generator-archive:
         specifier: ^2.0.0
         version: 2.0.0
@@ -641,15 +641,8 @@ packages:
   css-select@1.2.0:
     resolution: {integrity: sha512-dUQOBoqdR7QwV90WysXPLXG5LO7nhYBgiWVfxF80DKPF8zx1t/pUd2FYy73emg3zrjtM6dzmYgbHKfV2rxiHQA==}
 
-  css-select@5.1.0:
-    resolution: {integrity: sha512-nwoRF1rvRRnnCqqY7updORDsuqKzqYJ28+oSMaJMMgOauh3fvwHqMS7EZpIPqK8GL+g9mKxF1vP/ZjSeNjEVHg==}
-
   css-what@2.1.3:
     resolution: {integrity: sha512-a+EPoD+uZiNfh+5fxw2nO9QwFa6nJe2Or35fGY6Ipw1R3R4AGz1d1TEZrCegvw2YTmZ0jXirGYlzxxpYSHwpEg==}
-
-  css-what@6.1.0:
-    resolution: {integrity: sha512-HTUrgRJ7r4dsZKU6GjmpfRK1O76h97Z8MfS1G0FozR+oF2kG6Vfe8JE6zwrkbxigziPHinCJ+gCPjA9EaBDtRw==}
-    engines: {node: '>= 6'}
 
   css@3.0.0:
     resolution: {integrity: sha512-DG9pFfwOrzc+hawpmqX/dHYHJG+Bsdb0klhyi1sDneOgGOXy9wQIC8hzyVp1e4NRYDBdxcylvywPkkXCHAzTyQ==}
@@ -1104,6 +1097,9 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
 
+  hexo-asset-img@1.2.0:
+    resolution: {integrity: sha512-PfjFF8DvG22KZ9ZldzpCFJUerH+IJ7e4ARw9BsD3PtJsAbYJGLQfLt/XFnel/r9d2dDYjMlQf1urFdLirseqEA==}
+
   hexo-bunyan@1.0.0:
     resolution: {integrity: sha512-RymT8Ck+K77mLt9BEYNb4uyfC7RIQnU5N3laXowMrS28jj2h89VHJCOnhV00mmta4fHRqNa07kP1Hrn17nvMkQ==}
     engines: {'0': node >=0.10.0}
@@ -1127,10 +1123,6 @@ packages:
   hexo-filter-hidden-source@0.0.3-alpha.0:
     resolution: {integrity: sha512-T+wspSR1NniVYoQKhd9X5aLZfe5KR5hruvvdtIjFtyu0OYOlf9HxqYbzeCLTL4CBoVM80GklDbatryxXuWy4sA==}
     hasBin: true
-
-  hexo-filter-relative-src@1.0.6-beta.0:
-    resolution: {integrity: sha512-onmEN7AxtW7n0znU2DQE/xifj459k2JdgK2sqd8QghmAKGVqZI0CkosI+Sx+u9P4PH7c902HpMfWhH9NowUfEA==}
-    engines: {node: '>= 0.10.0'}
 
   hexo-front-matter@0.2.3:
     resolution: {integrity: sha512-GL/pGfYqsvjMgxjhOWv1zAc7t4JoGUow+CH9Tes/5N2wKxxTzt2woKEMHz1+c01CmhdVYUR4lO3R1ZAcxc0caA==}
@@ -1863,9 +1855,6 @@ packages:
   node-fingerprint@0.0.2:
     resolution: {integrity: sha512-vPFfTD5EBJieQ4SI3v61fWxlV1kav3m9Dbejd6CjWhOJn8s+XMxpOOosCNAyIrUQ/jJOlPndfrZ0lSw4+RgwcA==}
 
-  node-html-parser@6.1.13:
-    resolution: {integrity: sha512-qIsTMOY4C/dAa5Q5vsobRpOOvPfC4pB61UVW2uSwZNUp0QU/jCekTal1vMmbO0DgdHeLUJpv/ARmDqErVxA3Sg==}
-
   nopt@2.1.2:
     resolution: {integrity: sha512-x8vXm7BZ2jE1Txrxh/hO74HTuYZQEbo8edoRcANgdZ4+PCV+pbjd/xdummkmjjC7LU5EjPzlu8zEq/oxWylnKA==}
     hasBin: true
@@ -1884,9 +1873,6 @@ packages:
 
   nth-check@1.0.2:
     resolution: {integrity: sha512-WeBOdju8SnzPN5vTUJYxYUxLeXpCaVP5i5e0LF8fg7WORF2Wd7wFX/pk0tYZk7s8T+J7VLy0Da6J1+wCT0AtHg==}
-
-  nth-check@2.1.1:
-    resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
 
   nunjucks@3.2.4:
     resolution: {integrity: sha512-26XRV6BhkgK0VOxfbU5cQI+ICFUtMLixv1noZn1tGU38kQH5A5nmmbk/O45xdyBhD1esk47nKrY0mvQpZIhRjQ==}
@@ -3292,17 +3278,7 @@ snapshots:
       domutils: 1.5.1
       nth-check: 1.0.2
 
-  css-select@5.1.0:
-    dependencies:
-      boolbase: 1.0.0
-      css-what: 6.1.0
-      domhandler: 5.0.3
-      domutils: 3.2.2
-      nth-check: 2.1.1
-
   css-what@2.1.3: {}
-
-  css-what@6.1.0: {}
 
   css@3.0.0:
     dependencies:
@@ -3775,6 +3751,8 @@ snapshots:
 
   he@1.2.0: {}
 
+  hexo-asset-img@1.2.0: {}
+
   hexo-bunyan@1.0.0:
     optionalDependencies:
       moment: 2.30.1
@@ -3832,11 +3810,6 @@ snapshots:
       js-yaml: 4.1.0
       prompts: 2.4.2
       yargs: 17.7.2
-
-  hexo-filter-relative-src@1.0.6-beta.0:
-    dependencies:
-      node-html-parser: 6.1.13
-      object-assign: 4.1.1
 
   hexo-front-matter@0.2.3:
     dependencies:
@@ -4825,11 +4798,6 @@ snapshots:
 
   node-fingerprint@0.0.2: {}
 
-  node-html-parser@6.1.13:
-    dependencies:
-      css-select: 5.1.0
-      he: 1.2.0
-
   nopt@2.1.2:
     dependencies:
       abbrev: 1.1.1
@@ -4845,10 +4813,6 @@ snapshots:
       path-key: 3.1.1
 
   nth-check@1.0.2:
-    dependencies:
-      boolbase: 1.0.0
-
-  nth-check@2.1.1:
     dependencies:
       boolbase: 1.0.0
 
