@@ -153,3 +153,22 @@ search:
   field: all
   content: true
   format: html
+
+hide_posts:
+  # Should hexo-hide-posts be enabled.
+  enable: true
+
+  # The front-matter key for flagging hidden posts.
+  # You can change the filter name if you like.
+  filter: hidden
+
+  # Add "noindex" meta tag to prevent hidden posts from being indexed by search engines.
+  noindex: true
+
+  # Generators in the allowlist will have access to the hidden posts.
+  # Common generators in Hexo: 'index', 'tag', 'category', 'archive', 'sitemap', 'feed'
+  allowlist_generators: ['category']
+
+  # Generators in the blocklist can *not* access the hidden posts.
+  # The allowlist has higher priority than the blocklist, if both set.
+  # blocklist_generators: ['*']
