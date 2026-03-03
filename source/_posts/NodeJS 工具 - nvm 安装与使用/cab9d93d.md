@@ -5,7 +5,8 @@ tags:
 - nodejs
 - nvm
 categories:
-  - NodeJS 工具
+- [NodeJS]
+- [NodeJS 工具]
 ---
 
 node 版本管理工具还有一个是 TJ 大神的 n 命令，n 命令是作为一个 node 的模块而存在，而 nvm 是一个独立于 node/npm 的外部 shell 脚本，因此 n 命令相比 nvm 更加局限。

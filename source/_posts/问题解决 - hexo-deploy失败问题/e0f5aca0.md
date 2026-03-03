@@ -1,19 +1,15 @@
 ---
-title: hexo deploy失败问题
-tags:
-  - hexo
-  - deploy
-  - wsl
-  - debian
-  - github
-categories:
-  - hexo
-  - deploy
+title: Hexo deploy 失败问题
 date: 2023-03-10 23:22:46
+tags:
+- hexo
+- deploy
+- wsl
+- debian
+- github
+categories:
+- [问题解决]
 ---
-
-
-# 前言
 
 当前在WSL的Debian系统中使用hexo写作以及发布部署。
 
@@ -23,7 +19,7 @@ date: 2023-03-10 23:22:46
 
 <!-- more -->
 
-# 为什么输入正确还是push失败？
+## 为什么输入正确还是push失败？
 
 使用 [默认的deploy配置](e0f5aca0/https://hexo.io/docs/one-command-deployment#Git) 并进行部署，你会得到以下结果：
 
@@ -39,7 +35,7 @@ remote: Support for password authentication was removed on August 13, 2021.
 
 详细可以查阅：[Github Blog: Git password authentication is shutting down]
 
-# 更换验证方式
+## 更换验证方式
 
 既然密码验证方式已经不适用。那只能换个验证方式。
 
@@ -69,17 +65,17 @@ deploy:
       branch: <branch name>
       token: <GITHUB_TOKEN>
 
-# 例子：
+## 例子：
 deploy:
   type: git
   repo:
     github:
       url: https://github.com/isaaxite/blog.git
       branch: master
-      # 这里使用了环境变量 $GITHUB_TOKEN
+      ## 这里使用了环境变量 $GITHUB_TOKEN
       token: $GITHUB_TOKEN
-      # name: isaaxite
-      # email: isaacgun@outlook.com
+      ## name: isaaxite
+      ## email: isaacgun@outlook.com
 ```
 
 这里需要注意，虽然README有给出deploy的配置例子，但是不清晰！
@@ -97,7 +93,7 @@ deploy:
 到此，配置即完成！
 
 
-# [hexo-deployer-git]是怎么使用Token的
+## [hexo-deployer-git]是怎么使用Token的
 
 在阅读[hexo-deployer-git]部分源码后，得知：
 
@@ -105,7 +101,7 @@ deploy:
 2. 使用 `spaw` 函数执行git命令；
 
 
-## 使用git命令push
+### 使用git命令push
 
 经阅读源码 [lib/deploy.js] 发现，最后是使用下面这句命令将本地commit推送到GitHub对应分支！ 
 
@@ -137,7 +133,7 @@ git push -u <repo.url> HEAD:<repo.branch> --force
 
 ![](e0f5aca0/Snipaste_2023-03-10_18-19-20.png)
 
-## 使用执行 spaw 执行 git 命令
+### 使用执行 spaw 执行 git 命令
 
 在 [lib/deploy.js] 中知道，是使用 [Github Repository: hexojs/hexo-util] 的 `spaw` 执行 git 命令。
 
@@ -149,9 +145,9 @@ git push -u <repo.url> HEAD:<repo.branch> --force
 https://github.com/hexojs/hexo-util/blob/master/lib/spawn.ts
 
 
-# 附录
+## 附录
 
-## git push
+### git push
 
 以下是核心逻辑，完整代码参考：[lib/deploy.js]
 
@@ -175,7 +171,7 @@ function push(repo) {
 }
 ```
 
-## parseObjRepo
+### parseObjRepo
 
 以下是核心逻辑，完整代码参考：[lib/parse_config.js]
 
@@ -218,7 +214,7 @@ function parseObjRepo(repo) {
 }
 ```
 
-## 参考
+### 参考
 
 - [Github Repository: hexo-deployer-git]
 
