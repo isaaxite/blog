@@ -8,8 +8,8 @@
     "deploy": "hexo deploy",
     "server": "hexo server",
     "publish": "hexo g -d && git checkout .",
-    "new-journal": "node ./npm_scripts/new_journal.js",
-    "hidden-source": "node ./npm_scripts/hidden_source/index.js"
+    "new-journal": "node ./npm-scripts/new_journal.js",
+    "new-post": "node ./npm-scripts/new_post.js"
   },
   "hexo": {
     "version": "7.3.0"
