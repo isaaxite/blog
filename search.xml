@@ -8,19 +8,19 @@
 <span id="more"></span>
 
 <p>newVnode和oldVnode的比对仅限于同层级之间对比，兄弟之间相互比较，如下图。不会出现跨层级的对比。</p>
-<style>.hmyaurvtxqiu{}</style><img src="/blog/f14ed6c21548/diff-vnode.png" class="hmyaurvtxqiu" alt="vue中的diff算法实现">
+<style>.igrerekfnlbs{}</style><img src="/blog/f14ed6c21548/diff-vnode.png" class="igrerekfnlbs" alt="vue中的diff算法实现">
 
 <h1 id="diff算法是什么"><a href="#diff算法是什么" class="headerlink" title="diff算法是什么"></a>diff算法是什么</h1><p><a href="#">回到顶部</a></p>
 <p>diff算法不是一种对比的方法，而是一种寻找与当前节点匹配可复用节点的方法；寻找oldVnode.children中那个成员与newVnode.children中那个成员相同。</p>
 <p>这种寻找的方法如图可见一斑，主要的方法有5种，辅助的有2种（未画在图上），一共7种。每种寻找方式相互独立！通过循环遍历children，逐一判断，直到循环结束。下面结合代码分别说明其中寻找方式。</p>
 <p><strong>ps：无需过于在意图中所表达的逻辑，图只是用于辅助说明下面的源码</strong></p>
-<style>.pbnvzbezfbwl{}</style><img src="/blog/f14ed6c21548/diff-vnode-children.png" class="pbnvzbezfbwl" alt="vue中的diff算法实现">
+<style>.bylyuzxxsnew{}</style><img src="/blog/f14ed6c21548/diff-vnode-children.png" class="bylyuzxxsnew" alt="vue中的diff算法实现">
 
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"></span></span><br><span class="line"><span class="params">  parentElm,  <span class="comment">// &#123;Element&#125;，父节点的真实html元素</span></span></span><br><span class="line"><span class="params">  oldCh,  <span class="comment">// &#123;Vnode[]&#125;，oldVnode.children</span></span></span><br><span class="line"><span class="params">  newCh,  <span class="comment">// &#123;Vnode[]&#125;，newVnode.children</span></span></span><br><span class="line"><span class="params">  insertedVnodeQueue,   <span class="comment">// &#123;Vnode[]&#125;，插入的节点队列（此时可忽略）</span></span></span><br><span class="line"><span class="params">  removeOnly  <span class="comment">// &#123;Boolean&#125;，是否只可以删除</span></span></span><br><span class="line"><span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> oldStartIdx = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> newStartIdx = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> oldEndIdx = oldCh.<span class="property">length</span> - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> oldStartVnode = oldCh[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> oldEndVnode = oldCh[oldEndIdx]</span><br><span class="line">    <span class="keyword">let</span> newEndIdx = newCh.<span class="property">length</span> - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> newStartVnode = newCh[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> newEndVnode = newCh[newEndIdx]</span><br><span class="line">    <span class="keyword">let</span> oldKeyToIdx, idxInOld, vnodeToMove, refElm</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>建立四个指针<code>oldStartVnode</code>、<code>oldEndVnode</code>、<code>newStartVnode</code>、<code>newEndVnode</code>，由<code>updateChildren</code>中的定义可以知道：开始时，他们分别指向<code>oldVnode.children</code>的头部、<code>oldVnode.children</code>的尾部、<code>newVnode.children</code>的头部、<code>newVnode.children</code>的尾部。然后，这四个指针的指向也不是固定的，在循环遍历的过程中，他们的指向也会变动，他们指向会因为以下索引的变动而变动，<code>oldStartIdx</code>、<code>oldEndIdx</code>、<code>newStartIdx</code>、<code>newEndIdx</code>。</p>
 <h2 id="1-新头与旧头垂直对比"><a href="#1-新头与旧头垂直对比" class="headerlink" title="1.新头与旧头垂直对比"></a>1.新头与旧头垂直对比</h2><p><a href="#">回到顶部</a></p>
-<style>.vdjuiuolhbum{}</style><img src="/blog/f14ed6c21548/diff-vnode-children-01.png" class="vdjuiuolhbum" alt="vue中的diff算法实现">
+<style>.hvctrmkydmfe{}</style><img src="/blog/f14ed6c21548/diff-vnode-children-01.png" class="hvctrmkydmfe" alt="vue中的diff算法实现">
 
 <p>新旧头部vnode进行对比，判断是否匹配，以复用。sameVnode的功能与实现逻辑参考<a href="#sameVnode%E7%9A%84%E5%8A%9F%E8%83%BD%E4%B8%8E%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91">附录：sameVnode的功能与实现逻辑</a>，值得一提的是：a.是input元素，更新前后type不一致；b.变动的是key属性；c.元素更新前后将所有属性删除，或从无到有；只要不是以上三种情况之一，不论怎么增删、修改元素上的属性，都不会影响是否匹配的结果！</p>
 <p>1.判断新旧头部是匹配的，那么就调用<code>patchVnode</code>，给<code>newStartVnode</code>打补丁！</p>
@@ -31,13 +31,13 @@
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"><span class="comment">/* */</span></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 1 */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">sameVnode</span>(oldStartVnode, newStartVnode)) &#123;</span><br><span class="line">      <span class="title function_">patchVnode</span>(oldStartVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)</span><br><span class="line">      oldStartVnode = oldCh[++oldStartIdx]</span><br><span class="line">      newStartVnode = newCh[++newStartIdx]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="2-新尾与旧尾垂直对比"><a href="#2-新尾与旧尾垂直对比" class="headerlink" title="2.新尾与旧尾垂直对比"></a>2.新尾与旧尾垂直对比</h2><p><a href="#">回到顶部</a></p>
-<style>.wkslxinwpjqz{}</style><img src="/blog/f14ed6c21548/diff-vnode-children-02.png" class="wkslxinwpjqz" alt="vue中的diff算法实现">
+<style>.yfrytkiihwgz{}</style><img src="/blog/f14ed6c21548/diff-vnode-children-02.png" class="yfrytkiihwgz" alt="vue中的diff算法实现">
 
 <p>新旧尾部的对比情况和[1新头与旧头垂直对比]类似，再次再累累述，以下实现的逻辑：</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"><span class="comment">/* */</span></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 2 */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">sameVnode</span>(oldEndVnode, newEndVnode)) &#123;</span><br><span class="line">      <span class="title function_">patchVnode</span>(oldEndVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx)</span><br><span class="line">      oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">      newEndVnode = newCh[--newEndIdx]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="3-新尾与旧头交叉对比"><a href="#3-新尾与旧头交叉对比" class="headerlink" title="3.新尾与旧头交叉对比"></a>3.新尾与旧头交叉对比</h2><p><a href="#">回到顶部</a></p>
-<style>.mmynxomjrdrp{}</style><img src="/blog/f14ed6c21548/diff-vnode-children-03.png" class="mmynxomjrdrp" alt="vue中的diff算法实现">
+<style>.cyeeiyiojtpl{}</style><img src="/blog/f14ed6c21548/diff-vnode-children-03.png" class="cyeeiyiojtpl" alt="vue中的diff算法实现">
 
 <p>当前情况与[1新头与旧头垂直对比]略有不同！看源码中，多出了下面这句：</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line">canMove &amp;&amp; nodeOps.<span class="title function_">insertBefore</span>(parentElm, oldStartVnode.<span class="property">elm</span>, nodeOps.<span class="title function_">nextSibling</span>(oldEndVnode.<span class="property">elm</span>))</span><br></pre></td></tr></table></figure>
@@ -46,7 +46,7 @@
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"><span class="comment">/* */</span></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 3 */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">sameVnode</span>(oldStartVnode, newEndVnode)) &#123; <span class="comment">// Vnode moved right</span></span><br><span class="line">      <span class="title function_">patchVnode</span>(oldStartVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx)</span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * Node.insertBefore() 方法在参考节点之前插入一个拥有指定父节点的子节点。</span></span><br><span class="line"><span class="comment">       * 如果给定的子节点是对文档中现有节点的引用，insertBefore() 会将其从当前位置移动到新位置</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      <span class="comment">// canMove &amp;&amp; 在parentElm的nodeOps.nextSibling(oldEndVnode.elm)前面插入oldStartVnode.elm</span></span><br><span class="line">      <span class="comment">// 换言之，在 oldEndVnode.elm 前面插入 oldStartVnode.elm</span></span><br><span class="line">      <span class="comment">// 旧children的 头部真实元素 移动到 尾部真实元素的后面</span></span><br><span class="line">      canMove &amp;&amp; nodeOps.<span class="title function_">insertBefore</span>(parentElm, oldStartVnode.<span class="property">elm</span>, nodeOps.<span class="title function_">nextSibling</span>(oldEndVnode.<span class="property">elm</span>))</span><br><span class="line">      oldStartVnode = oldCh[++oldStartIdx]</span><br><span class="line">      newEndVnode = newCh[--newEndIdx]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="4-新头与旧尾交叉对比"><a href="#4-新头与旧尾交叉对比" class="headerlink" title="4.新头与旧尾交叉对比"></a>4.新头与旧尾交叉对比</h2><p><a href="#">回到顶部</a></p>
-<style>.rqldngssjmwj{}</style><img src="/blog/f14ed6c21548/diff-vnode-children-04.png" class="rqldngssjmwj" alt="vue中的diff算法实现">
+<style>.qpnufkdpnotu{}</style><img src="/blog/f14ed6c21548/diff-vnode-children-04.png" class="qpnufkdpnotu" alt="vue中的diff算法实现">
 
 <p>当前情况与[新尾与旧头交叉对比]类似，不做赘述！配合图片和源码食用口味更佳~</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"><span class="comment">/* */</span></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 4 */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">sameVnode</span>(oldEndVnode, newStartVnode)) &#123; <span class="comment">// Vnode moved left</span></span><br><span class="line">      <span class="title function_">patchVnode</span>(oldEndVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)</span><br><span class="line">      <span class="comment">// 将旧children的尾部真实元素移动到头部真实元素的后面</span></span><br><span class="line">      canMove &amp;&amp; nodeOps.<span class="title function_">insertBefore</span>(parentElm, oldEndVnode.<span class="property">elm</span>, oldStartVnode.<span class="property">elm</span>)</span><br><span class="line">      oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">      newStartVnode = newCh[++newStartIdx]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -65,7 +65,7 @@
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">findIdxInOld</span> (<span class="params">node, oldCh, start, end</span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = start; i &lt; end; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> c = oldCh[i]</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">isDef</span>(c) &amp;&amp; <span class="title function_">sameVnode</span>(node, c)) <span class="keyword">return</span> i</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="5-3-无可复用旧元素"><a href="#5-3-无可复用旧元素" class="headerlink" title="5-3.无可复用旧元素"></a>5-3.无可复用旧元素</h3><p>在旧children可能会找到也可能找不到可复用的元素，没有找到是什么情况？如图：</p>
-<style>.reaitroumpkh{}</style><img src="/blog/f14ed6c21548/diff-vnode-children-05.png" class="reaitroumpkh" alt="vue中的diff算法实现：在头尾见找可复用元素">
+<style>.etcxfcsethsu{}</style><img src="/blog/f14ed6c21548/diff-vnode-children-05.png" class="etcxfcsethsu" alt="vue中的diff算法实现：在头尾见找可复用元素">
 
 <p>假如现在<code>newStartVnode</code>指向的是<code>key = 1.5</code>的vnode，那么很明显旧children中就没有可以复用的vnode，那么需要做的就是：a.创建一个与<code>newStartVnode</code>对应的newElm(新的真实html元素)；b.然后将newElm插入到旧children中<code>key=02</code>的vnode对应的真实元素的前面！</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"><span class="comment">/* */</span></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 5：当前新vnode与旧头尾之间的vnode对比 */</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">/* 5.3 */</span></span><br><span class="line">      <span class="comment">// 在旧虚拟节点中不存在新节点，无法复用旧元素</span></span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * [ 1 ] [ 2 ] [ 3 ] [ 4 ] [ 5 ]</span></span><br><span class="line"><span class="comment">       * [ 1 ] [ 2 ] [2.5] [ 3 ] [ 4 ] [ 5 ]</span></span><br><span class="line"><span class="comment">       * [2.5]就是插入的，且就children中没有与之“相同”的vnode</span></span><br><span class="line"><span class="comment">       * 目前 newStartIdx = oldStartIdx = 2</span></span><br><span class="line"><span class="comment">       * 那么现在需要做的是：a.创建一个与[2.5]对应的真实元素；b.将元素插入到 [ 2 ] 后面 [ 3 ]前面</span></span><br><span class="line"><span class="comment">       * nodeOps.insertBefore(parentElm, newElm, oldStartVnode.elm)</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="title function_">isUndef</span>(idxInOld)) &#123; <span class="comment">// New element</span></span><br><span class="line">        <span class="comment">// 创建 newStartVnode 对应的elm，将elm插入到parentElm的子元素oldStartVnode.elm的前面（如果oldStartVnode.elm不存在即插入到parentElm的最后）</span></span><br><span class="line">        <span class="title function_">createElm</span>(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.<span class="property">elm</span>, <span class="literal">false</span>, newCh, newStartIdx)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">      newStartVnode = newCh[++newStartIdx]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -107,13 +107,13 @@
 </ul>
 <h2 id="新children新增了vnode"><a href="#新children新增了vnode" class="headerlink" title="新children新增了vnode"></a>新children新增了vnode</h2><p>根据newStartIdx和newEndIdx的移动情况</p>
 <p>1.newStartIdx一直右移，由于新增的vnode都在后面，可以复用的vnode都在前面了，newEndIdx会保持不变，直到遍历完旧children：</p>
-<style>.vtxdlqwbxpbm{}</style><img src="/blog/f14ed6c21548/add-in-after.png" class="vtxdlqwbxpbm" alt="vue中的diff算法实现">
+<style>.sldggygljlwp{}</style><img src="/blog/f14ed6c21548/add-in-after.png" class="sldggygljlwp" alt="vue中的diff算法实现">
 <p>&nbsp;</p>
 <p>2.newStartIdx右移，newEndIdx左移，直到遍历完旧children：</p>
-<style>.uosjmszmocgw{}</style><img src="/blog/f14ed6c21548/add-in-middle.png" class="uosjmszmocgw" alt="vue中的diff算法实现">
+<style>.qcwbwlzpzkgn{}</style><img src="/blog/f14ed6c21548/add-in-middle.png" class="qcwbwlzpzkgn" alt="vue中的diff算法实现">
 
 <p>3.新增的vnode都在前面了，由于是新的节点所以存在“newStartIdx右移”的情况，newStartIdx就保持不变了，而可复用的vnode在右边，随着一次次循环，newEndIdx则会左移：</p>
-<style>.seucihepwioe{}</style><img src="/blog/f14ed6c21548/add-in-before.png" class="seucihepwioe" alt="vue中的diff算法实现">
+<style>.mjpjsrjhznid{}</style><img src="/blog/f14ed6c21548/add-in-before.png" class="mjpjsrjhznid" alt="vue中的diff算法实现">
 
 <p>新children删除了vnode的情况就不赘述，情况可以从上面的解析类推！</p>
 <h1 id="新旧vnode与真实元素elm的关系"><a href="#新旧vnode与真实元素elm的关系" class="headerlink" title="新旧vnode与真实元素elm的关系"></a>新旧vnode与真实元素elm的关系</h1><p><a href="#">回到顶部</a></p>
@@ -1463,14 +1463,14 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
-        <tag>linux</tag>
-        <tag>terminal</tag>
         <tag>tmux</tag>
+        <tag>terminal</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
     <title>Linux-Wechat 体验导向的 Flatpak 探索</title>
-    <url>/blog/3223e3725a38.html</url>
+    <url>/blog/3a6e780e6f50.html</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我当前使用的大部分软件都有被 Deb（Chromium、VS Code 等） Appimage （Motrix、Qv2ray等）覆盖到，其他一部分使用 WebApp （Neat Reader、Google Translate等）代替，实在无解则使用 win7 虚拟机（微信、迅雷等）。</p>
 <p>最近听闻微信发布了 linux 版本，但实际并无较为正式的公告。仅在一些视频网站偶尔刷到 linux 版本微信的演示，才让人对此有了一定的可信度。</p>
 <span id="more"></span>
@@ -1490,7 +1490,7 @@
 </ul>
 <p>从<a href="https://www.spark-app.store/store/sort/chat">星火软件商店</a> 和 <a href="https://aur.archlinux.org/packages/wechat-universal-bwrap">Archlinux wiki</a> 我分别下载了三个版本：微信（Universal）、Freechat 版本微信和 wechat-universal-bwrap 1.0.0.238-13。各有各的问题导致无法使用，不展开。这也是可以预见的，从消息来源中可知，此 linux 版本的微信是面向 UOS 和银河麒麟，目标非我当前所使用的发行版本。当然我估计是可以通过花费时间解决这些使用问题，但私以为性价比过低，因此搁置，抛之脑后。</p>
 <p>缘法妙不可言（估计是推荐机制），后面了解到 <a href="https://github.com/web1n">web1n</a> 打包了 <a href="https://github.com/web1n/wechat-universal-flatpak">fatpak 版本的 wechat-universal-flatpak</a>，基于 flatpak 的沙盒特性，我认为可以顺利使用的可能性很大。安装后体验确实如此！基本使用无问题：</p>
-<p><img src="/blog/3223e3725a38/ksnip_20240325-144047.png"></p>
+<p><img src="/blog/3a6e780e6f50/ksnip_20240325-144047.png"></p>
 <p>直接可见的 bug 是 cursor 的样式异常：</p>
 <ul>
 <li><p>cursor 的类型（Adwaita）与全局（Bibata-Modern-Classic）的不一致；</p>
@@ -1564,7 +1564,7 @@
 <p>确实已经成功设置 <code>XCURSOR_PATH</code>，根据语义推断是 cursor 的主题类型目录。结合以上信息，<code>XCURSOR_PATH</code> 应设置为 <code>XCURSOR_PATH=~/.icons/icons/</code> 或 将 <code>~/.icons/icons/</code> 目录的内容转移到 <code>~/.icons/</code> 目录下。</p>
 <p>此处为保持统一，选择后者。实践变动的部分，结果是顺利执行无报错，重启微信后，确实生效！</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">isaac @ Mint-Yoga <span class="keyword">in</span> ~/.icons [21:45:54]</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> ~/.icons/icons/* ~/.icons/</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">isaac @ Mint-Yoga <span class="keyword">in</span> ~/.icons [21:46:32] C:1</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">rm</span> -rf icons</span></span><br></pre></td></tr></table></figure>
-<p><img src="/blog/3223e3725a38/ksnip_20240325-143839.png"></p>
+<p><img src="/blog/3a6e780e6f50/ksnip_20240325-143839.png"></p>
 <h1 id="复盘"><a href="#复盘" class="headerlink" title="复盘"></a>复盘</h1><p>虽然在实践四中问题得到了解决，但实际导致异常的原因仍然未明了，那些是有效的、那些是无效的设置。逐步回溯。</p>
 <h2 id="回溯“实践三”"><a href="#回溯“实践三”" class="headerlink" title="回溯“实践三”"></a>回溯“实践三”</h2><p>在实践三中，设置了两个环境变量：<code>XCURSOR_THEME</code> 和 <code>XCURSOR_SIZE</code>。因此，需对此进行撤销。从 <code>flatpak override --help</code>（<a href="#flatpak-override-help">见附录</a>）可以得到撤销的方法：</p>
 <blockquote>
@@ -1762,6 +1762,10 @@
 </li>
 </ul>
 ]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>问题解决</category>
+      </categories>
       <tags>
         <tag>linux</tag>
         <tag>Flatpak</tag>
@@ -1916,9 +1920,9 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
+        <tag>terminal</tag>
         <tag>linux</tag>
         <tag>tilix</tag>
-        <tag>terminal</tag>
       </tags>
   </entry>
   <entry>
@@ -3004,8 +3008,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <!-- refs defined -->
 ]]></content>
       <categories>
-        <category>前端安全</category>
         <category>前端工程化</category>
+        <category>网络安全</category>
       </categories>
       <tags>
         <tag>eslint-plugin-security</tag>
@@ -3908,8 +3912,9 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <!-- Defined Refs -->
 ]]></content>
       <categories>
-        <category>指南</category>
+        <category>前端工程化</category>
         <category>CI/CD</category>
+        <category>指南</category>
       </categories>
       <tags>
         <tag>Github Actions</tag>
@@ -3923,7 +3928,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>自动化 CHANGELOG，持续集成</title>
-    <url>/blog/41c88f7b6b27.html</url>
+    <url>/blog/c2f761482a56.html</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在开发使用 Github Issue 编写 blog 的项目。目前还在持续开发中，已经 300+ commits，npm 上已经发布的版本迭代有 9个。后面仍然会继续维护，有许多准备增加的能供，需要优化的点，以及已知的需要重构的逻辑，应该还会有相当的bug需要修复。</p>
 <p>抱着负责任的态度，个人认为需要一个渠道使得 Isubo 的使用者获知这些一系列的变动。因此，需要编写 CHANGELOG 记录每个项目版本的变动。</p>
 <p>但是，由于目前还是一个人在开发此项目，精力有限，需要更多地聚焦在功能新增、优化、重构和Bug修复。</p>
@@ -4127,7 +4132,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm pkg set scripts.prepare=&quot;husky install&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执行以上命令得到的结果是：</span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">+    &quot;prepare&quot;: &quot;husky install&quot; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>prepare (since <a href="mailto:&#110;&#112;&#x6d;&#x40;&#x34;&#x2e;&#x30;&#x2e;&#x30;">&#110;&#112;&#x6d;&#x40;&#x34;&#x2e;&#x30;&#x2e;&#x30;</a>)</strong></p>
+<p><strong>prepare (since <a href="mailto:&#x6e;&#112;&#x6d;&#64;&#x34;&#x2e;&#48;&#x2e;&#48;">&#x6e;&#112;&#x6d;&#64;&#x34;&#x2e;&#48;&#x2e;&#48;</a>)</strong></p>
 <p>Runs BEFORE the package is packed<br>Runs BEFORE the package is published<br><mark>Runs on local “npm install” without any arguments</mark><br>Run AFTER <code>prepublish</code>, but BEFORE <code>prepublishOnly</code><br>NOTE: If a package being installed through git contains a <code>prepare</code> script, its <code>dependencies</code> and <code>devDependencies</code> will be installed, and the prepare script will be run, before the package is packaged and installed.</p>
 <p>Refenrence: <a href="https://docs.npmjs.com/cli/v9/using-npm/scripts">How npm handles the “scripts” field</a></p>
 </blockquote>
@@ -4164,7 +4169,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># .commitlintrc.yml</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 extends 引用 @commitlint/config-conventional 规范</span></span><br><span class="line"><span class="attr">extends:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&#x27;@commitlint/config-conventional&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>更多的配置项参考：<a href="https://commitlint.js.org/#/reference-configuration?id=configuration">Commitlint &gt; Configuration</a></p>
-<p><img src="/blog/41c88f7b6b27/test_commitlint.gif" alt="Test Commitlint-CLI"></p>
+<p><img src="/blog/c2f761482a56/test_commitlint.gif" alt="Test Commitlint-CLI"></p>
 <h2 id="Husky-Commitlint"><a href="#Husky-Commitlint" class="headerlink" title="Husky + Commitlint"></a>Husky + Commitlint</h2><p>使用 Husky 设置 <code>commit-msg</code> 钩子执行 <code>commitlint-cli</code>, 对 <code>git commit</code> 动作提交的信息进行校验。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npx husky add .husky/commit-msg  &#x27;npx --no -- commitlint --edit $&#123;1&#125;&#x27;</span><br></pre></td></tr></table></figure>
 
@@ -4173,7 +4178,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <p>但是，在某些情况下，我们可能不想让 <code>npx</code> 自动安装包，而是希望使用本地已经安装的包。在这种情况下，可以使用 <code>--no</code> 参数来禁用 <code>npx</code> 的默认行为，以便直接使用本地安装的包。</p>
 <p>在这个具体的命令中，<code>--no</code> 参数用来禁用 <code>npx</code> 自动安装 <code>commitlint</code> 包，而是使用本地已经安装的 <code>commitlint</code> 包。</p>
 <p><code>--edit $&#123;1&#125;</code> 是用来编辑指定文件的第一个参数的提交信息，<code>$&#123;1&#125;</code> 代表第一个参数的值，通常是一个文件路径。这个命令的作用是使用本地安装的 <code>commitlint</code> 包来检查指定文件的提交信息是否符合规范，并在编辑器中打开该文件，以便修改提交信息。</p>
-<p><img src="/blog/41c88f7b6b27/commitlint_by_hook.gif" alt="Commitlint by hook"></p>
+<p><img src="/blog/c2f761482a56/commitlint_by_hook.gif" alt="Commitlint by hook"></p>
 <h2 id="半自动编写-Commit"><a href="#半自动编写-Commit" class="headerlink" title="半自动编写 Commit"></a>半自动编写 Commit</h2><p>以下是使用 Markdown 表格输出 @commitlint&#x2F;prompt-cli 和 Commitizen 的信息：</p>
 <table>
 <thead>
@@ -4196,7 +4201,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 </tbody></table>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">npm</span></span><br><span class="line">npm add @commitlint/prompt-cli --save-dev</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">pnpm</span></span><br><span class="line">pnpm add @commitlint/prompt-cli --save-dev</span><br></pre></td></tr></table></figure>
 
-<p><img src="/blog/41c88f7b6b27/test_prompt-cli.gif" alt="Test prompt-cli"></p>
+<p><img src="/blog/c2f761482a56/test_prompt-cli.gif" alt="Test prompt-cli"></p>
 <h1 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h1><p>Node.js 遵循的版本号命名规范是 <strong>语义化版本号</strong>（SemVer）规范。很多 Node.js 模块和库的版本号也同样如此。</p>
 <p>SemVer 规范定义了一个三位数字的版本号，格式为 <code>MAJOR.MINOR.PATCH</code>，其中：</p>
 <ul>
@@ -4215,7 +4220,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 </li>
 </ul>
 <p>需要注意的是，不同的项目可能会有自己的预发布版本号约定，以上标识符仅是语义化版本号规范中常见的预发布版本号标识符。在实际项目中，可以根据项目的特点和需求，自定义预发布版本号标识符。</p>
-<p><img src="/blog/41c88f7b6b27/Snipaste_2023-07-25_18-24-32.png" alt="SemVer Manage"></p>
+<p><img src="/blog/c2f761482a56/Snipaste_2023-07-25_18-24-32.png" alt="SemVer Manage"></p>
 <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><em>以下是常用的几个命令：</em></p>
 <ul>
 <li>补丁（patch）预发布版本</li>
@@ -4268,7 +4273,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 
 <p><strong>Step-7</strong>: 发布正式版本</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm version patch</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">output: 0.0.2</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">standard-version</span></span><br><span class="line">npx standard-version -r patch</span><br></pre></td></tr></table></figure>
-<p><img src="/blog/41c88f7b6b27/Snipaste_2023-07-25_18-23-41.png" alt="Example for version manage"></p>
+<p><img src="/blog/c2f761482a56/Snipaste_2023-07-25_18-23-41.png" alt="Example for version manage"></p>
 <h2 id="Npm-Version生命周期"><a href="#Npm-Version生命周期" class="headerlink" title="Npm-Version生命周期"></a>Npm-Version生命周期</h2><p>在介绍 <code>conventional-changelog-cli</code> 使用的章节中，它配合了 <code>package.json</code> 的 <code>scripts</code> 脚本使用。</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line"># package.json</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;conventional-changelog -p angular -i CHANGELOG.md -s &amp;&amp; git add CHANGELOG.md&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
@@ -4292,7 +4297,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <li><p>执行 <code>postversion</code> 脚本（如果有定义）；</p>
 </li>
 </ol>
-<p><img src="/blog/41c88f7b6b27/Snipaste_2023-07-26_11-28-57.png" alt="LifeCycle of npm-version"></p>
+<p><img src="/blog/c2f761482a56/Snipaste_2023-07-26_11-28-57.png" alt="LifeCycle of npm-version"></p>
 <p><em>例如，执行 <code>npm version patch</code> 命令会触发以下操作：</em></p>
 <p><strong>1. 执行 <code>preversion</code> 脚本（如果有定义）</strong>：在执行版本更新操作之前执行 <code>preversion</code> 脚本。例如，如果在 <code>package.json</code> 文件中定义了以下 <code>preversion</code> 脚本：</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;preversion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npm run lint&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
@@ -4340,7 +4345,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <li><p>创建版本的 <code>git-tag</code>；</p>
 </li>
 </ol>
-<p><img src="/blog/41c88f7b6b27/Snipaste_2023-07-26_21-57-36.png" alt="lifecycle of standard-version"></p>
+<p><img src="/blog/c2f761482a56/Snipaste_2023-07-26_21-57-36.png" alt="lifecycle of standard-version"></p>
 <p>📢 <strong>注意</strong>：<em>上图中的这句命令并没有执行，仅仅是提示！</em></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Run `git push --follow-tags origin master &amp;&amp; npm publish --tag prerelease` to publish</span><br></pre></td></tr></table></figure>
 
@@ -4372,9 +4377,9 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 </li>
 </ul>
 </blockquote>
-<p><img src="/blog/41c88f7b6b27/Snipaste_2023-07-27_04-51-22.png"></p>
+<p><img src="/blog/c2f761482a56/Snipaste_2023-07-27_04-51-22.png"></p>
 <p><strong>📢 注意</strong>：*<code>standard-version</code> 触发的脚本是 <code>strandard-version.scripts.*</code>，而不是 <code>scripts.*</code>。*</p>
-<p><img src="/blog/41c88f7b6b27/Snipaste_2023-07-26_20-14-55.png"></p>
+<p><img src="/blog/c2f761482a56/Snipaste_2023-07-26_20-14-55.png"></p>
 <h3 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h3><p><code>standard-version</code> 并非基于 <code>npm-version</code> 实现，它与 <code>npm-version</code> 相互独立。<code>standard-version</code> 有自己的生命周期，与 <code>npm-version</code> 不重合，在 <code>standard-version</code> 工作过程中不会触发 <code>npm-version</code> 生命周期脚本（<code>preversion</code>、<code>version</code> 和 <code>postversion</code>）。</p>
 <p><code>standard-version</code> 的生命周期中，<em>包含 4 个工作点</em>：</p>
 <ul>
@@ -4628,7 +4633,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 
 
 
-<h1 id="工作流-1"><a href="#工作流-1" class="headerlink" title="工作流"></a>工作流</h1><p><img src="/blog/41c88f7b6b27/Snipaste_2023-07-26_11-57-45.png" alt="work flow"></p>
+<h1 id="工作流-1"><a href="#工作流-1" class="headerlink" title="工作流"></a>工作流</h1><p><img src="/blog/c2f761482a56/Snipaste_2023-07-26_11-57-45.png" alt="work flow"></p>
 <p><strong>1. 创建开发分支</strong></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch origin main</span><br><span class="line"></span><br><span class="line">git checkout -b feat/xxx origin/main</span><br></pre></td></tr></table></figure>
 
@@ -4685,7 +4690,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 
 <p>测试结果是：行不通！</p>
 <p>合并后确实可以触发脚本，但是完全跳过选择流程</p>
-<p><img src="/blog/41c88f7b6b27/Snipaste_2023-08-07_00-58-17.png"></p>
+<p><img src="/blog/c2f761482a56/Snipaste_2023-08-07_00-58-17.png"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://git-scm.com/docs/githooks#_commit_msg">githooks - Hooks used by Git</a></li>
 <li><a href="https://docs.npmjs.com/cli/v9/using-npm/scripts">How npm handles the “scripts” field</a></li>
@@ -4697,8 +4702,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <!-- Link Defined -->
 ]]></content>
       <categories>
-        <category>CI/CD</category>
         <category>前端工程化</category>
+        <category>CI/CD</category>
       </categories>
       <tags>
         <tag>CHANGELOG</tag>
@@ -4946,7 +4951,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 ]]></content>
       <categories>
         <category>JavaScript</category>
-        <category>开发指南</category>
+        <category>指南</category>
       </categories>
       <tags>
         <tag>JavaScript</tag>
@@ -4960,7 +4965,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>LICENSE 的选择与生成</title>
-    <url>/blog/cdc23dd8b6e4.html</url>
+    <url>/blog/e6d4e6288235.html</url>
     <content><![CDATA[<p>本文旨在介绍何为license，如何选择license，以及开发常用的MIT license如何使用。</p>
 <span id="more"></span>
 
@@ -4968,14 +4973,14 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <p>Open Source License 是指符合开源定义的许可证——简而言之，它们允许软件自由使用、修改和共享。要获得开源计划（也称为OSI）的批准，许可证必须经过开源计划的许可证审查过程。</p>
 <p>对于大多数人来说，没必要花大把时间去写许可协议，选择一种比较流行的开源协议就足够了，省时省力，更便于自己作品的传播，于人于己都有利。</p>
 <h2 id="常见的LICENSE"><a href="#常见的LICENSE" class="headerlink" title="常见的LICENSE"></a>常见的LICENSE</h2><p>世界上的开源许可证（Open Source License）大概有上百种，今天我们来介绍下几种我们常见的开源协议。大致有GPL、BSD、MIT、Mozilla、Apache和LGPL等。</p>
-<p><img src="/blog/cdc23dd8b6e4/da68b98e404578126b87c5afd9ba9bc3.png" alt="常见的开源许可证"></p>
+<p><img src="/blog/e6d4e6288235/da68b98e404578126b87c5afd9ba9bc3.png" alt="常见的开源许可证"></p>
 <h2 id="选择LICENSE"><a href="#选择LICENSE" class="headerlink" title="选择LICENSE"></a>选择LICENSE</h2><p>下面是来自 Paul Bagwell 整理的许可证选择流程：</p>
-<p><img src="/blog/cdc23dd8b6e4/tumblr_lkhe2jxnXS1qguzn1o1_r7_1280.png" alt="来自Paul Bagwell整理"></p>
+<p><img src="/blog/e6d4e6288235/tumblr_lkhe2jxnXS1qguzn1o1_r7_1280.png" alt="来自Paul Bagwell整理"></p>
 <p>下面是 阮一峰整理的选择流程，图已经略过时，但仍然有一定的参考价值，英文好的同学建议看 Paul Bagwell 整理的选择。</p>
 <table>
 <thead>
 <tr>
-<th align="center"><img src="/blog/cdc23dd8b6e4/9720a0afdb60d23b31b3a667ad6e70a2.png" alt="来自阮一峰整理"></th>
+<th align="center"><img src="/blog/e6d4e6288235/9720a0afdb60d23b31b3a667ad6e70a2.png" alt="来自阮一峰整理"></th>
 </tr>
 </thead>
 </table>
@@ -5000,8 +5005,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <p>或者使用npm cli生成。</p>
 <h4 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h4><p>Github是支持半自动化的方式创建LICENSE的。</p>
 <h5 id="创建-LICESE-文件"><a href="#创建-LICESE-文件" class="headerlink" title="创建 LICESE 文件"></a>创建 LICESE 文件</h5><p>创建LICESE文件，会自动出现选择LICENSE协议的按钮（“Choose a license template”）</p>
-<p><img src="/blog/cdc23dd8b6e4/Snipaste_2023-05-30_17-44-00.png" alt="创建LICESE文件"></p>
-<h5 id="选择MIT协议"><a href="#选择MIT协议" class="headerlink" title="选择MIT协议"></a>选择MIT协议</h5><p><img src="/blog/cdc23dd8b6e4/Snipaste_2023-05-30_17-47-09.png" alt="选择MIT协议"></p>
+<p><img src="/blog/e6d4e6288235/Snipaste_2023-05-30_17-44-00.png" alt="创建LICESE文件"></p>
+<h5 id="选择MIT协议"><a href="#选择MIT协议" class="headerlink" title="选择MIT协议"></a>选择MIT协议</h5><p><img src="/blog/e6d4e6288235/Snipaste_2023-05-30_17-47-09.png" alt="选择MIT协议"></p>
 <h4 id="Npm-Lib"><a href="#Npm-Lib" class="headerlink" title="Npm Lib"></a>Npm Lib</h4><p><a href="https://github.com/Ovyerus">Ovyerus</a> 提供了一个很方便生成LICESE的Npm Lib：<a href="https://www.npmjs.com/package/license">license</a>。</p>
 <h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i -g license</span><br></pre></td></tr></table></figure>
 
@@ -5015,6 +5020,9 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <li><a href="https://opensource.stackexchange.com/questions/1522/what-should-be-written-in-mit-license-year-full-name">What should be written in MIT license (year, full name)?</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>开发基础</category>
+      </categories>
       <tags>
         <tag>开发标准</tag>
         <tag>LICENSE</tag>
@@ -5209,44 +5217,44 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
       </tags>
   </entry>
   <entry>
-    <title>hexo deploy失败问题</title>
-    <url>/blog/e0c2cec53175.html</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>当前在WSL的Debian系统中使用hexo写作以及发布部署。</p>
+    <title>Hexo deploy 失败问题</title>
+    <url>/blog/f42d7f38cb59.html</url>
+    <content><![CDATA[<p>当前在WSL的Debian系统中使用hexo写作以及发布部署。</p>
 <p>在Win和Mac系统环境下，在deploy的时候，会自动跳转浏览器做OAuth2授权，不影响使用。</p>
 <p>但是在WSL环境或者说Linux环境（可能）下，会直接在终端 prompt。要求输入账号和密码，但是无论输入对或错都会失败。本文旨在解决此问题以及deploy的部分逻辑分析。</p>
 <span id="more"></span>
 
-<h1 id="为什么输入正确还是push失败？"><a href="#为什么输入正确还是push失败？" class="headerlink" title="为什么输入正确还是push失败？"></a>为什么输入正确还是push失败？</h1><p>使用 <a href="e0f5aca0/https://hexo.io/docs/one-command-deployment#Git">默认的deploy配置</a> 并进行部署，你会得到以下结果：</p>
+<h2 id="为什么输入正确还是push失败？"><a href="#为什么输入正确还是push失败？" class="headerlink" title="为什么输入正确还是push失败？"></a>为什么输入正确还是push失败？</h2><p>使用 <a href="e0f5aca0/https://hexo.io/docs/one-command-deployment#Git">默认的deploy配置</a> 并进行部署，你会得到以下结果：</p>
 <p><img src="/blog/e0f5aca0/Snipaste_2023-03-10_23-08-51.png"></p>
 <p>在以上日志已经提示：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">remote: Support for password authentication was removed on August 13, 2021.</span><br></pre></td></tr></table></figure>
 
 <p>在 2021&#x2F;08&#x2F;31 开始，GitHub已经不支持通过账号和密码进行验证！</p>
 <p>详细可以查阅：<a href="https://github.blog/changelog/2021-08-12-git-password-authentication-is-shutting-down/">Github Blog: Git password authentication is shutting down</a></p>
-<h1 id="更换验证方式"><a href="#更换验证方式" class="headerlink" title="更换验证方式"></a>更换验证方式</h1><p>既然密码验证方式已经不适用。那只能换个验证方式。</p>
+<h2 id="更换验证方式"><a href="#更换验证方式" class="headerlink" title="更换验证方式"></a>更换验证方式</h2><p>既然密码验证方式已经不适用。那只能换个验证方式。</p>
 <p>首先WSL环境下，是无法进行OAuth2授权的。</p>
 <p>hexo部署使用 <a href="https://github.com/hexojs/hexo-deployer-git">Github Repository: hexo-deployer-git</a> 库，可以查阅该库支持的验证方式。</p>
-<p><img src="/blog/e0c2cec53175/Snipaste_2023-03-10_21-27-01.png"></p>
+<p><img src="/blog/f42d7f38cb59/Snipaste_2023-03-10_21-27-01.png"></p>
 <p>README指明，可以使用 Github 的 Access Token 进行验证。</p>
 <p>首先，需要在 Gtihub 申请个人Token，可以通过 <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">Github Docs: Creating a personal access token</a> 指引进行申请。</p>
 <p>注意，在分配权限时需要选择 repo 全部权限：</p>
-<p><img src="/blog/e0c2cec53175/Snipaste_2023-03-10_21-56-44.png"></p>
+<p><img src="/blog/f42d7f38cb59/Snipaste_2023-03-10_21-56-44.png"></p>
 <p>接着，需要修改hexo配置，添加：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span></span><br><span class="line">    <span class="attr">github:</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">https://github.com/&lt;repository&gt;.git</span></span><br><span class="line">      <span class="attr">branch:</span> <span class="string">&lt;branch</span> <span class="string">name&gt;</span></span><br><span class="line">      <span class="attr">token:</span> <span class="string">&lt;GITHUB_TOKEN&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例子：</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span></span><br><span class="line">    <span class="attr">github:</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">https://github.com/isaaxite/blog.git</span></span><br><span class="line">      <span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line">      <span class="comment"># 这里使用了环境变量 $GITHUB_TOKEN</span></span><br><span class="line">      <span class="attr">token:</span> <span class="string">$GITHUB_TOKEN</span></span><br><span class="line">      <span class="comment"># name: isaaxite</span></span><br><span class="line">      <span class="comment"># email: isaacgun@outlook.com</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span></span><br><span class="line">    <span class="attr">github:</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">https://github.com/&lt;repository&gt;.git</span></span><br><span class="line">      <span class="attr">branch:</span> <span class="string">&lt;branch</span> <span class="string">name&gt;</span></span><br><span class="line">      <span class="attr">token:</span> <span class="string">&lt;GITHUB_TOKEN&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 例子：</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span></span><br><span class="line">    <span class="attr">github:</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">https://github.com/isaaxite/blog.git</span></span><br><span class="line">      <span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line">      <span class="comment">## 这里使用了环境变量 $GITHUB_TOKEN</span></span><br><span class="line">      <span class="attr">token:</span> <span class="string">$GITHUB_TOKEN</span></span><br><span class="line">      <span class="comment">## name: isaaxite</span></span><br><span class="line">      <span class="comment">## email: isaacgun@outlook.com</span></span><br></pre></td></tr></table></figure>
 
 <p>这里需要注意，虽然README有给出deploy的配置例子，但是不清晰！</p>
-<p><img src="/blog/e0c2cec53175/Snipaste_2023-03-10_21-46-08.png"></p>
+<p><img src="/blog/f42d7f38cb59/Snipaste_2023-03-10_21-46-08.png"></p>
 <p>比较多人也对此吐槽了，并因此开了个issue！</p>
 <p><a href="https://github.com/hexojs/hexo-deployer-git/issues/159">Issue: Token deploy prompts for username #159</a></p>
 <p>另外，README推荐使用环境变量来配置 token。当然，如果项目是私有的或者对安全性无要求，可以直接将token直接配置在 <code>_config.yml</code> 中。</p>
 <p>还有一个小点需要注意：不需要配置 <code>name</code> 和 <code>email</code>！</p>
 <p>到此，配置即完成！</p>
-<h1 id="hexo-deployer-git是怎么使用Token的"><a href="#hexo-deployer-git是怎么使用Token的" class="headerlink" title="hexo-deployer-git是怎么使用Token的"></a><a href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a>是怎么使用Token的</h1><p>在阅读<a href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a>部分源码后，得知：</p>
+<h2 id="hexo-deployer-git是怎么使用Token的"><a href="#hexo-deployer-git是怎么使用Token的" class="headerlink" title="hexo-deployer-git是怎么使用Token的"></a><a href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a>是怎么使用Token的</h2><p>在阅读<a href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a>部分源码后，得知：</p>
 <ol>
 <li>使用git命令push commit;</li>
 <li>使用 <code>spaw</code> 函数执行git命令；</li>
 </ol>
-<h2 id="使用git命令push"><a href="#使用git命令push" class="headerlink" title="使用git命令push"></a>使用git命令push</h2><p>经阅读源码 <a href="https://github.com/hexojs/hexo-deployer-git/blob/master/lib/deployer.js">lib&#x2F;deploy.js</a> 发现，最后是使用下面这句命令将本地commit推送到GitHub对应分支！ </p>
+<h3 id="使用git命令push"><a href="#使用git命令push" class="headerlink" title="使用git命令push"></a>使用git命令push</h3><p>经阅读源码 <a href="https://github.com/hexojs/hexo-deployer-git/blob/master/lib/deployer.js">lib&#x2F;deploy.js</a> 发现，最后是使用下面这句命令将本地commit推送到GitHub对应分支！ </p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push -u &lt;repo.url&gt; HEAD:&lt;repo.branch&gt; --force</span><br></pre></td></tr></table></figure>
 
 <p>详细代码可以参考 <a href="#git-push">附录-git push</a></p>
@@ -5265,18 +5273,18 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <li>设置 repoUrl.username；</li>
 <li>观测 repoUrl.href。</li>
 </ol>
-<p><img src="/blog/e0c2cec53175/Snipaste_2023-03-10_18-19-20.png"></p>
-<h2 id="使用执行-spaw-执行-git-命令"><a href="#使用执行-spaw-执行-git-命令" class="headerlink" title="使用执行 spaw 执行 git 命令"></a>使用执行 spaw 执行 git 命令</h2><p>在 <a href="https://github.com/hexojs/hexo-deployer-git/blob/master/lib/deployer.js">lib&#x2F;deploy.js</a> 中知道，是使用 <a href="https://github.com/hexojs/hexo-util#spawncommand-args-options">Github Repository: hexojs&#x2F;hexo-util</a> 的 <code>spaw</code> 执行 git 命令。</p>
+<p><img src="/blog/f42d7f38cb59/Snipaste_2023-03-10_18-19-20.png"></p>
+<h3 id="使用执行-spaw-执行-git-命令"><a href="#使用执行-spaw-执行-git-命令" class="headerlink" title="使用执行 spaw 执行 git 命令"></a>使用执行 spaw 执行 git 命令</h3><p>在 <a href="https://github.com/hexojs/hexo-deployer-git/blob/master/lib/deployer.js">lib&#x2F;deploy.js</a> 中知道，是使用 <a href="https://github.com/hexojs/hexo-util#spawncommand-args-options">Github Repository: hexojs&#x2F;hexo-util</a> 的 <code>spaw</code> 执行 git 命令。</p>
 <p>这个 <code>spaw</code> 推测是使用 <a href="https://nodejs.org/docs/latest-v16.x/api/child_process.html">child_process</a>，类似常见的 npm lib 有：<a href="https://www.npmjs.com/package/shelljs">shelljs</a>、<a href="https://www.npmjs.com/package/simple-git">simple-git</a> 等等。</p>
-<p><img src="/blog/e0c2cec53175/Snipaste_2023-03-10_17-59-25.png"></p>
+<p><img src="/blog/f42d7f38cb59/Snipaste_2023-03-10_17-59-25.png"></p>
 <p>详细就不展开，感兴趣可以参考：<br><a href="https://github.com/hexojs/hexo-util/blob/master/lib/spawn.ts">https://github.com/hexojs/hexo-util/blob/master/lib/spawn.ts</a></p>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h2><p>以下是核心逻辑，完整代码参考：<a href="https://github.com/hexojs/hexo-deployer-git/blob/master/lib/deployer.js">lib&#x2F;deploy.js</a></p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h3><p>以下是核心逻辑，完整代码参考：<a href="https://github.com/hexojs/hexo-deployer-git/blob/master/lib/deployer.js">lib&#x2F;deploy.js</a></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">git</span>(<span class="params">...args</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">spawn</span>(<span class="string">&#x27;git&#x27;</span>, args, &#123;</span><br><span class="line">    <span class="attr">cwd</span>: deployDir,</span><br><span class="line">    <span class="attr">verbose</span>: verbose,</span><br><span class="line">    <span class="attr">stdio</span>: <span class="string">&#x27;inherit&#x27;</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">push</span>(<span class="params">repo</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">git</span>(<span class="string">&#x27;add&#x27;</span>, <span class="string">&#x27;-A&#x27;</span>).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">git</span>(<span class="string">&#x27;commit&#x27;</span>, <span class="string">&#x27;-m&#x27;</span>, message).<span class="title function_">catch</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// Do nothing. It&#x27;s OK if nothing to commit.</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">git</span>(<span class="string">&#x27;push&#x27;</span>, <span class="string">&#x27;-u&#x27;</span>, repo.<span class="property">url</span>, <span class="string">&#x27;HEAD:&#x27;</span> + repo.<span class="property">branch</span>, <span class="string">&#x27;--force&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="parseObjRepo"><a href="#parseObjRepo" class="headerlink" title="parseObjRepo"></a>parseObjRepo</h2><p>以下是核心逻辑，完整代码参考：<a href="https://github.com/hexojs/hexo-deployer-git/blob/master/lib/parse_config.js">lib&#x2F;parse_config.js</a></p>
+<h3 id="parseObjRepo"><a href="#parseObjRepo" class="headerlink" title="parseObjRepo"></a>parseObjRepo</h3><p>以下是核心逻辑，完整代码参考：<a href="https://github.com/hexojs/hexo-deployer-git/blob/master/lib/parse_config.js">lib&#x2F;parse_config.js</a></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">parseObjRepo</span>(<span class="params">repo</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> url = repo.<span class="property">url</span>;</span><br><span class="line">  <span class="keyword">let</span> branch = repo.<span class="property">branch</span>;</span><br><span class="line">  <span class="keyword">const</span> configToken = repo.<span class="property">token</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!branch) &#123;</span><br><span class="line">    branch = <span class="title function_">testBranch</span>(url);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (rRepoURL.<span class="title function_">test</span>(url)) &#123;</span><br><span class="line">    <span class="keyword">const</span> match = url.<span class="title function_">match</span>(rRepoURL);</span><br><span class="line">    <span class="keyword">const</span> scheme = match[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (configToken &amp;&amp; (scheme === <span class="string">&#x27;http&#x27;</span> || scheme === <span class="string">&#x27;https&#x27;</span>)) &#123;</span><br><span class="line">      <span class="keyword">let</span> repoUrl, userToken;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        repoUrl = <span class="keyword">new</span> <span class="title function_">URL</span>(url);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">TypeError</span>(<span class="string">&#x27;Fail to parse your repo url, check your config!&#x27;</span>);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (configToken.<span class="title function_">startsWith</span>(<span class="string">&#x27;$&#x27;</span>)) &#123;</span><br><span class="line">        userToken = process.<span class="property">env</span>[configToken.<span class="title function_">substring</span>(<span class="number">1</span>)];</span><br><span class="line">        <span class="keyword">if</span> (!userToken) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">TypeError</span>(<span class="string">&#x27;Fail to read environment varable: &#x27;</span> + configToken + <span class="string">&#x27;, check your config!&#x27;</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        userToken = configToken;</span><br><span class="line">      &#125;</span><br><span class="line">      repoUrl.<span class="property">username</span> = userToken;</span><br><span class="line">      url = repoUrl.<span class="property">href</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">url</span>: url,</span><br><span class="line">    <span class="attr">branch</span>: branch || <span class="string">&#x27;master&#x27;</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><p><a href="https://github.com/hexojs/hexo-deployer-git">Github Repository: hexo-deployer-git</a></p>
 </li>
 <li><p><a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">Github Docs: Creating a personal access token</a></p>
@@ -5288,8 +5296,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 </ul>
 ]]></content>
       <categories>
-        <category>hexo</category>
-        <category>deploy</category>
+        <category>问题解决</category>
       </categories>
       <tags>
         <tag>debian</tag>
@@ -5300,35 +5307,35 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
       </tags>
   </entry>
   <entry>
-    <title>WSL的hosts文件被重置</title>
-    <url>/blog/17376af4977f.html</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用WSL安装软件时，需要从 <code>raw.githubusercontent.com</code> 拉取数据，抛异常 403。经查阅是DNS污染导致，推荐的解决方案是修改hosts文件，添加域名与ip的映射。</p>
+    <title>WSL 的 hosts 文件被重置</title>
+    <url>/blog/c9b415cd9ec3.html</url>
+    <content><![CDATA[<p>使用WSL安装软件时，需要从 <code>raw.githubusercontent.com</code> 拉取数据，抛异常 403。经查阅是DNS污染导致，推荐的解决方案是修改hosts文件，添加域名与ip的映射。</p>
 <p>然而，再第二天打开电脑再次登入wsl发现，继续403异常！查看hosts文件：内容被重置！</p>
 <span id="more"></span>
 
 
-<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p><img src="/blog/17376af4977f/Snipaste_2023-03-08_16-08-58.png"></p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p><img src="/blog/c9b415cd9ec3/Snipaste_2023-03-08_16-08-58.png"></p>
 <p>注释已经解释，host文件会被WSL自动生成，导致对hosts的历史修改被覆盖！</p>
 <p>想要关闭自动生成功能，则需要在 <code>/etc/wsl.conf</code> 中设置：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">generateHosts = false</span><br></pre></td></tr></table></figure>
 
 <p>抱着以防万一的心态，查阅 <code>wsl.conf</code> 详情：<a href="https://learn.microsoft.com/en-us/windows/wsl/wsl-config#network-settings">https://learn.microsoft.com/en-us/windows/wsl/wsl-config#network-settings</a></p>
-<p><img src="/blog/17376af4977f/Snipaste_2023-03-08_16-15-42.png"></p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><ul>
+<p><img src="/blog/c9b415cd9ec3/Snipaste_2023-03-08_16-15-42.png"></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ul>
 <li>关闭 generateHosts；</li>
 <li>在win系统下的hosts做修改；</li>
 </ul>
-<h2 id="关闭-generateHosts"><a href="#关闭-generateHosts" class="headerlink" title="关闭 generateHosts"></a>关闭 generateHosts</h2><p>默认情况下，wsl是没有 <code>/etc/wsl.conf</code>，所以新建就好！</p>
+<h3 id="关闭-generateHosts"><a href="#关闭-generateHosts" class="headerlink" title="关闭 generateHosts"></a>关闭 generateHosts</h3><p>默认情况下，wsl是没有 <code>/etc/wsl.conf</code>，所以新建就好！</p>
 <p>完整的 示例配置 可以从这个链接中获取：<a href="https://learn.microsoft.com/en-us/windows/wsl/wsl-config#example-wslconf-file">https://learn.microsoft.com/en-us/windows/wsl/wsl-config#example-wslconf-file</a></p>
 <p>setp1: 新建 <code>sudo vim /etc/wsl.conf</code>；</p>
 <p>setp2：添加配置，<code>generateHosts = false</code></p>
-<h2 id="在win系统下的hosts做修改"><a href="#在win系统下的hosts做修改" class="headerlink" title="在win系统下的hosts做修改"></a>在win系统下的hosts做修改</h2><p>在研究的过程中，发现wsl是基于win下的host文件生成的！</p>
+<h3 id="在win系统下的hosts做修改"><a href="#在win系统下的hosts做修改" class="headerlink" title="在win系统下的hosts做修改"></a>在win系统下的hosts做修改</h3><p>在研究的过程中，发现wsl是基于win下的host文件生成的！</p>
 <p>基于这些host映射在win和wsl都会用到，所以直接在win的host文件做修改！</p>
 ]]></content>
       <categories>
         <category>Linux</category>
         <category>WSL</category>
-        <category>Bug</category>
+        <category>问题解决</category>
       </categories>
       <tags>
         <tag>WSL</tag>
@@ -5336,13 +5343,13 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Docker容器（Debian）内终端的中文展示与输入问题</title>
-    <url>/blog/3073b557634d.html</url>
+    <url>/blog/da485f7a51f4.html</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用docker容器作为开发环境。以Debian11镜像启动容器，出现两个问题：</p>
 <ol>
 <li>无法展示中文，ls输出的都是八进制编码的字符串；</li>
 <li>终端无法输入中文，粘贴可以但同学展示为八进制字符串；</li>
 </ol>
-<p><img src="/blog/3073b557634d/Snipaste_2023-02-27_20-24-42.png"></p>
+<p><img src="/blog/da485f7a51f4/Snipaste_2023-02-27_20-24-42.png"></p>
 <span id="more"></span>
 
 <h1 id="locale"><a href="#locale" class="headerlink" title="locale"></a>locale</h1><p>经查阅，确定问题是系统语言环境导致，默认使用的语言环境不支持中文编码！</p>
@@ -5376,12 +5383,13 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 ]]></content>
       <categories>
         <category>Linux</category>
+        <category>问题解决</category>
         <category>Docker</category>
       </categories>
       <tags>
+        <tag>linux</tag>
         <tag>docker</tag>
         <tag>debian</tag>
-        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -5414,6 +5422,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 </ul>
 ]]></content>
       <categories>
+        <category>NodeJS</category>
         <category>NodeJS 工具</category>
       </categories>
       <tags>
@@ -5782,8 +5791,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 ]]></content>
       <categories>
         <category>服务端</category>
-        <category>NodeJS 工具</category>
         <category>NodeJS</category>
+        <category>NodeJS 工具</category>
       </categories>
       <tags>
         <tag>PM2</tag>
@@ -6106,41 +6115,41 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Git Hook实现轻量级自动化部署</title>
-    <url>/blog/d72f654288aa.html</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在整理项目，发现以前的一个项目中，发现使用git hook和pm2实现了一个简单的自动化部署，也没有写什么记录，故复记录之。</p>
+    <url>/blog/9c5b9a4755d0.html</url>
+    <content><![CDATA[<p>最近在整理项目，发现以前的一个项目中，发现使用git hook和pm2实现了一个简单的自动化部署，也没有写什么记录，故复记录之。</p>
 <span id="more"></span>
 
-<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p><img src="https://user-images.githubusercontent.com/25907273/81206194-59d7c700-8ffe-11ea-82b1-d8672393d6c7.png" alt="image"></p>
-<h2 id="原理与流程"><a href="#原理与流程" class="headerlink" title="原理与流程"></a>原理与流程</h2><ol>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p><img src="https://user-images.githubusercontent.com/25907273/81206194-59d7c700-8ffe-11ea-82b1-d8672393d6c7.png" alt="image"></p>
+<h3 id="原理与流程"><a href="#原理与流程" class="headerlink" title="原理与流程"></a>原理与流程</h3><ol>
 <li>git用户执行git push操作；</li>
 <li>远程仓库发现有用户执行了push操作，就会执行一个脚本post-update（钩子）；</li>
 <li>在post-update脚本中，将git仓库的代码拷贝到web站点目录下。</li>
 </ol>
-<h2 id="Git-钩子"><a href="#Git-钩子" class="headerlink" title="Git 钩子"></a>Git 钩子</h2><p>Git 钩子(hooks)是在 Git 仓库中特定事件(certain points)触发后被调用的脚本。通过钩子可以自定义 Git 内部的相关（如 git push）行为，在开发周期中的关键点触发自定义的行为。Git 含有两种类型的钩子：客户端的和服务器端的。客户端钩子由诸如提交和合并这样的操作所调用，而服务器端钩子作用于诸如接收被推送的提交这样的联网操作。</p>
+<h3 id="Git-钩子"><a href="#Git-钩子" class="headerlink" title="Git 钩子"></a>Git 钩子</h3><p>Git 钩子(hooks)是在 Git 仓库中特定事件(certain points)触发后被调用的脚本。通过钩子可以自定义 Git 内部的相关（如 git push）行为，在开发周期中的关键点触发自定义的行为。Git 含有两种类型的钩子：客户端的和服务器端的。客户端钩子由诸如提交和合并这样的操作所调用，而服务器端钩子作用于诸如接收被推送的提交这样的联网操作。</p>
 <p>每个使用git进行版本版本管理的项目都存在hooks，这些hooks存在于项目目录下的<code>.git/hooks/</code>：</p>
 <p><img src="https://user-images.githubusercontent.com/25907273/81207013-7fb19b80-8fff-11ea-9846-7565991e923a.png" alt="image"></p>
 <p>以上这些就是git hook脚本。简单地说，hook是一种特殊的脚本（代码），仅在满足特定条件时执行。git hooks分别有对应各种操作的hook。每个hook都对应在不同的情况下触发，比如接下来要用到的post-update脚本，则是在检测到push的操作时触发。</p>
-<h2 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h2><ol>
+<h3 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h3><ol>
 <li>在服务端创建一个裸仓库；</li>
 <li>编辑裸仓库中的post-update hook脚本；</li>
 <li>本地仓库添加远程裸仓库作为remote。</li>
 </ol>
-<h3 id="1-在服务端创建一个裸仓库"><a href="#1-在服务端创建一个裸仓库" class="headerlink" title="1. 在服务端创建一个裸仓库"></a>1. 在服务端创建一个裸仓库</h3><p>什么是裸仓库？</p>
+<h4 id="1-在服务端创建一个裸仓库"><a href="#1-在服务端创建一个裸仓库" class="headerlink" title="1. 在服务端创建一个裸仓库"></a>1. 在服务端创建一个裸仓库</h4><p>什么是裸仓库？</p>
 <p>裸仓库与 git init 初使化的仓库不太一样，裸仓库其实相当于通过克隆来的仓库里的.git文件夹，整个裸仓库中只有git索引（index），不包含工作目录。裸仓库只保存了一些配置信息等，肉眼找不到上传的代码。简单说就是一个简单版的git仓库，不能使用常见的git命令，比如<code>git status</code>等等。</p>
 <p><img src="https://user-images.githubusercontent.com/25907273/81208387-8b05c680-9001-11ea-8cad-8fbcdf45bcff.png" alt="image"></p>
 <p>创建裸仓库很简单：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">bare.git名字可以任意</span></span><br><span class="line">git init --bare bare.git</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或</span></span><br><span class="line">mkdir bare.git</span><br><span class="line">cd bare.git</span><br><span class="line">git init --bare</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># bare.git名字可以任意</span></span></span><br><span class="line">git init --bare bare.git</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 或</span></span></span><br><span class="line">mkdir bare.git</span><br><span class="line">cd bare.git</span><br><span class="line">git init --bare</span><br></pre></td></tr></table></figure>
 
 <p>为什么要创建裸仓库？</p>
 <p>裸仓库存在于服务端，是我们要提交代码的目标。我们在本地仓库push代码，就是要push到这个裸仓库。当我们push到这个裸仓库时，就会触发裸仓库响应的git hook——post-update。</p>
-<h3 id="2-编辑裸仓库中的post-update-hook脚本"><a href="#2-编辑裸仓库中的post-update-hook脚本" class="headerlink" title="2. 编辑裸仓库中的post-update hook脚本"></a>2. 编辑裸仓库中的post-update hook脚本</h3><p>在脚本中，你可以写Bash、Python、JavaScript等代码，Git通过Shebang来选择执行代码的解释器。如果要写Bash，Shebang可以是这样：</p>
+<h4 id="2-编辑裸仓库中的post-update-hook脚本"><a href="#2-编辑裸仓库中的post-update-hook脚本" class="headerlink" title="2. 编辑裸仓库中的post-update hook脚本"></a>2. 编辑裸仓库中的post-update hook脚本</h4><p>在脚本中，你可以写Bash、Python、JavaScript等代码，Git通过Shebang来选择执行代码的解释器。如果要写Bash，Shebang可以是这样：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br></pre></td></tr></table></figure>
 
 <p>使用Windows的读者请注意，如果脚本文件含有BOM（字节序标识符），可能会导致一些问题。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">去掉sample后缀才会触发</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cp</span> post-update.sample post-update</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 去掉sample后缀才会触发</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cp</span> post-update.sample post-update</span></span><br></pre></td></tr></table></figure>
 
 <p>下面是一个比较简单的hook脚本：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">unset GIT_DIR</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">bare-repos是实际要部署代码的目录，这个目录是需要现在服务端创建的</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">当然也可以当前脚本中自动化创建</span></span><br><span class="line">DIR_ONE=/Users/baohua/workspace/bare-repos/</span><br><span class="line">cd $DIR_ONE</span><br><span class="line"></span><br><span class="line">git init</span><br><span class="line">git remote add origin /Users/baohua/workspace/bare.git</span><br><span class="line">git clean -df</span><br><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line">npm run deploy</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">unset GIT_DIR</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># bare-repos是实际要部署代码的目录，这个目录是需要现在服务端创建的</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 当然也可以当前脚本中自动化创建</span></span></span><br><span class="line">DIR_ONE=/Users/baohua/workspace/bare-repos/</span><br><span class="line">cd $DIR_ONE</span><br><span class="line"></span><br><span class="line">git init</span><br><span class="line">git remote add origin /Users/baohua/workspace/bare.git</span><br><span class="line">git clean -df</span><br><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line">npm run deploy</span><br></pre></td></tr></table></figure>
 <p><strong>注意： 一定要unset GIT_DIR清除变量， 不然会引起remote: fatal: Not a git repository: ‘.’错误。</strong></p>
 <p>上面脚本做的事情很简单：</p>
 <ol>
@@ -6150,12 +6159,12 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <li>执行打包脚本。</li>
 </ol>
 <p>接着还需要给 post-update 添加执行权限：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">chmod</span> +x将所有用户的执行权限添加到现有权限</span></span><br><span class="line">chmod +x post-update</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># chmod +x将所有用户的执行权限添加到现有权限</span></span></span><br><span class="line">chmod +x post-update</span><br></pre></td></tr></table></figure>
 
-<h3 id="3-本地仓库添加远程裸仓库作为remote"><a href="#3-本地仓库添加远程裸仓库作为remote" class="headerlink" title="3. 本地仓库添加远程裸仓库作为remote"></a>3. 本地仓库添加远程裸仓库作为remote</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// 如果测试，并且裸仓库建在本地</span><br><span class="line">git remote add deploy /Users/baohua/workspace/bare.git</span><br><span class="line"></span><br><span class="line">// 默认ssh端口号为22时</span><br><span class="line">git remote add deploy user@serverIp:/Users/baohua/workspace/bare.git</span><br><span class="line"></span><br><span class="line">// ssh端口号为不22时</span><br><span class="line">git  remote  add  deploy  ssh://user@serverIp:port/Users/baohua/workspace/bare.git</span><br></pre></td></tr></table></figure>
+<h4 id="3-本地仓库添加远程裸仓库作为remote"><a href="#3-本地仓库添加远程裸仓库作为remote" class="headerlink" title="3. 本地仓库添加远程裸仓库作为remote"></a>3. 本地仓库添加远程裸仓库作为remote</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// 如果测试，并且裸仓库建在本地</span><br><span class="line">git remote add deploy /Users/baohua/workspace/bare.git</span><br><span class="line"></span><br><span class="line">// 默认ssh端口号为22时</span><br><span class="line">git remote add deploy user@serverIp:/Users/baohua/workspace/bare.git</span><br><span class="line"></span><br><span class="line">// ssh端口号为不22时</span><br><span class="line">git  remote  add  deploy  ssh://user@serverIp:port/Users/baohua/workspace/bare.git</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li>利用每次push到目标仓库都会触发对应git hook的机制，在git hook中进行需要部署的代码从目标仓库中克隆到实际的代码部署目录；</li>
 <li>实现流程分为三步：<ol>
 <li>在服务端创建一个裸仓库；</li>
@@ -6164,7 +6173,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 </ol>
 </li>
 </ul>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><ul>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><ul>
 <li><a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">Customizing Git - Git Hooks</a></li>
 <li><a href="https://juejin.im/post/5ce607946fb9a07ef5620e5b">前端自动化工作流中的hooks</a></li>
 <li><a href="https://www.jianshu.com/p/c1478bfcb372">利用Git Hooks自动部署</a></li>
@@ -6178,10 +6187,9 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 </ul>
 ]]></content>
       <categories>
-        <category>部署发布</category>
+        <category>前端工程化</category>
       </categories>
       <tags>
-        <tag>旧文迁移</tag>
         <tag>部署发布</tag>
         <tag>git hook</tag>
       </tags>
@@ -6441,8 +6449,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
         <category>源码分析</category>
       </categories>
       <tags>
-        <tag>源码分析</tag>
         <tag>ElementUI</tag>
+        <tag>源码分析</tag>
       </tags>
   </entry>
   <entry>
@@ -7050,7 +7058,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 </ul>
 <h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><p>为什么要说变量对象呢？因为作用域链就是由变量对象组成，作用域链是一个由变量对象组成的列表，一个有序，只能由头开始逐个往尾访问的列表（说是列表其实更应该说是链表，先不要在意这个概念）。<br>并且作用域链和变量对象有一个共同的特点：每个区域都会有一个与之对象对的。比如说上面的代码中，全局环境有一个与之对应的变量对象，也有一个和全局环境对应的作用域链；fn函数也是如此。</p>
 <h3 id="作用域链是由哪些变量对象组成？"><a href="#作用域链是由哪些变量对象组成？" class="headerlink" title="作用域链是由哪些变量对象组成？"></a>作用域链是由哪些变量对象组成？</h3><p>我们先看下图：</p>
-<style>.pmeqystkifhg{}</style><img src="/blog/31b4d63df3c4/2838289-ea22086b2a47a918.png" class="pmeqystkifhg" alt="浅析JavaScript作用域链">
+<style>.kgtmsvoljlmb{}</style><img src="/blog/31b4d63df3c4/2838289-ea22086b2a47a918.png" class="kgtmsvoljlmb" alt="浅析JavaScript作用域链">
 
 <p>由上图应该可以看出，作用域链由当前区域的变量对象作为开头，然后是逐层往外直至全局环境的变量对象组成如上图一样的列表，这就是作用域链，并且如上文所说，每个区域都有这样一个与之对应的作用域链。比如下面的代码：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">isShow</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> gihubLink = <span class="string">&#x27;https://github.com/issaxite&#x27;</span>;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">fn1</span>(<span class="params">param1, param2</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> mailLink = <span class="string">&#x27;issaxite@gmail.com&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
@@ -7058,22 +7066,22 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <ul>
 <li>fn1函数的作用域链：</li>
 </ul>
-<style>.ewiliyqembbi{}</style><img src="/blog/31b4d63df3c4/2838289-b0a1699c6beb4b74.png" class="ewiliyqembbi" alt="浅析JavaScript作用域链">
+<style>.ndprdomllwfl{}</style><img src="/blog/31b4d63df3c4/2838289-b0a1699c6beb4b74.png" class="ndprdomllwfl" alt="浅析JavaScript作用域链">
 
 <ul>
 <li>fn的作用域链：</li>
 </ul>
-<style>.cfgiopgimtcg{}</style><img src="/blog/31b4d63df3c4/2838289-9fdc6ccc56ef3e26.png" class="cfgiopgimtcg" alt="浅析JavaScript作用域链">
+<style>.mjudxkiybssq{}</style><img src="/blog/31b4d63df3c4/2838289-9fdc6ccc56ef3e26.png" class="mjudxkiybssq" alt="浅析JavaScript作用域链">
 
 <ul>
 <li>全局环境的作用域链</li>
 </ul>
-<style>.mewwhxdfapyr{}</style><img src="/blog/31b4d63df3c4/2838289-828698a0bf9bc1b4.png" class="mewwhxdfapyr" alt="浅析JavaScript作用域链">
+<style>.svijfguwxnku{}</style><img src="/blog/31b4d63df3c4/2838289-828698a0bf9bc1b4.png" class="svijfguwxnku" alt="浅析JavaScript作用域链">
 
 <p>那么作用域链的作用是什么？<br>jser都应该有这样的体验，在函数内部可以访问到外部区域的变量和函数，而在外部区域访问不了函数内定义的变量：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> c = <span class="number">3</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a, b, c)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(c);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
-<style>.octmckypeqnp{}</style><img src="/blog/31b4d63df3c4/2838289-2a0bdcdf12428f9a.png" class="octmckypeqnp" alt="浅析JavaScript作用域链">
+<style>.slxrrwskybnb{}</style><img src="/blog/31b4d63df3c4/2838289-2a0bdcdf12428f9a.png" class="slxrrwskybnb" alt="浅析JavaScript作用域链">
 
 <p>如上所示，fn函数内部可以访问到外层区域（全局环境）的变量，为什么可以，就是因为fn函数的作用域链，在变量调用的时候（在fn就是访问c变量的时候），会在当前作用域链的头部开始往尾部，依次在变量对象中查询对应的变量，找到即返回，不再继续查询，这个也是内层同名变量比外层同名变量优先级更高的原因，这个查询的过程叫做<strong>变量解析</strong>，也叫<strong>标识符解析</strong>，<code>console.log(c);</code>会抛出异常就是因为全局环境的作用域链中的变量对象没有该变量。</p>
 ]]></content>
@@ -7374,8 +7382,10 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <p>正是对第3点的实践。</p>
 ]]></content>
       <categories>
-        <category>排序算法</category>
+        <category>JavaScript</category>
         <category>算法实现</category>
+        <category>算法</category>
+        <category>排序算法</category>
       </categories>
       <tags>
         <tag>JavaScript</tag>
@@ -7629,8 +7639,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <p>寄生组合式继承是抹去上面说的第一次调用超类。它是通过直接将超类的原型对象赋值给子类的原型对象，然后子类在此基础上进行个扩充，这样就会不会触发到超类的构造函数。**</p>
 ]]></content>
       <categories>
-        <category>JavaScript</category>
         <category>JS 基础</category>
+        <category>JavaScript</category>
         <category>学习笔记</category>
       </categories>
       <tags>
@@ -7977,6 +7987,40 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <li>遍历迭代器</li>
 <li>遍历常规对象</li>
 </ol>
+]]></content>
+      <categories>
+        <category>源码分析</category>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>vue源码分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue 源码分析 - 数组变异方法的实现原理</title>
+    <url>/blog/e621ae3a51b5.html</url>
+    <content><![CDATA[<p><strong>path: vue&#x2F;src&#x2F;core&#x2F;observer&#x2F;array.js</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; def &#125; <span class="keyword">from</span> <span class="string">&#x27;../util/index&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arrayProto = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span></span><br><span class="line"><span class="comment">// 原型式继承数组原型对象</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Object.create(arrayProto)的操作等同于下面的操作</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * arrayMethods = &#123;&#125;;</span></span><br><span class="line"><span class="comment"> * Object.setPrototypeOf(arrayMethods, arrayProto);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> arrayMethods = <span class="title class_">Object</span>.<span class="title function_">create</span>(arrayProto)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> methodsToPatch = [</span><br><span class="line">  <span class="string">&#x27;push&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;pop&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;shift&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;unshift&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;splice&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;sort&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;reverse&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Intercept mutating methods and emit events</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 给 arrayMethods 变异方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">methodsToPatch.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">method</span>) &#123;</span><br><span class="line">  <span class="comment">// cache original method</span></span><br><span class="line">  <span class="keyword">const</span> original = arrayProto[method]</span><br><span class="line">  <span class="comment">// def，使用defineProperty是定对象属性的value</span></span><br><span class="line">  <span class="title function_">def</span>(arrayMethods, method, <span class="keyword">function</span> <span class="title function_">mutator</span> (<span class="params">...args</span>) &#123;</span><br><span class="line">    <span class="comment">// 指定上下文调用原始的数组方法</span></span><br><span class="line">    <span class="keyword">const</span> result = original.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args)</span><br><span class="line">    <span class="keyword">const</span> ob = <span class="variable language_">this</span>.<span class="property">__ob__</span></span><br><span class="line">    <span class="keyword">let</span> inserted</span><br><span class="line">    <span class="keyword">switch</span> (method) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;push&#x27;</span>:</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;unshift&#x27;</span>:</span><br><span class="line"></span><br><span class="line">        inserted = args</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;splice&#x27;</span>:</span><br><span class="line">        inserted = args.<span class="title function_">slice</span>(<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (inserted) &#123;</span><br><span class="line">      <span class="comment">// 若有新增元素，则需要对新增元素进行观察，劫持</span></span><br><span class="line">      ob.<span class="title function_">observeArray</span>(inserted)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 既然对象成员个数新增，就需要通知订阅者，当前它依赖的数据已经发生变动</span></span><br><span class="line">    ob.<span class="property">dep</span>.<span class="title function_">notify</span>()</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Define a property.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">def</span> (<span class="params">obj: <span class="built_in">Object</span>, key: string, val: any, enumerable?: boolean</span>) &#123;</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(obj, key, &#123;</span><br><span class="line">    <span class="attr">value</span>: val,</span><br><span class="line">    <span class="attr">enumerable</span>: !!enumerable,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">configurable</span>: <span class="literal">true</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>整段代码执行下来，创建了一个对象arrayMethods，它的原型只想数组原型，并且它有这么成员方法：’push’,<br> ‘pop’, ‘shift’, ‘unshift’, ‘splice’, ‘sort’, ‘reverse’！</p>
+<p>很明显，这样还不够！这样还能直接通过vue数组实例的点操作符调用变异方法！还需要将这些挂在vue实例数组的原型链上！</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Observer</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span> (<span class="params"><span class="attr">value</span>: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title class_">Array</span>.<span class="title function_">isArray</span>(value)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (hasProto) &#123;</span><br><span class="line">        <span class="comment">// 通过__proto__将数组的原型指向arrayMethods</span></span><br><span class="line">        <span class="title function_">protoAugment</span>(value, arrayMethods)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 如果没有__proto__，说明不能通过__proto__设置原型指向！</span></span><br><span class="line">        <span class="comment">// 则直接将变异的数组方法作为OwnProperty直接挂载在数组上</span></span><br><span class="line">        <span class="title function_">copyAugment</span>(value, arrayMethods, arrayKeys)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在坚持数组时，会将arrayMethods，根据实际情况挂在到当前这个数组的原型链上！在可以设置原型执行时，直接改变当前数组原型指向，改为arrayMethods；否则，直接将arrayMethods的方法，复制到当前数组上，作为当前数组的成员方法！</p>
+<p>回看上面的代码（这一处：<code>def(arrayMethods, method, function mutator (...args)</code>），在这一块代码可以发现<code>this.__ob__</code>！经过以上分析，我们知道arrayMethods最后会挂在到vue数组上，那么这个this指向的就是这个数组，那么<code>__ob__</code>应该就是在vue数组原型链上或数组ownProperties上的！</p>
+<p>似曾相似，在哪里遇过~</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Observer</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span> (<span class="params"><span class="attr">value</span>: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="title function_">def</span>(value, <span class="string">&#x27;__ob__&#x27;</span>, <span class="variable language_">this</span>)</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在创建Observer实例时，会将当前实例挂在到当前观察数据的<code>__ob__</code>上，对vue数组而言，这个被观察的数据就是它了！</p>
+<p>既然<code>__ob__</code>是Observer实例，当然调用劫持数组的方法<code>ob.observeArray(inserted)</code>！这里插一句题外话，虽然新增元素是属于当前数组的，但还是在被劫持这个行为上，他们是相互独立的，所以这里就是不使用ob.ob.observeArray去劫持，而使用<code>inserted.forEach((item) =&gt; observe(it))</code>劫持也是可以的~</p>
+<p>这里需要当前数组的<code>__ob__</code>，主要是为了通知到这个数组的订阅者！</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>变异方法通过对数组原型方法的拦截对原有方法进行处理，拦截的方式分两种：1. 可以设置原型的情况下，通过改变vue数组的原型指向进行拦截；2. 1不可行的情况下，则在vue数组的ownProperties上创建同名成员方法拦截！</li>
+<li>编译数组方法可以通知watche，是因为最后调用<code>ob.dep.notify()</code>，通知了订阅者，这就是本质区别；</li>
+<li><code>ob.observeArray(inserted)</code>再次坚持新元素是为了让别的watcher可以订阅新属性。</li>
+</ul>
 ]]></content>
       <categories>
         <category>源码分析</category>
@@ -8371,42 +8415,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
       </tags>
   </entry>
   <entry>
-    <title>数组变异方法的实现原理</title>
-    <url>/blog/e621ae3a51b5.html</url>
-    <content><![CDATA[<p><strong>path: vue&#x2F;src&#x2F;core&#x2F;observer&#x2F;array.js</strong></p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; def &#125; <span class="keyword">from</span> <span class="string">&#x27;../util/index&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arrayProto = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span></span><br><span class="line"><span class="comment">// 原型式继承数组原型对象</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Object.create(arrayProto)的操作等同于下面的操作</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * arrayMethods = &#123;&#125;;</span></span><br><span class="line"><span class="comment"> * Object.setPrototypeOf(arrayMethods, arrayProto);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> arrayMethods = <span class="title class_">Object</span>.<span class="title function_">create</span>(arrayProto)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> methodsToPatch = [</span><br><span class="line">  <span class="string">&#x27;push&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;pop&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;shift&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;unshift&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;splice&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;sort&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;reverse&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Intercept mutating methods and emit events</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 给 arrayMethods 变异方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">methodsToPatch.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">method</span>) &#123;</span><br><span class="line">  <span class="comment">// cache original method</span></span><br><span class="line">  <span class="keyword">const</span> original = arrayProto[method]</span><br><span class="line">  <span class="comment">// def，使用defineProperty是定对象属性的value</span></span><br><span class="line">  <span class="title function_">def</span>(arrayMethods, method, <span class="keyword">function</span> <span class="title function_">mutator</span> (<span class="params">...args</span>) &#123;</span><br><span class="line">    <span class="comment">// 指定上下文调用原始的数组方法</span></span><br><span class="line">    <span class="keyword">const</span> result = original.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args)</span><br><span class="line">    <span class="keyword">const</span> ob = <span class="variable language_">this</span>.<span class="property">__ob__</span></span><br><span class="line">    <span class="keyword">let</span> inserted</span><br><span class="line">    <span class="keyword">switch</span> (method) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;push&#x27;</span>:</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;unshift&#x27;</span>:</span><br><span class="line"></span><br><span class="line">        inserted = args</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;splice&#x27;</span>:</span><br><span class="line">        inserted = args.<span class="title function_">slice</span>(<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (inserted) &#123;</span><br><span class="line">      <span class="comment">// 若有新增元素，则需要对新增元素进行观察，劫持</span></span><br><span class="line">      ob.<span class="title function_">observeArray</span>(inserted)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 既然对象成员个数新增，就需要通知订阅者，当前它依赖的数据已经发生变动</span></span><br><span class="line">    ob.<span class="property">dep</span>.<span class="title function_">notify</span>()</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Define a property.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">def</span> (<span class="params">obj: <span class="built_in">Object</span>, key: string, val: any, enumerable?: boolean</span>) &#123;</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(obj, key, &#123;</span><br><span class="line">    <span class="attr">value</span>: val,</span><br><span class="line">    <span class="attr">enumerable</span>: !!enumerable,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">configurable</span>: <span class="literal">true</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>整段代码执行下来，创建了一个对象arrayMethods，它的原型只想数组原型，并且它有这么成员方法：’push’,<br> ‘pop’, ‘shift’, ‘unshift’, ‘splice’, ‘sort’, ‘reverse’！</p>
-<p>很明显，这样还不够！这样还能直接通过vue数组实例的点操作符调用变异方法！还需要将这些挂在vue实例数组的原型链上！</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Observer</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span> (<span class="params"><span class="attr">value</span>: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title class_">Array</span>.<span class="title function_">isArray</span>(value)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (hasProto) &#123;</span><br><span class="line">        <span class="comment">// 通过__proto__将数组的原型指向arrayMethods</span></span><br><span class="line">        <span class="title function_">protoAugment</span>(value, arrayMethods)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 如果没有__proto__，说明不能通过__proto__设置原型指向！</span></span><br><span class="line">        <span class="comment">// 则直接将变异的数组方法作为OwnProperty直接挂载在数组上</span></span><br><span class="line">        <span class="title function_">copyAugment</span>(value, arrayMethods, arrayKeys)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在坚持数组时，会将arrayMethods，根据实际情况挂在到当前这个数组的原型链上！在可以设置原型执行时，直接改变当前数组原型指向，改为arrayMethods；否则，直接将arrayMethods的方法，复制到当前数组上，作为当前数组的成员方法！</p>
-<p>回看上面的代码（这一处：<code>def(arrayMethods, method, function mutator (...args)</code>），在这一块代码可以发现<code>this.__ob__</code>！经过以上分析，我们知道arrayMethods最后会挂在到vue数组上，那么这个this指向的就是这个数组，那么<code>__ob__</code>应该就是在vue数组原型链上或数组ownProperties上的！</p>
-<p>似曾相似，在哪里遇过~</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Observer</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span> (<span class="params"><span class="attr">value</span>: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="title function_">def</span>(value, <span class="string">&#x27;__ob__&#x27;</span>, <span class="variable language_">this</span>)</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在创建Observer实例时，会将当前实例挂在到当前观察数据的<code>__ob__</code>上，对vue数组而言，这个被观察的数据就是它了！</p>
-<p>既然<code>__ob__</code>是Observer实例，当然调用劫持数组的方法<code>ob.observeArray(inserted)</code>！这里插一句题外话，虽然新增元素是属于当前数组的，但还是在被劫持这个行为上，他们是相互独立的，所以这里就是不使用ob.ob.observeArray去劫持，而使用<code>inserted.forEach((item) =&gt; observe(it))</code>劫持也是可以的~</p>
-<p>这里需要当前数组的<code>__ob__</code>，主要是为了通知到这个数组的订阅者！</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>变异方法通过对数组原型方法的拦截对原有方法进行处理，拦截的方式分两种：1. 可以设置原型的情况下，通过改变vue数组的原型指向进行拦截；2. 1不可行的情况下，则在vue数组的ownProperties上创建同名成员方法拦截！</li>
-<li>编译数组方法可以通知watche，是因为最后调用<code>ob.dep.notify()</code>，通知了订阅者，这就是本质区别；</li>
-<li><code>ob.observeArray(inserted)</code>再次坚持新元素是为了让别的watcher可以订阅新属性。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>源码分析</category>
-        <category>vue</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-        <tag>vue源码分析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CORS(跨域资源共享)实现与session丢失解决方案详解</title>
-    <url>/blog/3765dbe925f0.html</url>
+    <title>CORS(跨域资源共享)实现与 session 丢失解决方案</title>
+    <url>/blog/3abca94ec21b.html</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>跨域是什么？只要请求地址与当前地址的<strong>协议</strong>、<strong>域名</strong>、<strong>端口</strong>其中一个不同都会引起跨域，这是由于浏览器的同源策略导致。</p>
 <span id="more"></span>
 
@@ -8504,11 +8514,11 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 ]]></content>
       <categories>
         <category>JavaScript</category>
+        <category>问题解决</category>
       </categories>
       <tags>
         <tag>JavaScript</tag>
         <tag>CORS</tag>
-        <tag>旧文迁移</tag>
       </tags>
   </entry>
   <entry>
@@ -8636,7 +8646,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 ]]></content>
       <categories>
         <category>源码分析</category>
-        <category>Nest</category>
+        <category>NodeJS</category>
       </categories>
       <tags>
         <tag>源码分析</tag>
@@ -8721,12 +8731,12 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
         <category>代码实现</category>
       </categories>
       <tags>
-        <tag>前端</tag>
         <tag>canvas</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
-    <title>SCSS字符分割函数获取当前选择器名</title>
+    <title>SCSS 字符分割函数获取当前选择器名</title>
     <url>/blog/b4cc70238308.html</url>
     <content><![CDATA[<p>常有这样的情况：比如以下面的一段代码来说，多人开发的情况下，很可能你写了一个<code>.header-icon</code>的css样式描述，你的同事也开发了一个！</p>
 <p>并且他的样式优先级比你的高，目前你负责的部分需要你的样式生效！</p>
@@ -8790,7 +8800,6 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 </ul>
 ]]></content>
       <categories>
-        <category>前端</category>
         <category>前端样式</category>
       </categories>
       <tags>
@@ -9684,15 +9693,6 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 ]]></content>
   </entry>
   <entry>
-    <title>游戏相关文章</title>
-    <url>/blog/games/index.html</url>
-    <content><![CDATA[<ul>
-<li><a href="games/source/games/Dark%20Soul3-Quick%20Kill%20Outfit">【黑魂3】速杀配装记录</a></li>
-<li><a href="games/source/games/Parry-Pontiff-Sulyvahn">Parry Pontiff Sulyvahn</a></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
     <title>计划</title>
     <url>/blog/plan/index.html</url>
     <content><![CDATA[<ul>
@@ -9709,6 +9709,15 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
     <title>schedule</title>
     <url>/blog/schedule/index.html</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>游戏相关文章</title>
+    <url>/blog/games/index.html</url>
+    <content><![CDATA[<ul>
+<li><a href="games/source/games/Dark%20Soul3-Quick%20Kill%20Outfit">【黑魂3】速杀配装记录</a></li>
+<li><a href="games/source/games/Parry-Pontiff-Sulyvahn">Parry Pontiff Sulyvahn</a></li>
+</ul>
+]]></content>
   </entry>
   <entry>
     <title>tags</title>
