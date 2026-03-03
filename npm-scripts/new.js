@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const { execSync } = require('child_process');
-const title = process.argv[2];
+const layout = process.argv[2];
+const title = process.argv[3];
 
 function getHash(str) {
   return crypto.createHash('md5')
@@ -9,5 +10,5 @@ function getHash(str) {
     .slice(0, 8);
 }
 
-const command = `hexo new -p "${title}/${getHash(title)}" "${title}"`;
+const command = `hexo new ${layout} "${title}" -p "${title}/${getHash(title)}"`;
 execSync(command, { stdio: 'inherit' });

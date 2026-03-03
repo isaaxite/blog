@@ -9,7 +9,8 @@
     "server": "hexo server",
     "publish": "hexo g -d && git checkout .",
     "new-journal": "node ./npm-scripts/new_journal.js",
-    "new-post": "node ./npm-scripts/new_post.js"
+    "new-draft": "node ./npm-scripts/new.js draft",
+    "new-post": "node ./npm-scripts/new.js post"
   },
   "hexo": {
     "version": "7.3.0"
