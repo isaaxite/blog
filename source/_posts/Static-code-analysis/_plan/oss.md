@@ -1,1 +1,0 @@
-codeclimate: https://codeclimate.com/oss/dashboard
