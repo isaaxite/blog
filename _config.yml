@@ -168,7 +168,7 @@ hide_posts:
 
   # Generators in the allowlist will have access to the hidden posts.
   # Common generators in Hexo: 'index', 'tag', 'category', 'archive', 'sitemap', 'feed'
-  allowlist_generators: ['category']
+  allowlist_generators: ['archive']
 
   # Generators in the blocklist can *not* access the hidden posts.
   # The allowlist has higher priority than the blocklist, if both set.

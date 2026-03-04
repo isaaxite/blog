@@ -41,6 +41,9 @@ importers:
       hexo-generator-tag:
         specifier: ^2.0.0
         version: 2.0.0
+      hexo-hide-posts:
+        specifier: ^0.4.3
+        version: 0.4.3
       hexo-neat:
         specifier: ^1.0.9
         version: 1.0.9
@@ -78,9 +81,6 @@ importers:
       hexo-filter-hidden-source:
         specifier: 0.0.3-alpha.0
         version: 0.0.3-alpha.0
-      hexo-hide-posts:
-        specifier: ^0.4.3
-        version: 0.4.3
       hexo-log:
         specifier: ^4.1.0
         version: 4.1.0

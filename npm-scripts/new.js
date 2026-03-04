@@ -10,5 +10,11 @@ function getHash(str) {
     .slice(0, 8);
 }
 
-const command = `hexo new ${layout} "${title}" -p "${title}/${getHash(title)}"`;
+let postPath = `${title}/${getHash(title)}`;
+
+if (layout === 'daily') {
+  postPath = `生活记录/${postPath}`;
+}
+
+const command = `hexo new ${layout} "${title}" -p "${postPath}"`;
 execSync(command, { stdio: 'inherit' });

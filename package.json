@@ -8,7 +8,7 @@
     "deploy": "hexo deploy",
     "server": "hexo server",
     "publish": "hexo g -d && git checkout .",
-    "new-journal": "node ./npm-scripts/new_journal.js",
+    "new-daily": "node ./npm-scripts/new.js daily",
     "new-draft": "node ./npm-scripts/new.js draft",
     "new-post": "node ./npm-scripts/new.js post"
   },
@@ -27,6 +27,7 @@
     "hexo-generator-searchdb": "^1.4.1",
     "hexo-generator-sitemap": "^3.0.1",
     "hexo-generator-tag": "^2.0.0",
+    "hexo-hide-posts": "^0.4.3",
     "hexo-neat": "^1.0.9",
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-marked": "^6.0.0",
@@ -41,7 +42,6 @@
     "dayjs": "^1.11.9",
     "fs-extra": "^11.1.1",
     "hexo-filter-hidden-source": "0.0.3-alpha.0",
-    "hexo-hide-posts": "^0.4.3",
     "hexo-log": "^4.1.0",
     "isubo": "0.0.12-alpha.7"
   }
