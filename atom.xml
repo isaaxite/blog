@@ -34,13 +34,13 @@
     <category term="WSL" scheme="https://isaaxite.github.io/blog/categories/WSL/"/>
     
     
+    <category term="Linux" scheme="https://isaaxite.github.io/blog/tags/Linux/"/>
+    
     <category term="环境配置" scheme="https://isaaxite.github.io/blog/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
     
     <category term="NodeJS" scheme="https://isaaxite.github.io/blog/tags/NodeJS/"/>
     
     <category term="VSCode" scheme="https://isaaxite.github.io/blog/tags/VSCode/"/>
-    
-    <category term="Linux" scheme="https://isaaxite.github.io/blog/tags/Linux/"/>
     
     <category term="Debian" scheme="https://isaaxite.github.io/blog/tags/Debian/"/>
     
@@ -69,11 +69,11 @@
     <category term="Linux 工具" scheme="https://isaaxite.github.io/blog/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
+    <category term="linux" scheme="https://isaaxite.github.io/blog/tags/linux/"/>
+    
     <category term="tmux" scheme="https://isaaxite.github.io/blog/tags/tmux/"/>
     
     <category term="terminal" scheme="https://isaaxite.github.io/blog/tags/terminal/"/>
-    
-    <category term="linux" scheme="https://isaaxite.github.io/blog/tags/linux/"/>
     
   </entry>
   
@@ -118,9 +118,9 @@
     <category term="Linux 工具" scheme="https://isaaxite.github.io/blog/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="terminal" scheme="https://isaaxite.github.io/blog/tags/terminal/"/>
-    
     <category term="linux" scheme="https://isaaxite.github.io/blog/tags/linux/"/>
+    
+    <category term="terminal" scheme="https://isaaxite.github.io/blog/tags/terminal/"/>
     
     <category term="tilix" scheme="https://isaaxite.github.io/blog/tags/tilix/"/>
     
@@ -394,9 +394,9 @@
     <category term="问题解决" scheme="https://isaaxite.github.io/blog/categories/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
     
     
-    <category term="debian" scheme="https://isaaxite.github.io/blog/tags/debian/"/>
-    
     <category term="hexo" scheme="https://isaaxite.github.io/blog/tags/hexo/"/>
+    
+    <category term="debian" scheme="https://isaaxite.github.io/blog/tags/debian/"/>
     
     <category term="deploy" scheme="https://isaaxite.github.io/blog/tags/deploy/"/>
     
