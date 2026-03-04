@@ -1,5 +1,6 @@
 ---
 title: ADB 安装 For Win 10
+permalink: windows-adb-install
 tags:
   - adb
   - 安卓调试

@@ -3,12 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
     "clean": "hexo clean",
-    "deploy": "hexo deploy",
-    "server": "hexo server",
+    "generate": "hexo clean && hexo generate",
+    "deploy": "hexo g -d",
+    "server": "hexo clean && hexo server",
     "server-with-draft": "hexo clean && hexo server --draft",
-    "publish": "hexo g -d && git checkout .",
     "new-daily": "node ./npm-scripts/new.js daily",
     "new-draft": "node ./npm-scripts/new.js draft",
     "new-post": "node ./npm-scripts/new.js post"

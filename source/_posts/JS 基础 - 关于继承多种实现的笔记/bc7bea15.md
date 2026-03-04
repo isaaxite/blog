@@ -1,5 +1,6 @@
 ---
 title: JS 继承多种实现的学习笔记
+permalink: js-inheritance-patterns
 excerpt: 本文系统总结了 JavaScript 六种继承方式的实现原理与核心问题，涵盖原型链继承、借调构造函数继承、组合继承、原型式继承、寄生式继承与寄生组合式继承，并逐一分析各自的优缺点与适用场景。
 date: 2019-12-27 11:53:12
 tags:

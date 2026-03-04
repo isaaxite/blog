@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Isaac Kam's Blog 
+title: Powah's Blog 
 subtitle: 'I am a slow walker, but I never walk backwards.'
 description: ''
 keywords:
-author: Isaac Kam
+author: powah
 timezone: Asia/Shanghai
 
 # URL
@@ -17,7 +17,7 @@ root: /blog/
 # permalink: :year/:month/:day/:title/
 # permalink: resources/:year/:month/:day/:title/
 # permalink: resources/:title/
-permalink: :hash
+permalink: :name/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks

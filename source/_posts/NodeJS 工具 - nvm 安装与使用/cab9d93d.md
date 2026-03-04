@@ -1,5 +1,6 @@
 ---
 title: nvm安装与基本使用
+permalink: nvm-installation-and-usage
 date: 2023-02-27 01:26:41
 tags:
 - nodejs

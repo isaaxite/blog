@@ -1,5 +1,6 @@
 ---
 title: WSL - 前端开发环境搭建
+permalink: wsl-nodejs-dev-environment-setup/
 tags:
   - 环境配置
   - NodeJS

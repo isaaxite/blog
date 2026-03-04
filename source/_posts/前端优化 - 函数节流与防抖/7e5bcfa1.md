@@ -1,5 +1,6 @@
 ---
 title: 函数节流与防抖
+permalink: js-throttle-debounce
 date: 2019-12-27 11:55:14
 tags:
 - JavaScript
