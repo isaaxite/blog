@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Powah's Blog 
+title: Isaac's Blog 
 subtitle: 'I am a slow walker, but I never walk backwards.'
 description: ''
 keywords:
-author: powah
+author: isaac
 timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://isaaxite.github.io/blog/
-root: /blog/
+url: https://isaaxite.github.io/
+root: /
 # permalink: :year/:month/:day/:title/
 # permalink: resources/:year/:month/:day/:title/
 # permalink: resources/:title/
