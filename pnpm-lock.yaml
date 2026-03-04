@@ -69,21 +69,6 @@ importers:
         specifier: ^4.1.1
         version: 4.1.1
     devDependencies:
-      chalk:
-        specifier: ^2.4.2
-        version: 2.4.2
-      dayjs:
-        specifier: ^1.11.9
-        version: 1.11.13
-      fs-extra:
-        specifier: ^11.1.1
-        version: 11.3.0
-      hexo-filter-hidden-source:
-        specifier: 0.0.3-alpha.0
-        version: 0.0.3-alpha.0
-      hexo-log:
-        specifier: ^4.1.0
-        version: 4.1.0
       isubo:
         specifier: 0.0.12-alpha.7
         version: 0.0.12-alpha.7
@@ -672,9 +657,6 @@ packages:
     resolution: {integrity: sha512-Jy/tj3ldjZJo63sVAvg6LHt2mHvl4V6AgRAmNDtLdm7faqtsx+aJG42rsyCo9JCoRVKwPFzKlIPx3DIibwSIaQ==}
     engines: {node: '>=12'}
 
-  dayjs@1.11.13:
-    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
-
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
     peerDependencies:
@@ -1122,10 +1104,6 @@ packages:
   hexo-deployer-git@4.0.0:
     resolution: {integrity: sha512-28t1Q+4taB/UaBAP52W3mD/wcCwa2y2zBieUfBJFBZudbmVgiKJB5YedYILeyI5QByaUKAOwoupmdTbocdQ+CQ==}
     engines: {node: '>=14'}
-
-  hexo-filter-hidden-source@0.0.3-alpha.0:
-    resolution: {integrity: sha512-T+wspSR1NniVYoQKhd9X5aLZfe5KR5hruvvdtIjFtyu0OYOlf9HxqYbzeCLTL4CBoVM80GklDbatryxXuWy4sA==}
-    hasBin: true
 
   hexo-front-matter@0.2.3:
     resolution: {integrity: sha512-GL/pGfYqsvjMgxjhOWv1zAc7t4JoGUow+CH9Tes/5N2wKxxTzt2woKEMHz1+c01CmhdVYUR4lO3R1ZAcxc0caA==}
@@ -3314,8 +3292,6 @@ snapshots:
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
 
-  dayjs@1.11.13: {}
-
   debug@2.6.9:
     dependencies:
       ms: 2.0.0
@@ -3804,18 +3780,6 @@ snapshots:
       picocolors: 1.1.1
     transitivePeerDependencies:
       - chokidar
-
-  hexo-filter-hidden-source@0.0.3-alpha.0:
-    dependencies:
-      chalk: 2.4.2
-      dayjs: 1.11.13
-      dist: link:../../../dist
-      fs-extra: 11.3.0
-      hexo-filter-hidden-source: link:../../workspace/hexo-filter-hidden-source/dist
-      hexo-log: 4.1.0
-      js-yaml: 4.1.0
-      prompts: 2.4.2
-      yargs: 17.7.2
 
   hexo-front-matter@0.2.3:
     dependencies:

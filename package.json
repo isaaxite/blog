@@ -7,6 +7,7 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
+    "server-with-draft": "hexo clean && hexo server --draft",
     "publish": "hexo g -d && git checkout .",
     "new-daily": "node ./npm-scripts/new.js daily",
     "new-draft": "node ./npm-scripts/new.js draft",
@@ -38,11 +39,6 @@
     "object-assign": "^4.1.1"
   },
   "devDependencies": {
-    "chalk": "^2.4.2",
-    "dayjs": "^1.11.9",
-    "fs-extra": "^11.1.1",
-    "hexo-filter-hidden-source": "0.0.3-alpha.0",
-    "hexo-log": "^4.1.0",
     "isubo": "0.0.12-alpha.7"
   }
 }
