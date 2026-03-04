@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Vue 源码分析 - DIFF 算法实现</title>
-    <url>/blog/f14ed6c21548.html</url>
+    <url>/blog/f14ed6c21548/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>vue版本：2.6.10</strong></p>
 <p>每次更新视图前都会根据视图模板生成vnode（虚拟的节点树），vnode类似dom树，但更简陋，每个vnode都与页面的上的元素html元素一一对应！为了更好的性能，因此要复用元素。那么就要知道怎么复用！就要对比newVnode（当前生成的vnode）和oldVnode（上次生成的vnode），对比完之后才知道那些是要删除，那些是需要重新创建，那些需要移动、移动到哪里！？<br>而diff算法则是对比的一种比较好的方式，更好的更快地对比，谁被谁复用！</p>
 <span id="more"></span>
@@ -170,7 +170,7 @@
   </entry>
   <entry>
     <title>WSL - 前端开发环境搭建</title>
-    <url>/blog/5b4f948e3f22.html</url>
+    <url>/blog/5b4f948e3f22/</url>
     <content><![CDATA[<p>本手册基于已经安装WSL2的前提编写，因此需要将windows系统升级到对应的版本，并已经安装WSL2。若未安装可参考 <a href="https://isaaxite.github.io/blog/resources/%E5%88%9D%E8%AF%86WSL2">初识WSL2</a>。</p>
 <p>环境初始化分为三块：编辑器、终端 和 Linux系统。编辑器将使用VSCode；终端使用windows Terminal；Linux使用Debian。</p>
 <span id="more"></span>
@@ -437,7 +437,7 @@
   </entry>
   <entry>
     <title>Tmux 的相关概念与基本使用</title>
-    <url>/blog/b4a947ba424c.html</url>
+    <url>/blog/b4a947ba424c/</url>
     <content><![CDATA[<p>本文的首要目的是记录，而非完全性的指南，不免会有缺漏。目标是随时间的推移逐步完善此记录，最终达到指南的程度。将以 tmux 的官方文档为核心其他资料为辅介绍 tmux 的基本概念和术语，让 tmux 的潜在用户对它有基本的了解，以达到无痛入门，降低心智消耗的作用。涉及 tmux 的会话（session）、视窗（window）、窗格（pane）和其他的核心内容的基本使用，以达到开箱即用，为 tmux 拾一根薪火（赞美太阳🔥）。</p>
 <span id="more"></span>
 
@@ -1470,7 +1470,7 @@
   </entry>
   <entry>
     <title>Linux-Wechat 体验导向的 Flatpak 探索</title>
-    <url>/blog/3a6e780e6f50.html</url>
+    <url>/blog/3a6e780e6f50/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我当前使用的大部分软件都有被 Deb（Chromium、VS Code 等） Appimage （Motrix、Qv2ray等）覆盖到，其他一部分使用 WebApp （Neat Reader、Google Translate等）代替，实在无解则使用 win7 虚拟机（微信、迅雷等）。</p>
 <p>最近听闻微信发布了 linux 版本，但实际并无较为正式的公告。仅在一些视频网站偶尔刷到 linux 版本微信的演示，才让人对此有了一定的可信度。</p>
 <span id="more"></span>
@@ -1773,7 +1773,7 @@
   </entry>
   <entry>
     <title>Linux 终端模拟器 - Tilix</title>
-    <url>/blog/44fbd6184d7e.html</url>
+    <url>/blog/44fbd6184d7e/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用 Linux 很久，用过多个发行版本，每个版本都有内置的终端模拟器。有 Gnome Terminal、Konsole、GUAKE 等等。使用 MacOS 时遇到了让我觉得刚刚好的终端模拟器 - Iterm2，各种原因下，我不再使用 MacOS，后来就很少让我觉得趁手的终端模拟器。后来，一直使用 Windows 和 Linux。Windows 下用的是 Windows Terminal（这是应用名），配合 WSL2，够用也漂亮，知道在开发中遇到 WSL2 无法解决的情况，再次投身到 Linux 的海洋中。目前使用 Linux Mint 21，它是个漂亮且好用的发行版本。Linux 下的终端始终是我内心深处的刺呢，一直在尝试着其他终端：Konsole、Kitty、tmux、Tabby、Terminator、Tilda等等，花了不少的时间安装、配置，遇到不少的问题，都没有达到心目中期望的样子。直到遇到了 Tilix。</p>
 <span id="more"></span>
 
@@ -1927,7 +1927,7 @@
   </entry>
   <entry>
     <title>从 eslint-plugin-security 看前端安全</title>
-    <url>/blog/05e4fd2916b8.html</url>
+    <url>/blog/05e4fd2916b8/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>近来，主要的研究课题是 JavaScript 代码的静态分析。在研究期间用到 Eslint 对此做实践，了解到它的一个插件，<code>eslint-plugin-security</code>。如其名，它的作用是安全相关方面的代码扫描。在看了它的配置规则后，觉得甚是有趣，不少规则都涉及到常见的前端安全的问题。故有了想法，为什么不以它为引子，来个管中窥豹。</p>
 <span id="more"></span>
 
@@ -3029,7 +3029,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Linux 包管理器 - APT</title>
-    <url>/blog/b8181281b8d6.html</url>
+    <url>/blog/b8181281b8d6/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文将介绍 Advanced Packaging Tool (APT) 包管理器，以及其在 Debian 系统及其衍生发行版（如 Ubuntu）中的配置方式和使用方法。我们将探讨如何配置 APT，包括软件源的设置和更新策略。我们还将深入了解 APT 的使用方式，包括通过命令行工具 apt 进行软件包的安装、升级和移除等操作。通过本文，读者将能够全面了解 APT 的功能和特性，并能够有效地使用 APT 管理软件包，提升系统的稳定性和安全性。</p>
 <span id="more"></span>
 
@@ -3290,7 +3290,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Monorepo - Lerna 实践</title>
-    <url>/blog/7ab6c05207b9.html</url>
+    <url>/blog/7ab6c05207b9/</url>
     <content><![CDATA[<p>最近的学习内容有比较多方法论的实践，故考虑需要个仓库存放实践内容相关的内容。对于这些实践内容，我的想法是：它们唯一的共同点只是它们是“实践内容”，其他方面都应该隔离，放在一起仅仅是方便查阅与管理。同时不希望建立太多的 repository，散落在各处。故有使用 Monorepo 相关工具管理的想法。</p>
 <span id="more"></span>
 
@@ -3378,7 +3378,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Github Action 入门指南</title>
-    <url>/blog/5d6df9ef3493.html</url>
+    <url>/blog/5d6df9ef3493/</url>
     <content><![CDATA[<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>最近持续迭代的 npm 包，<a href="https://github.com/isaaxite/deploy-posts-to-github-issue">isubo</a>。功能已经完成得七七八八，因此开始逐渐完善与之相关的基本设施，比如自动化的能力。该项目代码使用 Github 管理，在它启动之初已经略有了解 GitHub-Actions，模糊地知道Gtihub Actions 是 Github 提供的 CI&#x2F;CD 工具。由于各种原因的将此增加自动化能力的工作置后到最近。</p>
 <p>本文将围绕 Github Actions 展开，了解 Gtihub Actions、CI&#x2F;CD概念以及常见的CI&#x2F;CD工具或平台。接着回归实际问题，详细了解 Github Actions 的使用、配置文件的常用配置项。最后，再实践上面提到的 <a href="https://github.com/isaaxite/deploy-posts-to-github-issue">isubo</a> 的自动化能力。通过实践让我们具备一定的，使用 Gtihub Actions 实现CI&#x2F;CD的能力；具备解决新的Github Actions 相关新的需求点的能力，比如在工作流中增加代码静态分析能力。</p>
 <span id="more"></span>
@@ -3928,7 +3928,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>自动化 CHANGELOG，持续集成</title>
-    <url>/blog/c2f761482a56.html</url>
+    <url>/blog/c2f761482a56/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在开发使用 Github Issue 编写 blog 的项目。目前还在持续开发中，已经 300+ commits，npm 上已经发布的版本迭代有 9个。后面仍然会继续维护，有许多准备增加的能供，需要优化的点，以及已知的需要重构的逻辑，应该还会有相当的bug需要修复。</p>
 <p>抱着负责任的态度，个人认为需要一个渠道使得 Isubo 的使用者获知这些一系列的变动。因此，需要编写 CHANGELOG 记录每个项目版本的变动。</p>
 <p>但是，由于目前还是一个人在开发此项目，精力有限，需要更多地聚焦在功能新增、优化、重构和Bug修复。</p>
@@ -4715,7 +4715,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>浏览器扩展程序开发入门指南</title>
-    <url>/blog/1e91f91394e4.html</url>
+    <url>/blog/1e91f91394e4/</url>
     <content><![CDATA[<p>本文将介绍浏览器扩展是什么，怎么安装。详细分述关于浏览器扩展程序的开发，它项目结构，各个文件文件负者的职能，作为开发者我们可以怎么运用它们实现我们的功能。在开发到一定程度之后，该如何去调式，发现问题，解决问题。之后，如何发布开发好的浏览器开发程序。</p>
 <p>全线保姆级别手把手教导</p>
 <span id="more"></span>
@@ -4965,7 +4965,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>LICENSE 的选择与生成</title>
-    <url>/blog/e6d4e6288235.html</url>
+    <url>/blog/e6d4e6288235/</url>
     <content><![CDATA[<p>本文旨在介绍何为license，如何选择license，以及开发常用的MIT license如何使用。</p>
 <span id="more"></span>
 
@@ -5030,7 +5030,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>初识 WSL2</title>
-    <url>/blog/5a34c8b0dcc0.html</url>
+    <url>/blog/5a34c8b0dcc0/</url>
     <content><![CDATA[<p>本文旨在记录WSL2的安装，让WSL基本可用。接着是Linux发行版本的替换，以至于可以自由选择自己熟悉、喜欢的distribution。</p>
 <p>最后，是有选择地介绍WSL的基础配置及其略详细的情况，目的是让WSL可以更加适合开发者使用。如果后面有需要会继续补充常用的配置使用。以及linux发行版本的替换。</p>
 <span id="more"></span>
@@ -5218,7 +5218,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Hexo deploy 失败问题</title>
-    <url>/blog/f42d7f38cb59.html</url>
+    <url>/blog/f42d7f38cb59/</url>
     <content><![CDATA[<p>当前在WSL的Debian系统中使用hexo写作以及发布部署。</p>
 <p>在Win和Mac系统环境下，在deploy的时候，会自动跳转浏览器做OAuth2授权，不影响使用。</p>
 <p>但是在WSL环境或者说Linux环境（可能）下，会直接在终端 prompt。要求输入账号和密码，但是无论输入对或错都会失败。本文旨在解决此问题以及deploy的部分逻辑分析。</p>
@@ -5308,7 +5308,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>WSL 的 hosts 文件被重置</title>
-    <url>/blog/c9b415cd9ec3.html</url>
+    <url>/blog/c9b415cd9ec3/</url>
     <content><![CDATA[<p>使用WSL安装软件时，需要从 <code>raw.githubusercontent.com</code> 拉取数据，抛异常 403。经查阅是DNS污染导致，推荐的解决方案是修改hosts文件，添加域名与ip的映射。</p>
 <p>然而，再第二天打开电脑再次登入wsl发现，继续403异常！查看hosts文件：内容被重置！</p>
 <span id="more"></span>
@@ -5343,7 +5343,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Docker容器（Debian）内终端的中文展示与输入问题</title>
-    <url>/blog/da485f7a51f4.html</url>
+    <url>/blog/da485f7a51f4/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用docker容器作为开发环境。以Debian11镜像启动容器，出现两个问题：</p>
 <ol>
 <li>无法展示中文，ls输出的都是八进制编码的字符串；</li>
@@ -5394,7 +5394,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>nvm安装与基本使用</title>
-    <url>/blog/9cd8694847f3.html</url>
+    <url>/blog/9cd8694847f3/</url>
     <content><![CDATA[<p>node 版本管理工具还有一个是 TJ 大神的 n 命令，n 命令是作为一个 node 的模块而存在，而 nvm 是一个独立于 node&#x2F;npm 的外部 shell 脚本，因此 n 命令相比 nvm 更加局限。</p>
 <span id="more"></span>
 
@@ -5432,7 +5432,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Rust学习</title>
-    <url>/blog/818794f32715.html</url>
+    <url>/blog/818794f32715/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Rust 是一种 预编译静态类型（ahead-of-time compiled）语言，这意味着你可以编译程序，并将可执行文件送给其他人，他们甚至不需要安装 Rust 就可以运行。</p>
 <span id="more"></span>
 
@@ -5761,7 +5761,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>PM2 日志插件（pm2-logrotate）使用</title>
-    <url>/blog/d14819a64026.html</url>
+    <url>/blog/d14819a64026/</url>
     <content><![CDATA[<h2 id="默认-PM2-日志存在的问题"><a href="#默认-PM2-日志存在的问题" class="headerlink" title="默认 PM2 日志存在的问题"></a>默认 PM2 日志存在的问题</h2><ol>
 <li>缺少日志时间戳；</li>
 <li>缺少日志分片；</li>
@@ -5801,7 +5801,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>网络安全 - Aauth2 实践</title>
-    <url>/blog/1c64d8a84628.html</url>
+    <url>/blog/1c64d8a84628/</url>
     <content><![CDATA[<p><img src="/blog/1c64d8a84628/2022-10-07-03-23-41.png"></p>
 <span id="more"></span>
 
@@ -6087,7 +6087,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>ADB 安装 For Win 10</title>
-    <url>/blog/a8545544b51d.html</url>
+    <url>/blog/a8545544b51d/</url>
     <content><![CDATA[<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="https://developer.android.com/studio/releases/platform-tools">下载 ADB for Windows</a></p>
 <p><img src="/blog/a8545544b51d/58064e0ddf514a219e22db69e7dbb67c.webp"></p>
 <span id="more"></span>
@@ -6115,7 +6115,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Git Hook实现轻量级自动化部署</title>
-    <url>/blog/9c5b9a4755d0.html</url>
+    <url>/blog/9c5b9a4755d0/</url>
     <content><![CDATA[<p>最近在整理项目，发现以前的一个项目中，发现使用git hook和pm2实现了一个简单的自动化部署，也没有写什么记录，故复记录之。</p>
 <span id="more"></span>
 
@@ -6196,7 +6196,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>JS 基础 - Generator 浅析</title>
-    <url>/blog/eb1488da5df1.html</url>
+    <url>/blog/eb1488da5df1/</url>
     <content><![CDATA[<p>Generator 函数就是遍历器生成函数</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span>* <span class="title function_">foo</span> () &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -6246,7 +6246,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>TS 装饰器实现路由的自动挂载</title>
-    <url>/blog/af5e7d669102.html</url>
+    <url>/blog/af5e7d669102/</url>
     <content><![CDATA[<h2 id="装饰器实现路由的自动挂载"><a href="#装饰器实现路由的自动挂载" class="headerlink" title="装饰器实现路由的自动挂载"></a>装饰器实现路由的自动挂载</h2><ul>
 <li>类装饰器工作记录contriller路径；</li>
 <li>方法装饰器记录方法路径；</li>
@@ -6316,7 +6316,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>TS 装饰器实现参数的校验</title>
-    <url>/blog/69de06d283ee.html</url>
+    <url>/blog/69de06d283ee/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>需要用到的工具：</p>
 <ul>
 <li>参数装饰器：记录参数的索引，方法名；</li>
@@ -6376,7 +6376,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>ElementUI 源码分析-Scrolllbar组件</title>
-    <url>/blog/ab1029211ca1.html</url>
+    <url>/blog/ab1029211ca1/</url>
     <content><![CDATA[<p>scrollbar 组件可以通过设置 native 属性，是否使用自定义的 scrollbar 视图，默认为 <code>undefined</code> 即使用自定义的，下面也是主要分析自定义 scrollbar 的构成。</p>
 <span id="more"></span>
 
@@ -6455,7 +6455,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>算法题目分析与解答</title>
-    <url>/blog/008041fcb348.html</url>
+    <url>/blog/008041fcb348/</url>
     <content><![CDATA[<p>在计算机科学和编程领域，算法是一项至关重要的核心技能。解决各种问题的高效算法可以极大地提升程序的性能和效率。而算法题目则是考察和锻炼这种技能的常见方式之一。</p>
 <p>当我们面对算法题目时，可能会感到挑战和困惑。这些题目往往涉及复杂的逻辑、数据结构和数学原理，需要我们运用创造力和分析能力来找到最佳的解决方案。然而，正是这种挑战性使得算法题目如此令人着迷。</p>
 <span id="more"></span>
@@ -6887,7 +6887,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>JavaScript创建对象的多种模式</title>
-    <url>/blog/08f8cda6baa4.html</url>
+    <url>/blog/08f8cda6baa4/</url>
     <content><![CDATA[<ul>
 <li>工厂模式</li>
 </ul>
@@ -7001,7 +7001,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>JS 基础 - 函数提升和变量的声明提前</title>
-    <url>/blog/d851af0a431d.html</url>
+    <url>/blog/d851af0a431d/</url>
     <content><![CDATA[<p>把他们两个概念放在一起说，并不是因为他们有多大关联，只是因为他们都会被“提前”。</p>
 <span id="more"></span>
 
@@ -7044,7 +7044,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>JS 基础 - 作用域链浅析</title>
-    <url>/blog/31b4d63df3c4.html</url>
+    <url>/blog/31b4d63df3c4/</url>
     <content><![CDATA[<p>为可以大概了解作用域链是个什么东西，本文着重说明作用域链，尽量不引入其他的概念。</p>
 <span id="more"></span>
 
@@ -7094,7 +7094,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>数据结构 - 深入 Hash 表</title>
-    <url>/blog/8215c16b54d9.html</url>
+    <url>/blog/8215c16b54d9/</url>
     <content><![CDATA[<p>为什么要写散列表（Hash Table）？！因为忘记，就算以前在大学的时候学得多好，分数考多高。成了前端狗之后一方面是自己对自己不够严格，另一方面工作方面也是用得少这方面的知识，平时大多都是一群朋友吹牛皮的时候，亮出来吓吓人（也只能说自己记得的部分）。当夜深人静时都会想想自己吹过的牛皮~感叹这些知识自己真的忘得差不多了，三分钟热度来写个文章温故知新！</p>
 <span id="more"></span>
 
@@ -7337,7 +7337,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>算法实现 - 快速排序的 JS 实现</title>
-    <url>/blog/5473cabdcf7b.html</url>
+    <url>/blog/5473cabdcf7b/</url>
     <content><![CDATA[<h2 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h2><blockquote>
 <p>1 在数据集之中，选择一个元素作为”基准”（pivot）。<br>2 所有小于”基准”的元素，都移到”基准”的左边；所有大于”基准”的元素，都移到”基准”的右边。<br>3 对”基准”左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。</p>
 </blockquote>
@@ -7394,7 +7394,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>二叉树遍历的 JS 实现</title>
-    <url>/blog/9cfcaf6bfcab.html</url>
+    <url>/blog/9cfcaf6bfcab/</url>
     <content><![CDATA[<p>紧接着上篇  <a href="./%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84javascript%E5%AE%9E%E7%8E%B0.md">二叉树的javascript实现</a> ，来说一下二叉树的遍历。</p>
 <span id="more"></span>
 
@@ -7451,7 +7451,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>二叉树的 JS 实现</title>
-    <url>/blog/994b6a6a5d70.html</url>
+    <url>/blog/994b6a6a5d70/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="/blog/994b6a6a5d70/2838289-a4d05edb6062df13.png"></p>
 <span id="more"></span>
 
@@ -7500,7 +7500,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>数据结构 - 图的 JS 实现</title>
-    <url>/blog/34fe7e7a1f3d.html</url>
+    <url>/blog/34fe7e7a1f3d/</url>
     <content><![CDATA[<p>图：关于图的概念就大概说一下基本的，图分成有向和无向。图由若干顶点构成，顶点相连成边，边由顶点对组成，(假设有v1，v2两顶点，(v1,v2)即为一条边)每个顶点有权重，对于图的概念可以自行Google，本文着重对图的实现，上两张“图”的例子：</p>
 <span id="more"></span>
 
@@ -7530,7 +7530,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>函数节流与防抖</title>
-    <url>/blog/bca593207750.html</url>
+    <url>/blog/bca593207750/</url>
     <content><![CDATA[<ul>
 <li><p>函数节流：给定时间间隔内只执行一次</p>
 </li>
@@ -7558,7 +7558,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>JS 继承多种实现的学习笔记</title>
-    <url>/blog/3984f0c6f0ff.html</url>
+    <url>/blog/3984f0c6f0ff/</url>
     <content><![CDATA[<h2 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h2><p>[回到顶部]</p>
 <p><strong>先说原型链继承的问题：包含引用类型属性的原型（不想被共享的引用属性）会变成共享。</strong></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">SuperType</span>(<span class="params">name</span>)&#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">type</span> = <span class="string">&#x27;color&#x27;</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">colors</span> = [<span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">SuperType</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">sayType</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">type</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="title class_">SuperType</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">sayName</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SubType</span>(<span class="params">name</span>)&#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">SubType</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">SuperType</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ins1 = <span class="keyword">new</span> <span class="title class_">SubType</span>();</span><br><span class="line">ins1.<span class="property">colors</span>.<span class="title function_">push</span>(<span class="string">&#x27;red&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ins1.<span class="property">colors</span>);  <span class="comment">//&#x27;yellow&#x27;, &#x27;white&#x27;, &#x27;red&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ins2 = <span class="keyword">new</span> <span class="title class_">SubType</span>(<span class="string">&#x27;issac&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ins2.<span class="property">colors</span>);  <span class="comment">//&#x27;yellow&#x27;, &#x27;white&#x27;, &#x27;red&#x27;</span></span><br><span class="line">ins2.<span class="title function_">sayType</span>();</span><br><span class="line">ins2.<span class="title function_">sayName</span>();</span><br></pre></td></tr></table></figure>
@@ -7638,7 +7638,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>New操作符的机制与实现相同功能的方法</title>
-    <url>/blog/941c75a6de29.html</url>
+    <url>/blog/941c75a6de29/</url>
     <content><![CDATA[<h2 id="new操作符做了什么？"><a href="#new操作符做了什么？" class="headerlink" title="new操作符做了什么？"></a>new操作符做了什么？</h2><p><a href="#%E5%A4%A7%E7%BA%B2">回到顶部</a></p>
 <p>先来看一个例子，分别用新旧方式创建类，并实例化。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 传统实现</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Foo</span>(<span class="params">name</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = name</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 静态属性</span></span><br><span class="line"><span class="title class_">Foo</span>.<span class="property">fn</span> = <span class="string">&#x27;Foo&#x27;</span>;</span><br><span class="line"><span class="comment">// 成员方法</span></span><br><span class="line"><span class="title class_">Foo</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">sayName</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 现代实现</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Bar</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="comment">// 静态属性</span></span><br><span class="line">    <span class="title class_">Bar</span>.<span class="property">fn</span> = <span class="string">&#x27;Bar&#x27;</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">sayName</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -7719,7 +7719,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Vue 源码分析 - filter</title>
-    <url>/blog/a3a075b81f01.html</url>
+    <url>/blog/a3a075b81f01/</url>
     <content><![CDATA[<p>使用如下例子，说明 <code>filter</code> 作为 html 属性一部分或元素文本一部分的解析，以及 vue 对 <code>filter</code> 解析过程的详细实现。</p>
 <span id="more"></span>
 
@@ -7814,7 +7814,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>vnode的内部实现</title>
-    <url>/blog/2ea62c626ee1.html</url>
+    <url>/blog/2ea62c626ee1/</url>
     <content><![CDATA[<p>path: vue&#x2F;src&#x2F;core&#x2F;vdom&#x2F;vnode.js</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* @flow */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">VNode</span> &#123;</span><br><span class="line">  <span class="attr">tag</span>: <span class="built_in">string</span> | <span class="built_in">void</span>;</span><br><span class="line">  <span class="attr">data</span>: <span class="title class_">VNodeData</span> | <span class="built_in">void</span>;</span><br><span class="line">  <span class="attr">children</span>: ?<span class="title class_">Array</span>&lt;<span class="title class_">VNode</span>&gt;;</span><br><span class="line">  <span class="attr">text</span>: <span class="built_in">string</span> | <span class="built_in">void</span>;</span><br><span class="line">  <span class="attr">elm</span>: <span class="title class_">Node</span> | <span class="built_in">void</span>;</span><br><span class="line">  <span class="attr">ns</span>: <span class="built_in">string</span> | <span class="built_in">void</span>;</span><br><span class="line">  <span class="attr">context</span>: <span class="title class_">Component</span> | <span class="built_in">void</span>; <span class="comment">// rendered in this component&#x27;s scope</span></span><br><span class="line">  <span class="attr">key</span>: <span class="built_in">string</span> | <span class="built_in">number</span> | <span class="built_in">void</span>;</span><br><span class="line">  <span class="attr">componentOptions</span>: <span class="title class_">VNodeComponentOptions</span> | <span class="built_in">void</span>;</span><br><span class="line">  <span class="attr">componentInstance</span>: <span class="title class_">Component</span> | <span class="built_in">void</span>; <span class="comment">// component instance</span></span><br><span class="line">  <span class="attr">parent</span>: <span class="title class_">VNode</span> | <span class="built_in">void</span>; <span class="comment">// component placeholder node</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// strictly internal</span></span><br><span class="line">  <span class="attr">raw</span>: <span class="built_in">boolean</span>; <span class="comment">// contains raw HTML? (server only)</span></span><br><span class="line">  <span class="attr">isStatic</span>: <span class="built_in">boolean</span>; <span class="comment">// hoisted static node</span></span><br><span class="line">  <span class="attr">isRootInsert</span>: <span class="built_in">boolean</span>; <span class="comment">// necessary for enter transition check</span></span><br><span class="line">  <span class="attr">isComment</span>: <span class="built_in">boolean</span>; <span class="comment">// empty comment placeholder?</span></span><br><span class="line">  <span class="attr">isCloned</span>: <span class="built_in">boolean</span>; <span class="comment">// is a cloned node?</span></span><br><span class="line">  <span class="attr">isOnce</span>: <span class="built_in">boolean</span>; <span class="comment">// is a v-once node?</span></span><br><span class="line">  <span class="attr">asyncFactory</span>: <span class="title class_">Function</span> | <span class="built_in">void</span>; <span class="comment">// async component factory function</span></span><br><span class="line">  <span class="attr">asyncMeta</span>: <span class="title class_">Object</span> | <span class="built_in">void</span>;</span><br><span class="line">  <span class="attr">isAsyncPlaceholder</span>: <span class="built_in">boolean</span>;</span><br><span class="line">  <span class="attr">ssrContext</span>: <span class="title class_">Object</span> | <span class="built_in">void</span>;</span><br><span class="line">  <span class="attr">fnContext</span>: <span class="title class_">Component</span> | <span class="built_in">void</span>; <span class="comment">// real context vm for functional nodes</span></span><br><span class="line">  <span class="attr">fnOptions</span>: ?<span class="title class_">ComponentOptions</span>; <span class="comment">// for SSR caching</span></span><br><span class="line">  <span class="attr">devtoolsMeta</span>: ?<span class="title class_">Object</span>; <span class="comment">// used to store functional render context for devtools</span></span><br><span class="line">  <span class="attr">fnScopeId</span>: ?<span class="built_in">string</span>; <span class="comment">// functional scope id support</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span> (<span class="params"></span></span><br><span class="line"><span class="params">    <span class="attr">tag</span>?: <span class="built_in">string</span>,</span></span><br><span class="line"><span class="params">    <span class="attr">data</span>?: <span class="title class_">VNodeData</span>,</span></span><br><span class="line"><span class="params">    <span class="attr">children</span>?: ?<span class="title class_">Array</span>&lt;<span class="title class_">VNode</span>&gt;,</span></span><br><span class="line"><span class="params">    <span class="attr">text</span>?: <span class="built_in">string</span>,</span></span><br><span class="line"><span class="params">    <span class="attr">elm</span>?: <span class="title class_">Node</span>,</span></span><br><span class="line"><span class="params">    <span class="attr">context</span>?: <span class="title class_">Component</span>,</span></span><br><span class="line"><span class="params">    <span class="attr">componentOptions</span>?: <span class="title class_">VNodeComponentOptions</span>,</span></span><br><span class="line"><span class="params">    <span class="attr">asyncFactory</span>?: <span class="title class_">Function</span></span></span><br><span class="line"><span class="params">  </span>) &#123;</span><br><span class="line">    <span class="comment">// 标签名，小写</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">tag</span> = tag</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 标签上的属性数据</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">data</span> = data</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 儿子虚拟节点（vnode）</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">children</span> = children</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">text</span> = text</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 真是元素的引用</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">elm</span> = elm</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">ns</span> = <span class="literal">undefined</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 节点所在vue实例</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">context</span> = context</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">fnContext</span> = <span class="literal">undefined</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">fnOptions</span> = <span class="literal">undefined</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">fnScopeId</span> = <span class="literal">undefined</span></span><br><span class="line">    <span class="comment">// v-for元素的key</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">key</span> = data &amp;&amp; data.<span class="property">key</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">componentOptions</span> = componentOptions</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">componentInstance</span> = <span class="literal">undefined</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">parent</span> = <span class="literal">undefined</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">raw</span> = <span class="literal">false</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">isStatic</span> = <span class="literal">false</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">isRootInsert</span> = <span class="literal">true</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">isComment</span> = <span class="literal">false</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">isCloned</span> = <span class="literal">false</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">isOnce</span> = <span class="literal">false</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">asyncFactory</span> = asyncFactory</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">asyncMeta</span> = <span class="literal">undefined</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">isAsyncPlaceholder</span> = <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// DEPRECATED: alias for componentInstance for backwards compat.</span></span><br><span class="line">  <span class="comment">/* istanbul ignore next */</span></span><br><span class="line">  get <span class="title function_">child</span> (): <span class="title class_">Component</span> | <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">componentInstance</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">createEmptyVNode</span> = (<span class="params"><span class="attr">text</span>: <span class="built_in">string</span> = <span class="string">&#x27;&#x27;</span></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> node = <span class="keyword">new</span> <span class="title class_">VNode</span>()</span><br><span class="line">  node.<span class="property">text</span> = text</span><br><span class="line">  node.<span class="property">isComment</span> = <span class="literal">true</span></span><br><span class="line">  <span class="keyword">return</span> node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">createTextVNode</span> (<span class="params"><span class="attr">val</span>: <span class="built_in">string</span> | <span class="built_in">number</span></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">VNode</span>(<span class="literal">undefined</span>, <span class="literal">undefined</span>, <span class="literal">undefined</span>, <span class="title class_">String</span>(val))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// optimized shallow clone</span></span><br><span class="line"><span class="comment">// used for static nodes and slot nodes because they may be reused across</span></span><br><span class="line"><span class="comment">// multiple renders, cloning them avoids errors when DOM manipulations rely</span></span><br><span class="line"><span class="comment">// on their elm reference.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">cloneVNode</span> (<span class="params"><span class="attr">vnode</span>: <span class="title class_">VNode</span></span>): <span class="title class_">VNode</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> cloned = <span class="keyword">new</span> <span class="title class_">VNode</span>(</span><br><span class="line">    vnode.<span class="property">tag</span>,</span><br><span class="line">    vnode.<span class="property">data</span>,</span><br><span class="line">    <span class="comment">// #7975</span></span><br><span class="line">    <span class="comment">// clone children array to avoid mutating original in case of cloning</span></span><br><span class="line">    <span class="comment">// a child.</span></span><br><span class="line">    vnode.<span class="property">children</span> &amp;&amp; vnode.<span class="property">children</span>.<span class="title function_">slice</span>(),</span><br><span class="line">    vnode.<span class="property">text</span>,</span><br><span class="line">    vnode.<span class="property">elm</span>,</span><br><span class="line">    vnode.<span class="property">context</span>,</span><br><span class="line">    vnode.<span class="property">componentOptions</span>,</span><br><span class="line">    vnode.<span class="property">asyncFactory</span></span><br><span class="line">  )</span><br><span class="line">  cloned.<span class="property">ns</span> = vnode.<span class="property">ns</span></span><br><span class="line">  cloned.<span class="property">isStatic</span> = vnode.<span class="property">isStatic</span></span><br><span class="line">  cloned.<span class="property">key</span> = vnode.<span class="property">key</span></span><br><span class="line">  cloned.<span class="property">isComment</span> = vnode.<span class="property">isComment</span></span><br><span class="line">  cloned.<span class="property">fnContext</span> = vnode.<span class="property">fnContext</span></span><br><span class="line">  cloned.<span class="property">fnOptions</span> = vnode.<span class="property">fnOptions</span></span><br><span class="line">  cloned.<span class="property">fnScopeId</span> = vnode.<span class="property">fnScopeId</span></span><br><span class="line">  cloned.<span class="property">asyncMeta</span> = vnode.<span class="property">asyncMeta</span></span><br><span class="line">  cloned.<span class="property">isCloned</span> = <span class="literal">true</span></span><br><span class="line">  <span class="keyword">return</span> cloned</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
@@ -7829,7 +7829,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>nextTick实现原理</title>
-    <url>/blog/376edcc814fd.html</url>
+    <url>/blog/376edcc814fd/</url>
     <content><![CDATA[<ul>
 <li>vue版本：<code>2.6.9</code>；</li>
 <li>path：<code>vue/src/core/util/next-tick.js</code>；</li>
@@ -7880,7 +7880,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>v-for的原理分析</title>
-    <url>/blog/5ed6d9e464c4.html</url>
+    <url>/blog/5ed6d9e464c4/</url>
     <content><![CDATA[<ul>
 <li>使用<code>parse</code>解析模板生成<code>ast</code>，<code>v-for</code>相关的属性；</li>
 <li>使用<code>generate</code>，结合<code>ast</code>生成函数文本（<code>code</code>），包含<code>v-for</code>的函数文本是<code>_l(/* ... */)</code>;</li>
@@ -7973,7 +7973,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Vue 源码分析 - 数组变异方法的实现原理</title>
-    <url>/blog/e621ae3a51b5.html</url>
+    <url>/blog/e621ae3a51b5/</url>
     <content><![CDATA[<p><strong>path: vue&#x2F;src&#x2F;core&#x2F;observer&#x2F;array.js</strong></p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; def &#125; <span class="keyword">from</span> <span class="string">&#x27;../util/index&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arrayProto = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span></span><br><span class="line"><span class="comment">// 原型式继承数组原型对象</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Object.create(arrayProto)的操作等同于下面的操作</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * arrayMethods = &#123;&#125;;</span></span><br><span class="line"><span class="comment"> * Object.setPrototypeOf(arrayMethods, arrayProto);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> arrayMethods = <span class="title class_">Object</span>.<span class="title function_">create</span>(arrayProto)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> methodsToPatch = [</span><br><span class="line">  <span class="string">&#x27;push&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;pop&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;shift&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;unshift&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;splice&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;sort&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;reverse&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Intercept mutating methods and emit events</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 给 arrayMethods 变异方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">methodsToPatch.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">method</span>) &#123;</span><br><span class="line">  <span class="comment">// cache original method</span></span><br><span class="line">  <span class="keyword">const</span> original = arrayProto[method]</span><br><span class="line">  <span class="comment">// def，使用defineProperty是定对象属性的value</span></span><br><span class="line">  <span class="title function_">def</span>(arrayMethods, method, <span class="keyword">function</span> <span class="title function_">mutator</span> (<span class="params">...args</span>) &#123;</span><br><span class="line">    <span class="comment">// 指定上下文调用原始的数组方法</span></span><br><span class="line">    <span class="keyword">const</span> result = original.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args)</span><br><span class="line">    <span class="keyword">const</span> ob = <span class="variable language_">this</span>.<span class="property">__ob__</span></span><br><span class="line">    <span class="keyword">let</span> inserted</span><br><span class="line">    <span class="keyword">switch</span> (method) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;push&#x27;</span>:</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;unshift&#x27;</span>:</span><br><span class="line"></span><br><span class="line">        inserted = args</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;splice&#x27;</span>:</span><br><span class="line">        inserted = args.<span class="title function_">slice</span>(<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (inserted) &#123;</span><br><span class="line">      <span class="comment">// 若有新增元素，则需要对新增元素进行观察，劫持</span></span><br><span class="line">      ob.<span class="title function_">observeArray</span>(inserted)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 既然对象成员个数新增，就需要通知订阅者，当前它依赖的数据已经发生变动</span></span><br><span class="line">    ob.<span class="property">dep</span>.<span class="title function_">notify</span>()</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Define a property.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">def</span> (<span class="params">obj: <span class="built_in">Object</span>, key: string, val: any, enumerable?: boolean</span>) &#123;</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(obj, key, &#123;</span><br><span class="line">    <span class="attr">value</span>: val,</span><br><span class="line">    <span class="attr">enumerable</span>: !!enumerable,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">configurable</span>: <span class="literal">true</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -8007,7 +8007,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Vue 源码分析 - 深入剖析计算属性的运行原理</title>
-    <url>/blog/9060be8d355a.html</url>
+    <url>/blog/9060be8d355a/</url>
     <content><![CDATA[<!-- more -->
 
 <h2 id="初始化过程"><a href="#初始化过程" class="headerlink" title="初始化过程"></a>初始化过程</h2><p>在创建Vue实例时调用<code>this._init</code>初始化。</p>
@@ -8390,7 +8390,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>CORS(跨域资源共享)实现与 session 丢失解决方案</title>
-    <url>/blog/3abca94ec21b.html</url>
+    <url>/blog/3abca94ec21b/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>跨域是什么？只要请求地址与当前地址的<strong>协议</strong>、<strong>域名</strong>、<strong>端口</strong>其中一个不同都会引起跨域，这是由于浏览器的同源策略导致。</p>
 <span id="more"></span>
 
@@ -8497,7 +8497,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>Vue 源码分析 - $set 和 $del</title>
-    <url>/blog/af5becf16cb6.html</url>
+    <url>/blog/af5becf16cb6/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
 <li><p>vue版本：<code>v2.6.9</code>;</p>
 </li>
@@ -8567,7 +8567,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>浅析 Nest 装饰器的路由注册</title>
-    <url>/blog/8950319940fa.html</url>
+    <url>/blog/8950319940fa/</url>
     <content><![CDATA[<p>在<code>nest</code>中你可以看到使用装饰器实现路由路径。</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Controller</span>, <span class="title class_">Get</span>, <span class="title class_">Query</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ListAllEntities</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./dto&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span>(<span class="string">&#x27;cats&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CatsController</span> &#123;</span><br><span class="line">  <span class="meta">@Get</span>()</span><br><span class="line">  <span class="title function_">findAll</span>(<span class="params"><span class="meta">@Query</span>() <span class="attr">query</span>: <span class="title class_">ListAllEntities</span></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`This action returns all cats (limit: <span class="subst">$&#123;query.limit&#125;</span> items)`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -8629,7 +8629,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>算法实现 - 大数值相加</title>
-    <url>/blog/c13b4dc5a371.html</url>
+    <url>/blog/c13b4dc5a371/</url>
     <content><![CDATA[<h2 id="第一版"><a href="#第一版" class="headerlink" title="第一版"></a>第一版</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> splitLen = <span class="number">15</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">add</span> = (<span class="params">...rest</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (rest.<span class="property">length</span> &lt; <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> rest[<span class="number">0</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> num = rest.<span class="title function_">pop</span>();</span><br><span class="line">  <span class="keyword">return</span> +<span class="title function_">add</span>(...rest) + (+num) + <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> zeros = <span class="keyword">new</span> <span class="title class_">Array</span>(splitLen).<span class="title function_">fill</span>(<span class="number">0</span>).<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">splitNum</span> = (<span class="params">numStr</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> numStrArr = numStr.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> nums = [];</span><br><span class="line">  <span class="keyword">while</span> (numStrArr.<span class="property">length</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> item = numStrArr.<span class="title function_">splice</span>(-splitLen);</span><br><span class="line">    nums.<span class="title function_">push</span>(item.<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> nums;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">classifyAdd</span> = (<span class="params">n1Nums, n2Nums</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> resNums = [];</span><br><span class="line">  <span class="keyword">let</span> carry = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="keyword">while</span> (n1Nums.<span class="property">length</span> &amp;&amp; n2Nums.<span class="property">length</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> part;</span><br><span class="line">    <span class="keyword">const</span> res = <span class="title function_">add</span>(n1Nums.<span class="title function_">shift</span>(), n2Nums.<span class="title function_">shift</span>(), carry);</span><br><span class="line">    <span class="keyword">if</span> (res.<span class="property">length</span> &gt; splitLen) &#123;</span><br><span class="line">      part = res.<span class="title function_">slice</span>(-splitLen);</span><br><span class="line">      carry = res.<span class="title function_">slice</span>(<span class="number">0</span>, -splitLen);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      part = zeros.<span class="title function_">slice</span>(<span class="number">0</span>, -res.<span class="property">length</span>) + res;</span><br><span class="line">      carry = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    resNums.<span class="title function_">push</span>(part);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (n1Nums.<span class="property">length</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> restNums = carry ? <span class="title function_">classifyAdd</span>([carry], n1Nums) : n1Nums;</span><br><span class="line">    resNums = [...resNums, ...restNums];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (n2Nums.<span class="property">length</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> restNums = carry ? <span class="title function_">classifyAdd</span>([carry], n2Nums) : n2Nums;</span><br><span class="line">    resNums = [...resNums, ...restNums];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> resNums;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bigNumAdd</span>(<span class="params">str1, str2</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (str1.<span class="property">length</span> &lt; <span class="number">16</span> &amp;&amp; str2.<span class="property">length</span> &lt; <span class="number">16</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">add</span>(str1, str2);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> numArr1 = <span class="title function_">splitNum</span>(str1);</span><br><span class="line">  <span class="keyword">const</span> numArr2 = <span class="title function_">splitNum</span>(str2);</span><br><span class="line">  <span class="keyword">const</span> resNums = <span class="title function_">classifyAdd</span>(numArr1, numArr2).<span class="title function_">reverse</span>();</span><br><span class="line">  <span class="keyword">const</span> resStr = resNums.<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">replace</span>(<span class="regexp">/^0*/</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">return</span> resStr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bigNumsAdd</span>(<span class="params">...rest</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (rest.<span class="property">length</span> &lt; <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> rest[<span class="number">0</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> str1 = rest.<span class="title function_">shift</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">bigNumAdd</span>(str1, <span class="title function_">bigNumsAdd</span>(...rest));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> str1 = <span class="string">&#x27;1111111111&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> str2 = <span class="string">&#x27;444&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> str3 = <span class="string">&#x27;00000000000000000000000000000000000000000000000000&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> resNums = <span class="title function_">bigNumsAdd</span>(str1, str2, str3);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;resNums&#x27;</span>, resNums);</span><br><span class="line"></span><br><span class="line"><span class="comment">// resNums &quot;1111111555&quot;</span></span><br></pre></td></tr></table></figure>
 <h2 id="第二版"><a href="#第二版" class="headerlink" title="第二版"></a>第二版</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> splitLen = <span class="number">15</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">add</span> = (<span class="params">...rest</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> sum = rest.<span class="property">length</span> &lt; <span class="number">2</span> ? rest[<span class="number">0</span>] : +rest.<span class="title function_">pop</span>() + (+<span class="title function_">add</span>(...rest));</span><br><span class="line">  <span class="keyword">return</span> sum + <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> zeros = <span class="keyword">new</span> <span class="title class_">Array</span>(splitLen).<span class="title function_">fill</span>(<span class="number">0</span>).<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">splitNum</span> = (<span class="params">numStr</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> numStrArr = numStr.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> nums = [];</span><br><span class="line">  <span class="keyword">while</span> (numStrArr.<span class="property">length</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> item = numStrArr.<span class="title function_">splice</span>(-splitLen);</span><br><span class="line">    nums.<span class="title function_">push</span>(item.<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> nums;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">classifyAdd</span> = (<span class="params">n1Nums, n2Nums</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> resNums = [];</span><br><span class="line">  <span class="keyword">let</span> carry = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="keyword">while</span> (n1Nums.<span class="property">length</span> &amp;&amp; n2Nums.<span class="property">length</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> sum = <span class="title function_">add</span>(n1Nums.<span class="title function_">shift</span>(), n2Nums.<span class="title function_">shift</span>(), carry);</span><br><span class="line">    <span class="keyword">const</span> part = zeros.<span class="title function_">slice</span>(<span class="number">0</span>, -sum.<span class="property">length</span>) + sum.<span class="title function_">slice</span>(-splitLen);</span><br><span class="line">    carry = sum.<span class="title function_">slice</span>(<span class="number">0</span>, -splitLen);</span><br><span class="line">    resNums.<span class="title function_">push</span>(part);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> restNums = n1Nums.<span class="title function_">concat</span>(n2Nums); </span><br><span class="line">  restNums = carry ? <span class="title function_">classifyAdd</span>([carry], restNums) : restNums;</span><br><span class="line">  <span class="keyword">return</span> [...resNums, ...restNums].<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">replace</span>(<span class="regexp">/^0*/</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">bigNumAdd</span> = (<span class="params">str1, str2</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> str1.<span class="property">length</span> &lt; <span class="number">16</span> &amp;&amp; str2.<span class="property">length</span> &lt; <span class="number">16</span></span><br><span class="line">    ? <span class="title function_">add</span>(str1, str2)</span><br><span class="line">    : <span class="title function_">classifyAdd</span>(<span class="title function_">splitNum</span>(str1), <span class="title function_">splitNum</span>(str2));</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bigNumsAdd</span>(<span class="params">...rest</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> rest.<span class="property">length</span> &lt; <span class="number">2</span></span><br><span class="line">    ? rest[<span class="number">0</span>]</span><br><span class="line">    : <span class="title function_">bigNumAdd</span>(rest.<span class="title function_">shift</span>(), <span class="title function_">bigNumsAdd</span>(...rest));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -8648,7 +8648,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>canvas实现圆框图片</title>
-    <url>/blog/eaf706f58c36.html</url>
+    <url>/blog/eaf706f58c36/</url>
     <content><![CDATA[<p>在html中做圆框图片很容易，只需要简单的 <code>border-radius: 50%;</code> 当然，为了兼容性，还有必要做带前缀的兼容性写法。但总的来说还是很简单。</p>
 <span id="more"></span>
 
@@ -8711,7 +8711,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>SCSS 字符分割函数获取当前选择器名</title>
-    <url>/blog/b4cc70238308.html</url>
+    <url>/blog/b4cc70238308/</url>
     <content><![CDATA[<p>常有这样的情况：比如以下面的一段代码来说，多人开发的情况下，很可能你写了一个<code>.header-icon</code>的css样式描述，你的同事也开发了一个！</p>
 <p>并且他的样式优先级比你的高，目前你负责的部分需要你的样式生效！</p>
 <span id="more"></span>
@@ -8783,7 +8783,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
   </entry>
   <entry>
     <title>前端工程化 - 静态代码分析</title>
-    <url>/blog/31f2ffc73631.html</url>
+    <url>/blog/31f2ffc73631/</url>
     <content><![CDATA[<p>静态代码分析指的是在不实际执行代码的情况下，对源代码进行分析，并识别潜在问题、漏洞或代码质量违规。它是在持续集成和持续部署（CI&#x2F;CD）流程中进行代码分析的自动化方法。</p>
 <p>静态代码分析工具会检查各种编程语言的源代码，检查常见的编码错误、安全漏洞、遵循编码规范和其他最佳实践。这些工具可以检测语法错误、未使用的变量、代码重复、潜在的安全漏洞以及遵循编码风格指南等问题。</p>
 <p>通过将静态代码分析集成到 CI&#x2F;CD 流程中，开发人员可以及早发现并解决代码问题。这有助于提高代码质量、可维护性和安全性，通过在代码进入生产环境之前识别和修复问题。</p>
