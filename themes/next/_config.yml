@@ -484,11 +484,12 @@ google_site_verification: D3uaiX9T8gcr1zBjqu9y67t-0DhGNCa7yyjpQ27T_Co
 
 # Bing Webmaster tools verification.
 # See: https://www.bing.com/webmasters
-bing_site_verification: AFD16F68B2DF363759600CB5E8825AEC
+# <meta name="msvalidate.01" content="F464CAFC267C0594A388BB361F49AB50" />
+bing_site_verification: F464CAFC267C0594A388BB361F49AB50
 
 # Yandex Webmaster tools verification.
 # See: https://webmaster.yandex.ru
-yandex_site_verification:
+yandex_site_verification: 6c19c8db8db0ebe1
 
 # Baidu Webmaster tools verification.
 # See: https://ziyuan.baidu.com/site
