@@ -12,12 +12,13 @@ timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://isaaxite.github.io/blog/
-root: /blog/
+# url: https://isaaxite.github.io/
+url: http://localhost:4000/
+root: /
 # permalink: :year/:month/:day/:title/
 # permalink: resources/:year/:month/:day/:title/
 # permalink: resources/:title/
-permalink: :name/
+permalink: blog/:name/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -122,12 +123,12 @@ theme: next
 #   branch: master
 
 deploy:
-  - type: git
-    repo: git@github.com:isaaxite/blog.git
-    branch: master
+  # - type: git
+  #   repo: git@github.com:isaaxite/blog.git
+  #   branch: master
   - type: git
     repo: git@github.com:isaaxite/isaaxite.github.io.git
-    branch: main
+    branch: master
 # deploy:
 #   type: git
 #   repo:
@@ -185,9 +186,13 @@ sitemap:
   path: 
     - sitemap.xml
     - sitemap.txt
+    - blog/sitemap.xml
+    - blog/sitemap.txt
   # template: ./sitemap_template.xml
   # template_txt: ./sitemap_template.txt
   rel: false
   tags: false
   categories: false
-  
+
+alias:
+  blog/index.html: /

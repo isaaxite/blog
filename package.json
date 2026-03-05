@@ -19,6 +19,7 @@
     "hexo": "^7.0.0-rc1",
     "hexo-asset-img": "^1.2.0",
     "hexo-deployer-git": "^4.0.0",
+    "hexo-generator-alias": "^1.0.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
     "hexo-generator-exindex": "^1.0.3",

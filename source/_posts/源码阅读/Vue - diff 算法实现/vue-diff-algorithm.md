@@ -1,6 +1,6 @@
 ---
 title: Vue 源码分析 - DIFF 算法实现
-permalink: vue-diff-source-code/
+permalink: blog/vue-diff-source-code/
 date: 2019-12-26 08:41:47
 tags:
 - vue

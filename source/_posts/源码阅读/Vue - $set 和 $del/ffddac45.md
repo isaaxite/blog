@@ -1,6 +1,6 @@
 ---
 title: Vue 源码分析 - $set 和 $del
-permalink: vue-source-code-set-del
+permalink: blog/vue-source-code-set-del
 date: 2019-11-09 08:41:47
 categories:
   - [源码分析]

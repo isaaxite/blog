@@ -1,6 +1,6 @@
 ---
 title: Linux 包管理器 - APT
-permalink: linux-package-manager-apt
+permalink: blog/linux-package-manager-apt
 date: 2023-09-02 13:11:55
 tags:
   - apt

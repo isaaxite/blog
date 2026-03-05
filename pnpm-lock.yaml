@@ -17,6 +17,9 @@ importers:
       hexo-deployer-git:
         specifier: ^4.0.0
         version: 4.0.0(chokidar@3.6.0)
+      hexo-generator-alias:
+        specifier: ^1.0.0
+        version: 1.0.0
       hexo-generator-archive:
         specifier: ^2.0.0
         version: 2.0.0
@@ -893,6 +896,10 @@ packages:
   hexo-fs@4.1.3:
     resolution: {integrity: sha512-Q92zQ5PlVDouvSWFLXQoFSTLIUIODikUJs2BfAXQglyOEjN1dOQn1Z5Nimk/7GHof17R5h/uObCQLnZAjzI2tg==}
     engines: {node: '>=14'}
+
+  hexo-generator-alias@1.0.0:
+    resolution: {integrity: sha512-DSq7gu6jeo4qiL68PKzfU4xDThxj6UiYDmdjuMOElEox9jFOhWoUNzi3l3cRUMzOQpUnOFYjSKzG6pmYMgcGig==}
+    engines: {node: '>=10.13.0'}
 
   hexo-generator-archive@2.0.0:
     resolution: {integrity: sha512-KikJk7dGFbtNHOgqtLFGf5T/S8n1paGp+Gy0KfVDz+HKYhGbXOouyiZkmc3O9KrYt6ja14rmkMhq7KKGtvfehw==}
@@ -2959,6 +2966,10 @@ snapshots:
       chokidar: 3.6.0
       graceful-fs: 4.2.11
       hexo-util: 3.3.0
+
+  hexo-generator-alias@1.0.0:
+    dependencies:
+      hexo-util: 2.7.0
 
   hexo-generator-archive@2.0.0:
     dependencies:

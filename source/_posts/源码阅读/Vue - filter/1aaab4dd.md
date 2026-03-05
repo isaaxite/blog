@@ -1,6 +1,6 @@
 ---
 title: Vue 源码分析 - filter
-permalink: vue-filter-implementation
+permalink: blog/vue-filter-implementation
 date: 2019-12-14 08:41:47
 tags:
   - vue

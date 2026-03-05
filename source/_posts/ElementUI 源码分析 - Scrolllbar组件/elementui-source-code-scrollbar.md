@@ -1,6 +1,6 @@
 ---
 title: ElementUI 源码分析-Scrolllbar组件
-permalink: elementui-scrollbar-component-analysis
+permalink: blog/elementui-scrollbar-component-analysis
 date: 2020-04-20 12:11:58
 tags:
   - ElementUI
