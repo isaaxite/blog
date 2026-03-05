@@ -12,8 +12,8 @@ timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://isaaxite.github.io/
-root: /
+url: https://isaaxite.github.io/blog/
+root: /blog/
 # permalink: :year/:month/:day/:title/
 # permalink: resources/:year/:month/:day/:title/
 # permalink: resources/:title/
@@ -122,12 +122,19 @@ theme: next
 #   branch: master
 
 deploy:
-  type: git
-  repo:
-    github:
-      url: https://github.com/isaaxite/blog.git
-      branch: master
-      token: $GITHUB_TOKEN
+  - type: git
+    repo: git@github.com:isaaxite/blog.git
+    branch: master
+  - type: git
+    repo: git@github.com:isaaxite/isaaxite.github.io.git
+    branch: main
+# deploy:
+#   type: git
+#   repo:
+#     github:
+#       url: https://github.com/isaaxite/blog.git
+#       branch: master
+#       token: $GITHUB_TOKEN
     # name: isaaxite
     # email: isaacgun@outlook.com
 
@@ -173,3 +180,14 @@ hide_posts:
   # Generators in the blocklist can *not* access the hidden posts.
   # The allowlist has higher priority than the blocklist, if both set.
   # blocklist_generators: ['*']
+
+sitemap:
+  path: 
+    - sitemap.xml
+    - sitemap.txt
+  # template: ./sitemap_template.xml
+  # template_txt: ./sitemap_template.txt
+  rel: false
+  tags: false
+  categories: false
+  

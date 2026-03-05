@@ -7,7 +7,7 @@
     "generate": "hexo clean && hexo generate",
     "deploy": "hexo g -d",
     "server": "hexo clean && hexo server",
-    "server-with-draft": "hexo clean && hexo server --draft",
+    "server+draft": "hexo clean && hexo server --draft",
     "new-daily": "node ./npm-scripts/new.js daily",
     "new-draft": "node ./npm-scripts/new.js draft",
     "new-post": "node ./npm-scripts/new.js post"
