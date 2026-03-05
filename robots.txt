@@ -9,5 +9,5 @@ Disallow: /images/
 Disallow: /js/
 Disallow: /page/
 
+Sitemap: https://isaaxite.github.io/sitemap.xml
 Sitemap: https://isaaxite.github.io/blog/sitemap.xml
-Sitemap: https://isaaxite.github.io/blog/baidusitemap.xml
