@@ -57,7 +57,7 @@
     <link href="https://isaaxite.github.io/blog/tmux-usage/"/>
     <id>https://isaaxite.github.io/blog/tmux-usage/</id>
     <published>2024-03-31T08:59:23.000Z</published>
-    <updated>2026-03-05T11:29:55.366Z</updated>
+    <updated>2026-03-05T16:13:39.438Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文的首要目的是记录，而非完全性的指南，不免会有缺漏。目标是随时间的推移逐步完善此记录，最终达到指南的程度。将以 tmux 的官方文档为核心其他资料为辅介绍 tmux 的基本概念和术语，让 tmux 的潜在用户对它有基本的了解，以达到无痛入门，降低心智消耗的作用。涉及 tmux 的会话（session）、视窗（window）、窗格（pane）和其他的核心内容的基本使用，以达到开箱即用，为 tmux 拾一根薪火（赞美太阳🔥）。&lt;/p&gt;</summary>
@@ -82,7 +82,7 @@
     <link href="https://isaaxite.github.io/blog/linux-wechat-flatpak-usage/"/>
     <id>https://isaaxite.github.io/blog/linux-wechat-flatpak-usage/</id>
     <published>2024-03-22T09:21:12.000Z</published>
-    <updated>2026-03-05T10:31:32.627Z</updated>
+    <updated>2026-03-05T16:14:14.860Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;我当前使用的大部分软件都有被 Deb（Chromium、VS Code 等） Appimage （Motrix、Qv2ray等）覆盖到，其他一部分使用 WebApp （Neat Reader、Google Translate等）代替，实在无解则使用 win7 虚拟机（微信、迅雷等）。&lt;/p&gt;
@@ -131,10 +131,10 @@
     <link href="https://isaaxite.github.io/blog/security-frontend-eslint-plugin/"/>
     <id>https://isaaxite.github.io/blog/security-frontend-eslint-plugin/</id>
     <published>2023-09-02T09:35:02.000Z</published>
-    <updated>2026-03-05T09:42:31.804Z</updated>
+    <updated>2026-03-05T16:13:24.211Z</updated>
     
     
-    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;近来，主要的研究课题是 JavaScript 代码的静态分析。在研究期间用到 Eslint 对此做实践，了解到它的一个插件，&lt;code&gt;eslint-plugin-security&lt;/code&gt;。如其名，它的作用是安全相关方面的代码扫描。在看了它的配置规则后，觉得甚是有趣，不少规则都涉及到常见的前端安全的问题。故有了想法，为什么不以它为引子，来个管中窥豹。&lt;/p&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;近来，主要的研究课题是 JavaScript 代码的静态分析。在研究期间用到 Eslint 对此做实践，了解到它的一个插件，&lt;code&gt;eslint-plugin-security&lt;/code&gt;。如其名，它的作用是安全相关方面的代码扫描。在看了它的配置规则后，觉得甚是有趣，不少规则都涉及到常见的前端安全的问题。故有了想法，为什么不以它为引子，来个管中窥豹。&lt;/p&gt;</summary>
     
     
     
@@ -176,7 +176,7 @@
     <link href="https://isaaxite.github.io/blog/linux-package-manager-apt/"/>
     <id>https://isaaxite.github.io/blog/linux-package-manager-apt/</id>
     <published>2023-09-02T05:11:55.000Z</published>
-    <updated>2026-03-05T10:12:31.089Z</updated>
+    <updated>2026-03-05T16:12:45.693Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;本文将介绍 Advanced Packaging Tool (APT) 包管理器，以及其在 Debian 系统及其衍生发行版（如 Ubuntu）中的配置方式和使用方法。我们将探讨如何配置 APT，包括软件源的设置和更新策略。我们还将深入了解 APT 的使用方式，包括通过命令行工具 apt 进行软件包的安装、升级和移除等操作。通过本文，读者将能够全面了解 APT 的功能和特性，并能够有效地使用 APT 管理软件包，提升系统的稳定性和安全性。&lt;/p&gt;</summary>
@@ -218,10 +218,10 @@
     <link href="https://isaaxite.github.io/blog/github-action-usage/"/>
     <id>https://isaaxite.github.io/blog/github-action-usage/</id>
     <published>2023-08-07T07:23:25.000Z</published>
-    <updated>2026-03-05T10:19:19.927Z</updated>
+    <updated>2026-03-05T16:14:01.436Z</updated>
     
     
-    <summary type="html">&lt;h1 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h1&gt;&lt;p&gt;最近持续迭代的 npm 包，&lt;a href=&quot;https://github.com/isaaxite/deploy-posts-to-github-issue&quot;&gt;isubo&lt;/a&gt;。功能已经完成得七七八八，因此开始逐渐完善与之相关的基本设施，比如自动化的能力。该项目代码使用 Github 管理，在它启动之初已经略有了解 GitHub-Actions，模糊地知道Gtihub Actions 是 Github 提供的 CI&amp;#x2F;CD 工具。由于各种原因的将此增加自动化能力的工作置后到最近。&lt;/p&gt;
+    <summary type="html">&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;最近持续迭代的 npm 包，&lt;a href=&quot;https://github.com/isaaxite/deploy-posts-to-github-issue&quot;&gt;isubo&lt;/a&gt;。功能已经完成得七七八八，因此开始逐渐完善与之相关的基本设施，比如自动化的能力。该项目代码使用 Github 管理，在它启动之初已经略有了解 GitHub-Actions，模糊地知道Gtihub Actions 是 Github 提供的 CI&amp;#x2F;CD 工具。由于各种原因的将此增加自动化能力的工作置后到最近。&lt;/p&gt;
 &lt;p&gt;本文将围绕 Github Actions 展开，了解 Gtihub Actions、CI&amp;#x2F;CD概念以及常见的CI&amp;#x2F;CD工具或平台。接着回归实际问题，详细了解 Github Actions 的使用、配置文件的常用配置项。最后，再实践上面提到的 &lt;a href=&quot;https://github.com/isaaxite/deploy-posts-to-github-issue&quot;&gt;isubo&lt;/a&gt; 的自动化能力。通过实践让我们具备一定的，使用 Gtihub Actions 实现CI&amp;#x2F;CD的能力；具备解决新的Github Actions 相关新的需求点的能力，比如在工作流中增加代码静态分析能力。&lt;/p&gt;</summary>
     
     
@@ -254,10 +254,10 @@
     <link href="https://isaaxite.github.io/blog/automated-changelog-ci/"/>
     <id>https://isaaxite.github.io/blog/automated-changelog-ci/</id>
     <published>2023-07-13T03:06:20.000Z</published>
-    <updated>2026-03-05T10:25:12.454Z</updated>
+    <updated>2026-03-05T16:12:30.018Z</updated>
     
     
-    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;最近在开发使用 Github Issue 编写 blog 的项目。目前还在持续开发中，已经 300+ commits，npm 上已经发布的版本迭代有 9个。后面仍然会继续维护，有许多准备增加的能供，需要优化的点，以及已知的需要重构的逻辑，应该还会有相当的bug需要修复。&lt;/p&gt;
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近在开发使用 Github Issue 编写 blog 的项目。目前还在持续开发中，已经 300+ commits，npm 上已经发布的版本迭代有 9个。后面仍然会继续维护，有许多准备增加的能供，需要优化的点，以及已知的需要重构的逻辑，应该还会有相当的bug需要修复。&lt;/p&gt;
 &lt;p&gt;抱着负责任的态度，个人认为需要一个渠道使得 Isubo 的使用者获知这些一系列的变动。因此，需要编写 CHANGELOG 记录每个项目版本的变动。&lt;/p&gt;
 &lt;p&gt;但是，由于目前还是一个人在开发此项目，精力有限，需要更多地聚焦在功能新增、优化、重构和Bug修复。&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;CHANGELOG 自动化是最终的答案！&lt;/em&gt;&lt;/p&gt;</summary>
@@ -341,7 +341,7 @@
     <link href="https://isaaxite.github.io/blog/wsl2-intro/"/>
     <id>https://isaaxite.github.io/blog/wsl2-intro/</id>
     <published>2023-04-11T11:10:24.000Z</published>
-    <updated>2026-03-05T09:42:31.812Z</updated>
+    <updated>2026-03-05T16:09:53.460Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文旨在记录WSL2的安装，让WSL基本可用。接着是Linux发行版本的替换，以至于可以自由选择自己熟悉、喜欢的distribution。&lt;/p&gt;
