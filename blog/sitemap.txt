@@ -50,6 +50,6 @@ https://isaaxite.github.io/blog/binary-tree-js/
 https://isaaxite.github.io/blog/9948305a/
 https://isaaxite.github.io/404.html
 https://isaaxite.github.io/categories/index.html
-https://isaaxite.github.io/schedule/index.html
 https://isaaxite.github.io/tags/index.html
+https://isaaxite.github.io/schedule/index.html
 https://isaaxite.github.io/
