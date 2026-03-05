@@ -57,7 +57,7 @@
     <link href="https://isaaxite.github.io/blog/tmux-usage/"/>
     <id>https://isaaxite.github.io/blog/tmux-usage/</id>
     <published>2024-03-31T08:59:23.000Z</published>
-    <updated>2026-03-05T09:42:31.800Z</updated>
+    <updated>2026-03-05T10:44:35.673Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文的首要目的是记录，而非完全性的指南，不免会有缺漏。目标是随时间的推移逐步完善此记录，最终达到指南的程度。将以 tmux 的官方文档为核心其他资料为辅介绍 tmux 的基本概念和术语，让 tmux 的潜在用户对它有基本的了解，以达到无痛入门，降低心智消耗的作用。涉及 tmux 的会话（session）、视窗（window）、窗格（pane）和其他的核心内容的基本使用，以达到开箱即用，为 tmux 拾一根薪火（赞美太阳🔥）。&lt;/p&gt;</summary>

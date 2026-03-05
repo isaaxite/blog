@@ -1,3 +1,4 @@
+https://isaaxite.github.io/blog/tmux-usage/
 https://isaaxite.github.io/blog/linux-wechat-flatpak-usage/
 https://isaaxite.github.io/blog/windows-adb-install/
 https://isaaxite.github.io/blog/pm2-logrotate-plugin-usage/
@@ -43,7 +44,6 @@ https://isaaxite.github.io/blog/nest-decorator-route-analysis/
 https://isaaxite.github.io/blog/security-frontend-eslint-plugin/
 https://isaaxite.github.io/blog/rust-learning-notes/
 https://isaaxite.github.io/blog/large-number-addition/
-https://isaaxite.github.io/blog/tmux-usage/
 https://isaaxite.github.io/blog/nvm-installation-and-usage/
 https://isaaxite.github.io/blog/binary-tree-traversal-js/
 https://isaaxite.github.io/blog/binary-tree-js/
