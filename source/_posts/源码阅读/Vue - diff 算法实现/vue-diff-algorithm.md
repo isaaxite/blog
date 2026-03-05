@@ -1,6 +1,7 @@
 ---
 title: Vue 源码分析 - DIFF 算法实现
 permalink: blog/vue-diff-source-code/
+alias: blog/resources/vue中的diff算法实现/
 date: 2019-12-26 08:41:47
 tags:
 - vue
@@ -12,7 +13,7 @@ categories:
 top: true
 ---
 
-# 前言
+## 前言
 
 **vue版本：2.6.10**
 
@@ -25,7 +26,7 @@ newVnode和oldVnode的比对仅限于同层级之间对比，兄弟之间相互�
 
 <img src="vue-diff-algorithm/diff-vnode.png" width="100%" alt="vue中的diff算法实现"/>
 
-# diff算法是什么
+## diff算法是什么
 
 [回到顶部]
 
@@ -61,7 +62,7 @@ function updateChildren (
 
 建立四个指针`oldStartVnode`、`oldEndVnode`、`newStartVnode`、`newEndVnode`，由`updateChildren`中的定义可以知道：开始时，他们分别指向`oldVnode.children`的头部、`oldVnode.children`的尾部、`newVnode.children`的头部、`newVnode.children`的尾部。然后，这四个指针的指向也不是固定的，在循环遍历的过程中，他们的指向也会变动，他们指向会因为以下索引的变动而变动，`oldStartIdx`、`oldEndIdx`、`newStartIdx`、`newEndIdx`。
 
-## 1.新头与旧头垂直对比
+### 1.新头与旧头垂直对比
 
 [回到顶部]
 
@@ -99,7 +100,7 @@ function updateChildren (/* */) {
 }
 ```
 
-## 2.新尾与旧尾垂直对比
+### 2.新尾与旧尾垂直对比
 
 [回到顶部]
 
@@ -125,7 +126,7 @@ function updateChildren (/* */) {
 }
 ```
 
-## 3.新尾与旧头交叉对比
+### 3.新尾与旧头交叉对比
 
 [回到顶部]
 
@@ -165,7 +166,7 @@ function updateChildren (/* */) {
 }
 ```
 
-## 4.新头与旧尾交叉对比
+### 4.新头与旧尾交叉对比
 
 [回到顶部]
 
@@ -193,7 +194,7 @@ function updateChildren (/* */) {
 }
 ```
 
-## 5.当前新vnode与旧头尾之间的vnode对比
+### 5.当前新vnode与旧头尾之间的vnode对比
 
 [回到顶部]
 
@@ -201,7 +202,7 @@ function updateChildren (/* */) {
 
 **注意：在此情况下，是用新头去旧children的头尾之间寻找可复用元素**
 
-### 5-1.构建oldCildren映射表(key => idx)
+#### 5-1.构建oldCildren映射表(key => idx)
 
 从oldChildren构建一个映射表(key => idx)，这样就可以通过key，结合这个映射表快速找到匹配的可复用的元素。时间复杂度就是`O(1)`！
 
@@ -240,7 +241,7 @@ function createKeyToOldIdx (children, beginIdx, endIdx) {
 }
 ```
 
-### 5-2.根据5-1的映射表找到可复用vnode的索引
+#### 5-2.根据5-1的映射表找到可复用vnode的索引
 
 列表渲染中不一定会定义`key`，如果没有定义那么`5-1`的映射表就没有用了。那么就需要遍历旧children节点寻找与新头匹配的元素（详见下面代码的`findIdxInOld`方法）！那么时间复杂度就上来了，不再是使用映射表时的`O(1)`，而是`O(n)`。由此也可以知道使用`key`的性能优化优越之所在！
 
@@ -280,7 +281,7 @@ function findIdxInOld (node, oldCh, start, end) {
 }
 ```
 
-### 5-3.无可复用旧元素
+#### 5-3.无可复用旧元素
 
 在旧children可能会找到也可能找不到可复用的元素，没有找到是什么情况？如图：
 
@@ -321,11 +322,11 @@ function updateChildren (/* */) {
 }
 ```
 
-### 5-4.复用旧元素
+#### 5-4.复用旧元素
 
 5-3和5-4是互斥的，进入5-4控制流就表示5-2中返回的`idxInOld`不为空，旧children中存在这匹配的vnode。虽然存在可用的vnode，但如果`key`并不可信呢？比如`v-for="(item, index) in items"`中的索引被用作`key`！！！因此有了下面的5-4-1和5-4-2。
 
-#### 5-4-1.确实可复用
+##### 5-4-1.确实可复用
 
 使用sameVnode方法二次确认vnodeToMove（在旧children中找到的vnode）时可用的！接下就是类似的操作。但比较明显的不同是：其他都是递增或递减新旧索引，但在5-4-1中则是递增newStartIdx，然后旧vnode置为null(`oldCh[idxInOld] = undefined`)，这是设计的巧妙之处，当前还没有感受到，再看下[-1.跳过左边已经复用的vnode](#-1跳过左边已经复用的vnode)和[0.跳过右边已经复用的vnode](#0跳过右边已经复用的vnode)中的内容就会豁然开朗！
 
@@ -361,7 +362,7 @@ function updateChildren (/* */) {
 }
 ```
 
-#### 5-4-2.虚假的可复用
+##### 5-4-2.虚假的可复用
 
 5-4-1与5-4-2是互斥的，既然没有元素可以复用到`newStartVnode`中，那么只能像5-3中那样创建与`newStartVnode`对应的html元素！！！
 
@@ -395,7 +396,7 @@ function updateChildren (/* */) {
 }
 ```
 
-## -1.跳过左边已经复用的vnode
+### -1.跳过左边已经复用的vnode
 
 [回到顶部]
 
@@ -416,7 +417,7 @@ function updateChildren (/* */) {
 }
 ```
 
-## 0.跳过右边已经复用的vnode
+### 0.跳过右边已经复用的vnode
 
 [回到顶部]
 
@@ -438,7 +439,7 @@ function updateChildren (/* */) {
 }
 ```
 
-## while中的控制流顺序
+### while中的控制流顺序
 
 [回到顶部]
 
@@ -463,7 +464,7 @@ while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
 }
 ```
 
-# while之外
+## while之外
 
 [回到顶部]
 
@@ -506,7 +507,7 @@ if (oldStartIdx > oldEndIdx) {
 
 - ildEndIdx左移：[0.跳过右边已经复用的vnode]、[2.新尾与旧尾垂直对比]、[4.新头与旧尾交叉对比]；
 
-## 新children新增了vnode
+### 新children新增了vnode
 
 根据newStartIdx和newEndIdx的移动情况
 
@@ -525,7 +526,7 @@ if (oldStartIdx > oldEndIdx) {
 新children删除了vnode的情况就不赘述，情况可以从上面的解析类推！
 
 
-# 新旧vnode与真实元素elm的关系
+## 新旧vnode与真实元素elm的关系
 
 [回到顶部]
 
@@ -537,7 +538,7 @@ vnode是和elm一一对应的，vnode的顺序和elm保持这一致，vnode上�
 2.diff算法通过对比oldVnode.children与newVnode.children的vnode，找到可以复用的elm，并改变elm的位置，使之与newVnode.children的顺序保持一致！
 
 
-# diff的特点
+## diff的特点
 
 - **先垂直，再交叉，最后中间找**，diff在旧vnode.children找可复用vnode，所用比对方式的优先级！
 
@@ -549,7 +550,7 @@ vnode是和elm一一对应的，vnode的顺序和elm保持这一致，vnode上�
 
 - **定义key属性可以大幅度减少操作数**，在[5.当前新vnode与旧头尾之间的vnode对比]中，在定义了key的情况下，会创建一个映射表`oldKeyToIdx`，通过映射表可以快速找到可复用vnode，而没有定义的话，就需要遍历oldVnode.children，逐一使用`sameVnode`比对！
 
-# 实用主义
+## 实用主义
 
 [1.新头与旧头垂直对比]、[2.新尾与旧尾垂直对比]、[3.新尾与旧头交叉对比]、[4.新头与旧尾交叉对比]，以上四种不论是否定义元素属性key
 1. 定义了，可以快速判断出不相同（但不完全可靠）
@@ -567,11 +568,11 @@ vnode是和elm一一对应的，vnode的顺序和elm保持这一致，vnode上�
 >“就地复用”的策略，只适用于不依赖子组件状态或临时 DOM 状态 (例如：表单输入值) 的列表渲染输出。
 >将与元素唯一对应的值作为key，可以最大化利用dom节点，提升性能
 
-# 附录
+## 附录
 
 [回到顶部]
 
-## sameVnode的功能与实现逻辑
+### sameVnode的功能与实现逻辑
 
 ```typescript
 function sameVnode (a, b) {
@@ -623,7 +624,7 @@ function sameInputType (a, b) {
 }
 ```
 
-## patchVnode函数的关键实现
+### patchVnode函数的关键实现
 
 ```typescript
 function patchVnode (/* */) {
@@ -656,7 +657,7 @@ function patchVnode (/* */) {
 }
 ```
 
-## nodeOps.insertBefore实现
+### nodeOps.insertBefore实现
 
 path: src/platforms/web/runtime/node-ops.js
 ```typescript
@@ -667,7 +668,7 @@ export function insertBefore (parentNode: Node, newNode: Node, referenceNode: No
 
 > Node.insertBefore() 方法在参考节点之前插入一个拥有指定父节点的子节点。如果给定的子节点是对文档中现有节点的引用，insertBefore() 会将其从当前位置移动到新位置（在将节点附加到其他节点之前，不需要从其父节点删除该节点）。
 
-## vnode（虚拟节点）的成员属性
+### vnode（虚拟节点）的成员属性
 
 ```typescript
 class VNode {

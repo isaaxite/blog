@@ -1,6 +1,7 @@
 ---
 title: Linux 包管理器 - APT
 permalink: blog/linux-package-manager-apt
+alias: blog/resources/Linux-Package-Manager-Apt/
 date: 2023-09-02 13:11:55
 tags:
   - apt
@@ -10,7 +11,7 @@ categories:
 issue_number: 318
 ---
 
-# 前言
+## 前言
 
 本文将介绍 Advanced Packaging Tool (APT) 包管理器，以及其在 Debian 系统及其衍生发行版（如 Ubuntu）中的配置方式和使用方法。我们将探讨如何配置 APT，包括软件源的设置和更新策略。我们还将深入了解 APT 的使用方式，包括通过命令行工具 apt 进行软件包的安装、升级和移除等操作。通过本文，读者将能够全面了解 APT 的功能和特性，并能够有效地使用 APT 管理软件包，提升系统的稳定性和安全性。
 
@@ -20,11 +21,11 @@ issue_number: 318
 
 - 系统：Debian 12；
 
-# APT
+## APT
 
 APT 是一个命令行工具，也是 Debian 系统和基于 Debian 的发行版（如 Ubuntu）中常用的软件包管理工具之一。它是 Advanced Packaging Tool（高级软件包工具）的缩写，旨在简化软件包的安装、升级和移除等操作。
 
-# 常见的包管理器
+## 常见的包管理器
 
 | 包管理器 | 描述 |
 | --- | --- |
@@ -36,19 +37,19 @@ APT 是一个命令行工具，也是 Debian 系统和基于 Debian 的发行版
 | [**Snap**](https://snapcraft.io/) | Snap 是一种通用的软件打包和分发格式，可在多个 Linux 发行版上使用。Snap 提供了一个命令行工具来管理软件包，使得安装和更新软件变得更加简单和可靠。 |
 
 
-# 常见命令
+## 常见命令
 
 第三种命令是`apt`，它是APT的一种更简洁的命令行工具，自动处理软件包之间的依赖关系。它在一些较新的Debian和Ubuntu发行版中取代了`apt-get`命令，提供了更直观和用户友好的界面。
 
 
-## 安装软件包
+### 安装软件包
 
 ```shell
 sudo apt install <package>
 ```
 该命令用于安装指定的软件包。它会自动解析并安装所需的依赖关系。
 
-## 升级已安装的软件包
+### 升级已安装的软件包
    
 ```shell
 sudo apt upgrade
@@ -56,7 +57,7 @@ sudo apt upgrade
 
 该命令用于升级系统中已安装的软件包。它会检查可用的软件包更新并升级到最新版本。
 
-## 移除软件包
+### 移除软件包
    
 ```shell
 sudo apt remove <package>
@@ -64,7 +65,7 @@ sudo apt remove <package>
 
 该命令用于移除指定的软件包。它会将软件包及其相关的配置文件从系统中删除。
 
-## 搜索软件包
+### 搜索软件包
 
 ```shell
 apt search <keyword>
@@ -72,7 +73,7 @@ apt search <keyword>
 
 该命令用于搜索包含指定关键字的软件包。它会列出与关键字相关的软件包名称和描述。
 
-## 显示软件包信息
+### 显示软件包信息
 
 ```shell
 apt show <package>
@@ -80,7 +81,7 @@ apt show <package>
 
 该命令用于显示指定软件包的详细信息，包括版本号、依赖关系、描述等。
 
-## 更新软件包源列表
+### 更新软件包源列表
 
 ```shell
 sudp apt update
@@ -98,10 +99,10 @@ sudp apt update
 
 使用`apt`命令时，不需要在命令后面添加`sudo apt-get`中常见的`sudo`和`get`关键字。它提供了更简洁的语法，并且在处理依赖关系时更加智能和自动化。这使得软件包的安装和管理过程更加便捷和高效。
 
-## 其他
+### 其他
 
 ```shell
-# isaac @ debian in /etc/apt/apt.conf.d [18:34:28] 
+## isaac @ debian in /etc/apt/apt.conf.d [18:34:28] 
 $ apt --help
 apt 2.6.1 (amd64)
 Usage: apt [options] command
@@ -134,7 +135,7 @@ Security details are available in apt-secure(8).
                                         This APT has Super Cow Powers.
 ```
 
-# 配置
+## 配置
 
 在上面有提到使用 `apt install <package>` 安装软件，对此不禁有疑问：所安装的软件的来源是那里获取的？
 
@@ -142,7 +143,7 @@ Security details are available in apt-secure(8).
 
 在系统中配置了软件源列表（source list）后，APT 会根据列表中的地址和设置来确定可用的软件源服务器。
 
-## 软件源
+### 软件源
 
 软件源是存储软件包和更新的服务器或存储库。它是用户获取并安装软件的主要来源之一。软件源提供了一个集中的位置，用户可以从中获取各种软件包、应用程序和系统组件，以满足其Linux操作系统的需求。
 
@@ -156,7 +157,7 @@ Security details are available in apt-secure(8).
 
 - Flatpak。
 
-### 官方软件源
+#### 官方软件源
 
 各Linux发行版都维护了自己的官方软件源，提供了核心软件包和更新。例如：
 
@@ -178,7 +179,7 @@ Security details are available in apt-secure(8).
 
 这些链接将带你到相应发行版的官方软件源的网页，你可以使用这些网页来搜索和浏览软件包列表。请注意，这些链接可能会随着时间变化而更新，所以最好通过搜索引擎或官方网站来获取最新的软件源链接。
 
-### 第三方软件源
+#### 第三方软件源
 
 许多开发者、社区和组织维护自己的软件源，提供特定软件的最新版本和增强功能。这些第三方软件源可以是针对特定软件的官方源，也可以是由社区维护的源。常见的第三方软件源如：
 
@@ -198,7 +199,7 @@ Security details are available in apt-secure(8).
 
 这些第三方软件源提供了额外的软件包和功能，使用户能够获取更多的选择和定制性。请注意，使用第三方软件源时应谨慎，确保了解源的可信度和安全性，并遵循它们的使用指南。
 
-### Snap Store
+#### Snap Store
 
 [Snap Store](https://snapcraft.io/store) 是一个官方的软件分发平台，它提供了广泛的应用程序和工具，适用于基于 Linux 的各种发行版，如 Ubuntu、Fedora、CentOS、Arch Linux等。Snap Store基于Snap包管理系统，这是一种跨发行版的软件打包和分发格式。
 
@@ -214,25 +215,25 @@ Snap Store的特点包括：
 
 在Snap Store中，你可以浏览不同类别的软件，搜索特定的应用程序，并通过简单的几个步骤安装和管理它们。
 
-#### 使用
+##### 使用
 
 ```shell
-# 安装 snapd
+## 安装 snapd
 sudo apt update
 sudo apt install snapd
 sudo snap install core
 
-# 安装软件
+## 安装软件
 sudo snap install <package>
 
-# 删除软件
+## 删除软件
 sudo snap remove <package>
 
-# 查看已安装软件
+## 查看已安装软件
 sudo snap list
 ```
 
-### Flatpak
+#### Flatpak
 
 [Flatpak](https://flathub.org/) 是一个用于Linux发行版的软件打包和分发系统，类似于Snap。它提供了一种跨发行版的方式，允许开发者打包应用程序及其依赖项，并在不同的Linux发行版上以沙箱环境中运行。
 
@@ -248,18 +249,18 @@ Flatpak的特点包括：
 
 使用Flatpak，你可以浏览Flathub上的应用程序，搜索特定的应用程序，并使用Flatpak命令行工具或图形界面工具进行安装、更新和管理。Flatpak提供了一种简便的方式，使用户能够轻松地获取和运行各种Linux应用程序。
 
-#### 使用
+##### 使用
 
 ```shell
-# 安装 flatpak 完成后，重启生效
+## 安装 flatpak 完成后，重启生效
 sudo apt install flatpak
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-# 安装软件
+## 安装软件
 flatpak install flathub <package>
 ```
 
-## 配置文件
+### 配置文件
 
 这些软件源的地址被配置在 `/etc/apt/sources.list` 或 `/etc/apt/sources.list.d/`目录下的`*.list`文件中。
 
@@ -277,7 +278,7 @@ flatpak install flathub <package>
     └── vscode.list
 ```
 
-## 优先级
+### 优先级
 
 在 Debian 和 Ubuntu 等 Linux 发行版中，`source.list`文件和`source.list.d/`目录下的`.list`文件中的配置具有以下优先级：
 
@@ -289,12 +290,12 @@ flatpak install flathub <package>
 
 需要注意的是，优先级仅适用于软件源配置。对于其他APT设置（如代理配置、密钥管理等），在`source.list`中配置的设置将始终具有最高优先级。
 
-## 配置格式
+### 配置格式
 
 下面是 Debian 12 的 `source.list` 配置内容：
 
 ```shell
-# isaac @ debian in /etc/apt [13:26:09] C:130
+## isaac @ debian in /etc/apt [13:26:09] C:130
 $ cat sources.list
 
 deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware
@@ -306,8 +307,8 @@ deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contr
 deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware
 deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware
 
-# deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware
-# deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware
+## deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware
+## deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware
 
 deb https://security.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
 deb-src https://security.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
@@ -323,7 +324,7 @@ deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free 
 
 它指定了一个名为"bookworm"的发行版，使用了清华大学开源软件镜像站（https://mirrors.tuna.tsinghua.edu.cn/debian/）作为软件源。
 
-### 软件源关键词
+#### 软件源关键词
 
 `deb`：这是APT软件源配置中的关键词，表示这是一个二进制包的软件源。
 
@@ -335,7 +336,7 @@ deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free 
 
 这两个关键词用于不同类型的软件源，前者用于获取和安装二进制包，后者用于获取和构建源代码包。
 
-### 软件源地址
+#### 软件源地址
 
 `https://mirrors.tuna.tsinghua.edu.cn/debian/`：这是软件源的URL地址，指向清华大学开源软件镜像站的 Debian 软件源。
 
@@ -350,14 +351,14 @@ deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free 
 - [中科大源](http://mirrors.ustc.edu.cn/)
 
 
-### 发行版名称
+#### 发行版名称
 
 `bookworm`：这是发行版的名称，表示这个软件源适用于 Debian 12（代码名称为"Bookworm"）。
 
 更多的 Debian 的发行版本名称见 [附录](#Debian-的发行版本名称)
 
 
-### 组件
+#### 组件
 
 `main contrib non-free non-free-firmware`： 这是软件源中的组件。不同的组件包含了不同类型的软件包。
 
@@ -369,7 +370,7 @@ deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free 
 
 - **non-free-firmware**：这是非自由的硬件固件组件，包含了一些设备所需的非自由固件。
 
-## 小结
+### 小结
 
 软件源列表（Source List）是一个文本文件，用于配置系统中软件包管理器（如APT）的软件源服务器信息。它包含了系统用于下载和安装软件包的网络地址。
 
@@ -379,7 +380,7 @@ deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free 
 
 在使用APT进行软件包管理时，软件源列表起到关键作用。通过配置正确的软件源，系统可以正确地下载和安装软件包，保持系统的更新和安全。因此，了解软件源列表的概念并正确配置它是非常重要的。
 
-# 总结
+## 总结
 
 这是一篇关于 Linux 系统中 APT 包管理器的使用指南。本文主要内容如下:
 
@@ -389,9 +390,9 @@ deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free 
 
 第三部分着重讲解了 APT 的软件源配置，包括不同类型软件源、它们之间的优先级关系、sources.list 文件的格式等内容。正确配置软件源对 APT 的正常使用非常关键。
 
-# 附录
+## 附录
 
-## Debian 的发行版本名称
+### Debian 的发行版本名称
 
 Debian 发行版通常使用代号来标识各个版本，这些代号通常以动画电影《玩具总动员》中的角色命名。以下是一些常见的Debian 发行版代号及其对应的版本：
 
@@ -414,7 +415,7 @@ Debian 发行版通常使用代号来标识各个版本，这些代号通常以�
 
 这些代号是根据《玩具总动员》系列电影的角色（如Buzz、Rex等）命名的，并按照字母顺序进行命名，每个新版本都使用下一个字母的角色名称作为代号。这些代号主要用于标识特定版本的Debian发行版，使用户和开发者可以更方便地引用和讨论特定版本的Debian。
 
-## 参考
+### 参考
 
 - [debian / 获取 debian / 软件包](https://www.debian.org/distrib/packages)
 - [wikipeida - APT (software)](https://en.wikipedia.org/wiki/APT_(software))

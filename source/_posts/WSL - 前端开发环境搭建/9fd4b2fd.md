@@ -1,6 +1,7 @@
 ---
 title: WSL - 前端开发环境搭建
 permalink: blog/wsl-nodejs-dev-environment-setup/
+alias: blog/resources/WSL开发环境/
 tags:
   - 环境配置
   - NodeJS
