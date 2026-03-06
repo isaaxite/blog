@@ -1,6 +1,6 @@
 ---
 title: Linux 包管理器 - APT
-permalink: blog/linux-package-manager-apt
+slugpath: linux-package-manager-apt
 alias: blog/resources/Linux-Package-Manager-Apt/
 date: 2023-09-02 13:11:55
 tags:

@@ -1,6 +1,6 @@
 ---
 title: ADB 安装 For Win 10
-permalink: blog/windows-adb-install
+slugpath: windows-adb-install
 alias: blog/resources/【win】安装ADB/
 tags:
   - adb

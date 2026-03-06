@@ -1,6 +1,6 @@
 ---
 title: Hexo deploy 失败问题
-permalink: blog/debug-hexo-deploy
+slugpath: debug-hexo-deploy
 date: 2023-03-10 23:22:46
 tags:
 - hexo

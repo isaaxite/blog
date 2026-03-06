@@ -1,6 +1,6 @@
 ---
 title: Vue 源码分析 - DIFF 算法实现
-permalink: blog/vue-diff-source-code/
+slugpath: vue-diff-source-code
 alias: blog/resources/vue中的diff算法实现/
 date: 2019-12-26 08:41:47
 tags:
@@ -15,7 +15,7 @@ top: true
 
 ## 前言
 
-**vue版本：2.6.10**
+***vue版本：2.6.10***
 
 每次更新视图前都会根据视图模板生成vnode（虚拟的节点树），vnode类似dom树，但更简陋，每个vnode都与页面的上的元素html元素一一对应！为了更好的性能，因此要复用元素。那么就要知道怎么复用！就要对比newVnode（当前生成的vnode）和oldVnode（上次生成的vnode），对比完之后才知道那些是要删除，那些是需要重新创建，那些需要移动、移动到哪里！？
 而diff算法则是对比的一种比较好的方式，更好的更快地对比，谁被谁复用！
