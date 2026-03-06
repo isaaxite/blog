@@ -8,19 +8,19 @@
 <span id="more"></span>
 
 <p>newVnode和oldVnode的比对仅限于同层级之间对比，兄弟之间相互比较，如下图。不会出现跨层级的对比。</p>
-<style>.rfkolsjuqexn{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode.png" class="rfkolsjuqexn" alt="vue中的diff算法实现">
+<style>.nvddrlvepebf{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode.png" class="nvddrlvepebf" alt="vue中的diff算法实现">
 
 <h2 id="diff算法是什么"><a href="#diff算法是什么" class="headerlink" title="diff算法是什么"></a>diff算法是什么</h2><p><a href="#">回到顶部</a></p>
 <p>diff算法不是一种对比的方法，而是一种寻找与当前节点匹配可复用节点的方法；寻找oldVnode.children中那个成员与newVnode.children中那个成员相同。</p>
 <p>这种寻找的方法如图可见一斑，主要的方法有5种，辅助的有2种（未画在图上），一共7种。每种寻找方式相互独立！通过循环遍历children，逐一判断，直到循环结束。下面结合代码分别说明其中寻找方式。</p>
 <p><strong>ps：无需过于在意图中所表达的逻辑，图只是用于辅助说明下面的源码</strong></p>
-<style>.zaycsvxepvpf{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children.png" class="zaycsvxepvpf" alt="vue中的diff算法实现">
+<style>.jflwemmqqoxj{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children.png" class="jflwemmqqoxj" alt="vue中的diff算法实现">
 
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"></span></span><br><span class="line"><span class="params">  parentElm,  <span class="comment">// &#123;Element&#125;，父节点的真实html元素</span></span></span><br><span class="line"><span class="params">  oldCh,  <span class="comment">// &#123;Vnode[]&#125;，oldVnode.children</span></span></span><br><span class="line"><span class="params">  newCh,  <span class="comment">// &#123;Vnode[]&#125;，newVnode.children</span></span></span><br><span class="line"><span class="params">  insertedVnodeQueue,   <span class="comment">// &#123;Vnode[]&#125;，插入的节点队列（此时可忽略）</span></span></span><br><span class="line"><span class="params">  removeOnly  <span class="comment">// &#123;Boolean&#125;，是否只可以删除</span></span></span><br><span class="line"><span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> oldStartIdx = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> newStartIdx = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> oldEndIdx = oldCh.<span class="property">length</span> - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> oldStartVnode = oldCh[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> oldEndVnode = oldCh[oldEndIdx]</span><br><span class="line">    <span class="keyword">let</span> newEndIdx = newCh.<span class="property">length</span> - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> newStartVnode = newCh[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> newEndVnode = newCh[newEndIdx]</span><br><span class="line">    <span class="keyword">let</span> oldKeyToIdx, idxInOld, vnodeToMove, refElm</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>建立四个指针<code>oldStartVnode</code>、<code>oldEndVnode</code>、<code>newStartVnode</code>、<code>newEndVnode</code>，由<code>updateChildren</code>中的定义可以知道：开始时，他们分别指向<code>oldVnode.children</code>的头部、<code>oldVnode.children</code>的尾部、<code>newVnode.children</code>的头部、<code>newVnode.children</code>的尾部。然后，这四个指针的指向也不是固定的，在循环遍历的过程中，他们的指向也会变动，他们指向会因为以下索引的变动而变动，<code>oldStartIdx</code>、<code>oldEndIdx</code>、<code>newStartIdx</code>、<code>newEndIdx</code>。</p>
 <h3 id="1-新头与旧头垂直对比"><a href="#1-新头与旧头垂直对比" class="headerlink" title="1.新头与旧头垂直对比"></a>1.新头与旧头垂直对比</h3><p><a href="#">回到顶部</a></p>
-<style>.xpugjkecdunq{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children-01.png" class="xpugjkecdunq" alt="vue中的diff算法实现">
+<style>.gtktoeqbajbr{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children-01.png" class="gtktoeqbajbr" alt="vue中的diff算法实现">
 
 <p>新旧头部vnode进行对比，判断是否匹配，以复用。sameVnode的功能与实现逻辑参考<a href="#sameVnode%E7%9A%84%E5%8A%9F%E8%83%BD%E4%B8%8E%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91">附录：sameVnode的功能与实现逻辑</a>，值得一提的是：a.是input元素，更新前后type不一致；b.变动的是key属性；c.元素更新前后将所有属性删除，或从无到有；只要不是以上三种情况之一，不论怎么增删、修改元素上的属性，都不会影响是否匹配的结果！</p>
 <p>1.判断新旧头部是匹配的，那么就调用<code>patchVnode</code>，给<code>newStartVnode</code>打补丁！</p>
@@ -31,13 +31,13 @@
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"><span class="comment">/* */</span></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 1 */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">sameVnode</span>(oldStartVnode, newStartVnode)) &#123;</span><br><span class="line">      <span class="title function_">patchVnode</span>(oldStartVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)</span><br><span class="line">      oldStartVnode = oldCh[++oldStartIdx]</span><br><span class="line">      newStartVnode = newCh[++newStartIdx]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-新尾与旧尾垂直对比"><a href="#2-新尾与旧尾垂直对比" class="headerlink" title="2.新尾与旧尾垂直对比"></a>2.新尾与旧尾垂直对比</h3><p><a href="#">回到顶部</a></p>
-<style>.yilhbsfqpsxc{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children-02.png" class="yilhbsfqpsxc" alt="vue中的diff算法实现">
+<style>.gqrvwyucoaza{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children-02.png" class="gqrvwyucoaza" alt="vue中的diff算法实现">
 
 <p>新旧尾部的对比情况和[1新头与旧头垂直对比]类似，再次再累累述，以下实现的逻辑：</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"><span class="comment">/* */</span></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 2 */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">sameVnode</span>(oldEndVnode, newEndVnode)) &#123;</span><br><span class="line">      <span class="title function_">patchVnode</span>(oldEndVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx)</span><br><span class="line">      oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">      newEndVnode = newCh[--newEndIdx]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-新尾与旧头交叉对比"><a href="#3-新尾与旧头交叉对比" class="headerlink" title="3.新尾与旧头交叉对比"></a>3.新尾与旧头交叉对比</h3><p><a href="#">回到顶部</a></p>
-<style>.pspuyosukfic{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children-03.png" class="pspuyosukfic" alt="vue中的diff算法实现">
+<style>.tsphpvblyuyd{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children-03.png" class="tsphpvblyuyd" alt="vue中的diff算法实现">
 
 <p>当前情况与[1新头与旧头垂直对比]略有不同！看源码中，多出了下面这句：</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line">canMove &amp;&amp; nodeOps.<span class="title function_">insertBefore</span>(parentElm, oldStartVnode.<span class="property">elm</span>, nodeOps.<span class="title function_">nextSibling</span>(oldEndVnode.<span class="property">elm</span>))</span><br></pre></td></tr></table></figure>
@@ -46,7 +46,7 @@
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"><span class="comment">/* */</span></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 3 */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">sameVnode</span>(oldStartVnode, newEndVnode)) &#123; <span class="comment">// Vnode moved right</span></span><br><span class="line">      <span class="title function_">patchVnode</span>(oldStartVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx)</span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * Node.insertBefore() 方法在参考节点之前插入一个拥有指定父节点的子节点。</span></span><br><span class="line"><span class="comment">       * 如果给定的子节点是对文档中现有节点的引用，insertBefore() 会将其从当前位置移动到新位置</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      <span class="comment">// canMove &amp;&amp; 在parentElm的nodeOps.nextSibling(oldEndVnode.elm)前面插入oldStartVnode.elm</span></span><br><span class="line">      <span class="comment">// 换言之，在 oldEndVnode.elm 前面插入 oldStartVnode.elm</span></span><br><span class="line">      <span class="comment">// 旧children的 头部真实元素 移动到 尾部真实元素的后面</span></span><br><span class="line">      canMove &amp;&amp; nodeOps.<span class="title function_">insertBefore</span>(parentElm, oldStartVnode.<span class="property">elm</span>, nodeOps.<span class="title function_">nextSibling</span>(oldEndVnode.<span class="property">elm</span>))</span><br><span class="line">      oldStartVnode = oldCh[++oldStartIdx]</span><br><span class="line">      newEndVnode = newCh[--newEndIdx]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="4-新头与旧尾交叉对比"><a href="#4-新头与旧尾交叉对比" class="headerlink" title="4.新头与旧尾交叉对比"></a>4.新头与旧尾交叉对比</h3><p><a href="#">回到顶部</a></p>
-<style>.lcmmdupragxw{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children-04.png" class="lcmmdupragxw" alt="vue中的diff算法实现">
+<style>.pkljwriiyehp{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children-04.png" class="pkljwriiyehp" alt="vue中的diff算法实现">
 
 <p>当前情况与[新尾与旧头交叉对比]类似，不做赘述！配合图片和源码食用口味更佳~</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"><span class="comment">/* */</span></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 4 */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">sameVnode</span>(oldEndVnode, newStartVnode)) &#123; <span class="comment">// Vnode moved left</span></span><br><span class="line">      <span class="title function_">patchVnode</span>(oldEndVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)</span><br><span class="line">      <span class="comment">// 将旧children的尾部真实元素移动到头部真实元素的后面</span></span><br><span class="line">      canMove &amp;&amp; nodeOps.<span class="title function_">insertBefore</span>(parentElm, oldEndVnode.<span class="property">elm</span>, oldStartVnode.<span class="property">elm</span>)</span><br><span class="line">      oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">      newStartVnode = newCh[++newStartIdx]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -65,7 +65,7 @@
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">findIdxInOld</span> (<span class="params">node, oldCh, start, end</span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = start; i &lt; end; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> c = oldCh[i]</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">isDef</span>(c) &amp;&amp; <span class="title function_">sameVnode</span>(node, c)) <span class="keyword">return</span> i</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="5-3-无可复用旧元素"><a href="#5-3-无可复用旧元素" class="headerlink" title="5-3.无可复用旧元素"></a>5-3.无可复用旧元素</h4><p>在旧children可能会找到也可能找不到可复用的元素，没有找到是什么情况？如图：</p>
-<style>.seghqdamqfyn{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children-05.png" class="seghqdamqfyn" alt="vue中的diff算法实现：在头尾见找可复用元素">
+<style>.gfojghrdxrde{}</style><img src="/blog/source-code-reading/vue/diff/diff-vnode-children-05.png" class="gfojghrdxrde" alt="vue中的diff算法实现：在头尾见找可复用元素">
 
 <p>假如现在<code>newStartVnode</code>指向的是<code>key = 1.5</code>的vnode，那么很明显旧children中就没有可以复用的vnode，那么需要做的就是：a.创建一个与<code>newStartVnode</code>对应的newElm(新的真实html元素)；b.然后将newElm插入到旧children中<code>key=02</code>的vnode对应的真实元素的前面！</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">updateChildren</span> (<span class="params"><span class="comment">/* */</span></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 5：当前新vnode与旧头尾之间的vnode对比 */</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">/* 5.3 */</span></span><br><span class="line">      <span class="comment">// 在旧虚拟节点中不存在新节点，无法复用旧元素</span></span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * [ 1 ] [ 2 ] [ 3 ] [ 4 ] [ 5 ]</span></span><br><span class="line"><span class="comment">       * [ 1 ] [ 2 ] [2.5] [ 3 ] [ 4 ] [ 5 ]</span></span><br><span class="line"><span class="comment">       * [2.5]就是插入的，且就children中没有与之“相同”的vnode</span></span><br><span class="line"><span class="comment">       * 目前 newStartIdx = oldStartIdx = 2</span></span><br><span class="line"><span class="comment">       * 那么现在需要做的是：a.创建一个与[2.5]对应的真实元素；b.将元素插入到 [ 2 ] 后面 [ 3 ]前面</span></span><br><span class="line"><span class="comment">       * nodeOps.insertBefore(parentElm, newElm, oldStartVnode.elm)</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="title function_">isUndef</span>(idxInOld)) &#123; <span class="comment">// New element</span></span><br><span class="line">        <span class="comment">// 创建 newStartVnode 对应的elm，将elm插入到parentElm的子元素oldStartVnode.elm的前面（如果oldStartVnode.elm不存在即插入到parentElm的最后）</span></span><br><span class="line">        <span class="title function_">createElm</span>(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.<span class="property">elm</span>, <span class="literal">false</span>, newCh, newStartIdx)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">      newStartVnode = newCh[++newStartIdx]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -107,13 +107,13 @@
 </ul>
 <h3 id="新children新增了vnode"><a href="#新children新增了vnode" class="headerlink" title="新children新增了vnode"></a>新children新增了vnode</h3><p>根据newStartIdx和newEndIdx的移动情况</p>
 <p>1.newStartIdx一直右移，由于新增的vnode都在后面，可以复用的vnode都在前面了，newEndIdx会保持不变，直到遍历完旧children：</p>
-<style>.psggsuuntico{}</style><img src="/blog/source-code-reading/vue/diff/add-in-after.png" class="psggsuuntico" alt="vue中的diff算法实现">
+<style>.tfjofhkyiofc{}</style><img src="/blog/source-code-reading/vue/diff/add-in-after.png" class="tfjofhkyiofc" alt="vue中的diff算法实现">
 <p>&nbsp;</p>
 <p>2.newStartIdx右移，newEndIdx左移，直到遍历完旧children：</p>
-<style>.twsvhsscoijt{}</style><img src="/blog/source-code-reading/vue/diff/add-in-middle.png" class="twsvhsscoijt" alt="vue中的diff算法实现">
+<style>.exqqhioluinu{}</style><img src="/blog/source-code-reading/vue/diff/add-in-middle.png" class="exqqhioluinu" alt="vue中的diff算法实现">
 
 <p>3.新增的vnode都在前面了，由于是新的节点所以存在“newStartIdx右移”的情况，newStartIdx就保持不变了，而可复用的vnode在右边，随着一次次循环，newEndIdx则会左移：</p>
-<style>.hcopyhizulhn{}</style><img src="/blog/source-code-reading/vue/diff/add-in-before.png" class="hcopyhizulhn" alt="vue中的diff算法实现">
+<style>.rtboottvptxx{}</style><img src="/blog/source-code-reading/vue/diff/add-in-before.png" class="rtboottvptxx" alt="vue中的diff算法实现">
 
 <p>新children删除了vnode的情况就不赘述，情况可以从上面的解析类推！</p>
 <h2 id="新旧vnode与真实元素elm的关系"><a href="#新旧vnode与真实元素elm的关系" class="headerlink" title="新旧vnode与真实元素elm的关系"></a>新旧vnode与真实元素elm的关系</h2><p><a href="#">回到顶部</a></p>
@@ -170,7 +170,7 @@
   </entry>
   <entry>
     <title>WSL - 前端开发环境搭建</title>
-    <url>/blog/wsl-nodejs-dev-environment-setup//</url>
+    <url>/blog/env-setup/wsl-nodejs/</url>
     <content><![CDATA[<p>本手册基于已经安装WSL2的前提编写，因此需要将windows系统升级到对应的版本，并已经安装WSL2。若未安装可参考 <a href="https://isaaxite.github.io/blog/resources/%E5%88%9D%E8%AF%86WSL2">初识WSL2</a>。</p>
 <p>环境初始化分为三块：编辑器、终端 和 Linux系统。编辑器将使用VSCode；终端使用windows Terminal；Linux使用Debian。</p>
 <span id="more"></span>
@@ -275,18 +275,18 @@
 
 <p>接着是耐心的等待。</p>
 <p>安装完成之后，需要初始化账号和密码，然后即可在 Windows Terminal添加Debian。</p>
-<p><img src="/blog/wsl-nodejs-dev-environment-setup/Snipaste_2023-07-10_10-59-57.png" alt="VS Code 插件"></p>
+<p><img src="/blog/env-setup/wsl-nodejs/Snipaste_2023-07-10_10-59-57.png" alt="VS Code 插件"></p>
 <h2 id="VSCode连接WSL"><a href="#VSCode连接WSL" class="headerlink" title="VSCode连接WSL"></a>VSCode连接WSL</h2><p>安装VSCode插件 <code>WSL</code>(ExtentionID: <code>ms-vscode-remote.remote-wsl</code>)，它让我们可以便捷地远程访问WSL安装的Debian</p>
 <blockquote>
-<p><img src="/blog/wsl-nodejs-dev-environment-setup/Snipaste_2023-07-10_15-27-04.png"></p>
+<p><img src="/blog/env-setup/wsl-nodejs/Snipaste_2023-07-10_15-27-04.png"></p>
 </blockquote>
 <p>连接Debian</p>
-<p><img src="/blog/wsl-nodejs-dev-environment-setup/Snipaste_2023-07-10_16-17-01.png" alt="WSL 插件连接结果"></p>
+<p><img src="/blog/env-setup/wsl-nodejs/Snipaste_2023-07-10_16-17-01.png" alt="WSL 插件连接结果"></p>
 <h2 id="Windows-Terminal-连接-Debian"><a href="#Windows-Terminal-连接-Debian" class="headerlink" title="Windows Terminal 连接 Debian"></a>Windows Terminal 连接 Debian</h2><p>📢 Windows Terminal 可以直接在 <code>MicroSoft Store</code> 安装。</p>
 <p>将 Debian 设为默认：</p>
-<p><img src="/blog/wsl-nodejs-dev-environment-setup/Snipaste_2023-07-10_16-20-05.png" alt="Windows Terminal"></p>
+<p><img src="/blog/env-setup/wsl-nodejs/Snipaste_2023-07-10_16-20-05.png" alt="Windows Terminal"></p>
 <p>修改配置方案：</p>
-<p><img src="/blog/wsl-nodejs-dev-environment-setup/Snipaste_2023-07-10_16-22-24.png" alt="Windows Terminal 配置"></p>
+<p><img src="/blog/env-setup/wsl-nodejs/Snipaste_2023-07-10_16-22-24.png" alt="Windows Terminal 配置"></p>
 <h2 id="替换-apt-软件源"><a href="#替换-apt-软件源" class="headerlink" title="替换 apt 软件源"></a>替换 apt 软件源</h2><p>Debian 12 默认使用的软件管理工具是 <a href="https://manpages.ubuntu.com/manpages/xenial/man8/apt.8.html">apt</a>。为了更快的软件安装速度，首先要做的是把 apt 的软件源从官方源替换为国内源</p>
 <p>软件源保存在 <a href="https://manpages.ubuntu.com/manpages/focal/en/man5/sources.list.5.html"><code>/etc/apt/source.list</code></a>，通过编辑此文件内容修改源。</p>
 <p>💡 <em>Debian 12 默认支持 <code>vi</code>，因此可使用 <code>vi</code> 编辑。可使用 <code>dpkg -l</code> 查看当前安装的系统软件</em></p>
@@ -305,7 +305,7 @@
 </ul>
 <p>下面会使用 <a href="https://mirrors.tuna.tsinghua.edu.cn/">清华源镜像</a>, 它有个 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/debian/">help页面</a> 可方便快速生成 Debian 的 apt 源内容。</p>
 <blockquote>
-<p><img src="/blog/wsl-nodejs-dev-environment-setup/Snipaste_2023-07-10_11-42-51.png"></p>
+<p><img src="/blog/env-setup/wsl-nodejs/Snipaste_2023-07-10_11-42-51.png"></p>
 </blockquote>
 <h3 id="修改-source-list"><a href="#修改-source-list" class="headerlink" title="修改 source.list"></a>修改 source.list</h3><p>备份旧源</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo mv /etc/apt/source.list /etc/apt/source.list.backup</span><br></pre></td></tr></table></figure>
@@ -1773,7 +1773,7 @@
   </entry>
   <entry>
     <title>Linux 终端模拟器 - Tilix</title>
-    <url>/blog/linux-terminal-emulator-tilix/</url>
+    <url>/blog/intro/linux-terminal-tilix/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>使用 Linux 很久，用过多个发行版本，每个版本都有内置的终端模拟器。有 Gnome Terminal、Konsole、GUAKE 等等。使用 MacOS 时遇到了让我觉得刚刚好的终端模拟器 - Iterm2，各种原因下，我不再使用 MacOS，后来就很少让我觉得趁手的终端模拟器。后来，一直使用 Windows 和 Linux。Windows 下用的是 Windows Terminal（这是应用名），配合 WSL2，够用也漂亮，知道在开发中遇到 WSL2 无法解决的情况，再次投身到 Linux 的海洋中。目前使用 Linux Mint 21，它是个漂亮且好用的发行版本。Linux 下的终端始终是我内心深处的刺呢，一直在尝试着其他终端：Konsole、Kitty、tmux、Tabby、Terminator、Tilda等等，花了不少的时间安装、配置，遇到不少的问题，都没有达到心目中期望的样子。直到遇到了 Tilix。</p>
 <span id="more"></span>
 
@@ -1782,7 +1782,7 @@
 <p>此外，文章还探讨了 Tilix 的外观定制性。它介绍了 Tilix 提供的丰富的配色方案和字体选项，以及与桌面环境整体外观风格一致的 GTK 主题集成。这使得用户可以根据自己的喜好和需求来个性化定制终端的外观。</p>
 <p>最后，文章总结了 Tilix 的优点，并提到了它与其他终端模拟器（如 kitty、tmux、gnome-terminal 和 konsole）的比较。它强调了 Tilix 在配置简单性、原生分屏支持和外观美观性方面的优势，使得 Tilix 成为一个备受欢迎的终端模拟器。</p>
 <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">System:</span><br><span class="line">  Kernel: 5.15.0-86-generic x86_64 bits: 64 compiler: gcc v: 11.4.0 Desktop: Cinnamon 5.8.4</span><br><span class="line">    tk: GTK 3.24.33 wm: muffin dm: LightDM Distro: Linux Mint 21.2 Victoria base: Ubuntu 22.04 jammy</span><br><span class="line">Machine:</span><br><span class="line">  Type: Desktop Mobo: ASUSTeK model: TUF B360M-PLUS GAMING S v: Rev X.0x</span><br><span class="line">    serial: &lt;superuser required&gt; UEFI: American Megatrends v: 2418 date: 06/04/2019</span><br><span class="line">CPU:</span><br><span class="line">  Info: 6-core model: Intel Core i5-8600K bits: 64 type: MCP arch: Coffee Lake rev: A cache:</span><br><span class="line">    L1: 384 KiB L2: 1.5 MiB L3: 9 MiB</span><br><span class="line">  Speed (MHz): avg: 4100 min/max: 800/4300 cores: 1: 4100 2: 4100 3: 4100 4: 4100 5: 4100</span><br><span class="line">    6: 4100 bogomips: 43200</span><br><span class="line">  Flags: avx avx2 ht lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx</span><br></pre></td></tr></table></figure>
-<h2 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h2><p><img src="/blog/linux-terminal-emulator-tilix/2023-10-15_11-14.png" alt="Tmux + Gnome Terminal"></p>
+<h2 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h2><p><img src="/blog/intro/linux-terminal-tilix/2023-10-15_11-14.png" alt="Tmux + Gnome Terminal"></p>
 <h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3><p>Tmux 是一个终端复用器，可以在一个终端窗口中同时运行多个终端会话。它允许用户在一个终端中创建、管理和切换多个虚拟终端，从而提高工作效率。</p>
 <p>使用 tmux，你可以在一个终端窗口中创建多个窗格和标签页，每个窗格和标签页都可以运行独立的终端会话。这意味着你可以同时查看和操作多个终端，而无需打开多个终端窗口。</p>
 <p>tmux 提供了一系列命令和快捷键，用于管理和控制终端会话。你可以轻松地创建、关闭、切换和重命名窗格和标签页，调整它们的大小和布局，以适应你的工作需求。你还可以在不同的窗格和标签页之间进行复制粘贴操作，共享剪贴板内容。</p>
@@ -1793,7 +1793,7 @@
 <p>距离上次使用 Tmux 已经是 4、5 年前，现在 Tmux 已经变得更加优秀，更好的鼠标指针支持，让我惊艳的是它已经支持右键菜单，分屏、关闭、切换都已经很轻松，一句话的配置就已经解决了大部分的问题。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># ~/.tmux.conf</span></span></span><br><span class="line">set -g mouse on</span><br></pre></td></tr></table></figure>
 
-<p><img src="/blog/linux-terminal-emulator-tilix/image-1.png" alt="Tmux"></p>
+<p><img src="/blog/intro/linux-terminal-tilix/image-1.png" alt="Tmux"></p>
 <h3 id="放弃的原因"><a href="#放弃的原因" class="headerlink" title="放弃的原因"></a>放弃的原因</h3><p>最大的问题来源于剪切板。Tmux 自有一套剪切板，并且它与系统剪切板并不是双向共享的。这让我难受，可以想像：你执行某个命令是出现了异常，提供了异常信息。你发现你解决不了，因此你打算复制异常信息到浏览器或其他地方以寻找答案。此时你发现此路不通！你只好手打了异常信息关键字进行搜索。天可怜见，你找到了答案。你复制答案的解决命令尝试解决，突然你发现你复制的内容在终端内变了样！此时此刻，你只想数数天上的草泥马。</p>
 <p>因此，我花了不少的时间尝试去解决这个问题。安装 xclip，编辑配置文件尝试让 tmux 剪切板自动写入系统的剪切板。但是都不尽如人意，最终，我选择后退一步，编写了 2 个 shell 命令，以在有需要时手动写入对应的剪切板：</p>
 <p><em>读取 tmux 的剪切板内容，写入 xclip，<code>sysclip-read-tmux</code></em></p>
@@ -1814,7 +1814,7 @@
 <li><p>底部状态栏，同上。</p>
 </li>
 </ol>
-<h2 id="Konsole"><a href="#Konsole" class="headerlink" title="Konsole"></a>Konsole</h2><p><img src="/blog/linux-terminal-emulator-tilix/konsolefancy.png" alt="Konsole"></p>
+<h2 id="Konsole"><a href="#Konsole" class="headerlink" title="Konsole"></a>Konsole</h2><p><img src="/blog/intro/linux-terminal-tilix/konsolefancy.png" alt="Konsole"></p>
 <h3 id="简述-1"><a href="#简述-1" class="headerlink" title="简述"></a>简述</h3><p>Konsole 是一个流行的终端模拟器，用于在 Linux 和其他 UNIX-like 操作系统上提供命令行界面。它是 KDE 桌面环境的一部分，并且是 Konqueror 项目的一部分。</p>
 <p>Konsole 提供了一个功能丰富的用户界面，使用户可以通过命令行与计算机系统进行交互。它支持多标签页，允许用户同时打开多个终端会话，并在它们之间轻松切换。每个标签页可以独立设置，包括配色方案、字体、背景图像等。</p>
 <p>Konsole 还具有许多其他功能，如自动完成、命令历史记录、拖放文本等。它支持多种终端模拟协议，包括本地终端、远程 SSH、Telnet 和串口连接，使用户能够通过网络或串口访问和管理其他计算机或设备。</p>
@@ -1835,7 +1835,7 @@
 </li>
 </ol>
 <p>这些问题在 Cinnamon 桌面环境下变得更加常见，并且一些样式也走形。它的这些劣质化现象，让我宁愿使用 Gnome Terminal + Tmux，也不使用它。在安装它 1 小时后就被我扔进了垃圾桶。另外，在 KDE 下可以忍受的问题也变得如眼中刺，比如它“常在”的滚动条，在分屏后更加让人无法忍受的丑陋！</p>
-<h2 id="Kitty"><a href="#Kitty" class="headerlink" title="Kitty"></a>Kitty</h2><p><img src="/blog/linux-terminal-emulator-tilix/FQ4WtHKVgAAPx3I.jpeg" alt="Kitty"></p>
+<h2 id="Kitty"><a href="#Kitty" class="headerlink" title="Kitty"></a>Kitty</h2><p><img src="/blog/intro/linux-terminal-tilix/FQ4WtHKVgAAPx3I.jpeg" alt="Kitty"></p>
 <h3 id="简述-2"><a href="#简述-2" class="headerlink" title="简述"></a>简述</h3><p>Kitty 是一个现代化的终端模拟器，设计用于提供强大的命令行界面和丰富的功能。它是一个跨平台的终端模拟器，可在 Linux、macOS 和 Windows 等操作系统上使用。</p>
 <p>Kitty 的目标是提供高性能和可定制性。它采用 GPU 加速技术，可以处理大量字符和图形渲染，从而实现流畅的终端体验。此外，Kitty 还支持像素级的渲染，使用户可以在终端中显示高分辨率的图像和图标。</p>
 <p>Kitty 具有许多先进的功能，包括多标签页和分屏显示，使用户可以同时管理多个终端会话。它支持自动完成、命令历史记录、滚动回放等常见的终端功能。Kitty 还支持基于鼠标的交互，用户可以使用鼠标选择文本、复制粘贴内容等。</p>
@@ -1854,7 +1854,7 @@
 </li>
 </ol>
 <p>虽然 Kitty 漂亮，但得承认它是个需要折腾，并且不容易折腾的工具！</p>
-<h2 id="Tilix"><a href="#Tilix" class="headerlink" title="Tilix"></a>Tilix</h2><p><img src="/blog/linux-terminal-emulator-tilix/2023-10-15_11-07.png" alt="Tilix"></p>
+<h2 id="Tilix"><a href="#Tilix" class="headerlink" title="Tilix"></a>Tilix</h2><p><img src="/blog/intro/linux-terminal-tilix/2023-10-15_11-07.png" alt="Tilix"></p>
 <h3 id="简述-3"><a href="#简述-3" class="headerlink" title="简述"></a>简述</h3><p>Tilix 是一个功能强大的终端模拟器，旨在提供先进的功能和用户友好的界面。它是为 GNOME 桌面环境设计的，但也可以在其他桌面环境中使用。</p>
 <p>Tilix 具有多标签页和分屏显示功能，允许用户在一个窗口中同时打开和管理多个终端会话。这使得在同一界面中同时进行多个任务变得更加方便。用户可以自定义标签页和窗格的布局、大小和外观，以适应个人工作流程和偏好。</p>
 <p>Tilix 还支持配置文件和会话管理功能，允许用户保存和加载特定的终端会话设置。这对于经常需要在不同项目或工作环境之间切换的用户来说非常有用。</p>
@@ -1863,7 +1863,7 @@
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install tilix -y</span><br></pre></td></tr></table></figure>
 
 <h3 id="为什么选择了-Tilix"><a href="#为什么选择了-Tilix" class="headerlink" title="为什么选择了 Tilix"></a>为什么选择了 Tilix</h3><p>正如文章的标题，一切都是刚刚好，它准确戳中了我的 G 点上。分屏、配置都不用花费什么功夫即可达到我期望的模样！</p>
-<h4 id="分屏"><a href="#分屏" class="headerlink" title="分屏"></a>分屏</h4><p><img src="/blog/linux-terminal-emulator-tilix/Peek_2023-10-15_15-10.gif"></p>
+<h4 id="分屏"><a href="#分屏" class="headerlink" title="分屏"></a>分屏</h4><p><img src="/blog/intro/linux-terminal-tilix/Peek_2023-10-15_15-10.gif"></p>
 <p>Tilix 原生支持分屏功能。各个分屏窗口相互独立，不会相互影响，至少目前没有发现类似 tmux 旧版的“选中内容跨窗口”的现象。</p>
 <ul>
 <li><p><strong>调用分屏功能</strong>：调用分屏功能使用简单方便。在顶部 menu 栏左边分别包含“水平左右分屏”和“竖直上下分屏”按钮。另外，在内容区域内，使用鼠标右键激活的菜单中同上包含上面 2 个分屏选项。</p>
@@ -1874,7 +1874,7 @@
 </li>
 </ul>
 <h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>Tilix 支持可以可视化配置，基本功能的配置都可以通过此方式配置，只需要右击右上菜单按钮的 <code>preferences</code> 即可进入设置面板！。是不想折腾人的福音，如我，并不打算花大量的时间在配置、调节上。这样做对于我来说是本末倒置。花费的时间不一定获得好的结果。退一步说，假如是好的结果。在新的环境中，我不得不继续花大量的时间配置才能获得相同的体验。</p>
-<p><img src="/blog/linux-terminal-emulator-tilix/Peek_2023-10-15_14-59.gif"></p>
+<p><img src="/blog/intro/linux-terminal-tilix/Peek_2023-10-15_14-59.gif"></p>
 <p>下面是我所关注的几个配置：</p>
 <ul>
 <li><p><strong>配色方案</strong>：Tilix 提供 9 个可选的配色方案选择。另外，亦可以自定义配色方案；</p>
@@ -1886,7 +1886,7 @@
 <h4 id="加分项"><a href="#加分项" class="headerlink" title="加分项"></a>加分项</h4><ul>
 <li>聪明的滚动条：适时地出现，不如 konsole 那样，不可设置地固定常驻，并且是丑陋的拉老旧样式；鼠标指针悬浮时有“激活”的交互效果以便更容易拖动；</li>
 </ul>
-<p><img src="/blog/linux-terminal-emulator-tilix/Peek_2023-10-15_14-54.gif"></p>
+<p><img src="/blog/intro/linux-terminal-tilix/Peek_2023-10-15_14-54.gif"></p>
 <ul>
 <li><p><strong>Quake 模式</strong>：Tilix 原生支持 Quake 模式，通过快捷键即可快捷弹出终端窗口；</p>
 </li>
@@ -4044,7 +4044,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm pkg set scripts.prepare=&quot;husky install&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 执行以上命令得到的结果是：</span></span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">+    &quot;prepare&quot;: &quot;husky install&quot; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>prepare (since <a href="mailto:&#x6e;&#112;&#109;&#64;&#52;&#x2e;&#48;&#46;&#x30;">&#x6e;&#112;&#109;&#64;&#52;&#x2e;&#48;&#46;&#x30;</a>)</strong></p>
+<p><strong>prepare (since <a href="mailto:&#x6e;&#112;&#x6d;&#x40;&#x34;&#46;&#48;&#46;&#x30;">&#x6e;&#112;&#x6d;&#x40;&#x34;&#46;&#48;&#46;&#x30;</a>)</strong></p>
 <p>Runs BEFORE the package is packed<br>Runs BEFORE the package is published<br><mark>Runs on local “npm install” without any arguments</mark><br>Run AFTER <code>prepublish</code>, but BEFORE <code>prepublishOnly</code><br>NOTE: If a package being installed through git contains a <code>prepare</code> script, its <code>dependencies</code> and <code>devDependencies</code> will be installed, and the prepare script will be run, before the package is packaged and installed.</p>
 <p>Refenrence: <a href="https://docs.npmjs.com/cli/v9/using-npm/scripts">How npm handles the “scripts” field</a></p>
 </blockquote>
@@ -6970,7 +6970,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 </ul>
 <h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><p>为什么要说变量对象呢？因为作用域链就是由变量对象组成，作用域链是一个由变量对象组成的列表，一个有序，只能由头开始逐个往尾访问的列表（说是列表其实更应该说是链表，先不要在意这个概念）。<br>并且作用域链和变量对象有一个共同的特点：每个区域都会有一个与之对象对的。比如说上面的代码中，全局环境有一个与之对应的变量对象，也有一个和全局环境对应的作用域链；fn函数也是如此。</p>
 <h3 id="作用域链是由哪些变量对象组成？"><a href="#作用域链是由哪些变量对象组成？" class="headerlink" title="作用域链是由哪些变量对象组成？"></a>作用域链是由哪些变量对象组成？</h3><p>我们先看下图：</p>
-<style>.qmvfbkzasrjx{}</style><img src="/blog/js-scope-chain/2838289-ea22086b2a47a918.png" class="qmvfbkzasrjx" alt="浅析JavaScript作用域链">
+<style>.wyyrffruwwmz{}</style><img src="/blog/js-scope-chain/2838289-ea22086b2a47a918.png" class="wyyrffruwwmz" alt="浅析JavaScript作用域链">
 
 <p>由上图应该可以看出，作用域链由当前区域的变量对象作为开头，然后是逐层往外直至全局环境的变量对象组成如上图一样的列表，这就是作用域链，并且如上文所说，每个区域都有这样一个与之对应的作用域链。比如下面的代码：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">isShow</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> gihubLink = <span class="string">&#x27;https://github.com/issaxite&#x27;</span>;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">fn1</span>(<span class="params">param1, param2</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> mailLink = <span class="string">&#x27;issaxite@gmail.com&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
@@ -6978,22 +6978,22 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <ul>
 <li>fn1函数的作用域链：</li>
 </ul>
-<style>.dtppzdzeehtt{}</style><img src="/blog/js-scope-chain/2838289-b0a1699c6beb4b74.png" class="dtppzdzeehtt" alt="浅析JavaScript作用域链">
+<style>.fwwyzhdorgfo{}</style><img src="/blog/js-scope-chain/2838289-b0a1699c6beb4b74.png" class="fwwyzhdorgfo" alt="浅析JavaScript作用域链">
 
 <ul>
 <li>fn的作用域链：</li>
 </ul>
-<style>.ogkewqkvwbpj{}</style><img src="/blog/js-scope-chain/2838289-9fdc6ccc56ef3e26.png" class="ogkewqkvwbpj" alt="浅析JavaScript作用域链">
+<style>.hqllhrnrbgrz{}</style><img src="/blog/js-scope-chain/2838289-9fdc6ccc56ef3e26.png" class="hqllhrnrbgrz" alt="浅析JavaScript作用域链">
 
 <ul>
 <li>全局环境的作用域链</li>
 </ul>
-<style>.qdhpiwewopei{}</style><img src="/blog/js-scope-chain/2838289-828698a0bf9bc1b4.png" class="qdhpiwewopei" alt="浅析JavaScript作用域链">
+<style>.vwxflronxaxc{}</style><img src="/blog/js-scope-chain/2838289-828698a0bf9bc1b4.png" class="vwxflronxaxc" alt="浅析JavaScript作用域链">
 
 <p>那么作用域链的作用是什么？<br>jser都应该有这样的体验，在函数内部可以访问到外部区域的变量和函数，而在外部区域访问不了函数内定义的变量：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> c = <span class="number">3</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a, b, c)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(c);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
-<style>.vpvnfmdcuhnl{}</style><img src="/blog/js-scope-chain/2838289-2a0bdcdf12428f9a.png" class="vpvnfmdcuhnl" alt="浅析JavaScript作用域链">
+<style>.lspdhlvmefyn{}</style><img src="/blog/js-scope-chain/2838289-2a0bdcdf12428f9a.png" class="lspdhlvmefyn" alt="浅析JavaScript作用域链">
 
 <p>如上所示，fn函数内部可以访问到外层区域（全局环境）的变量，为什么可以，就是因为fn函数的作用域链，在变量调用的时候（在fn就是访问c变量的时候），会在当前作用域链的头部开始往尾部，依次在变量对象中查询对应的变量，找到即返回，不再继续查询，这个也是内层同名变量比外层同名变量优先级更高的原因，这个查询的过程叫做<strong>变量解析</strong>，也叫<strong>标识符解析</strong>，<code>console.log(c);</code>会抛出异常就是因为全局环境的作用域链中的变量对象没有该变量。</p>
 ]]></content>

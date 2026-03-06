@@ -6,7 +6,7 @@
   <link href="https://isaaxite.github.io/atom.xml" rel="self"/>
   
   <link href="https://isaaxite.github.io/"/>
-  <updated>2026-03-06T01:23:59.481Z</updated>
+  <updated>2026-03-06T03:14:40.227Z</updated>
   <id>https://isaaxite.github.io/</id>
   
   <author>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>WSL - 前端开发环境搭建</title>
-    <link href="https://isaaxite.github.io/blog/wsl-nodejs-dev-environment-setup/"/>
-    <id>https://isaaxite.github.io/blog/wsl-nodejs-dev-environment-setup/</id>
+    <link href="https://isaaxite.github.io/blog/env-setup/wsl-nodejs/"/>
+    <id>https://isaaxite.github.io/blog/env-setup/wsl-nodejs/</id>
     <published>2026-03-05T09:33:21.220Z</published>
-    <updated>2026-03-06T01:23:59.481Z</updated>
+    <updated>2026-03-06T03:14:40.227Z</updated>
     
     
     <summary type="html">&lt;p&gt;本手册基于已经安装WSL2的前提编写，因此需要将windows系统升级到对应的版本，并已经安装WSL2。若未安装可参考 &lt;a href=&quot;https://isaaxite.github.io/blog/resources/%E5%88%9D%E8%AF%86WSL2&quot;&gt;初识WSL2&lt;/a&gt;。&lt;/p&gt;
@@ -103,10 +103,10 @@
   
   <entry>
     <title>Linux 终端模拟器 - Tilix</title>
-    <link href="https://isaaxite.github.io/blog/linux-terminal-emulator-tilix/"/>
-    <id>https://isaaxite.github.io/blog/linux-terminal-emulator-tilix/</id>
+    <link href="https://isaaxite.github.io/blog/intro/linux-terminal-tilix/"/>
+    <id>https://isaaxite.github.io/blog/intro/linux-terminal-tilix/</id>
     <published>2023-10-14T06:36:24.000Z</published>
-    <updated>2026-03-06T01:23:59.521Z</updated>
+    <updated>2026-03-06T03:15:58.452Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;使用 Linux 很久，用过多个发行版本，每个版本都有内置的终端模拟器。有 Gnome Terminal、Konsole、GUAKE 等等。使用 MacOS 时遇到了让我觉得刚刚好的终端模拟器 - Iterm2，各种原因下，我不再使用 MacOS，后来就很少让我觉得趁手的终端模拟器。后来，一直使用 Windows 和 Linux。Windows 下用的是 Windows Terminal（这是应用名），配合 WSL2，够用也漂亮，知道在开发中遇到 WSL2 无法解决的情况，再次投身到 Linux 的海洋中。目前使用 Linux Mint 21，它是个漂亮且好用的发行版本。Linux 下的终端始终是我内心深处的刺呢，一直在尝试着其他终端：Konsole、Kitty、tmux、Tabby、Terminator、Tilda等等，花了不少的时间安装、配置，遇到不少的问题，都没有达到心目中期望的样子。直到遇到了 Tilix。&lt;/p&gt;</summary>
@@ -359,7 +359,7 @@
     <link href="https://isaaxite.github.io/blog/debug/hexo-deploy/"/>
     <id>https://isaaxite.github.io/blog/debug/hexo-deploy/</id>
     <published>2023-03-10T15:22:46.000Z</published>
-    <updated>2026-03-06T03:03:48.419Z</updated>
+    <updated>2026-03-06T03:11:59.199Z</updated>
     
     
     <summary type="html">&lt;p&gt;当前在WSL的Debian系统中使用hexo写作以及发布部署。&lt;/p&gt;
