@@ -1,6 +1,6 @@
 ---
 title: WSL - 前端开发环境搭建
-slugpath: wsl-nodejs-dev-environment-setup/
+slugpath: env-setup/wsl-nodejs
 alias: blog/resources/WSL开发环境/
 tags:
   - 环境配置
