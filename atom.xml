@@ -54,10 +54,10 @@
   
   <entry>
     <title>Tmux 的相关概念与基本使用</title>
-    <link href="https://isaaxite.github.io/blog/tmux-usage/"/>
-    <id>https://isaaxite.github.io/blog/tmux-usage/</id>
+    <link href="https://isaaxite.github.io/blog/usage/tmux/"/>
+    <id>https://isaaxite.github.io/blog/usage/tmux/</id>
     <published>2024-03-31T08:59:23.000Z</published>
-    <updated>2026-03-06T01:23:59.497Z</updated>
+    <updated>2026-03-06T03:10:10.569Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文的首要目的是记录，而非完全性的指南，不免会有缺漏。目标是随时间的推移逐步完善此记录，最终达到指南的程度。将以 tmux 的官方文档为核心其他资料为辅介绍 tmux 的基本概念和术语，让 tmux 的潜在用户对它有基本的了解，以达到无痛入门，降低心智消耗的作用。涉及 tmux 的会话（session）、视窗（window）、窗格（pane）和其他的核心内容的基本使用，以达到开箱即用，为 tmux 拾一根薪火（赞美太阳🔥）。&lt;/p&gt;</summary>
@@ -82,7 +82,7 @@
     <link href="https://isaaxite.github.io/blog/linux-wechat-flatpak-usage/"/>
     <id>https://isaaxite.github.io/blog/linux-wechat-flatpak-usage/</id>
     <published>2024-03-22T09:21:12.000Z</published>
-    <updated>2026-03-06T01:23:59.497Z</updated>
+    <updated>2026-03-06T03:04:06.079Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;我当前使用的大部分软件都有被 Deb（Chromium、VS Code 等） Appimage （Motrix、Qv2ray等）覆盖到，其他一部分使用 WebApp （Neat Reader、Google Translate等）代替，实在无解则使用 win7 虚拟机（微信、迅雷等）。&lt;/p&gt;
@@ -356,10 +356,10 @@
   
   <entry>
     <title>Hexo deploy 失败问题</title>
-    <link href="https://isaaxite.github.io/blog/debug-hexo-deploy/"/>
-    <id>https://isaaxite.github.io/blog/debug-hexo-deploy/</id>
+    <link href="https://isaaxite.github.io/blog/debug/hexo-deploy/"/>
+    <id>https://isaaxite.github.io/blog/debug/hexo-deploy/</id>
     <published>2023-03-10T15:22:46.000Z</published>
-    <updated>2026-03-06T01:23:59.529Z</updated>
+    <updated>2026-03-06T03:03:48.419Z</updated>
     
     
     <summary type="html">&lt;p&gt;当前在WSL的Debian系统中使用hexo写作以及发布部署。&lt;/p&gt;
@@ -385,10 +385,10 @@
   
   <entry>
     <title>WSL 的 hosts 文件被重置</title>
-    <link href="https://isaaxite.github.io/blog/debug-wsl-hosts-file-reset/"/>
-    <id>https://isaaxite.github.io/blog/debug-wsl-hosts-file-reset/</id>
+    <link href="https://isaaxite.github.io/blog/debug/wsl-hosts-file-reset/"/>
+    <id>https://isaaxite.github.io/blog/debug/wsl-hosts-file-reset/</id>
     <published>2023-03-08T08:01:21.000Z</published>
-    <updated>2026-03-06T01:23:59.481Z</updated>
+    <updated>2026-03-06T03:04:48.772Z</updated>
     
     
     <summary type="html">&lt;p&gt;使用WSL安装软件时，需要从 &lt;code&gt;raw.githubusercontent.com&lt;/code&gt; 拉取数据，抛异常 403。经查阅是DNS污染导致，推荐的解决方案是修改hosts文件，添加域名与ip的映射。&lt;/p&gt;
@@ -409,10 +409,10 @@
   
   <entry>
     <title>Docker容器（Debian）内终端的中文展示与输入问题</title>
-    <link href="https://isaaxite.github.io/blog/debug-docker-debian-chinese/"/>
-    <id>https://isaaxite.github.io/blog/debug-docker-debian-chinese/</id>
+    <link href="https://isaaxite.github.io/blog/debug/docker-debian-chinese/"/>
+    <id>https://isaaxite.github.io/blog/debug/docker-debian-chinese/</id>
     <published>2023-02-28T08:22:11.000Z</published>
-    <updated>2026-03-06T01:23:59.481Z</updated>
+    <updated>2026-03-06T03:05:27.575Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;使用docker容器作为开发环境。以Debian11镜像启动容器，出现两个问题：&lt;/p&gt;
@@ -420,7 +420,7 @@
 &lt;li&gt;无法展示中文，ls输出的都是八进制编码的字符串；&lt;/li&gt;
 &lt;li&gt;终端无法输入中文，粘贴可以但同学展示为八进制字符串；&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&quot;/blog/debug-docker-debian-chinese/Snipaste_2023-02-27_20-24-42.png&quot;&gt;&lt;/p&gt;</summary>
+&lt;p&gt;&lt;img src=&quot;/blog/debug/docker-debian-chinese/Snipaste_2023-02-27_20-24-42.png&quot;&gt;&lt;/p&gt;</summary>
     
     
     
@@ -483,10 +483,10 @@
   
   <entry>
     <title>PM2 日志插件（pm2-logrotate）使用</title>
-    <link href="https://isaaxite.github.io/blog/pm2-logrotate-plugin-usage/"/>
-    <id>https://isaaxite.github.io/blog/pm2-logrotate-plugin-usage/</id>
+    <link href="https://isaaxite.github.io/blog/usage/pm2-logrotate/"/>
+    <id>https://isaaxite.github.io/blog/usage/pm2-logrotate/</id>
     <published>2022-11-01T05:09:01.000Z</published>
-    <updated>2026-03-06T01:23:59.489Z</updated>
+    <updated>2026-03-06T03:09:07.452Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;默认-PM2-日志存在的问题&quot;&gt;&lt;a href=&quot;#默认-PM2-日志存在的问题&quot; class=&quot;headerlink&quot; title=&quot;默认 PM2 日志存在的问题&quot;&gt;&lt;/a&gt;默认 PM2 日志存在的问题&lt;/h2&gt;&lt;ol&gt;
@@ -536,7 +536,7 @@
     <link href="https://isaaxite.github.io/blog/windows-adb-install/"/>
     <id>https://isaaxite.github.io/blog/windows-adb-install/</id>
     <published>2022-06-17T09:10:03.000Z</published>
-    <updated>2026-03-06T01:23:59.489Z</updated>
+    <updated>2026-03-06T01:52:20.403Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://developer.android.com/studio/releases/platform-tools&quot;&gt;下载 ADB for Windows&lt;/a&gt;&lt;/p&gt;

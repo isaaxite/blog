@@ -2,6 +2,168 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://isaaxite.github.io/blog/usage/tmux/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/usage/pm2-logrotate/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/debug/docker-debian-chinese/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/debug/wsl-hosts-file-reset/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/linux-wechat-flatpak-usage/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/debug/hexo-deploy/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/source-code-reading/vue/computed-properties/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/source-code-reading/nest/decorator-route/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/source-code-reading/vue/array-mutation/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/source-code-reading/vue/vnode/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/source-code-reading/vue/v-for/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/source-code-reading/vue/nextTick/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/source-code-reading/vue/filter/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/source-code-reading/vue/diff/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/source-code-reading/vue/set-del/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/deep-dive/hash-table/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/polyfill/scss-get-selector-function/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.github.io/blog/windows-adb-install/</loc>
+    
+    <lastmod>2026-03-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://isaaxite.github.io/blog/guide/github-action/</loc>
     
     <lastmod>2026-03-06</lastmod>
@@ -12,15 +174,6 @@
   
   <url>
     <loc>https://isaaxite.github.io/blog/guide/browser-extension-development/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/debug-hexo-deploy/</loc>
     
     <lastmod>2026-03-06</lastmod>
     
@@ -182,105 +335,6 @@
   </url>
   
   <url>
-    <loc>https://isaaxite.github.io/blog/hash-table-deep-dive/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/vue-vnode-internals/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/vue-array-mutation/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/vue-source-computed-properties-deep-dive/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/vue-source-code-set-del/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/vue-filter-implementation/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/source-vue-v-for/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/nest-decorator-route-analysis/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/source-vue-nextTick/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/tmux-usage/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/linux-wechat-flatpak-usage/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://isaaxite.github.io/blog/security-frontend-eslint-plugin/</loc>
     
     <lastmod>2026-03-06</lastmod>
@@ -353,24 +407,6 @@
   </url>
   
   <url>
-    <loc>https://isaaxite.github.io/blog/pm2-logrotate-plugin-usage/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/windows-adb-install/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://isaaxite.github.io/blog/git-hook-auto-deploy/</loc>
     
     <lastmod>2026-03-06</lastmod>
@@ -407,54 +443,9 @@
   </url>
   
   <url>
-    <loc>https://isaaxite.github.io/blog/debug-wsl-hosts-file-reset/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/debug-docker-debian-chinese/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://isaaxite.github.io/blog/linux-package-manager-apt/</loc>
     
     <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/vue-diff-source-code/</loc>
-    
-    <lastmod>2026-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/blog/undefined/</loc>
-    
-    <lastmod>2026-03-05</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.github.io/404.html</loc>
-    
-    <lastmod>2026-03-05</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
