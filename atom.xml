@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Isaac&#39;s Blog</title>
+  <title>Isaac&#39;s</title>
   <icon>https://isaaxite.github.io/icon.png</icon>
-  <subtitle>I am a slow walker, but I never walk backwards.</subtitle>
+  <subtitle>Patience is key in life.</subtitle>
   <link href="https://isaaxite.github.io/atom.xml" rel="self"/>
   
   <link href="https://isaaxite.github.io/"/>
@@ -71,9 +71,9 @@
     
     <category term="linux" scheme="https://isaaxite.github.io/tags/linux/"/>
     
-    <category term="tmux" scheme="https://isaaxite.github.io/tags/tmux/"/>
-    
     <category term="terminal" scheme="https://isaaxite.github.io/tags/terminal/"/>
+    
+    <category term="tmux" scheme="https://isaaxite.github.io/tags/tmux/"/>
     
   </entry>
   
@@ -120,9 +120,9 @@
     
     <category term="linux" scheme="https://isaaxite.github.io/tags/linux/"/>
     
-    <category term="terminal" scheme="https://isaaxite.github.io/tags/terminal/"/>
-    
     <category term="tilix" scheme="https://isaaxite.github.io/tags/tilix/"/>
+    
+    <category term="terminal" scheme="https://isaaxite.github.io/tags/terminal/"/>
     
   </entry>
   
