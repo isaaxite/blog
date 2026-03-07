@@ -1,7 +1,7 @@
+https://isaaxite.github.io/blog/intro/linux-terminal-tilix/
 https://isaaxite.github.io/blog/source-code-reading/vue/array-mutation/
 https://isaaxite.github.io/blog/source-code-reading/vue/filter/
 https://isaaxite.github.io/blog/source-code-reading/nest/decorator-route/
-https://isaaxite.github.io/blog/intro/linux-terminal-tilix/
 https://isaaxite.github.io/blog/env-setup/wsl-nodejs/
 https://isaaxite.github.io/blog/debug/hexo-deploy/
 https://isaaxite.github.io/blog/usage/tmux/
