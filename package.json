@@ -10,7 +10,8 @@
     "server+draft": "hexo clean && hexo server --draft",
     "new-daily": "node ./npm-scripts/new.js daily",
     "new-draft": "node ./npm-scripts/new.js draft",
-    "new-post": "node ./npm-scripts/new.js post"
+    "new-post": "node ./npm-scripts/new.js post",
+    "find-unreferenced-assets": "node ./npm-scripts/find-unreferenced-assets.js"
   },
   "hexo": {
     "version": "7.3.0"
