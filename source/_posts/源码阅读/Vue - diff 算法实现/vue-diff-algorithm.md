@@ -26,7 +26,7 @@ top: true
 
 newVnode和oldVnode的比对仅限于同层级之间对比，兄弟之间相互比较，如下图。不会出现跨层级的对比。
 
-<img src="vue-diff-algorithm/diff-vnode.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="https://isaaxite.github.io/assets/blog/diff-vnode.png" width="100%" alt="vue中的diff算法实现"/>
 
 ## diff算法是什么
 
@@ -38,7 +38,7 @@ diff算法不是一种对比的方法，而是一种寻找与当前节点匹配�
 
 **ps：无需过于在意图中所表达的逻辑，图只是用于辅助说明下面的源码**
 
-<img src="vue-diff-algorithm/diff-vnode-children.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="https://isaaxite.github.io/assets/blog/diff-vnode-children.png" width="100%" alt="vue中的diff算法实现"/>
 
 ```typescript
 function updateChildren (
@@ -68,7 +68,7 @@ function updateChildren (
 
 [回到顶部]
 
-<img src="vue-diff-algorithm/diff-vnode-children-01.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="https://isaaxite.github.io/assets/blog/diff-vnode-children-01.png" width="100%" alt="vue中的diff算法实现"/>
 
 新旧头部vnode进行对比，判断是否匹配，以复用。sameVnode的功能与实现逻辑参考[附录：sameVnode的功能与实现逻辑]，值得一提的是：a.是input元素，更新前后type不一致；b.变动的是key属性；c.元素更新前后将所有属性删除，或从无到有；只要不是以上三种情况之一，不论怎么增删、修改元素上的属性，都不会影响是否匹配的结果！
 
@@ -106,7 +106,7 @@ function updateChildren (/* */) {
 
 [回到顶部]
 
-<img src="vue-diff-algorithm/diff-vnode-children-02.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="https://isaaxite.github.io/assets/blog/diff-vnode-children-02.png" width="100%" alt="vue中的diff算法实现"/>
 
 新旧尾部的对比情况和[1新头与旧头垂直对比]类似，再次再累累述，以下实现的逻辑：
 
@@ -132,7 +132,7 @@ function updateChildren (/* */) {
 
 [回到顶部]
 
-<img src="vue-diff-algorithm/diff-vnode-children-03.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="https://isaaxite.github.io/assets/blog/diff-vnode-children-03.png" width="100%" alt="vue中的diff算法实现"/>
 
 当前情况与[1新头与旧头垂直对比]略有不同！看源码中，多出了下面这句：
 
@@ -172,7 +172,7 @@ function updateChildren (/* */) {
 
 [回到顶部]
 
-<img src="vue-diff-algorithm/diff-vnode-children-04.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="https://isaaxite.github.io/assets/blog/diff-vnode-children-04.png" width="100%" alt="vue中的diff算法实现"/>
 
 当前情况与[新尾与旧头交叉对比]类似，不做赘述！配合图片和源码食用口味更佳~
 
@@ -287,7 +287,7 @@ function findIdxInOld (node, oldCh, start, end) {
 
 在旧children可能会找到也可能找不到可复用的元素，没有找到是什么情况？如图：
 
-<img src="vue-diff-algorithm/diff-vnode-children-05.png" width="100%" alt="vue中的diff算法实现：在头尾见找可复用元素"/>
+<img src="https://isaaxite.github.io/assets/blog/diff-vnode-children-05.png" width="100%" alt="vue中的diff算法实现：在头尾见找可复用元素"/>
 
 假如现在`newStartVnode`指向的是`key = 1.5`的vnode，那么很明显旧children中就没有可以复用的vnode，那么需要做的就是：a.创建一个与`newStartVnode`对应的newElm(新的真实html元素)；b.然后将newElm插入到旧children中`key=02`的vnode对应的真实元素的前面！
 
@@ -514,16 +514,16 @@ if (oldStartIdx > oldEndIdx) {
 根据newStartIdx和newEndIdx的移动情况
 
 1.newStartIdx一直右移，由于新增的vnode都在后面，可以复用的vnode都在前面了，newEndIdx会保持不变，直到遍历完旧children：
-<img src="vue-diff-algorithm/add-in-after.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="https://isaaxite.github.io/assets/blog/add-in-after.png" width="100%" alt="vue中的diff算法实现"/>
 &nbsp;
 
 2.newStartIdx右移，newEndIdx左移，直到遍历完旧children：
 
-<img src="vue-diff-algorithm/add-in-middle.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="https://isaaxite.github.io/assets/blog/add-in-middle.png" width="100%" alt="vue中的diff算法实现"/>
 
 3.新增的vnode都在前面了，由于是新的节点所以存在“newStartIdx右移”的情况，newStartIdx就保持不变了，而可复用的vnode在右边，随着一次次循环，newEndIdx则会左移：
 
-<img src="vue-diff-algorithm/add-in-before.png" width="100%" alt="vue中的diff算法实现"/>
+<img src="https://isaaxite.github.io/assets/blog/add-in-before.png" width="100%" alt="vue中的diff算法实现"/>
 
 新children删除了vnode的情况就不赘述，情况可以从上面的解析类推！
 

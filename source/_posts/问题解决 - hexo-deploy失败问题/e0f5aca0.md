@@ -23,9 +23,9 @@ categories:
 
 ## 为什么输入正确还是push失败？
 
-使用 [默认的deploy配置](e0f5aca0/https://hexo.io/docs/one-command-deployment#Git) 并进行部署，你会得到以下结果：
+使用 [默认的deploy配置](https://hexo.io/docs/one-command-deployment#Git) 并进行部署，你会得到以下结果：
 
-![](e0f5aca0/e0f5aca0/Snipaste_2023-03-10_23-08-51.png)
+![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_23-08-51.png)
 
 在以上日志已经提示：
 
@@ -45,7 +45,7 @@ remote: Support for password authentication was removed on August 13, 2021.
 
 hexo部署使用 [Github Repository: hexo-deployer-git] 库，可以查阅该库支持的验证方式。
 
-![](e0f5aca0/Snipaste_2023-03-10_21-27-01.png)
+![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_21-27-01.png)
 
 README指明，可以使用 Github 的 Access Token 进行验证。
 
@@ -53,7 +53,7 @@ README指明，可以使用 Github 的 Access Token 进行验证。
 
 注意，在分配权限时需要选择 repo 全部权限：
 
-![](e0f5aca0/Snipaste_2023-03-10_21-56-44.png)
+![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_21-56-44.png)
 
 
 接着，需要修改hexo配置，添加：
@@ -82,7 +82,7 @@ deploy:
 
 这里需要注意，虽然README有给出deploy的配置例子，但是不清晰！
 
-![](e0f5aca0/Snipaste_2023-03-10_21-46-08.png)
+![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_21-46-08.png)
 
 比较多人也对此吐槽了，并因此开了个issue！
 
@@ -93,7 +93,6 @@ deploy:
 还有一个小点需要注意：不需要配置 `name` 和 `email`！
 
 到此，配置即完成！
-
 
 ## [hexo-deployer-git]是怎么使用Token的
 
@@ -133,7 +132,7 @@ git push -u <repo.url> HEAD:<repo.branch> --force
 2. 设置 repoUrl.username；
 3. 观测 repoUrl.href。
 
-![](e0f5aca0/Snipaste_2023-03-10_18-19-20.png)
+![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_18-19-20.png)
 
 ### 使用执行 spaw 执行 git 命令
 
@@ -141,11 +140,11 @@ git push -u <repo.url> HEAD:<repo.branch> --force
 
 这个 `spaw` 推测是使用 [child_process]，类似常见的 npm lib 有：[shelljs]、[simple-git] 等等。
 
-![](e0f5aca0/Snipaste_2023-03-10_17-59-25.png)
+![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_17-59-25.png)
 
 详细就不展开，感兴趣可以参考：
-https://github.com/hexojs/hexo-util/blob/master/lib/spawn.ts
 
+<https://github.com/hexojs/hexo-util/blob/master/lib/spawn.ts>
 
 ## 附录
 
