@@ -734,7 +734,7 @@ gitalk:
 # For more information: https://utteranc.es
 utterances:
   enable: true
-  repo: isaaxite/blog # Github repository owner and name
+  repo: isaaxite/isaaxite.github.io # Github repository owner and name
   # Available values: pathname | url | title | og:title
   issue_term: title
   # Available values: github-light | github-dark | preferred-color-scheme | github-dark-orange | icy-dark | dark-blue | photon-dark | boxy-light
