@@ -25,7 +25,7 @@ categories:
 
 使用 [默认的deploy配置](https://hexo.io/docs/one-command-deployment#Git) 并进行部署，你会得到以下结果：
 
-![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_23-08-51.png)
+![](https://assets-amu.pages.dev/blog/Snipaste_2023-03-10_23-08-51.png)
 
 在以上日志已经提示：
 
@@ -45,7 +45,7 @@ remote: Support for password authentication was removed on August 13, 2021.
 
 hexo部署使用 [Github Repository: hexo-deployer-git] 库，可以查阅该库支持的验证方式。
 
-![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_21-27-01.png)
+![](https://assets-amu.pages.dev/blog/Snipaste_2023-03-10_21-27-01.png)
 
 README指明，可以使用 Github 的 Access Token 进行验证。
 
@@ -53,7 +53,7 @@ README指明，可以使用 Github 的 Access Token 进行验证。
 
 注意，在分配权限时需要选择 repo 全部权限：
 
-![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_21-56-44.png)
+![](https://assets-amu.pages.dev/blog/Snipaste_2023-03-10_21-56-44.png)
 
 
 接着，需要修改hexo配置，添加：
@@ -82,7 +82,7 @@ deploy:
 
 这里需要注意，虽然README有给出deploy的配置例子，但是不清晰！
 
-![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_21-46-08.png)
+![](https://assets-amu.pages.dev/blog/Snipaste_2023-03-10_21-46-08.png)
 
 比较多人也对此吐槽了，并因此开了个issue！
 
@@ -132,7 +132,7 @@ git push -u <repo.url> HEAD:<repo.branch> --force
 2. 设置 repoUrl.username；
 3. 观测 repoUrl.href。
 
-![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_18-19-20.png)
+![](https://assets-amu.pages.dev/blog/Snipaste_2023-03-10_18-19-20.png)
 
 ### 使用执行 spaw 执行 git 命令
 
@@ -140,7 +140,7 @@ git push -u <repo.url> HEAD:<repo.branch> --force
 
 这个 `spaw` 推测是使用 [child_process]，类似常见的 npm lib 有：[shelljs]、[simple-git] 等等。
 
-![](https://isaaxite.github.io/assets/blog/Snipaste_2023-03-10_17-59-25.png)
+![](https://assets-amu.pages.dev/blog/Snipaste_2023-03-10_17-59-25.png)
 
 详细就不展开，感兴趣可以参考：
 

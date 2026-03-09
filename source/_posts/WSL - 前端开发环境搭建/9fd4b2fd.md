@@ -105,17 +105,17 @@ wsl --install --distribution Debian
 
 安装完成之后，需要初始化账号和密码，然后即可在 Windows Terminal添加Debian。
 
-![VS Code 插件](https://isaaxite.github.io/assets/blog/Snipaste_2023-07-10_10-59-57.png)
+![VS Code 插件](https://assets-amu.pages.dev/blog/Snipaste_2023-07-10_10-59-57.png)
 
 ## VSCode 连接 WSL
 
 安装 VSCode 插件 `WSL`(ExtentionID: `ms-vscode-remote.remote-wsl`)，它让我们可以便捷地远程访问WSL安装的Debian
 
->![`WSL`(ExtentionID: `ms-vscode-remote.remote-wsl`)](https://isaaxite.github.io/assets/blog/Snipaste_2023-07-10_15-27-04.png)
+>![`WSL`(ExtentionID: `ms-vscode-remote.remote-wsl`)](https://assets-amu.pages.dev/blog/Snipaste_2023-07-10_15-27-04.png)
 
 连接Debian
 
-![WSL 插件连接结果](https://isaaxite.github.io/assets/blog/Snipaste_2023-07-10_16-17-01.png)
+![WSL 插件连接结果](https://assets-amu.pages.dev/blog/Snipaste_2023-07-10_16-17-01.png)
 
 ## Windows Terminal 连接 Debian
 
@@ -123,11 +123,11 @@ wsl --install --distribution Debian
 
 将 Debian 设为默认：
 
-![Windows Terminal](https://isaaxite.github.io/assets/blog/Snipaste_2023-07-10_16-20-05.png)
+![Windows Terminal](https://assets-amu.pages.dev/blog/Snipaste_2023-07-10_16-20-05.png)
 
 修改配置方案：
 
-![Windows Terminal 配置](https://isaaxite.github.io/assets/blog/Snipaste_2023-07-10_16-22-24.png)
+![Windows Terminal 配置](https://assets-amu.pages.dev/blog/Snipaste_2023-07-10_16-22-24.png)
 
 ## 替换 apt 软件源
 
@@ -153,7 +153,7 @@ Debian 12 默认使用的软件管理工具是 [apt](https://manpages.ubuntu.com
 
 下面会使用 [清华源镜像], 它有个 [help页面](https://mirrors.tuna.tsinghua.edu.cn/help/debian/) 可方便快速生成 Debian 的 apt 源内容。
 
->![清华源镜像 - help 页面](https://isaaxite.github.io/assets/blog/Snipaste_2023-07-10_11-42-51.png)
+>![清华源镜像 - help 页面](https://assets-amu.pages.dev/blog/Snipaste_2023-07-10_11-42-51.png)
 
 ### 修改 source.list
 
