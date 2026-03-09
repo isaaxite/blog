@@ -17,6 +17,7 @@
     "version": "7.3.0"
   },
   "dependencies": {
+    "fs-extra": "^11.3.4",
     "hexo": "^7.0.0-rc1",
     "hexo-asset-img": "^1.2.0",
     "hexo-deployer-git": "^4.0.0",

@@ -480,7 +480,8 @@ exturl_icon: true
 # Google Webmaster tools verification.
 # See: https://developers.google.com/search
 # <meta name="google-site-verification" content="D3uaiX9T8gcr1zBjqu9y67t-0DhGNCa7yyjpQ27T_Co" />
-google_site_verification: D3uaiX9T8gcr1zBjqu9y67t-0DhGNCa7yyjpQ27T_Co
+# <meta name="google-site-verification" content="bqSpyc9z3goK6p3issNFn8nTeMp91yBH6Qhp2Rc0YJY" />
+google_site_verification: bqSpyc9z3goK6p3issNFn8nTeMp91yBH6Qhp2Rc0YJY
 
 # Bing Webmaster tools verification.
 # See: https://www.bing.com/webmasters
@@ -489,7 +490,7 @@ bing_site_verification: F464CAFC267C0594A388BB361F49AB50
 
 # Yandex Webmaster tools verification.
 # See: https://webmaster.yandex.ru
-yandex_site_verification: 6c19c8db8db0ebe1
+yandex_site_verification: 2ce6e48e96b332af
 
 # Baidu Webmaster tools verification.
 # See: https://ziyuan.baidu.com/site

@@ -12,8 +12,8 @@ timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-# url: https://isaaxite.pages.dev/
-url: https://isaaxite.github.io/
+url: https://isaaxite.pages.dev/
+# url: https://isaaxite.github.io/
 # url: http://localhost:4000/
 root: /
 # permalink: :year/:month/:day/:title/
@@ -189,13 +189,20 @@ hide_posts:
   # blocklist_generators: ['*']
 
 sitemap:
-  path: 
-    - sitemap.xml
-    - sitemap.txt
-    - blog/sitemap.xml
-    - blog/sitemap.txt
+  path:
+    - sitemap.cloudflare.xml
+    - sitemap.cloudflare.txt
   # template: ./sitemap_template.xml
   # template_txt: ./sitemap_template.txt
+
+  # copy is the config for scripts/sitemap-copy.js
+  copy:
+    url: https://isaaxite.github.io
+    path:
+      - sitemap.xml
+      - sitemap.txt
+      - blog/sitemap.xml
+      - blog/sitemap.txt
   rel: false
   tags: false
   categories: false
