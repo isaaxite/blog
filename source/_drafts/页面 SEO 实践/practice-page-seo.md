@@ -7,7 +7,6 @@ tags:
 categories:
 - [SEO, 页面]
 ---
-
 ## Meta Description 标记
 
 下面是从 [MS Webmaster](https://www.bing.com/webmasters) 得到的提示：***缺少 Meta Description 标记***
@@ -125,6 +124,62 @@ permalink: :title/
 > *如何修复?*
 > 删除页面源代码中的冗余 `<h1>` 标记，以便仅存在一个 `<h1>` 标记。
 
+## Hexo 如何配置
+
+## 首页配置
+
+`_config.yml` - `site` 区域的配置：
+
+```yml
+# Site
+title: <title>                # 重要
+subtitle: [subtitle]
+description: <description>    # 重要
+keywords:                     # 重要
+  - <keyword 1>
+  - <keyword 2>
+  ...
+author: <author>              # 重要
+# timezone: Asia/Shanghai
+timezone: [timezone]
+```
+
+```html
+<meta name="description" content="<description>">
+<meta property="og:title" content="<title>">
+<meta property="og:url" content="https://isaaxite.pages.dev/index.html">
+<meta property="og:site_name" content="<title>">
+<meta property="og:description" content="<description>">
+<meta property="article:author" content="<author>">
+<meta property="article:tag" content="<keyword 1>">
+<meta property="article:tag" content="<keyword 2>">
+```
+
+open_graph
+
+| Option          | Description                                          | Default                                             |
+| --------------- | ---------------------------------------------------- | --------------------------------------------------- |
+| `title`         | Page title (`og:title`)                              | `page.title`                                        |
+| `type`          | Page type (`og:type`)                                | article(post page)  <br>website(non-post page)      |
+| `url`           | Page URL (`og:url`)                                  | `url`                                               |
+| `image`         | Page images (`og:image`)                             | All images in the content                           |
+| `author`        | Article author (`og:article:author`)                 | `config.author`                                     |
+| `date`          | Article published time (`og:article:published_time`) | Page published time                                 |
+| `updated`       | Article modified time (`og:article:modified_time`)   | Page modified time                                  |
+| `language`      | Article language (`og:locale`)                       | `page.lang \| page.language \| config.language`     |
+| `site_name`     | Site name (`og:site_name`)                           | `config.title`                                      |
+| `description`   | Page description (`og:description`)                  | Page excerpt or first 200 characters of the content |
+| `twitter_card`  | Twitter card type (`twitter:card`)                   | summary                                             |
+| `twitter_id`    | Twitter ID (`twitter:creator`)                       |                                                     |
+| `twitter_site`  | Twitter Site (`twitter:site`)                        |                                                     |
+| `twitter_image` | Twitter Image (`twitter:image`)                      |                                                     |
+| `google_plus`   | Google+ profile link                                 |                                                     |
+| `fb_admins`     | Facebook admin ID                                    |                                                     |
+| `fb_app_id`     | Facebook App ID                                      |                                                     |
+
 ## 附录
 
-[Bing Webmaster - IndexNow](https://www.bing.com/indexnow/getstarted#implementation)：通过使用 IndexNow 的提交 API，让系统自动提交 URL，并确保必应上显示的内容是最新的。
+- [Bing Webmaster - IndexNow](https://www.bing.com/indexnow/getstarted#implementation)：通过使用 IndexNow 的提交 API，让系统自动提交 URL，并确保必应上显示的内容是最新的。
+- [搜索引擎优化 (SEO) 入门指南](https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=zh_CN)
+- [How to Favicon in 2026: Three files that fit most needs](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)
+- [The Open Graph protocol](https://ogp.me/)

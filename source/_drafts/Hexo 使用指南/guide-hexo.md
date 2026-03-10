@@ -1,6 +1,6 @@
 ---
 title: Hexo 使用指南
-excerpt: Hexo，指南，配置，NexT。启用 Mermaid。
+excerpt: Hexo，指南，配置，NexT。启用 Mermaid、Favicon 配置。
 slugpath: guide/hexo 
 date: 2026-03-07 10:59:40
 tags:
@@ -60,3 +60,90 @@ hexo server [--draft] # 本地预览
 ```
 
 示例：[Vue 源码分析 - 数组变异方法的实现原理](/blog/source-code-reading/vue/array-mutation/)
+
+## Favicon 配置
+
+### 方案一：极简版
+
+#### 准备图片
+
+产出以下三个格式的图片：
+
+- 180×180：`apple-touch-icon.png`；
+- 32×32：`favicon.ico`；
+- 32×32（`viewBox="0 0 32 32`）`：icon.svg`。
+
+**Step 1** - 准备一张图，假定是： `favicon.png`。
+
+**Step 2** - 压缩它：使用 [tinify](https://tinypng.com/)，得到 `tinified-favicon.png`。
+
+**Step 3** - 将 `tinified-favicon.png` 转为 `svg` 格式：使用 [PNG to SVG](https://png2svg.com/)，得到 `tinified-favicon.svg`；
+
+**Step 4** - 产出 `apple-touch-icon.png`
+
+```bash
+ffmpeg -i tinified-favicon.png -vf "scale=180:180" -compression_level 9 apple-touch-icon.png
+```
+
+**Step 5** - 产出 `favicon.ico`
+
+```bash
+ffmpeg -i tinified-favicon.png -vf "scale=32:32" -compression_level 9 ./favicon.ico
+```
+
+**Step 6** - `icon.svg`
+
+使用 [SVG Viewer](https://www.svgviewer.dev/)，压缩并修改宽高，最后重命名为 `icon.svg`。
+
+参考工具：
+
+- [Image Resizer](https://imageresizer.com/)：Easily resize images online for free.
+
+#### 使用图片
+
+**Step 1** - 将它们存放到 Web 服务器的根目录下（Hexo 本地根目录是 `source/`）。
+
+**Step 2** - 目标是在 HTML 页面的 `<head>` 內插入以下内容：
+
+```html
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+```
+
+首先，注释 `themes/next/_config.yml` 中的 `favicon` 配置：
+
+```yml
+# ---------------------------------------------------------------
+# Site Information Settings
+# ---------------------------------------------------------------
+favicon:
+  # small: /images/favicon-16x16-next.png
+  # medium: /images/favicon-32x32-next.png
+  # apple_touch_icon: /images/apple-touch-icon-next.png
+  # safari_pinned_tab: /images/logo.svg
+  # android_manifest: /manifest.json
+```
+
+然后，新增脚本 `scripts/favicon.js`：
+
+```js
+// 在 <head> 中插入自定义的 favicon 链接
+hexo.extend.filter.register('theme_inject', function(injects) {
+  // 插入到 head 的末尾
+  injects.head.raw('custom-favicon', [
+    '<link rel="icon" href="/favicon.ico" sizes="32x32">',
+    '<link rel="icon" href="/icon.svg" type="image/svg+xml">',
+    '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+  ].join('\n'), {}, { cache: true });
+});
+```
+
+最后，`npx hexo clean && npx hexo server[ --draft]`。
+
+### 参考
+
+- [The Open Graph protocol](https://ogp.me/)
+- [How to Favicon in 2026: Three files that fit most needs](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)
+- [Google updates Favicon Requirements: new 8x8px minimum size](https://ppc.land/google-updates-favicon-requirements-new-8x8px-minimum-size-2/#/portal/#/portal)
+- [What is a Favicon? Size, Formats & How to Add One (2026 Guide)](https://www.bluehost.com/blog/what-is-a-favicon)
