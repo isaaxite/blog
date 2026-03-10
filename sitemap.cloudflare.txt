@@ -48,7 +48,7 @@ https://isaaxite.pages.dev/blog/js-inheritance-patterns/
 https://isaaxite.pages.dev/blog/js-scope-chain/
 https://isaaxite.pages.dev/blog/js-generator-intro/
 https://isaaxite.pages.dev/blog/js-new-operator-mechanism/
-https://isaaxite.pages.dev/categories/index.html
 https://isaaxite.pages.dev/schedule/index.html
+https://isaaxite.pages.dev/categories/index.html
 https://isaaxite.pages.dev/tags/index.html
 https://isaaxite.pages.dev/
