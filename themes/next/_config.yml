@@ -494,7 +494,8 @@ yandex_site_verification: 2ce6e48e96b332af
 
 # Baidu Webmaster tools verification.
 # See: https://ziyuan.baidu.com/site
-baidu_site_verification:
+# <meta name="baidu-site-verification" content="codeva-QuOxY0lCkE" />
+baidu_site_verification: codeva-QuOxY0lCkE
 
 
 # ---------------------------------------------------------------

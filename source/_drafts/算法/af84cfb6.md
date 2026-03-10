@@ -1,35 +1,34 @@
 ---
-title: 算法
+title: 全面分析二分查找（Binary Search）
 excerpt: 算法
 date: 2024-07-06 14:46:42
 tags:
 categories:
 ---
-# 二分查找（Binary Search）
-
-![](af84cfb6/image-20240715214758376.jpeg)
 
 二分查找是一种高效的搜索算法，用于在有序数组中查找特定元素。它的基本原理是：将目标值与数组中间元素比较；如果相等，则找到目标；如果目标小于中间元素，在左半部分继续查找；如果目标大于中间元素，在右半部分继续查找。
 时间复杂度为 `O(log n)`，其中n是数组长度；空间复杂度：`O(1)`，只需要常数额外空间。使用二分查找的前提为数组必须是有序的，实现的方式可使用迭代法或递归法。
 
 优点：
-   - 查找速度快，尤其适用于大型数据集；
-   - 实现简单。
+
+- 查找速度快，尤其适用于大型数据集；
+- 实现简单。
 
 缺点：
-   - 仅适用于有序数组；
-   - 不适合频繁插入删除的动态数组。
+
+- 仅适用于有序数组；
+- 不适合频繁插入删除的动态数组。
 
 ## 不同类型的二分查找
 
-有比较常见的：在有序序列中找一个数。
+有比较常见的：**在有序序列中查找特定值**。
 
 ```js
 const target = 3；
 const nums = [1, 2, 3, 4, 5];
 ```
 
-稍微变种的：寻找目标值的边界位置，有左侧（最小）、右侧（最大）边界查找。所谓边界即：在序列中，存在与目标值相等复数个元素，序列中某段连续位置上的值都是与目标值相等，连续位置中最小和最大的位置即为左侧和右侧边界。
+稍微变种的：**查找特定值的边界位置**，有左侧（最小）、右侧（最大）边界查找。所谓边界即：在序列中，存在与目标值相等复数个元素，序列中某段连续位置上的值都是与目标值相等，连续位置中最小和最大的位置即为左侧和右侧边界。
 
 ```js
 const target = 3；
@@ -38,16 +37,15 @@ const target = 3；
 const nums = [1, 2, 3, 3, 3, 4, 5];
 ```
 
+## 查找特定值
 
-## 找一个数
-
-在一个有序数组中找一个数的场景是二分查找最常见的应用场景，也是迭代发中它最简单的算法实现。
+在一个有序数组中查找特定值的场景是二分查找最常见的应用场景，也是迭代法中它最简单的算法实现。
 
 ```js
 function binarySearch(arr, target) {
   let left = 0;
   let right = arr.length - 1;
-	
+
   while (left <= right) {
     // 使用位运算来计算中间索引,避免可能的整数溢出
     const mid = left + ((right - left) >> 1);
@@ -85,7 +83,7 @@ console.log(binarySearch(arr, 4));  // 输出: -1
 
 - `left = -1;right = arr.length`：`left` 和 `right` 的赋值已经越界，因此可认为此情况是左闭右闭区间，写作 `(left, right)`；
 
-*注意：区间并非只有仅在最初赋值设定，而是需要在搜索区间不断缩小的时候保持开闭区间逻辑*
+***注意：区间并非只有仅在最初赋值设定，而是需要在搜索区间不断缩小的时候保持开闭区间逻辑***
 
 在决定使用何种开闭区间组织二分查找逻辑后，就应该一直保持，直到迭代循环的结束，否则将是预期外的结果，这些预期外的结果将在下文探讨（todo）。
 
@@ -1908,7 +1906,7 @@ function binarySearch(arr, target) {
 
 异常用例：
 
-```
+```bash
 # Time Limit Exceeded
 1/47 cases passed (N/A)
 
@@ -1930,25 +1928,202 @@ function binarySearch(arr, target) {
 
 - 边界更新：左开右闭区间。
 
-
-
 ### 应用场景
 
-todo
+- 有序数组查找；
+- 查找插入位置；
+- 旋转数组查找；
+- 二维矩阵查找；
+- 寻找峰值；
+- 求平方根。
 
+#### 查找插入位置
 
-## 寻找边界
+```js
+/**
+ * LeetCode 35. 搜索插入位置
+ * 找到目标值在有序数组中的插入位置
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+function searchInsert(nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+  
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    
+    if (nums[mid] === target) {
+      return mid;
+    } else if (nums[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+  
+  return left;  // 返回插入位置
+}
+
+// 测试
+console.log(searchInsert([1,3,5,6], 5));  // 输出: 2
+console.log(searchInsert([1,3,5,6], 2));  // 输出: 1
+console.log(searchInsert([1,3,5,6], 7));  // 输出: 4
+console.log(searchInsert([1,3,5,6], 0));  // 输出: 0
+```
+
+#### 在旋转有序数组中查找
+
+```js
+/**
+ * LeetCode 33. 搜索旋转排序数组
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+function searchRotated(nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+  
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    
+    if (nums[mid] === target) {
+      return mid;
+    }
+    
+    // 判断哪边是有序的
+    if (nums[left] <= nums[mid]) {  // 左半部分有序
+        if (target >= nums[left] && target < nums[mid]) {
+          right = mid - 1;  // target在左半部分
+        } else {
+          left = mid + 1;   // target在右半部分
+        }
+    } else {  // 右半部分有序
+      if (target > nums[mid] && target <= nums[right]) {
+        left = mid + 1;   // target在右半部分
+      } else {
+        right = mid - 1;  // target在左半部分
+      }
+    }
+  }
+  
+  return -1;
+}
+
+// 测试
+const rotatedNums = [4,5,6,7,0,1,2];
+console.log(searchRotated(rotatedNums, 0));  // 输出: 4
+console.log(searchRotated(rotatedNums, 3));  // 输出: -1
+```
+
+#### 二维矩阵中的二分查找
+
+```js
+/**
+ * LeetCode 74. 搜索二维矩阵
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+function searchMatrix(matrix, target) {
+  if (!matrix.length || !matrix[0].length) return false;
+  
+  const m = matrix.length;
+  const n = matrix[0].length;
+  let left = 0;
+  let right = m * n - 1;
+  
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    const row = Math.floor(mid / n);
+    const col = mid % n;
+    const value = matrix[row][col];
+    
+    if (value === target) {
+        return true;
+    } else if (value < target) {
+        left = mid + 1;
+    } else {
+        right = mid - 1;
+    }
+  }
+  
+  return false;
+}
+
+// 测试
+const matrix = [
+  [1, 3, 5, 7],
+  [10, 11, 16, 20],
+  [23, 30, 34, 60]
+];
+console.log(searchMatrix(matrix, 3));   // 输出: true
+console.log(searchMatrix(matrix, 13));  // 输出: false
+```
+
+## 边界查找
+
+二分边界查找是二分查找的一个重要变体，用于在有序数组中查找某个元素的第一个出现位置或最后一个出现位置。
 
 使用二分查找的基本场景是在一个有序序列中寻找目标数值。在此之上还存在这样一种场景：序列中的元素值不是唯一的，可能存在复数个，比如在：`[1,2,3,3,3,4,5]` 中 `3` 即为复数的存在！有可能需要寻找目标数值在序列中出现的最小或最大索引或两者兼有。使用基础的二分查找算法找出目标值后，使用线性遍历的方式向两个方向进行嗅探也不失为一种方式，但伴随序列的量级膨胀，可以预见复杂度在增加！而二分查找是存在用于快速寻找边界的变种算法！即为寻找最小边界的“寻找左侧边界的二分查找”和“寻找右侧边界的二分查找”。
 
 ### 寻找左侧边界
 
-todo
+```js
+/**
+ * 寻找target在有序数组中第一次出现的位置
+ * 如果不存在，返回-1
+ */
+function findLeftBoundary(nums, target) {
+  let left = 0, right = nums.length - 1;
+  let result = -1;
+  
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    
+    if (nums[mid] === target) {
+      result = mid;      // 记录当前位置
+      right = mid - 1;   // 继续向左寻找更左边的位置
+    } else if (nums[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+  
+  return result;
+}
+```
 
 ### 寻找右侧边界
 
-todo
-
+```js
+/**
+ * 寻找target在有序数组中最后一次出现的位置
+ * 如果不存在，返回-1
+ */
+function findRightBoundary(nums, target) {
+  let left = 0, right = nums.length - 1;
+  let result = -1;
+  
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    
+    if (nums[mid] === target) {
+      result = mid;      // 记录当前位置
+      left = mid + 1;    // 继续向右寻找更右边的位置
+    } else if (nums[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+  
+  return result;
+}
+```
 
 ## 附录
 
