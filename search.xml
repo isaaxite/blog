@@ -423,10 +423,10 @@
         <category>WSL</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>环境配置</tag>
         <tag>NodeJS</tag>
         <tag>VSCode</tag>
+        <tag>Linux</tag>
         <tag>Debian</tag>
         <tag>Windows</tag>
         <tag>WSL</tag>
@@ -1461,9 +1461,9 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
-        <tag>linux</tag>
         <tag>tmux</tag>
         <tag>terminal</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1920,8 +1920,8 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
-        <tag>linux</tag>
         <tag>terminal</tag>
+        <tag>linux</tag>
         <tag>tilix</tag>
       </tags>
   </entry>
@@ -3008,8 +3008,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <!-- refs defined -->
 ]]></content>
       <categories>
-        <category>前端工程化</category>
         <category>网络安全</category>
+        <category>前端工程化</category>
       </categories>
       <tags>
         <tag>eslint-plugin-security</tag>
@@ -3824,8 +3824,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <!-- Defined Refs -->
 ]]></content>
       <categories>
-        <category>前端工程化</category>
         <category>指南</category>
+        <category>前端工程化</category>
         <category>CI/CD</category>
       </categories>
       <tags>
@@ -4044,7 +4044,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm pkg set scripts.prepare=&quot;husky install&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 执行以上命令得到的结果是：</span></span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">+    &quot;prepare&quot;: &quot;husky install&quot; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>prepare (since <a href="mailto:&#110;&#112;&#109;&#x40;&#52;&#x2e;&#x30;&#x2e;&#48;">&#110;&#112;&#109;&#x40;&#52;&#x2e;&#x30;&#x2e;&#48;</a>)</strong></p>
+<p><strong>prepare (since <a href="mailto:&#x6e;&#x70;&#x6d;&#64;&#x34;&#46;&#x30;&#46;&#x30;">&#x6e;&#x70;&#x6d;&#64;&#x34;&#46;&#x30;&#46;&#x30;</a>)</strong></p>
 <p>Runs BEFORE the package is packed<br>Runs BEFORE the package is published<br><mark>Runs on local “npm install” without any arguments</mark><br>Run AFTER <code>prepublish</code>, but BEFORE <code>prepublishOnly</code><br>NOTE: If a package being installed through git contains a <code>prepare</code> script, its <code>dependencies</code> and <code>devDependencies</code> will be installed, and the prepare script will be run, before the package is packaged and installed.</p>
 <p>Refenrence: <a href="https://docs.npmjs.com/cli/v9/using-npm/scripts">How npm handles the “scripts” field</a></p>
 </blockquote>
@@ -5209,8 +5209,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
         <category>问题解决</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>debian</tag>
+        <tag>hexo</tag>
         <tag>deploy</tag>
         <tag>wsl</tag>
         <tag>github</tag>
@@ -5292,8 +5292,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 ]]></content>
       <categories>
         <category>Linux</category>
-        <category>Docker</category>
         <category>问题解决</category>
+        <category>Docker</category>
       </categories>
       <tags>
         <tag>linux</tag>
