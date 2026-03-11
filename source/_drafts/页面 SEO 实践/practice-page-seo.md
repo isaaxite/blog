@@ -177,6 +177,13 @@ open_graph
 | `fb_admins`     | Facebook admin ID                                    |                                                     |
 | `fb_app_id`     | Facebook App ID                                      |                                                     |
 
+## Webmaster
+
+- [Bing Webmaster Tools](https://www.bing.com/webmasters/home)
+- [Yandex Webmaster](https://webmaster.yandex.ru/sites/)
+- [Google Search Console](https://search.google.com/search-console)
+- [百度搜索资源平台](https://ziyuan.baidu.com/site/index#/)
+
 ## 附录
 
 - [Bing Webmaster - IndexNow](https://www.bing.com/indexnow/getstarted#implementation)：通过使用 IndexNow 的提交 API，让系统自动提交 URL，并确保必应上显示的内容是最新的。
