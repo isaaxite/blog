@@ -1,5 +1,5 @@
 ---
-title: 肇庆摩托驾驶证 E 证考试全流程记录与心得
+title: 肇庆摩托 E 证考试指南
 excerpt: ""
 slugpath: guide/zhaoqing-motorcycle-license-e
 alisa: blog/438ddc82
