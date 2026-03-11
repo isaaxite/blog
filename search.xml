@@ -434,6 +434,238 @@
       </tags>
   </entry>
   <entry>
+    <title>Parabolic、Ear Tag 和 Rhythmbox 搭建本地音乐库</title>
+    <url>/blog/linux-daily-use/local-music-library-setup/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>搭建自己专属的本地音乐库，满足收藏癖好。解决版权问题导致的种种问题，凑不齐的播放列表。看看下文，来点思路。</p>
+<p>下文介绍在 Linux（LMDE 6）环境下搭建本地音乐库。使用 Parabolic 下载视频为音频文件；Ear Tag 编辑完善音频元数据，让它有好看的封面，正确的标题（演奏者）、专辑信息等等；Rhythmbox 或 Amberol 播放。</p>
+<h2 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h2><ul>
+<li>OS: LMDE 6 (faye) x86_64；</li>
+<li>Kernel: 6.1.0-42-amd64</li>
+</ul>
+<h2 id="将要使用的软件"><a href="#将要使用的软件" class="headerlink" title="将要使用的软件"></a>将要使用的软件</h2><ul>
+<li>下载音乐：<a href="https://github.com/NickvisionApps/Parabolic">Parabolic</a>；</li>
+<li>编辑音乐文件元数据：<a href="https://gitlab.gnome.org/World/eartag">Ear Tag</a>；</li>
+<li>本地音乐播放器：<a href="https://wiki.gnome.org/Apps/Rhythmbox">Rhythmbox</a>。</li>
+</ul>
+<h2 id="安装-Parabolic"><a href="#安装-Parabolic" class="headerlink" title="安装 Parabolic"></a>安装 Parabolic</h2><p>使用 <code>flatpak</code> 安装。<code>flatpak</code> 非 <code>LMDE</code> 自带，若未安装，可参考 <a href="https://flathub.org/en/setup/Debian">Set Up Flathub &gt; Debian</a>，下同再赘述。Flathub 中的 <a href="https://flathub.org/en/apps/org.nickvision.tubeconverter">Parabolic</a>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">flatpak install org.nickvision.tubeconverter</span><br></pre></td></tr></table></figure>
+
+<p>其他安装方式：</p>
+<ul>
+<li><a href="https://addons.mozilla.org/en-US/firefox/addon/parabolic/">Firefox ADD-ONS</a></li>
+<li><a href="https://github.com/NickvisionApps/Parabolic/releases">MacOS | Windows</a></li>
+</ul>
+<h2 id="安装-Ear-Tag"><a href="#安装-Ear-Tag" class="headerlink" title="安装 Ear Tag"></a>安装 Ear Tag</h2><p>Flathub 中的 <a href="https://flathub.org/en/apps/app.drey.EarTag">Ear Tag</a>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">flatpak install app.drey.EarTag</span><br></pre></td></tr></table></figure>
+
+<p><strong>注</strong>：<em>仅支持 Linux，详见 <a href="https://apps.gnome.org/EarTag/">App for GNOME</a></em> 。</p>
+<h2 id="安装-Rhythmbox"><a href="#安装-Rhythmbox" class="headerlink" title="安装 Rhythmbox"></a>安装 Rhythmbox</h2><p>Rhythmbox 是 LMDE 自带，无需安装。如果不是这样，可使用 apt 安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> install rhythmbox -y</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载音乐"><a href="#下载音乐" class="headerlink" title="下载音乐"></a>下载音乐</h2><p>Parabolic 是强大的视频和音频下载工具，它的下载能力覆盖上百个网站，比如 Bilibili。<a href="https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md">点击</a>查看官方提供的，它下载能力覆盖的网站列表。</p>
+<p>它支持将视频下载为：MP4，WEBM，MKV，MOV，AVI，MP3，M4A，OPUS，FLAC 和 WAV。</p>
+<p>下面以下载<a href="https://www.bilibili.com/video/BV1jk4y1v77X/?share_source=copy_web&vd_source=792027cc03eadb17f9372168dabbf9ba">【Gimme! Gimme! Gimme!  - ABBA【Hi-Res】百万级装备试听】</a> 为例：</p>
+<p><img src="https://assets-amu.pages.dev/blog/2026-03-12-06-52-48.png" alt="Parabolic 下载在线视频为音频"></p>
+<h2 id="编辑元数据"><a href="#编辑元数据" class="headerlink" title="编辑元数据"></a>编辑元数据</h2><p>Ear Tag 是个简单的音频元数据编辑工具，支持编辑 MP3, WAV, M4A, FLAC, OGG 和 WMA 格式的音频文件。使用 Ear Tag 打开下载好的 <code>Gimme! Gimme! Gimme!  - ABBA【Hi-Res】百万级装备试听 [BV1jk4y1v77X].mp3</code>，你会看到一些不太理想的元数据：</p>
+<p><img src="https://assets-amu.pages.dev/blog/2026-03-12-06-51-32.png" alt="编辑前的音频元数据"></p>
+<h3 id="极简版的元数据"><a href="#极简版的元数据" class="headerlink" title="极简版的元数据"></a>极简版的元数据</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>元数据名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>标题</td>
+<td>Title</td>
+<td>歌曲标题</td>
+</tr>
+<tr>
+<td>艺术家</td>
+<td>Artist</td>
+<td>演唱者&#x2F;演奏者</td>
+</tr>
+<tr>
+<td>封面</td>
+<td>无对应元数据名</td>
+<td>格式：png &#x2F; jpg</td>
+</tr>
+</tbody></table>
+<h3 id="我喜欢的版本"><a href="#我喜欢的版本" class="headerlink" title="我喜欢的版本"></a>我喜欢的版本</h3><p>在极简版的基础上再加上：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>元数据名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>轨道号</td>
+<td>Track number</td>
+<td>歌曲在专辑中的序号</td>
+</tr>
+<tr>
+<td>轨道数</td>
+<td>Total Tracks</td>
+<td>专辑中歌曲总数</td>
+</tr>
+<tr>
+<td>专辑名称</td>
+<td>Album</td>
+<td>有助于音乐播放器按专辑归类</td>
+</tr>
+<tr>
+<td>专辑艺术家</td>
+<td>Album artist</td>
+<td>专辑作者</td>
+</tr>
+<tr>
+<td>发行日期</td>
+<td>Release date</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>或者可再加上：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>元数据名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>风格</td>
+<td>Genre</td>
+<td>有助于音乐播放器按风格归类</td>
+</tr>
+<tr>
+<td>作曲者</td>
+<td>Composer</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="获取元数据"><a href="#获取元数据" class="headerlink" title="获取元数据"></a>获取元数据</h3><p>在网络上不难找到一首歌曲的元数据信息。或可尝试在 <a href="https://www.kkbox.com/hk/tc/">KKBOX</a> 网站上获取。在 KKBOX 上，可以根据歌曲名称获取：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>数据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>标题 &#x2F; 歌曲名</td>
+<td>Gimme! Gimme! Gimme! (A Man After Midnight)</td>
+</tr>
+<tr>
+<td>艺术家 &#x2F; 乐队名</td>
+<td>ABBA</td>
+</tr>
+<tr>
+<td>封面</td>
+<td>此处不作展示，<a href="https://www.kkbox.com/hk/tc/song/CnEkyTypUCArr5ugXQ">点击查看封面详情</a></td>
+</tr>
+<tr>
+<td>作词</td>
+<td>B.Andersson &amp; B.Ulvaeus</td>
+</tr>
+<tr>
+<td>作曲</td>
+<td>B.Andersson &amp; B.Ulvaeus</td>
+</tr>
+<tr>
+<td>歌词</td>
+<td>此处不作展示，<a href="https://www.kkbox.com/hk/tc/song/CnEkyTypUCArr5ugXQ">点击查看歌词详情</a></td>
+</tr>
+<tr>
+<td>专辑名</td>
+<td>ABBA Gold</td>
+</tr>
+<tr>
+<td>轨道号</td>
+<td>14</td>
+</tr>
+<tr>
+<td>轨道数</td>
+<td>19</td>
+</tr>
+<tr>
+<td>发行日期</td>
+<td>1&#x2F;1&#x2F;2008</td>
+</tr>
+<tr>
+<td>专辑介绍</td>
+<td>此处不作展示，<a href="https://www.kkbox.com/hk/tc/song/CnEkyTypUCArr5ugXQ">点击查看专辑介绍</a></td>
+</tr>
+</tbody></table>
+<p><img src="https://assets-amu.pages.dev/blog/2026-03-12-06-50-28.png" alt="完善元数据后的音频"></p>
+<h2 id="本地音乐播放器"><a href="#本地音乐播放器" class="headerlink" title="本地音乐播放器"></a>本地音乐播放器</h2><table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Name</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://assets-amu.pages.dev/blog/file-20250331080903896.png" alt="Rhythmbox 图标"></td>
+<td><a href="dcf290e7/https://wiki.gnome.org/Apps/Rhythmbox">Rhythmbox</a></td>
+<td><strong>GNOME</strong> 桌面环境默认的<strong>音乐播放与管理软件</strong>，适用于 <strong>Linux</strong> 系统。它提供音频播放、音乐库管理、网络电台、播客支持等功能，界面简洁易用，适合日常听歌和轻度音乐整理需求。</td>
+</tr>
+</tbody></table>
+<p><img src="https://assets-amu.pages.dev/blog/2026-03-12-06-48-59.png" alt="Rhythmbox 播放界面"></p>
+<p>如果不介意无法创建播放列表、无法分类，更注重视觉体验，那么 <a href="https://apps.gnome.org/Amberol/">Amberol</a> 会是超出预期的选择。现代化 GTK 4 设计，无冗余元素。专注播放，无后台扫描或数据库负担。完美融入最新 GNOME 桌面。</p>
+<p><img src="https://assets-amu.pages.dev/blog/2026-03-12-06-47-39.png" alt="Amberol 播放界面"></p>
+<h3 id="增强-Rhythmbox-体验"><a href="#增强-Rhythmbox-体验" class="headerlink" title="增强 Rhythmbox 体验"></a>增强 Rhythmbox 体验</h3><p>上面展示的 Rhythmbox 界面，实际并非它原有的模样。而是经过 <a href="https://github.com/fossfreedom/alternative-toolbar">fossfreedom &#x2F;alternative-toolbar</a> 配置后的结果。下面的才是它原有的模样：</p>
+<p><img src="https://assets-amu.pages.dev/blog/file-20250326093045383.png" alt="Rhythmbox 原来的模样"></p>
+<p>使用 Git 克隆到本地安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Downloads</span><br><span class="line"><span class="built_in">sudo</span> apt-get install intltool git gir1.2-glib-2.0 gir1.2-gstreamer-1.0 gir1.2-gtk-3.0 gir1.2-peas-1.0 gir1.2-rb-3.0 gnome-pkg-tools gobject-introspection libglib2.0-dev pkg-config python3-gi python3</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/fossfreedom/alternative-toolbar.git</span><br><span class="line"><span class="built_in">cd</span> alternative-toolbar</span><br><span class="line">./autogen.sh --prefix=/usr</span><br><span class="line">make</span><br><span class="line"><span class="built_in">sudo</span> make install</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/fossfreedom/alternative-toolbar">fossfreedom &#x2F;alternative-toolbar</a> 旨在改进默认界面的用户体验，提供更现代化的布局和增强的功能。在多个方面都作了不同程度的增强与优化：</p>
+<ul>
+<li><strong>更紧凑的工具栏</strong><ul>
+<li>合并播放控制、搜索栏和视图切换，减少空间占用</li>
+<li>支持自定义工具栏按钮（隐藏&#x2F;显示特定功能）</li>
+</ul>
+</li>
+<li><strong>现代化的播放控制</strong><ul>
+<li>更直观的播放按钮（类似现代播放器风格）</li>
+<li>支持进度条内显示当前&#x2F;总时间</li>
+</ul>
+</li>
+<li><strong>增强的搜索功能</strong>：全局搜索栏集成到工具栏，快速查找歌曲、专辑或艺术家</li>
+<li><strong>快捷视图切换</strong>：一键切换 <em>“专辑视图”</em>、<em>“艺术家视图”</em> 和 <em>“播放列表”</em>，无需进入侧边栏</li>
+<li><strong>播放状态显示优化</strong><ul>
+<li>当前播放歌曲信息（标题、艺术家）直接显示在工具栏</li>
+<li>可自定义显示元数据（如比特率、文件格式）</li>
+</ul>
+</li>
+<li><strong>可调整布局</strong><ul>
+<li>允许用户选择 <strong>经典模式</strong>（默认 Rhythmbox 风格）或 <strong>紧凑模式</strong>（节省空间）</li>
+<li>支持隐藏不常用的按钮（如广播、播客）</li>
+</ul>
+</li>
+<li><strong>快捷键支持</strong>：提供额外的键盘快捷键控制播放（如 <code>Ctrl+F</code> 快速聚焦搜索栏）</li>
+</ul>
+<p><img src="https://assets-amu.pages.dev/blog/file-20250326094015785.png" alt="来自 alternative-toolbar &gt; Github README 的示例图"></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>文中涉及到的几个软件，它们的安装方式和过程都是很简单且无异常抛出，不必有心智负担。如果你对 FFmpeg  和 Shell 脚本感兴趣，可以看看我的另外一个缓慢开发中的项目：<a href="https://github.com/isaaxite/muselfic">isaaxite &#x2F; muselfic</a>。若你有有趣的方案请到原文的<a href="http://localhost:4000/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD">评论</a>中分享给我，会有又见通知我的。如果你从本文获得了帮助或思路，请不要吝啬你的鼓励。你可以到原文写下<a href="http://localhost:4000/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD">评论</a>，或给我在 Github 的博客项目点 <a href="https://github.com/isaaxite/isaaxite.github.io">GitHub stars</a>、<a href="https://github.com/isaaxite/isaaxite.github.io">GitHub watchers</a>，毕竟它的数据实际不怎么样。如果你财大气粗，不吝打赏 - <a href="http://localhost:4000/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD">Buy me a coffee</a>。</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>Linux 工具</category>
+      </categories>
+      <tags>
+        <tag>本地乐库</tag>
+        <tag>本地音乐</tag>
+        <tag>Linux</tag>
+        <tag>Rhythmbox</tag>
+        <tag>Parabolic</tag>
+        <tag>Ear Tag</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Tmux 的相关概念与基本使用</title>
     <url>/blog/usage/tmux/</url>
     <content><![CDATA[<p>本文的首要目的是记录，而非完全性的指南，不免会有缺漏。目标是随时间的推移逐步完善此记录，最终达到指南的程度。将以 tmux 的官方文档为核心其他资料为辅介绍 tmux 的基本概念和术语，让 tmux 的潜在用户对它有基本的了解，以达到无痛入门，降低心智消耗的作用。涉及 tmux 的会话（session）、视窗（window）、窗格（pane）和其他的核心内容的基本使用，以达到开箱即用，为 tmux 拾一根薪火（赞美太阳🔥）。</p>
@@ -1461,8 +1693,8 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
-        <tag>linux</tag>
         <tag>terminal</tag>
+        <tag>linux</tag>
         <tag>tmux</tag>
       </tags>
   </entry>
@@ -1920,9 +2152,9 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
-        <tag>linux</tag>
         <tag>tilix</tag>
         <tag>terminal</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -3008,8 +3240,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <!-- refs defined -->
 ]]></content>
       <categories>
-        <category>前端工程化</category>
         <category>网络安全</category>
+        <category>前端工程化</category>
       </categories>
       <tags>
         <tag>eslint-plugin-security</tag>
@@ -3824,8 +4056,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <!-- Defined Refs -->
 ]]></content>
       <categories>
-        <category>前端工程化</category>
         <category>指南</category>
+        <category>前端工程化</category>
         <category>CI/CD</category>
       </categories>
       <tags>
@@ -4044,7 +4276,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm pkg set scripts.prepare=&quot;husky install&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 执行以上命令得到的结果是：</span></span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">+    &quot;prepare&quot;: &quot;husky install&quot; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>prepare (since <a href="mailto:&#110;&#112;&#x6d;&#64;&#52;&#46;&#48;&#x2e;&#48;">&#110;&#112;&#x6d;&#64;&#52;&#46;&#48;&#x2e;&#48;</a>)</strong></p>
+<p><strong>prepare (since <a href="mailto:&#x6e;&#x70;&#109;&#64;&#x34;&#x2e;&#48;&#x2e;&#x30;">&#x6e;&#x70;&#109;&#64;&#x34;&#x2e;&#48;&#x2e;&#x30;</a>)</strong></p>
 <p>Runs BEFORE the package is packed<br>Runs BEFORE the package is published<br><mark>Runs on local “npm install” without any arguments</mark><br>Run AFTER <code>prepublish</code>, but BEFORE <code>prepublishOnly</code><br>NOTE: If a package being installed through git contains a <code>prepare</code> script, its <code>dependencies</code> and <code>devDependencies</code> will be installed, and the prepare script will be run, before the package is packaged and installed.</p>
 <p>Refenrence: <a href="https://docs.npmjs.com/cli/v9/using-npm/scripts">How npm handles the “scripts” field</a></p>
 </blockquote>
@@ -5209,8 +5441,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
         <category>问题解决</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>debian</tag>
+        <tag>hexo</tag>
         <tag>deploy</tag>
         <tag>wsl</tag>
         <tag>github</tag>

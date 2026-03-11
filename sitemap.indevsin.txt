@@ -1,3 +1,4 @@
+https://isaaxite.indevs.in/blog/linux-daily-use/local-music-library-setup/
 https://isaaxite.indevs.in/blog/algorithm-problem-solutions/
 https://isaaxite.indevs.in/blog/elementui-scrollbar-component-analysis/
 https://isaaxite.indevs.in/blog/source-code-reading/nest/decorator-route/

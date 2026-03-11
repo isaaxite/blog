@@ -53,6 +53,37 @@
   </entry>
   
   <entry>
+    <title>Parabolic、Ear Tag 和 Rhythmbox 搭建本地音乐库</title>
+    <link href="https://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/"/>
+    <id>https://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/</id>
+    <published>2026-03-03T08:58:17.000Z</published>
+    <updated>2026-03-11T23:46:04.162Z</updated>
+    
+    
+    <summary type="html">Linux（LMDE 6）环境下搭建本地音乐库。使用 Parabolic 下载视频为音频文件；Ear Tag 编辑完善音频元数据，让它有好看的封面，正确的标题（演奏者）、专辑信息等等；Rhythmbox 或 Amberol 播放。</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://isaaxite.pages.dev/categories/Linux/"/>
+    
+    <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux-%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="本地乐库" scheme="https://isaaxite.pages.dev/tags/%E6%9C%AC%E5%9C%B0%E4%B9%90%E5%BA%93/"/>
+    
+    <category term="本地音乐" scheme="https://isaaxite.pages.dev/tags/%E6%9C%AC%E5%9C%B0%E9%9F%B3%E4%B9%90/"/>
+    
+    <category term="Linux" scheme="https://isaaxite.pages.dev/tags/Linux/"/>
+    
+    <category term="Rhythmbox" scheme="https://isaaxite.pages.dev/tags/Rhythmbox/"/>
+    
+    <category term="Parabolic" scheme="https://isaaxite.pages.dev/tags/Parabolic/"/>
+    
+    <category term="Ear Tag" scheme="https://isaaxite.pages.dev/tags/Ear-Tag/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Tmux 的相关概念与基本使用</title>
     <link href="https://isaaxite.pages.dev/blog/usage/tmux/"/>
     <id>https://isaaxite.pages.dev/blog/usage/tmux/</id>
@@ -69,9 +100,9 @@
     <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
-    
     <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
+    
+    <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
     
     <category term="tmux" scheme="https://isaaxite.pages.dev/tags/tmux/"/>
     
@@ -118,11 +149,11 @@
     <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
-    
     <category term="tilix" scheme="https://isaaxite.pages.dev/tags/tilix/"/>
     
     <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
+    
+    <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
     
   </entry>
   
@@ -138,9 +169,9 @@
     
     
     
-    <category term="前端工程化" scheme="https://isaaxite.pages.dev/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
-    
     <category term="网络安全" scheme="https://isaaxite.pages.dev/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="前端工程化" scheme="https://isaaxite.pages.dev/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
     
     
     <category term="eslint-plugin-security" scheme="https://isaaxite.pages.dev/tags/eslint-plugin-security/"/>
@@ -226,9 +257,9 @@
     
     
     
-    <category term="前端工程化" scheme="https://isaaxite.pages.dev/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
-    
     <category term="指南" scheme="https://isaaxite.pages.dev/categories/%E6%8C%87%E5%8D%97/"/>
+    
+    <category term="前端工程化" scheme="https://isaaxite.pages.dev/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
     
     <category term="CI/CD" scheme="https://isaaxite.pages.dev/categories/CI-CD/"/>
     
@@ -371,9 +402,9 @@
     <category term="问题解决" scheme="https://isaaxite.pages.dev/categories/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
     
     
-    <category term="hexo" scheme="https://isaaxite.pages.dev/tags/hexo/"/>
-    
     <category term="debian" scheme="https://isaaxite.pages.dev/tags/debian/"/>
+    
+    <category term="hexo" scheme="https://isaaxite.pages.dev/tags/hexo/"/>
     
     <category term="deploy" scheme="https://isaaxite.pages.dev/tags/deploy/"/>
     
@@ -528,30 +559,6 @@
     
     
     <category term="Aauth2" scheme="https://isaaxite.pages.dev/tags/Aauth2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ADB 安装 For Win 10</title>
-    <link href="https://isaaxite.pages.dev/blog/windows-adb-install/"/>
-    <id>https://isaaxite.pages.dev/blog/windows-adb-install/</id>
-    <published>2022-06-17T09:10:03.000Z</published>
-    <updated>2026-03-09T08:04:47.796Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://developer.android.com/studio/releases/platform-tools&quot;&gt;下载 ADB for Windows&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://assets-amu.pages.dev/blog/58064e0ddf514a219e22db69e7dbb67c.webp&quot; alt=&quot;ADB for Windows 下载信息&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="指南" scheme="https://isaaxite.pages.dev/categories/%E6%8C%87%E5%8D%97/"/>
-    
-    
-    <category term="旧文迁移" scheme="https://isaaxite.pages.dev/tags/%E6%97%A7%E6%96%87%E8%BF%81%E7%A7%BB/"/>
-    
-    <category term="adb" scheme="https://isaaxite.pages.dev/tags/adb/"/>
-    
-    <category term="安卓调试" scheme="https://isaaxite.pages.dev/tags/%E5%AE%89%E5%8D%93%E8%B0%83%E8%AF%95/"/>
     
   </entry>
   
