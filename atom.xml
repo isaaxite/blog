@@ -71,9 +71,9 @@
     
     <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
     
-    <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
-    
     <category term="tmux" scheme="https://isaaxite.pages.dev/tags/tmux/"/>
+    
+    <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
     
   </entry>
   
@@ -120,9 +120,9 @@
     
     <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
     
-    <category term="tilix" scheme="https://isaaxite.pages.dev/tags/tilix/"/>
-    
     <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
+    
+    <category term="tilix" scheme="https://isaaxite.pages.dev/tags/tilix/"/>
     
   </entry>
   
@@ -522,9 +522,9 @@
     
     
     
-    <category term="学习笔记" scheme="https://isaaxite.pages.dev/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
     <category term="网络安全" scheme="https://isaaxite.pages.dev/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="学习笔记" scheme="https://isaaxite.pages.dev/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Aauth2" scheme="https://isaaxite.pages.dev/tags/Aauth2/"/>
