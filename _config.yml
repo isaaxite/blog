@@ -205,14 +205,19 @@ sitemap:
   # template: ./sitemap_template.xml
   # template_txt: ./sitemap_template.txt
 
-  # copy is the config for scripts/sitemap-copy.js
-  copy:
-    url: https://isaaxite.github.io
-    path:
-      - sitemap.xml
-      - sitemap.txt
-      - blog/sitemap.xml
-      - blog/sitemap.txt
+  # `plagiarize` is the config for scripts/sitemap-plagiarize.js
+  plagiarize:
+    - url: https://isaaxite.github.io
+      path:
+        - sitemap.xml
+        - sitemap.txt
+        - blog/sitemap.xml
+        - blog/sitemap.txt
+
+    - url: https://isaaxite.indevs.in
+      path:
+        - sitemap.indevsin.xml
+        - sitemap.indevsin.txt
   rel: false
   tags: false
   categories: false
