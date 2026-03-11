@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Isaac&#39;s Blog</title>
   <icon>https://isaaxite.pages.dev/icon.png</icon>
-  <subtitle>学习、研究 IT 知识，分享我的技术经验和见解。</subtitle>
+  <subtitle>学习、研究 IT 知识，分享技术经验和见解</subtitle>
   <link href="https://isaaxite.pages.dev/atom.xml" rel="self"/>
   
   <link href="https://isaaxite.pages.dev/"/>
@@ -10,7 +10,7 @@
   <id>https://isaaxite.pages.dev/</id>
   
   <author>
-    <name>Kam Po Wah</name>
+    <name>Isaac Kam</name>
     
   </author>
   
