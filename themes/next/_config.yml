@@ -367,7 +367,10 @@ codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
   theme:
-    light: default
+    light: stackoverflow-light
+    # light: routeros
+    # light: foundation
+    # light: default
     dark: stackoverflow-dark
   prism:
     light: prism

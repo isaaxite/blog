@@ -4,20 +4,20 @@
 
 # Site
 title: Isaac's Blog
-subtitle: '学习、研究 IT 知识，分享我的技术经验和见解。'
-description: 'IT 技术博客，专注于前端开发、性能优化、架构设计等领域，分享实用的技术经验和最佳实践。'
+subtitle: 学习、研究 IT 知识，分享技术经验和见解
+description: IT 技术博客 / 前端开发 / 性能优化 / 架构设计 / Linux / 最佳实践
 keywords:
   - Blog
+  - Linux
+  - NodeJS
+  - JavaScript
   - 性能优化
   - 架构设计
   - IT 技术
-  - JavaScript
-  - NodeJS
   - 计算机科学
   - Web 开发
-  - Linux
-  - 工程化
-author: Kam Po Wah
+  - 前端工程化
+author: Isaac Kam
 timezone: Asia/Shanghai
 
 # URL
@@ -77,7 +77,7 @@ prismjs:
   line_number: true
   tab_replace: ''
   exclude_languages:
-  - mermaid
+    - mermaid
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
