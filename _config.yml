@@ -144,7 +144,7 @@ deploy:
   #   branch: master
   - type: git
     repo: git@github.com:isaaxite/isaaxite.github.io.git
-    branch: master
+    branch: gh-pages
 # deploy:
 #   type: git
 #   repo:
