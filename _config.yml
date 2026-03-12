@@ -224,3 +224,15 @@ sitemap:
 
 alias:
   blog/index.html: /
+
+# Favicon - power by `scripts/favicon.js`
+# `rel` is optional, and it will be set to 'icon' by default if not specified
+favicon:
+  - href: /favicon.ico
+    sizes: 32x32
+
+  - href: /icon.svg
+    type: image/svg+xml
+
+  - rel: apple-touch-icon
+    href: /apple-touch-icon.png
