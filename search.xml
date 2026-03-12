@@ -4276,7 +4276,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm pkg set scripts.prepare=&quot;husky install&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 执行以上命令得到的结果是：</span></span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">+    &quot;prepare&quot;: &quot;husky install&quot; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>prepare (since <a href="mailto:&#110;&#112;&#109;&#x40;&#x34;&#46;&#48;&#46;&#x30;">&#110;&#112;&#109;&#x40;&#x34;&#46;&#48;&#46;&#x30;</a>)</strong></p>
+<p><strong>prepare (since <a href="mailto:&#110;&#112;&#x6d;&#64;&#52;&#x2e;&#48;&#46;&#x30;">&#110;&#112;&#x6d;&#64;&#52;&#x2e;&#48;&#46;&#x30;</a>)</strong></p>
 <p>Runs BEFORE the package is packed<br>Runs BEFORE the package is published<br><mark>Runs on local “npm install” without any arguments</mark><br>Run AFTER <code>prepublish</code>, but BEFORE <code>prepublishOnly</code><br>NOTE: If a package being installed through git contains a <code>prepare</code> script, its <code>dependencies</code> and <code>devDependencies</code> will be installed, and the prepare script will be run, before the package is packaged and installed.</p>
 <p>Refenrence: <a href="https://docs.npmjs.com/cli/v9/using-npm/scripts">How npm handles the “scripts” field</a></p>
 </blockquote>
@@ -6452,8 +6452,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
         <category>抽象封装</category>
       </categories>
       <tags>
-        <tag>TypeScript</tag>
         <tag>装饰器</tag>
+        <tag>TypeScript</tag>
       </tags>
   </entry>
   <entry>
@@ -6512,8 +6512,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
         <category>抽象封装</category>
       </categories>
       <tags>
-        <tag>TypeScript</tag>
         <tag>装饰器</tag>
+        <tag>TypeScript</tag>
       </tags>
   </entry>
   <entry>
