@@ -1,11 +1,12 @@
 {
-  "name": "hexo-site",
+  "name": "isaaxite-ghpages",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "clean": "hexo clean",
     "generate": "hexo clean && hexo generate",
     "deploy": "hexo g -d",
+    "push+deploy": "git push origin develop && npm run deploy",
     "server": "hexo clean && hexo server",
     "server+draft": "hexo clean && hexo server --draft",
     "new-daily": "node ./npm-scripts/new.js daily",
