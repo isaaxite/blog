@@ -37,7 +37,7 @@
     "hexo-renderer-stylus": "^2.1.0",
     "hexo-renderer-swig": "^2.0.0",
     "hexo-server": "^3.0.0",
-    "hexo-theme-landscape": "^0.0.3",
+    "hexo-theme-landscape": "^1.1.0",
     "object-assign": "^4.1.1"
   },
   "devDependencies": {
