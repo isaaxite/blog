@@ -6,7 +6,7 @@
     "clean": "hexo clean",
     "generate": "hexo clean && hexo generate",
     "deploy": "hexo g -d",
-    "push+deploy": "git push origin develop && npm run deploy",
+    "push+deploy": "git push origin main && npm run deploy",
     "server": "hexo clean && hexo server",
     "server+draft": "hexo clean && hexo server --draft",
     "new-daily": "node ./npm-scripts/new.js daily",
