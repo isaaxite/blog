@@ -34,7 +34,7 @@ categories:
 
 ## 安装 Parabolic
 
-使用 `flatpak` 安装。`flatpak` 非 `LMDE` 自带，若未安装，可参考 [Set Up Flathub > Debian](https://flathub.org/en/setup/Debian)，下同再赘述。Flathub 中的 [Parabolic](https://flathub.org/en/apps/org.nickvision.tubeconverter)。
+使用 `flatpak` 安装。`flatpak` 非 `LMDE` 自带，若未安装，可参考 [Set Up Flathub > Debian](https://flathub.org/en/setup/Debian)，下同不再赘述。Flathub 中的 [Parabolic](https://flathub.org/en/apps/org.nickvision.tubeconverter)。
 
 ```bash
 flatpak install org.nickvision.tubeconverter
@@ -179,4 +179,4 @@ sudo make install
 
 ## 结语
 
-文中涉及到的几个软件，它们的安装方式和过程都是很简单且无异常抛出，不必有心智负担。如果你对 FFmpeg  和 Shell 脚本感兴趣，可以看看我的另外一个缓慢开发中的半自动化音乐库项目：[isaaxite / muselfic](https://github.com/isaaxite/muselfic)。若你有有趣的方案请到原文的[评论](http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD)中分享给我，会有又见通知我的。如果你从本文获得了帮助或思路，请不要吝啬你的鼓励。你可以到原文写下[评论](http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD)，或给我在 Github 的博客项目点 [GitHub stars](https://github.com/isaaxite/isaaxite.github.io)、[GitHub watchers](https://github.com/isaaxite/isaaxite.github.io)，毕竟它的数据实际不怎么样。如果你财大气粗，不吝打赏 - [Buy me a coffee](http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD)。
+文中涉及到的几个软件，它们的安装方式和过程都是很简单且无异常抛出，不必有心智负担。如果你对 FFmpeg  和 Shell 脚本感兴趣，可以看看我的另外一个缓慢开发中的半自动化音乐库项目：[isaaxite / muselfic](https://github.com/isaaxite/muselfic)。若你有有趣的方案请到原文的[评论](http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD)中分享给我，会有邮件通知我的。如果你从本文获得了帮助或思路，请不要吝啬你的鼓励。你可以到原文写下[评论](http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD)，或给我在 Github 的博客项目点 [GitHub stars](https://github.com/isaaxite/isaaxite.github.io)、[GitHub watchers](https://github.com/isaaxite/isaaxite.github.io)，毕竟它的数据实际不怎么样。如果你财大气粗，不吝打赏 - [Buy me a coffee](http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD)。
