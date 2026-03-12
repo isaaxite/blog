@@ -447,7 +447,7 @@
 <li>编辑音乐文件元数据：<a href="https://gitlab.gnome.org/World/eartag">Ear Tag</a>；</li>
 <li>本地音乐播放器：<a href="https://wiki.gnome.org/Apps/Rhythmbox">Rhythmbox</a>。</li>
 </ul>
-<h2 id="安装-Parabolic"><a href="#安装-Parabolic" class="headerlink" title="安装 Parabolic"></a>安装 Parabolic</h2><p>使用 <code>flatpak</code> 安装。<code>flatpak</code> 非 <code>LMDE</code> 自带，若未安装，可参考 <a href="https://flathub.org/en/setup/Debian">Set Up Flathub &gt; Debian</a>，下同再赘述。Flathub 中的 <a href="https://flathub.org/en/apps/org.nickvision.tubeconverter">Parabolic</a>。</p>
+<h2 id="安装-Parabolic"><a href="#安装-Parabolic" class="headerlink" title="安装 Parabolic"></a>安装 Parabolic</h2><p>使用 <code>flatpak</code> 安装。<code>flatpak</code> 非 <code>LMDE</code> 自带，若未安装，可参考 <a href="https://flathub.org/en/setup/Debian">Set Up Flathub &gt; Debian</a>，下同不再赘述。Flathub 中的 <a href="https://flathub.org/en/apps/org.nickvision.tubeconverter">Parabolic</a>。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">flatpak install org.nickvision.tubeconverter</span><br></pre></td></tr></table></figure>
 
 <p>其他安装方式：</p>
@@ -650,7 +650,7 @@
 <li><strong>快捷键支持</strong>：提供额外的键盘快捷键控制播放（如 <code>Ctrl+F</code> 快速聚焦搜索栏）</li>
 </ul>
 <p><img src="https://assets-amu.pages.dev/blog/file-20250326094015785.png" alt="来自 alternative-toolbar &gt; Github README 的示例图"></p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>文中涉及到的几个软件，它们的安装方式和过程都是很简单且无异常抛出，不必有心智负担。如果你对 FFmpeg  和 Shell 脚本感兴趣，可以看看我的另外一个缓慢开发中的半自动化音乐库项目：<a href="https://github.com/isaaxite/muselfic">isaaxite &#x2F; muselfic</a>。若你有有趣的方案请到原文的<a href="http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD">评论</a>中分享给我，会有又见通知我的。如果你从本文获得了帮助或思路，请不要吝啬你的鼓励。你可以到原文写下<a href="http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD">评论</a>，或给我在 Github 的博客项目点 <a href="https://github.com/isaaxite/isaaxite.github.io">GitHub stars</a>、<a href="https://github.com/isaaxite/isaaxite.github.io">GitHub watchers</a>，毕竟它的数据实际不怎么样。如果你财大气粗，不吝打赏 - <a href="http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD">Buy me a coffee</a>。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>文中涉及到的几个软件，它们的安装方式和过程都是很简单且无异常抛出，不必有心智负担。如果你对 FFmpeg  和 Shell 脚本感兴趣，可以看看我的另外一个缓慢开发中的半自动化音乐库项目：<a href="https://github.com/isaaxite/muselfic">isaaxite &#x2F; muselfic</a>。若你有有趣的方案请到原文的<a href="http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD">评论</a>中分享给我，会有邮件通知我的。如果你从本文获得了帮助或思路，请不要吝啬你的鼓励。你可以到原文写下<a href="http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD">评论</a>，或给我在 Github 的博客项目点 <a href="https://github.com/isaaxite/isaaxite.github.io">GitHub stars</a>、<a href="https://github.com/isaaxite/isaaxite.github.io">GitHub watchers</a>，毕竟它的数据实际不怎么样。如果你财大气粗，不吝打赏 - <a href="http://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/#%E7%BB%93%E8%AF%AD">Buy me a coffee</a>。</p>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -1693,8 +1693,8 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
-        <tag>terminal</tag>
         <tag>linux</tag>
+        <tag>terminal</tag>
         <tag>tmux</tag>
       </tags>
   </entry>
@@ -2152,9 +2152,9 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
+        <tag>linux</tag>
         <tag>tilix</tag>
         <tag>terminal</tag>
-        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -3240,8 +3240,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <!-- refs defined -->
 ]]></content>
       <categories>
-        <category>网络安全</category>
         <category>前端工程化</category>
+        <category>网络安全</category>
       </categories>
       <tags>
         <tag>eslint-plugin-security</tag>
@@ -4056,8 +4056,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <!-- Defined Refs -->
 ]]></content>
       <categories>
-        <category>指南</category>
         <category>前端工程化</category>
+        <category>指南</category>
         <category>CI/CD</category>
       </categories>
       <tags>
@@ -4276,7 +4276,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm pkg set scripts.prepare=&quot;husky install&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 执行以上命令得到的结果是：</span></span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">+    &quot;prepare&quot;: &quot;husky install&quot; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>prepare (since <a href="mailto:&#x6e;&#x70;&#109;&#64;&#x34;&#x2e;&#48;&#x2e;&#x30;">&#x6e;&#x70;&#109;&#64;&#x34;&#x2e;&#48;&#x2e;&#x30;</a>)</strong></p>
+<p><strong>prepare (since <a href="mailto:&#110;&#112;&#109;&#x40;&#x34;&#46;&#48;&#46;&#x30;">&#110;&#112;&#109;&#x40;&#x34;&#46;&#48;&#46;&#x30;</a>)</strong></p>
 <p>Runs BEFORE the package is packed<br>Runs BEFORE the package is published<br><mark>Runs on local “npm install” without any arguments</mark><br>Run AFTER <code>prepublish</code>, but BEFORE <code>prepublishOnly</code><br>NOTE: If a package being installed through git contains a <code>prepare</code> script, its <code>dependencies</code> and <code>devDependencies</code> will be installed, and the prepare script will be run, before the package is packaged and installed.</p>
 <p>Refenrence: <a href="https://docs.npmjs.com/cli/v9/using-npm/scripts">How npm handles the “scripts” field</a></p>
 </blockquote>
@@ -5441,8 +5441,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
         <category>问题解决</category>
       </categories>
       <tags>
-        <tag>debian</tag>
         <tag>hexo</tag>
+        <tag>debian</tag>
         <tag>deploy</tag>
         <tag>wsl</tag>
         <tag>github</tag>
