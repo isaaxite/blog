@@ -27,7 +27,7 @@
     "hexo-generator-category": "^2.0.0",
     "hexo-generator-exindex": "^1.0.3",
     "hexo-generator-feed": "^3.0.0",
-    "hexo-generator-searchdb": "^1.4.1",
+    "hexo-generator-searchdb": "^1.5.0",
     "hexo-generator-sitemap": "^3.0.1",
     "hexo-generator-tag": "^2.0.0",
     "hexo-hide-posts": "^0.4.3",
