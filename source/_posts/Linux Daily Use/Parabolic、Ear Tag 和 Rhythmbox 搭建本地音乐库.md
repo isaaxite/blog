@@ -1,7 +1,7 @@
 ---
 title: Parabolic、Ear Tag 和 Rhythmbox 搭建本地音乐库
 excerpt:  Linux（LMDE 6）环境下搭建本地音乐库。使用 Parabolic 下载视频为音频文件；Ear Tag 编辑完善音频元数据，让它有好看的封面，正确的标题（演奏者）、专辑信息等等；Rhythmbox 或 Amberol 播放。
-slugpath: linux-daily-use/local-music-library-setup
+segment: linux-daily-use/local-music-library-setup
 date: 2026-03-03 16:58:17
 tags:
   - 本地乐库

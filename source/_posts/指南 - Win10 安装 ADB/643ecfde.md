@@ -1,6 +1,6 @@
 ---
 title: ADB 安装 For Win 10
-slugpath: windows-adb-install
+segment: windows-adb-install
 alias: blog/resources/【win】安装ADB/
 tags:
   - adb

@@ -1,6 +1,6 @@
 ---
 title: Vue 源码分析 - DIFF 算法实现
-slugpath: source-code-reading/vue/diff
+segment: source-code-reading/vue/diff
 alias:
 - blog/resources/vue中的diff算法实现/
 - blog/vue-diff-source-code/

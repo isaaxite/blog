@@ -1,7 +1,7 @@
 ---
 title: 肇庆摩托 E 证考试指南
 excerpt: ""
-slugpath: guide/zhaoqing-motorcycle-license-e
+segment: guide/zhaoqing-motorcycle-license-e
 alisa: blog/438ddc82
 hidden: true
 date: 2017-01-01 08:00:00

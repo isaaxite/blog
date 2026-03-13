@@ -1,6 +1,6 @@
 ---
 title: 浅析 Nest 装饰器的路由注册
-slugpath: source-code-reading/nest/decorator-route
+segment: source-code-reading/nest/decorator-route
 alias: blog/nest-decorator-route-analysis/
 date: 2019-10-09 13:35:25
 tags:

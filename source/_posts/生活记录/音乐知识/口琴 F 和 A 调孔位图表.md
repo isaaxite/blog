@@ -1,7 +1,7 @@
 ---
 title: 口琴基础-首调|F、A调孔位图
 excerpt: ' '
-slugpath: harmonica-basics/movable-do/hole-diagrams-f-and-a
+segment: harmonica-basics/movable-do/hole-diagrams-f-and-a
 hidden: true
 date: 2017-01-01 08:00:00
 # date: 2024-02-29 21:26:23

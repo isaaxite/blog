@@ -1,6 +1,6 @@
 ---
 title: Note The Stranger
-slugpath: eng-node/the-stranger
+segment: eng-node/the-stranger
 excerpt: Note The Stranger
 date: 2025-10-01 16:51:09
 tags:

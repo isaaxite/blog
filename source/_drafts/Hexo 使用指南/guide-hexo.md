@@ -1,7 +1,7 @@
 ---
 title: Hexo 使用指南
 excerpt: Hexo，指南，配置，NexT。启用 Mermaid、Favicon 配置。
-slugpath: guide/hexo 
+segment: guide/hexo 
 date: 2026-03-07 10:59:40
 tags:
 - mermaid

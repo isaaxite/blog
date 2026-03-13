@@ -1,7 +1,7 @@
 ---
 title: 驾驶证科目一异常题目解析记录
 excerpt: ' '
-slugpath: 0f7ac4a3
+segment: 0f7ac4a3
 hidden: true
 date: 2017-01-01 08:00:00
 tags:
