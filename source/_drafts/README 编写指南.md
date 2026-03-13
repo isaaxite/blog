@@ -29,6 +29,6 @@ Default：<def setting>
 
 ## 例子
 
-|![](27c5d081/Snipaste_2023-06-09_08-33-14.png)|
+|![](assets/Snipaste_2023-06-09_08-33-14.png)|
 |:--:|
 

@@ -1,5 +1,6 @@
 ---
 title: Note The Stranger
+slugpath: eng-node/the-stranger
 excerpt: Note The Stranger
 date: 2025-10-01 16:51:09
 tags:
@@ -165,7 +166,7 @@ roller: n | adj, / ˈroʊlər /
 
 towel: n | v, / ˈtaʊəl /
 
-|<img width="200" src="17dd63af/2025-10-01-22-41-41.png" alt="towel" /> | <img width="200" src="17dd63af/image_202510012222.png" alt="the roller towel" />  |
+|<img width="200" src="assets/2025-10-01-22-41-41.png" alt="towel" /> | <img width="200" src="assets/image_202510012222.png" alt="the roller towel" />  |
 |:--:|:--:|
 
 
@@ -672,7 +673,7 @@ drip: v | n, / drɪp /
 
 
 
-| v \| n, / ˈbeli / | <img width="200" src="17dd63af/2025-10-09-18-25-51.png" alt="belly" />  |
+| v \| n, / ˈbeli / | <img width="200" src="assets/2025-10-09-18-25-51.png" alt="belly" />  |
 |:--:|:--:|
 
 *Your belly（肚子） is the front part of your body between your chest and your legs.*
@@ -684,7 +685,7 @@ drip: v | n, / drɪp /
 
 > Céleste was there, as always, with his big belly, his apron, and his white moustache.
 
-| v \| n, / ˈeɪprən / | <img width="200" src="17dd63af/2025-10-09-18-30-30.png" alt="apron" />  |
+| v \| n, / ˈeɪprən / | <img width="200" src="assets/2025-10-09-18-30-30.png" alt="apron" />  |
 |:--:|:--:|
 
 *An apron is a piece of clothing that you wear over your front to protect your normal clothes from getting dirty.*
@@ -697,7 +698,7 @@ drip: v | n, / drɪp /
 
 > If you're man enough you'll get down off that streetcar.
 
-| n, `/ ˈstriːtkɑːr /` | <img width="200" src="17dd63af/2025-10-13-19-45-16.png" alt="streetcar" /> |
+| n, `/ ˈstriːtkɑːr /` | <img width="200" src="assets/2025-10-13-19-45-16.png" alt="streetcar" /> |
 |:--:|:--:|
 
 *A streetcar is an electric vehicle（车辆 / ˈviːəkl; ˈviːhɪkl /） that runs on tracks laid in the street, used for public transportation（交通运输系统 / ˌtrænspərˈteɪʃ(ə)n /） in a city.*
@@ -754,7 +755,7 @@ landing: 指的是他们公寓门外、楼梯顶部的那个共享的公共小�
 
 > The spaniel has a skin disease—mange, I think—which makes almost all its hair fall out and leaves it covered with brown sores and scabs.
 
-| n \| vi \| vt / ˈspænjəl / | <img width="200" src="17dd63af/960px-Three_Cocker_Spaniels.jpeg" alt="spaniel" /> |
+| n \| vi \| vt / ˈspænjəl / | <img width="200" src="assets/960px-Three_Cocker_Spaniels.jpeg" alt="spaniel" /> |
 |:--:|:--:|
 
 *A spaniel（西班牙猎犬/獚犬） is a type of dog, known for having long, floppy ears and a friendly nature.*
@@ -785,7 +786,7 @@ n | adj, / sɔːr /
 
 > The spaniel has a skin disease—mange, I think—which makes almost all its hair fall out and leaves it covered with brown sores and scabs.
 
-| n, / meɪndʒ / | <img width="200" src="17dd63af/2025-10-11-17-38-35.png" alt="mange" /> |
+| n, / meɪndʒ / | <img width="200" src="assets/2025-10-11-17-38-35.png" alt="mange" /> |
 |:--:|:--:|
 
 *Mange（兽疥癣（癞皮病） is a skin disease caused by tiny mites（微小螨虫 / maɪt /） that live on an animal's skin, making it very itchy（瘙痒的 / ˈɪtʃi /） and causing the hair to fall out.*
@@ -806,7 +807,7 @@ n | adj, / sɔːr /
 
 *A scab（痂） is the hard, dry covering that forms over a cut or sore on your skin while it is healing.*
 
-| n \| vi \| vt, / skæb / | <img width="200" src="17dd63af/2025-10-11-17-31-02.png" alt="scab" /> |
+| n \| vi \| vt, / skæb / | <img width="200" src="assets/2025-10-11-17-31-02.png" alt="scab" /> |
 |:--:|:--:|
 
 
@@ -868,7 +869,7 @@ n | adj, / sɔːr /
 
 > As for the dog, he’s sort of taken on his master’s stooped look, muzzle down, neck straining. 
 
-| stoop: v \| n, / stuːp / | <img width="200" src="17dd63af/2025-10-11-18-14-01.png" alt="stoop" /> |
+| stoop: v \| n, / stuːp / | <img width="200" src="assets/2025-10-11-18-14-01.png" alt="stoop" /> |
 |:--:|:--:|
 
 #### muzzle down
@@ -877,7 +878,7 @@ n | adj, / sɔːr /
 
 > As for the dog, he’s sort of taken on his master’s stooped look, muzzle down, neck straining. 
 
-| muzzle: n \| vt, / ˈmʌzl / | <img width="200" src="17dd63af/2025-10-12-17-40-57.png" alt="muzzle" /> |
+| muzzle: n \| vt, / ˈmʌzl / | <img width="200" src="assets/2025-10-12-17-40-57.png" alt="muzzle" /> |
 |:--:|:--:|
 
 *A muzzle（口鼻，特指动物） is the nose and mouth part of an animal like a dog or a horse.*
@@ -1002,7 +1003,7 @@ n | v, / treɪl /
 
 > Then they both stand there on the sidewalk and stare at each other, the dog in terror, the man in hatred.
 
-| n, / ˈsaɪdwɔːk / | <img width="200" src="17dd63af/2025-10-13-00-55-35.png" alt="sidewalk" /> |
+| n, / ˈsaɪdwɔːk / | <img width="200" src="assets/2025-10-13-00-55-35.png" alt="sidewalk" /> |
 |:--:|:--:|
 
 *a pathway typically `made of`（制作） concrete（混凝土 / ˈkɑːnkriːt /） or asphalt（/ ˈæsfɔːlt / 沥青） at the side of a street for people to walk on*
@@ -1038,7 +1039,7 @@ n | v, / treɪl /
 
 > When the dog wants to urinate, the old man won't give him enough time and yanks at him, so that the spaniel leaves behind a trail of little drops.
 
-| v, / ˈjʊrɪneɪt / | <img width="200" src="17dd63af/2025-10-13-04-53-42.png" alt="urinate" /> |
+| v, / ˈjʊrɪneɪt / | <img width="200" src="assets/2025-10-13-04-53-42.png" alt="urinate" /> |
 |:--:|:--:|
 
 *Urinate 是“小便”的正式或礼貌用语 / to release liquid waste from the body*
@@ -1066,7 +1067,7 @@ n | v, / treɪl /
 
 > When the dog wants to urinate, the old man won't give him enough time and yanks at him, so that the spaniel leaves behind a trail of little drops.
 
-| vi \| vt \| n, / jæŋk / | <img width="200" src="17dd63af/2025-10-13-04-58-38.png" alt="yank" /> |
+| vi \| vt \| n, / jæŋk / | <img width="200" src="assets/2025-10-13-04-58-38.png" alt="yank" /> |
 |:--:|:--:|
 
 *Yank means to pull something suddenly and very hard.*
@@ -1086,7 +1087,7 @@ n | v, / treɪl /
 
 > When the dog wants to urinate, the old man won't give him enough time and yanks at him, so that the spaniel leaves behind a trail of little drops.
 
-| v \| n, / drɑːps / | <img width="200" src="17dd63af/2025-10-13-05-05-57.png" alt="drops" /> |
+| v \| n, / drɑːps / | <img width="200" src="assets/2025-10-13-05-05-57.png" alt="drops" /> |
 |:--:|:--:|
 
 *Drops are very small, round amounts of a liquid（液体 / ˈlɪkwɪd /）.*
@@ -1167,7 +1168,7 @@ adj | adv, / ˈfɪlθi /
 
 > He was saying, “Filthy, stinking bastard!” and the dog was whimpering. 
 
-| stink: v \| n \| adj, / stɪŋk / | <img width="200" src="17dd63af/2025-10-13-05-57-47.png" alt="stink" /> |
+| stink: v \| n \| adj, / stɪŋk / | <img width="200" src="assets/2025-10-13-05-57-47.png" alt="stink" /> |
 |:--:|:--:|
 
 *Stinking means smelling very bad.*
@@ -1314,7 +1315,7 @@ suppress: v, / səˈpres /
 
 > But when you ask him what he does, he's a "warehouse guard."
 
-| warehouse: n \| v, `/ ˈwerhaʊs /` | <img width="200" src="17dd63af/2025-10-13-06-59-06.png" alt="warehouse" /> |
+| warehouse: n \| v, `/ ˈwerhaʊs /` | <img width="200" src="assets/2025-10-13-06-59-06.png" alt="warehouse" /> |
 |:--:|:--:|
 
 *A `warehouse` is a very large building where goods are stored before they are sold or moved somewhere else.*
@@ -1329,7 +1330,7 @@ suppress: v, / səˈpres /
 
 
 
-| guard: n \| v, `/ ɡɑːrd /` | <img width="200" src="17dd63af/2025-10-13-07-03-53.png" alt="guard" /> |
+| guard: n \| v, `/ ɡɑːrd /` | <img width="200" src="assets/2025-10-13-07-03-53.png" alt="guard" /> |
 |:--:|:--:|
 
 *A `guard` is a person whose job is to protect a person, place, or thing.*
@@ -1350,11 +1351,11 @@ suppress: v, / səˈpres /
 
 > He's a little on the short side, with broad shoulders and a nose like a boxer's.
 
-| broad: adj \| n \| adv, `/ brɔːd /` | <img width="200" src="17dd63af/2025-10-13-07-49-34.png" alt="broad" /> |
+| broad: adj \| n \| adv, `/ brɔːd /` | <img width="200" src="assets/2025-10-13-07-49-34.png" alt="broad" /> |
 |:--:|:--:|
 
 
-| shoulder: n \| v, `/ ˈʃoʊldər /` | <img width="200" src="17dd63af/2025-10-13-07-50-33.png" alt="shoulder" /> |
+| shoulder: n \| v, `/ ˈʃoʊldər /` | <img width="200" src="assets/2025-10-13-07-50-33.png" alt="shoulder" /> |
 |:--:|:--:|
 
 *broad shoulder: means that someone's shoulders are wide and strong-looking.*
@@ -1391,7 +1392,7 @@ suppress: v, / səˈpres /
 
 > He's a little on the short side, with broad shoulders and a nose like a boxer's.
 
-| boxer: n, `/ ˈbɑːksər /` | <img width="200" src="17dd63af/2025-10-13-07-14-14.png" alt="boxer" /> |
+| boxer: n, `/ ˈbɑːksər /` | <img width="200" src="assets/2025-10-13-07-14-14.png" alt="boxer" /> |
 |:--:|:--:|
 
 
@@ -1403,7 +1404,7 @@ suppress: v, / səˈpres /
 
 *sharp: (of a person's style or clothes) dressy and fashionable, often conveying a sense of sophistication and elegance.*
 
-| sharp: adj \| adv \| n \| v, `/ ʃɑːrp /` | <img width="200" src="17dd63af/2025-10-13-07-58-11.png" alt="sharp" /> |
+| sharp: adj \| adv \| n \| v, `/ ʃɑːrp /` | <img width="200" src="assets/2025-10-13-07-58-11.png" alt="sharp" /> |
 |:--:|:--:|
 
 常见的例子
@@ -1424,7 +1425,7 @@ suppress: v, / səˈpres /
 
 > “I’ve got some blood sausage and some wine at my place. How about joining me?”
 
-| sausage: n, `/ ˈsɔːsɪdʒ /` | <img width="200" src="17dd63af/2025-10-13-08-08-29.png" alt="sausage" /> | <img width="200" src="17dd63af/2025-10-13-08-10-06.png" alt="blood sausage" /> |
+| sausage: n, `/ ˈsɔːsɪdʒ /` | <img width="200" src="assets/2025-10-13-08-08-29.png" alt="sausage" /> | <img width="200" src="assets/2025-10-13-08-10-06.png" alt="blood sausage" /> |
 |:--:|:--:|:--:|
 
 - *sausage（香肠, 腊肠）: ‌a mixture of meat, bread, etc. cut into small pieces and put into a long tube of skin, typically sold raw to be cooked before eating*
@@ -1463,7 +1464,7 @@ n | v, `/ ˈfɪɡjər /`
 
 > Over his bed he has a pink-and-white plaster angel, some pictures of famous athletes, and two or three photographs of naked women.
 
-| plaster: n \| v, `/ ˈplæstər /` | <img width="200" src="17dd63af/2025-10-13-09-03-51.png" alt="plaster" /> | <img width="200" src="17dd63af/2025-10-13-09-09-46.png" alt="plaster angel" /> |
+| plaster: n \| v, `/ ˈplæstər /` | <img width="200" src="assets/2025-10-13-09-03-51.png" alt="plaster" /> | <img width="200" src="assets/2025-10-13-09-09-46.png" alt="plaster angel" /> |
 |:--:|:--:|:--:|
 
 *Plaster（石膏） is a white powder（/ ˈpaʊdər / 粉末） that you mix with water to make a thick（粘稠的 / θɪk /） paste（糊状物 / peɪst /）. When it dries, it becomes very hard. People use it to make statues（雕像 / ˈstætʃuː /）, to cover walls, or to fix broken bones.*
@@ -1474,7 +1475,7 @@ n | v, `/ ˈfɪɡjər /`
 
 > Over his bed he has a pink-and-white plaster angel, some pictures of famous athletes, and two or three photographs of naked women.
 
-| athlete: n, `/ ˈæθliːt /` | <img width="200" src="17dd63af/2025-10-13-09-14-05.png" alt="athlete" /> |
+| athlete: n, `/ ˈæθliːt /` | <img width="200" src="assets/2025-10-13-09-14-05.png" alt="athlete" /> |
 |:--:|:--:|
 
 *Athletes(运动员, 体育选手) are people who are very good at sports and often compete in games or races.*
@@ -1487,7 +1488,7 @@ n | v, `/ ˈfɪɡjər /`
 
 > Over his bed he has a pink-and-white plaster angel, some pictures of famous athletes, and two or three photographs of naked women.
 
-| naked(原型即如此): adj, `/ ˈneɪkɪd /` | <img width="200" src="17dd63af/2025-10-13-09-19-24.png" alt="naked" /> |
+| naked(原型即如此): adj, `/ ˈneɪkɪd /` | <img width="200" src="assets/2025-10-13-09-19-24.png" alt="naked" /> |
 |:--:|:--:|
 
 *Naked means wearing no clothes.*
@@ -1530,7 +1531,7 @@ n | v, `/ ˈfɪɡjər /`
 
 > First he lit his paraffin lamp, then he took a pretty dubious-looking bandage out of his pocket and wrapped it around his right hand.
 
-| paraffin: n \| vt, `/ ˈpærəfɪn /`; lamp: n \| v, `/ læmp /` | <img width="200" src="17dd63af/2025-10-13-09-32-31.png" alt="paraffin lamp" /> |
+| paraffin: n \| vt, `/ ˈpærəfɪn /`; lamp: n \| v, `/ læmp /` | <img width="200" src="assets/2025-10-13-09-32-31.png" alt="paraffin lamp" /> |
 |:--:|:--:|
 
 *A paraffin lamp is a lamp that produces light by burning paraffin oil (kerosene, 煤油 `/ ˈkerəsiːn /`).*
@@ -1543,7 +1544,7 @@ n | v, `/ ˈfɪɡjər /`
 
 > First he lit his paraffin lamp, then he took a pretty dubious-looking bandage out of his pocket and wrapped it around his right hand.
 
-| dubious: adj, `/ ˈduːbiəs /` | <img width="200" src="17dd63af/2025-10-13-09-40-35.png" alt="dubious" /> |
+| dubious: adj, `/ ˈduːbiəs /` | <img width="200" src="assets/2025-10-13-09-40-35.png" alt="dubious" /> |
 |:--:|:--:|
 
 
@@ -1564,7 +1565,7 @@ n | v, `/ ˈfɪɡjər /`
 
 > it’s not that I’m a bad guy, but I have a short fuse.
 
-| fuse: n \| v, `/ fjuːz /` | <img width="200" src="17dd63af/2025-10-13-18-41-05.png" alt="a short fuse" /> |
+| fuse: n \| v, `/ fjuːz /` | <img width="200" src="assets/2025-10-13-18-41-05.png" alt="a short fuse" /> |
 |:--:|:--:|
 
 *A short fuse is a metaphor（比喻 `/ ˈmetəfər /`） that means someone gets angry very easily and quickly.*
@@ -1654,11 +1655,15 @@ fiddle: v | n, `/ ˈfɪdl /`
 
 > He got out the blood sausage, fried it up, and set out glasses, plates, knives and forks, and two bottles of wine.
 
-| glass: v \| n, `/ ɡlæs /` | <img width="200" src="17dd63af/2025-10-14-04-37-18.png" alt="glass" /> |
+| glass: v \| n, `/ ɡlæs /` | <img width="200" src="assets/2025-10-14-04-37-18.png" alt="glass" /> |
 |:--:|:--:|
 
-*a container that is used for drinks and is made of glass*
+<img width="200" src="./assets/2025-10-14-04-37-18.png" alt="glass" />
 
+![](assets/2025-10-14-04-37-18.png)
+![](./assets/2025-10-14-04-37-18.png)
+
+*a container that is used for drinks and is made of glass*
 
 #### plates
 
@@ -1667,7 +1672,7 @@ fiddle: v | n, `/ ˈfɪdl /`
 
 > He got out the blood sausage, fried it up, and set out glasses, plates, knives and forks, and two bottles of wine.
 
-| plate: v \| n, `/ pleɪt /` | <img width="200" src="17dd63af/2025-10-14-04-38-37.png" alt="plate" /> |
+| plate: v \| n, `/ pleɪt /` | <img width="200" src="assets/2025-10-14-04-38-37.png" alt="plate" /> |
 |:--:|:--:|
 
 *a flat, typically round dish that we eat from or serve food on*
@@ -1751,7 +1756,7 @@ n, `/ fræŋk /`, 法郎
 
 > Three hundred francs for the room, six hundred for food, a pair of stockings every now and then—that made it a thousand francs.
 
-| n \| v, `/ ˈstɑːkɪŋ /` | <img width="200" src="17dd63af/2025-10-15-03-38-54.png" alt="stocking" /> |
+| n \| v, `/ ˈstɑːkɪŋ /` | <img width="200" src="assets/2025-10-15-03-38-54.png" alt="stocking" /> |
 |:--:|:--:|
 
 *a tight-fitting women's garment（服装 `/ ˈɡɑːrmənt /`） made of nylon（`/ ˈnaɪlɑːn /` 尼龙） or silk（丝绸 `/ sɪlk /`）, covering the foot and leg, sometimes held up by suspenders（吊带 `/ səˈspendər /`）*
@@ -1776,7 +1781,7 @@ Her Highness：在第三人称提及时使用，意为“女王/公主/王妃殿
 
 > I bought you a new outfit just this month, I give you twenty francs a day, I pay your rent, and what do you do?
 
-| n \| v, `/ ˈaʊtfɪt /` | <img width="200" src="17dd63af/2025-10-15-06-06-19.png" alt="outfit" /> |
+| n \| v, `/ ˈaʊtfɪt /` | <img width="200" src="assets/2025-10-15-06-06-19.png" alt="outfit" /> |
 |:--:|:--:|
 
 *a set of clothes that one wears together, especially for an event or occasion（特殊或重大场合 `/ əˈkeɪʒn /`）*
@@ -1796,7 +1801,7 @@ Her Highness：在第三人称提及时使用，意为“女王/公主/王妃殿
 
 > Then he told me that he’d found a lottery ticket in her purse and she hadn’t been able to explain how she paid for it.
 
-| n \| v, `/ pɜːrs /` | <img width="200" src="17dd63af/2025-10-15-06-17-30.png" alt="purse" /> |
+| n \| v, `/ pɜːrs /` | <img width="200" src="assets/2025-10-15-06-17-30.png" alt="purse" /> |
 |:--:|:--:|
 
 *a small bag used, particularly by women, for <mark>carrying money</mark>*
@@ -1808,7 +1813,7 @@ Her Highness：在第三人称提及时使用，意为“女王/公主/王妃殿
 
 > A short time later he’d found a ticket from the shop in Mont-de-Piété in her room which proved that she’d pawned two bracelets. 
 
-| n, `/ ˈpɔːnʃɑːp /` | <img width="200" src="17dd63af/2025-10-15-06-53-49.png" alt="pawnshop" /> |
+| n, `/ ˈpɔːnʃɑːp /` | <img width="200" src="assets/2025-10-15-06-53-49.png" alt="pawnshop" /> |
 |:--:|:--:|
 
 *Mont-de-Piété is the French name for a "pawnshop".*
@@ -1837,7 +1842,7 @@ n | v, `/ pɑːn /`
 
 > A short time later he’d found a ticket from the shop in Mont-de-Piété in her room which proved that she’d pawned two bracelets.
 
-| n, `/ ˈbreɪslət /` | <img width="200" src="17dd63af/2025-10-15-07-01-06.png" alt="bracelet" /> | <img width="200" src="17dd63af/2025-10-15-07-05-33.png" alt="bracelet" /> |
+| n, `/ ˈbreɪslət /` | <img width="200" src="assets/2025-10-15-07-01-06.png" alt="bracelet" /> | <img width="200" src="assets/2025-10-15-07-05-33.png" alt="bracelet" /> |
 |:--:|:--:|:--:|
 
 常见的例子
@@ -1852,7 +1857,7 @@ n | v, `/ pɑːn /`
 
 > But first I smacked her around.
 
-| n \| v \| adv, `/ smæk /` | <img width="200" src="17dd63af/2025-10-15-06-28-02.png" alt="smack" /> |
+| n \| v \| adv, `/ smæk /` | <img width="200" src="assets/2025-10-15-06-28-02.png" alt="smack" /> |
 |:--:|:--:|
 
 *To smack means to hit someone or something with your open hand, making a sharp sound.*
@@ -1876,7 +1881,7 @@ n | v, `/ pɑːn /`
 
 > I told her that all she was interested in was `getting into the sack`(性暗示，上床).
 
-| n \| v, `/ sæk /` | <img width="200" src="17dd63af/2025-10-15-06-39-21.png" alt="the sack" /> |
+| n \| v, `/ sæk /` | <img width="200" src="assets/2025-10-15-06-39-21.png" alt="the sack" /> |
 |:--:|:--:|
 
 *the sack 是一个俚语，意思是“床”*
@@ -1894,7 +1899,7 @@ n | v, `/ pɑːn /`
 
 > You don't realize that everybody's jealous of how good you have it with me.
 
-| adj, `/ ˈdʒeləs /` | <img width="200" src="17dd63af/2025-10-15-06-46-09.png" alt="jealous" /> |
+| adj, `/ ˈdʒeləs /` | <img width="200" src="assets/2025-10-15-06-46-09.png" alt="jealous" /> |
 |:--:|:--:|
 
 *feeling angry and unhappy because someone else has what we want*
@@ -1936,7 +1941,7 @@ prep | conj | n | v, `/ tɪl /`
 
 **bled（`/ bled /`） 是 bleed 的过去分词**
 
-| v \| n, `/ bliːd /` | <img width="200" src="17dd63af/2025-10-15-07-20-54.png" alt="bleed" /> |
+| v \| n, `/ bliːd /` | <img width="200" src="assets/2025-10-15-07-20-54.png" alt="bleed" /> |
 |:--:|:--:|
 
 *To bleed means to lose blood from your body because of a cut（割伤） or injury（受伤 `/ ˈɪndʒəri /`）.*
@@ -1975,7 +1980,7 @@ prep | conj | n | v, `/ tɪl /`
 
 > I'd close the shutters and it always ended the same way.
 
-| n \| v, `/ ˈʃʌtər /`, 百叶窗 | <img width="200" src="17dd63af/2025-10-15-12-05-10.png" alt="bleed" /> |
+| n \| v, `/ ˈʃʌtər /`, 百叶窗 | <img width="200" src="assets/2025-10-15-12-05-10.png" alt="bleed" /> |
 |:--:|:--:|
 
 常见的例子
@@ -2011,7 +2016,7 @@ n | vt, `/ wɪk /`
 
 > I’d drunk close to a liter of wine and my temples were burning.
 
-| n, `/ ˈliːtər /`, 1000ml | <img width="200" src="17dd63af/2025-10-16-10-17-15.png" alt="liter" /> |
+| n, `/ ˈliːtər /`, 1000ml | <img width="200" src="assets/2025-10-16-10-17-15.png" alt="liter" /> |
 |:--:|:--:|
 
 
@@ -2021,7 +2026,7 @@ n | vt, `/ wɪk /`
 
 > I’d drunk close to a liter of wine and my temples were burning.
 
-| n, `/ ˈtemp(ə)l /`, 太阳穴 | <img width="200" src="17dd63af/2025-10-16-10-14-30.png" alt="temple" /> |
+| n, `/ ˈtemp(ə)l /`, 太阳穴 | <img width="200" src="assets/2025-10-16-10-14-30.png" alt="temple" /> |
 |:--:|:--:|
 
 #### going by
@@ -2335,7 +2340,7 @@ n | v, / pʌntʃ /
 
 > he’d spit in her face and throw her out. 
 
-| v \| n, `/ spɪt /` | <img width="200" src="17dd63af/2025-10-26-23-05-51.png" alt="spit" /> |
+| v \| n, `/ spɪt /` | <img width="200" src="assets/2025-10-26-23-05-51.png" alt="spit" /> |
 |:--:|:--:|
 
 *To spit means to force saliva(`/ səˈlaɪvə /` 唾液) or other liquid from your mouth.*
