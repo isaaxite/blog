@@ -95,15 +95,15 @@ hexo.extend.filter.register("before_post_render", function (data) {
   }
 
   for (const item of frontMatterVars) {
-    const { raw, final } = item;
-    if (!raw) {
+    const { name } = item;
+    if (!name) {
       continue;
     }
 
-    const finalVarname = final || `final_${raw}`
-    data[final] = data[raw];
-    if (!data[raw]) {
-      data[final] = item.default.replace(/:([a-z_]+)/g, (match, key) => {
+    const varname = `${name}_value`;
+    data[varname] = data[name];
+    if (!data[varname]) {
+      data[varname] = item.default.replace(/:([a-z_]+)/g, (match, key) => {
         const val = getPlaceholderVal(key, data, hexo.config.default_category || 'uncategorized');
         return val !== '' ? val : match; // 未知占位符保留原样
       });

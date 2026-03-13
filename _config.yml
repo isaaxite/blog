@@ -20,15 +20,14 @@ keywords:
 author: Isaac Kam
 timezone: Asia/Shanghai
 
-# A list of front matter variable mappings applied to posts and drafts before rendering.
-# Each item supports the following fields:
-#   - raw:     The front matter key to read from the post source file.
-#   - final:   The field name written back to the post data after resolution.
-#   - default: Fallback value when `raw` is absent or empty. Supports Hexo permalink
+# A list of objects, each defining a front matter variable mapping applied to posts and
+# drafts before rendering. Each object supports the following fields:
+#   - name:    The front matter key to read from the post. The resolved value is written
+#              back to the post data under the key `{name}_value`.
+#   - default: Fallback value when `name` is absent or empty. Supports Hexo permalink
 #              placeholders (:year, :month, :day, :title, :name, :hash, etc.).
 front_matter_vars:
-  - raw: slugpath
-    final: slug_path
+  - name: segment
     default: :name
 
 # URL
@@ -41,7 +40,7 @@ root: /
 # permalink: resources/:year/:month/:day/:title/
 # permalink: resources/:title/
 # slugpath is var defined in post's front-matter, and it is defined by myself, so it is not a default var in hexo, but it is more intuitive than :title, and I can use it to set the permalink of post flexibly.
-permalink: blog/:slug_path/
+permalink: blog/:segment_value/
 permalink_defaults: blog/:name/
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
