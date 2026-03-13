@@ -236,3 +236,11 @@ favicon:
 
   - rel: apple-touch-icon
     href: /apple-touch-icon.png
+
+# Assets folder - power by `scripts/assets-folder.js`
+assets_folder:
+  enable: true
+  # `name` is the name of the assets folder, and it will be set to 'assets' by default if not specified
+  name: assets
+  publish: false
+  externalink: https://assets-amu.pages.dev/blog
