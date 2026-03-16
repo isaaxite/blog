@@ -20,7 +20,6 @@
   "dependencies": {
     "fs-extra": "^11.3.4",
     "hexo": "^7.0.0-rc1",
-    "hexo-asset-img": "^1.2.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-alias": "^1.0.0",
     "hexo-generator-archive": "^2.0.0",
@@ -38,7 +37,8 @@
     "hexo-renderer-swig": "^2.0.0",
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^0.0.3",
-    "object-assign": "^4.1.1"
+    "object-assign": "^4.1.1",
+    "prompts": "^2.4.2"
   },
   "devDependencies": {
     "isubo": "0.0.12-alpha.7"
