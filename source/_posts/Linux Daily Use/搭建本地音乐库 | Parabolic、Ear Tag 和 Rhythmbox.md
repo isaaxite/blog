@@ -61,7 +61,7 @@ Rhythmbox 是 LMDE 自带，无需安装。如果不是这样，可使用 apt �
 
 ```bash
 sudo apt update
-sudo install rhythmbox -y
+sudo apt install rhythmbox -y
 ```
 
 ## 下载音乐

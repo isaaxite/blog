@@ -14,9 +14,6 @@ importers:
       hexo:
         specifier: ^7.0.0-rc1
         version: 7.3.0(chokidar@3.6.0)
-      hexo-asset-img:
-        specifier: ^1.2.0
-        version: 1.2.0
       hexo-deployer-git:
         specifier: ^4.0.0
         version: 4.0.0(chokidar@3.6.0)
@@ -71,6 +68,9 @@ importers:
       object-assign:
         specifier: ^4.1.1
         version: 4.1.1
+      prompts:
+        specifier: ^2.4.2
+        version: 2.4.2
     devDependencies:
       isubo:
         specifier: 0.0.12-alpha.7
@@ -879,9 +879,6 @@ packages:
   he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
-
-  hexo-asset-img@1.2.0:
-    resolution: {integrity: sha512-PfjFF8DvG22KZ9ZldzpCFJUerH+IJ7e4ARw9BsD3PtJsAbYJGLQfLt/XFnel/r9d2dDYjMlQf1urFdLirseqEA==}
 
   hexo-cli@4.3.2:
     resolution: {integrity: sha512-druJeBgLpG9ncDS5AhBHdAXk0G4CFj8Qes09pApyZ6bR+nJW1JYiDMuilhudaKDdq+1l49jWXVTidkcb7p0Jbw==}
@@ -2932,8 +2929,6 @@ snapshots:
       function-bind: 1.1.2
 
   he@1.2.0: {}
-
-  hexo-asset-img@1.2.0: {}
 
   hexo-cli@4.3.2:
     dependencies:
