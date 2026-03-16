@@ -1,72 +1,64 @@
 ---
-title: Note The Stranger
-segment: eng-node/the-stranger
-excerpt: Note The Stranger
+title: Annotation | The Stranger | Part One - Chapter III
+segment: annotated-english-books/the-stranger/pt1-ch3
+excerpt: 本文内容以《局外人》第一部分第三章的原文为基点，借此作为英语学习的材料。标注其中的陌生单词、短语。标注由英、美音标、图文解析构成。
 date: 2025-10-01 16:51:09
 tags:
 categories:
   - 读书笔记
 ---
 
-# Part One
-
-## Chapter I
-
-## Chapter II
-
-## Chapter III
-
-### Paragraph 1
+## Paragraph 1
 
 > I worked hard at the office today. The boss was nice. He asked me if I wasn't too tired and he also wanted to know Maman's age. I said, "About sixty," so as not to make a mistake; and I don't know why, but he seemed to be [relieved](#relieved) somehow and to consider the matter closed.
 
-### Paragraph 2
+## Paragraph 2
 
 > There was [a stack of](#a-stack-of) [freight invoices](#freight-invoices) that had [piled up](#piled-up) on my desk, and I had to [go through](#go-through) them all. Before leaving the office to go to lunch, I washed my hands. I really like doing this at lunchtime. I don't enjoy it so much in the evening, because [the roller towel](#the-roller-towel) you use is [soaked through](#soaked-through): one towel has to [last](#last) all day. I mentioned it once to my boss. He told me he was sorry but it was really a [minor detail](#minor-detail). I left a little late, at half past twelve, with Emmanuel, who works as a [dispatcher](#dispatcher). The office [overlooks](#overlooks) the sea, and we took a minute to watch the [freighters](#freighters) in the [harbor](#harbor), which was [ablaze](#ablaze) with sun light. Then a [truck](#truck) came toward us with its chains [rattling](#rattling) and its engine [backfiring](#backfiring). Emmanuel said, "How'bout it?" and I started running. The truck passed us and we ran after it. I was [engulfed](#engulfed) by the noise and the [dust](#dust). I couldn't see anything, and all I was [conscious of](#conscious-of) was the [sensation](#sensation) of [hurtling](#hurtling) forward in a mad [dash](#dash) through [cranes](#cranes) and [winches](#winches), [masts](#masts) [bobbing](#bobbing) on the horizon and the [hulls](#hulls) of ships [alongside](#alongside) us as we ran. I was first to [grab](#grab) hold and take a [flying leap](#flying-leap). Then I [reached out](#reached-out) and helped Emmanuel [scramble up](#scramble-up). We were [out of breath](#out-of-breath); the truck was [bumping around](#bumping-around) on the [uneven cobblestones](#uneven-cobblestones) of the [quay](#quay) in a cloud of dust and sun. Emmanuel was laughing so hard he could hardly breathe.
 
-### Paragraph 3
+## Paragraph 3
 
 > We arrived at Céleste's [dripping with sweat](#dripping-with-sweat). Céleste was there, as always, with his big [belly](#belly), his [apron](#apron), and his white moustache. He asked me if things were "all right now." I told him yes they were and said I was hungry. I ate fast and had some coffee. Then I went home and slept for a while because I'd drunk too much wine, and when I woke up I felt like having a smoke. It was late and I ran to catch a [streetcar](#streetcar). I worked all afternoon. It got very hot in the office, and that evening, when I left, I was glad to walk back slowly along the docks. The sky was green; I felt good. But I went straight home because I wanted to [boil](#boil) myself some potatoes.
 
-### Paragraph 4
+## Paragraph 4
 
 > On my way upstairs, in the dark, I ran into old Salamano, my neighbor [across the landing](#across-the-landing). He was with his dog. The two of them have been inseparable for eight years. The [spaniel](#spaniel) has a skin disease—[mange](#mange), I think—which makes almost all its hair fall out and leaves it covered with brown [sores](#sores) and [scabs](#scabs). After living together for so long, the two of them alone in one tiny room, they've ended up looking like each other. Old Salamano has reddish scabs on his face and [wispy](#wispy) yellow hair. As for the dog, he's [sort of](#sort-of) [taken on](#taken-on) his master's [stooped look](#stooped-look), [muzzle down](#muzzle-down), [neck straining](neck-straining). They look as if they belong to the same [species](#species), and yet they hate each other. Twice a day, at eleven and six, the old man takes the dog out for a walk. They haven't changed their route in eight years. You can see them in the `rue de Lyon`(法语街道名), the dog pulling the man along until old Salamano [stumbles](#stumbles). Then he beats the dog and [swears at](#swears-at) it. The dog [cowers](#cowers) and [trails](#trails) behind. Then it's the old man who pulls the dog. Once the dog has forgotten, it starts dragging its master along again, and again gets beaten and [sworn at](#swears-at). Then they both stand there on the [sidewalk](#sidewalk) and stare at each other, the dog in terror, the man in [hatred](#hatred). It's the same thing every day. When the dog wants to [urinate](#urinate), the old man won't give him enough time and [yanks](#yanks) at him, so that the spaniel leaves behind a trail of little [drops](#drops). If the dog has an accident in the room, it gets beaten again. This has been going on for eight years. Céleste is always saying, "It's [pitiful](#pitiful)," but really, who's to say? When I ran into him on the stairs, Salamano was swearing away at the dog. He was saying, "[Filthy](#Filthy), [stinking](#stinking) [bastard](#bastard)!" and the dog was [whimpering](#whimpering). I said "Good evening," but the old man just went on [cursing](#cursing). So I asked him what the dog had done. He didn't answer. All he said was "Filthy, stinking bastard!" I could barely see him leaning over his dog, trying to fix something on its [collar](#collar). I spoke louder. Then, without turning around, he answered with a kind of [suppressed](#suppressed) [rage](#rage), "He's always there." Then he left, yanking at the animal, which was letting itself be dragged along, whimpering.
 
-### Paragraph 5
+## Paragraph 5
 
 > Just then my other neighbor came in. The word around the neighborhood is that he [lives off](#lives-off) women. But when you ask him what he does, he's a "[warehouse guard](#warehouse-guard)." Generally speaking, he's not very popular. But he often talks to me and sometimes stops by my place for a minute, because I listen to him. I find what he has to say interesting. Besides, I don't have any reason not to talk to him. His name is Raymond Sintès. He's a little [on the short side](#on-the-short-side), with [broad shoulders](#broad-shoulders) and a nose like a [boxer's](#boxer’s). He always dresses very [sharp](#sharp). And once he said to me, talking about Salamano, "If that isn't pitiful!" He asked me didn't I think it was disgusting and I said no.
 
 
-### Paragraph 6
+## Paragraph 6
 
 > We went upstairs and I was about to leave him when he said, "I've got some [blood sausage](#blood-sausage) and some wine at my place. How about joining me?" I [figured](#figured) it would save me the trouble of having to cook for myself, so I accepted. He has only one room too, and a little kitchen with no window. Over his bed he has a pink-and-white [plaster angel](#plaster-angel), some pictures of famous [athletes](#athletes), and two or three photographs of [naked](#naked) women. The room was dirty and the bed was [unmade](#unmade). First he lit his [paraffin lamp](#paraffin-lamp), then he took a pretty [dubious-looking](#dubious-looking) bandage out of his pocket and wrapped it around his right hand. I asked him what he'd done to it. He said he'd been in a fight with some guy who was trying to start trouble.
 
-### Paragraph 7
+## Paragraph 7
 
 > "You see, Monsieur Meursault," he said, "it's not that I'm a bad guy, but I have [a short fuse](#a-short-fuse). This guy says to me, 'If you're man enough you'll get down off that [streetcar](#streetcar).' I said, 'C'mon, take it easy.' Then he said, 'You're yellow.' So I got off and I said to him, 'I think you better stop right there or I'm gonna have to teach you a lesson.' And he said, 'You and who else?' So I let him have it. He went down. I was about to help him up but he started kicking me from there on the ground. So I kneed him one and [slugged](#slugged) him a couple of times. His face was all [bloody](#bloody). I asked him if he'd had enough. He said, 'Yes.' " All this time, Sintès was [fiddling with](#fiddling-with) his bandage. I was sitting on the bed. He said, "So you see, I wasn't the one who started it. He was asking for it." It was true and I agreed. Then he told me that as a matter of fact he wanted to ask my advice about the whole business, because I was a man, I knew about things, I could help him out, and then we'd be [pals](#pals). I didn't say anything, and he asked me again if I wanted to be pals. I said it was fine with me: he seemed pleased. He got out the blood sausage, fried it up, and set out [glasses](#glasses), [plates](#plates), knives and forks, and two bottles of wine. All this in silence. Then we sat down. As we ate, he started telling me his story. He was a little [hesitant](#hesitant) at first. "I knew this lady . . . as a matter of fact, well, she was my [mistress](#mistress)." The man he'd had the fight with was this woman's brother. He told me he'd been keeping her. I didn't say anything, and yet right away he added that he knew what people around the neighborhood were saying, but that his [conscience](#conscience) was clear and that he was a warehouse guard.
 
-### Paragraph 8
+## Paragraph 8
 
 > "To get back to what I was saying," he continued, "I realized that she was cheating on me." He'd been giving her just enough to live on. He paid the rent on her room and gave her twenty [francs](#francs) a day for food. "Three hundred francs for the room, six hundred for food, a pair of [stockings](#stockings) every now and then—that made it a thousand francs. And [Her Highness](#Her-Highness) refused to work. But she was always telling me that things were too tight, that she couldn't get by on what I was giving her. And I'd say to her, 'Why not work half-days? You'd be helping me out on all the little extras. I bought you a new [outfit](#outfit) just this month, I give you twenty francs a day, I pay your rent, and what do you do? . . . You have coffee in the afternoons with your friends. You even provide the coffee and sugar. And me, I provide the money. I've been good to you, and this is how you repay me.' But she wouldn't work; she just kept on telling me she couldn't make ends meet—and that's what made me realize she was cheating on me."
 
-### Paragraph 9
+## Paragraph 9
 
 > Then he told me that he'd found a lottery ticket in her [purse](#purse) and she hadn't been able to explain how she paid for it. A short time later he'd found a ticket from the shop in [Mont-de-Piété](#Mont-de-Piete-pawnshop) in her room which proved that she'd [pawned](#pawned) two [bracelets](#bracelets). Until then he hadn't even known the [bracelets](#bracelets) existed. "It was clear that she was cheating on me. So I left her. But first I [smacked her around](#smacked-sb-around). And then I told her exactly what I thought of her. I told her that all she was interested in was getting into [the sack](#the-sack). You see, Monsieur Meursault, it's like I told her: 'You don't realize that everybody's [jealous](#jealous) of how good you have it with me. Someday you'll know just how good it was.' "
 
-### Paragraph 10
+## Paragraph 10
 
 > He'd beaten her [till](#till) she [bled](#bled). He'd never beaten her before. "I'd smack her around a little, but [nice-like](#nice-like), you might say. She'd scream a little. I'd close the [shutters](#shutters) and it always ended the same way. But this time it's for real. And if you ask me, she still hasn't gotten what she has coming."
 
 
-### Paragraph 11
+## Paragraph 11
 
 > Then he explained that that was what he needed advice about. He stopped to adjust the lamp's [wick](#wick), which was smoking. I just listened. I'd drunk close to a [liter](#liter) of wine and my [temples](#temples) were burning. I was smoking Raymond's cigarettes because I'd run out. The last streetcars were going by, taking [the now distant sounds](#the-now-distant-sounds) of the neighborhood with them. Raymond went on. What bothered him was that he "still had sexual feelings for her." But he wanted to punish her. First he'd thought of taking her to a hotel and calling [the vice squad](#the-vice-squad) to [cause](#cause) a [scandal](#scandal) and have her listed as a common [prostitute](#prostitute). After that he'd looked up some of his [underworld friends](#underworld-friends). But they didn't [come up with](#come-up-with) anything. As Raymond pointed out to me, a lot of good it does being in the underworld. He'd said the same thing to them, and then they'd suggested "marking" her. But that wasn't what he wanted. He was going to think about it. But first he wanted to ask me something. Before he did, though, he wanted to know what I thought of the whole thing. I said I didn't think anything but that it was interesting. He asked if I thought she was cheating on him, and it seemed to me she was; if I thought she should be punished and what I would do in his place, and I said you can't ever be sure, but I understood [his wanting](#his-wanting) to punish her. I drank a little more wine. He lit a cigarette and [let me in on](#let-me-in-on) what he was thinking about doing. He wanted to write her a letter, "one with a [punch](#punch) and also some things in it to make her sorry for what she's done." Then, when she [came running back](#came-running-back), he'd go to bed with her and "[right at](#right-at) the last minute" he'd [spit](#spit) in her face and [throw her out](#throw-her-out). Yes, that would punish her, I thought. But Raymond told me he didn't think he could write the kind of letter it would take and that he'd thought of asking me to write it for him. Since I didn't say anything, he asked if I'd mind doing it right then and I said no.
 
-### Paragraph 12
+## Paragraph 12
 
 > He downed a glass of wine and then stood up. He pushed aside the [plates](#plates) and the little bit of cold [sausage](#blood-sausage) we'd left. He carefully wiped the oilcloth covering the table. Then from a drawer in his night table he took out a sheet of paper, a yellow envelope, a small red pen box, and a square bottle with purple ink in it. When he told me the woman's name I realized she was Moorish. I wrote the letter. I did it just as it came to me, but I tried my best to please Raymond because I didn't have any reason not to please him. Then I read it out loud. He listened, smoking and nodding his head; then he asked me to read it again. He was very pleased. He said, "I could tell you knew about these things." I didn't notice at first, but he had stopped calling me "monsieur." It was only when he announced "Now you're a pal, Meursault" and said it again that it struck me. He repeated his remark and I said, "Yes." I didn't mind being his pal, and he seemed set on it. He sealed the letter and we finished off the wine. Then we sat and smoked for a while without saying anything. Outside, everything was quiet; we heard the sound of a car passing. I said, "It's late." Raymond thought so too. He remarked how quickly the time passed, and in a way it was true. I felt sleepy, but it was hard for me to get up. I must have looked tired, because Raymond told me not to let things get to me. At first I didn't understand. Then he explained that he'd heard about Maman's death but that it was one of those things that was bound to happen sooner or later. I thought so too.
 
-### Paragraph 13
+## Paragraph 13
 
 > I got up. Raymond gave me a very firm handshake and said that men always understand each other. I left his room, closing the door behind me, and paused for a minute in the dark, on the landing. The house was quiet, and a breath of dark, dank air wafted up from deep in the stairwell. All I could hear was the blood pounding in my ears. I stood there, motionless. And in old Salamano's room, the dog whimpered softly.
 
@@ -74,9 +66,9 @@ categories:
 
 
 
-### Annotation
+## Annotation
 
-#### relieved
+### relieved
 
 [⬆️ Paragraph 1](#Paragraph-1)
 
@@ -90,7 +82,7 @@ be relieved，被动。因某件事感到 relive，译本中此处被译为 “�
 
 此处因被动语态，使用 relieve 的过去分词。
 
-#### a stack of
+### a stack of
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -103,7 +95,7 @@ stack, v | n, / stæk /
 
 量词，a stack of something：一堆什么
 
-#### freight invoices
+### freight invoices
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -115,7 +107,7 @@ invoice, v | n, / ˈɪnvɔɪs /
 
 freight invoice：运费发票；a stack of freight invoices，一堆运费发票
 
-#### piled up
+### piled up
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -132,7 +124,7 @@ pile up：堆积起来；运费发票已经在我的桌子上堆积起来
 
 - The newspapers began to pile up after a few days.
 
-#### go through
+### go through
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -153,7 +145,7 @@ go throngh something:
 - Security went through my bag at the airport.
 - I need to go through my emails before the meeting.
 
-#### the roller towel
+### the roller towel
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -170,7 +162,7 @@ towel: n | v, / ˈtaʊəl /
 |:--:|:--:|
 
 
-#### soaked through
+### soaked through
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -190,7 +182,7 @@ soaked: /soʊkt/; soak: v | n, / soʊk /
 - The towel is soaked through; we need a dry one.
 - The rain will soak through your jacket if you don't have an umbrella.
 
-#### last
+### last
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -201,7 +193,7 @@ soaked: /soʊkt/; soak: v | n, / soʊk /
 - To keep going: "The movie lasted for three hours."（这部电影**持续**了三个小时。）-> 它“保持播放”了三个小时。
 - To be enough: "We have to make our water last for two days."（我们必须让我们的水**维持**两天。）-> 我们必须让水“足够”用两天。
 
-#### minor detail
+### minor detail
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -219,7 +211,7 @@ So, when someone says, "it was really a minor detail," they mean:
 
 *In your sentence, the man is saying he is sorry, but he also wants to say that the problem was very small and not important.*
 
-#### dispatcher
+### dispatcher
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -229,7 +221,7 @@ dispatcher: n, / dɪˈspætʃər /
 
 A dispatcher: is a person whose job is to send people or vehicles(车辆, / ˈviːəkl; ˈviːhɪkl /) to the right place. They sit in an office and tell drivers where to go next. They make sure the right person goes to the right place at the right time.
 
-#### overlooks
+### overlooks
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -241,7 +233,7 @@ A dispatcher: is a person whose job is to send people or vehicles(车辆, / ˈvi
 - [ ] 如果主语是一个人，overlooks 通常意味着 "忽略，没注意到"。
   "Please overlook his rude comment."（请别计较他粗鲁的评论。）
 
-#### freighters
+### freighters
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -251,7 +243,7 @@ n / ˈfreɪtər /
 
 A freighter is a large ship that carries goods and products.
 
-#### harbor
+### harbor
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -261,7 +253,7 @@ v | n, / ˈhɑːrbər /
 
 A harbor（港口） is a safe place for boats and ships.
 
-#### ablaze
+### ablaze
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -274,7 +266,7 @@ A harbor（港口） is a safe place for boats and ships.
 - [x] 比喻性的光亮, 意思： 被非常明亮的光照亮，闪耀。
   "The city streets were ablaze with neon lights（霓虹灯）." （城市的街道被霓虹灯照得熠熠生辉。）
 
-#### truck
+### truck
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -283,7 +275,7 @@ A harbor（港口） is a safe place for boats and ships.
 truck（卡车）: v | n, / trʌk /; 主要用于载货，追求力量和载重能力
 
 
-#### rattling
+### rattling
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -299,7 +291,7 @@ truck（卡车）: v | n, / trʌk /; 主要用于载货，追求力量和载重�
 - 摇晃一罐油漆时，里面的小珠子会 rattle；
 - 一个老旧汽车的引擎可能会在熄火后发出 rattling 声。
 
-#### backfiring
+### backfiring
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -311,7 +303,7 @@ backfiring: v, / ˌbækˈfaɪərɪŋ /
 
 *Backfiring is when a car or truck engine makes a sudden, loud "BANG!" or "POP!" sound.*
 
-#### engulfed
+### engulfed
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -323,7 +315,7 @@ engulf 的意思是 被完全包围或吞没。
 
 可以这样想象：如果一个东西 engulfs 你，就意味着它从四面八方围住你，让你无法逃脱或看不到周围的其他东西。
 
-#### dust
+### dust
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -333,7 +325,7 @@ dust: n | v, / dʌst /
 
 dust 的意思是 灰尘、尘土。
 
-#### conscious of
+### conscious of
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -349,7 +341,7 @@ adj, / ˈkɑːnʃəs /
 
 - "He was very conscious of everyone looking at him." （他强烈地**意识到*每个人都在看着他。）-> 他能感觉到别人的目光。
 
-#### sensation
+### sensation
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -368,7 +360,7 @@ A sensation（感觉） is a physical feeling that you get from your body.
 - The burning sensation from touching something hot.（碰到热东西时灼烧的感觉。）
 
 
-#### hurtling
+### hurtling
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -386,7 +378,7 @@ hurtle: vt | vi | n, / ˈhɜːrt(ə)l /
 - "The asteroid was hurtling through space."
 （小行星正在太空中急速飞驰。）
 
-#### dash
+### dash
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -404,7 +396,7 @@ v | n, / dæʃ /
 
 - "We had to make a quick dash to the store before it closed."（我们得在商店关门前飞快地去一趟。）
 
-#### cranes
+### cranes
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -415,7 +407,7 @@ crane: n | v, / kreɪn /
 *A crane（起重机） is a very tall, large machine that is used to lift and move very heavy things.*
 
 
-#### winches
+### winches
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -425,7 +417,7 @@ winch: n | v, / wɪntʃ /
 
 *A winch（绞车） is a smaller machine that uses a rope（/ roʊp /, 绳索） or cable（/ ˈkeɪb(ə)l /, 缆绳） to pull things.*
 
-#### masts
+### masts
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -435,7 +427,7 @@ n | vt, / mæst /
 
 *A mast（桅杆） is a very tall pole（杆 / poʊl /） on a ship that holds up the sails（船帆 / seɪl /）.*
 
-#### bobbing
+### bobbing
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -454,7 +446,7 @@ bobbing: / ˈbɑːbɪŋ /
 
 - A seal's head bobbed up from the water.（一只海豹的头从水里探了出来（然后可能又沉下去）。）
 
-#### hulls
+### hulls
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -465,7 +457,7 @@ hull: n | vt, / hʌl /
 *The hull（船体） is the main body or frame of a ship.*
 
 
-#### alongside
+### alongside
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -482,7 +474,7 @@ Alongside means next to and in line with something（在旁边并与之平行）
 - "She worked alongside her colleagues on the project."（她和同事们一起进行这个项目。）
 
 
-#### grab
+### grab
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -501,7 +493,7 @@ Grab means to take hold of something suddenly and firmly（有力地 / ˈfɜːrm
 - "Quick, grab that seat before someone else does!"（快，抢那个座位，别让别人占了！）
 
 
-#### flying leap
+### flying leap
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -539,7 +531,7 @@ A **flying leap*（飞身一跃） is a jump where you move forward through the 
   - Technology has leapt forward in the last decade.（科技在过去十年里取得了飞跃。）
 
 
-#### reached out
+### reached out
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -559,7 +551,7 @@ v | n, / riːtʃ /
 
 
 
-#### scramble up
+### scramble up
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -585,7 +577,7 @@ scramble: `v | n, / ˈskræmb(ə)l /`
 - He scrambled up the bank after falling into the river.（他掉进河里后，匆忙爬上了河岸。）
 
 
-#### out of breath
+### out of breath
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -601,7 +593,7 @@ scramble: `v | n, / ˈskræmb(ə)l /`
 
 - "She was out of breath from laughing so hard."（她笑得都快喘不过气了。）
 
-#### bumping around
+### bumping around
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -618,7 +610,7 @@ bump: v | n, / bʌmp /
 
 - "We bumped around in the back of the truck on the dirt road."（我们在土路上被颠得晃来晃去。）
 
-#### uneven cobblestones
+### uneven cobblestones
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -640,7 +632,7 @@ uneven: adj, / ʌnˈiːv(ə)n /
 
 - "The cake didn't rise properly, so the top is uneven."（蛋糕没发好，所以顶部不平。）
 
-#### quay
+### quay
 
 [⬆️ Paragraph 2](#Paragraph-2)
 
@@ -652,7 +644,7 @@ quay： n, / kiː /
 
 ---
 
-#### dripping with sweat
+### dripping with sweat
 
 [⬆️ Paragraph 3](#Paragraph-3)
 
@@ -665,7 +657,7 @@ drip: v | n, / drɪp /
 *Dripping with sweat is a very common and descriptive phrase. It means you are so hot and sweaty that the sweat is falling off your body in drops.*
 
 
-#### belly
+### belly
 
 [⬆️ Paragraph 3](#Paragraph-3)
 
@@ -679,7 +671,7 @@ drip: v | n, / drɪp /
 *Your belly（肚子） is the front part of your body between your chest and your legs.*
 
 
-#### apron
+### apron
 
 [⬆️ Paragraph 3](#Paragraph-3)
 
@@ -690,7 +682,7 @@ drip: v | n, / drɪp /
 
 *An apron is a piece of clothing that you wear over your front to protect your normal clothes from getting dirty.*
 
-#### streetcar
+### streetcar
 
 [⬆️ Paragraph 3](#Paragraph-3)
 
@@ -704,7 +696,7 @@ drip: v | n, / drɪp /
 *A streetcar is an electric vehicle（车辆 / ˈviːəkl; ˈviːhɪkl /） that runs on tracks laid in the street, used for public transportation（交通运输系统 / ˌtrænspərˈteɪʃ(ə)n /） in a city.*
 
 
-#### boil
+### boil
 
 [⬆️ Paragraph 3](#Paragraph-3)
 
@@ -728,7 +720,7 @@ v | n, / bɔɪl /
 
 ---
 
-#### across the landing
+### across the landing
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -749,7 +741,7 @@ landing: 指的是他们公寓门外、楼梯顶部的那个共享的公共小�
 - "She slipped and fell on the landing." （她在楼梯平台上滑倒了。）
 
 
-#### spaniel
+### spaniel
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -760,7 +752,7 @@ landing: 指的是他们公寓门外、楼梯顶部的那个共享的公共小�
 
 *A spaniel（西班牙猎犬/獚犬） is a type of dog, known for having long, floppy ears and a friendly nature.*
 
-#### sores
+### sores
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -780,7 +772,7 @@ n | adj, / sɔːr /
 
 - "I have a sore throat."（我嗓子疼。*注意：在这里，"sore" 是形容词，意思是“疼痛的”。*）
 
-#### mange
+### mange
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -799,7 +791,7 @@ n | adj, / sɔːr /
 
 - 治疗： 通常可以通过药物治疗，但这只狗显然没有得到妥善的照料。
 
-#### scabs
+### scabs
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -811,7 +803,7 @@ n | adj, / sɔːr /
 |:--:|:--:|
 
 
-#### wispy
+### wispy
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -829,7 +821,7 @@ n | adj, / sɔːr /
 
 
 
-#### sort of
+### sort of
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -849,7 +841,7 @@ n | adj, / sɔːr /
 
 - "Do you like this plan?" - "Sort of."（“你喜欢这个计划吗？” - “还行吧。” / 表示犹豫或不确定（单独使用））
 
-#### taken on
+### taken on
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -863,7 +855,7 @@ n | adj, / sɔːr /
 
 
 
-#### stooped look
+### stooped look
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -872,7 +864,7 @@ n | adj, / sɔːr /
 | stoop: v \| n, / stuːp / | <img width="200" src="assets/2025-10-11-18-14-01.png" alt="stoop" /> |
 |:--:|:--:|
 
-#### muzzle down
+### muzzle down
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -894,7 +886,7 @@ n | adj, / sɔːr /
 - The wolf moved through the forest, muzzle down, intently following the scent of its prey.（那只狼口鼻贴地，穿行在森林中，专注地追踪着猎物的气味。）
 
 
-#### neck straining
+### neck straining
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -904,7 +896,7 @@ strain: n | v, / streɪn /
 
 *Neck straining 描述的是 脖子上的肌肉因为用力而变得紧张、拉紧的状态。*
 
-#### species
+### species
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -915,7 +907,7 @@ n | adj, / ˈspiːʃiːz /
 *A species（物种） is a group of living things that can breed（交配 / briːd /） with each other and produce healthy babies that can also have babies.*
 
 
-#### stumbles
+### stumbles
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -933,7 +925,7 @@ v | n, / ˈstʌmb(ə)l /
 
 - "She stumbled on the stairs but managed to grab the railing."（她在楼梯上绊了一下，但设法抓住了栏杆。）
 
-#### swears at
+### swears at
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -954,7 +946,7 @@ In this sentence, *swear* means to *use very rude and angry words*. When someone
 - "Don't swear in front of the children."（别在孩子面前说脏话。）
 
 
-#### cowers
+### cowers
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -970,7 +962,7 @@ vi, / ˈkaʊər /
 
 - "He cowered away from the raised hand."（他畏缩着躲开那只举起的手。）
 
-#### trails
+### trails
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -997,7 +989,7 @@ n | v, / treɪl /
 - "The losing team trailed by ten points."（落后的队伍落后十分。*在这个体育比喻中，"trail" 意思是“落后”。*）
 
 
-#### sidewalk
+### sidewalk
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1008,7 +1000,7 @@ n | v, / treɪl /
 
 *a pathway typically `made of`（制作） concrete（混凝土 / ˈkɑːnkriːt /） or asphalt（/ ˈæsfɔːlt / 沥青） at the side of a street for people to walk on*
 
-#### hatred
+### hatred
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1033,7 +1025,7 @@ n | v, / treɪl /
 - "She has a deep hatred for lies."（她对谎言深恶痛绝。）
 
 
-#### urinate
+### urinate
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1061,7 +1053,7 @@ n | v, / treɪl /
 - The sign reminded visitors that it is illegal to urinate in public places.（告示牌提醒游客，在公共场所小便是非法的。）
 
 
-#### yanks
+### yanks
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1081,7 +1073,7 @@ n | v, / treɪl /
 - "The child yanked his hand away from his mother's grasp."（孩子猛地从妈妈手里挣脱了自己的手。）
 
 
-#### drops
+### drops
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1108,7 +1100,7 @@ n | v, / treɪl /
 
 - "He drank until the last drop."（他喝得一滴不剩。）
 
-#### pitiful
+### pitiful
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1131,7 +1123,7 @@ n | v, / treɪl /
 - "The refugees（refugee， / ˌrefjuˈdʒiː /） were in a pitiful state."（难民们处境凄惨。）
 
 
-#### Filthy
+### Filthy
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1162,7 +1154,7 @@ adj | adv, / ˈfɪlθi /
   - "Filthy liar!"（卑鄙的骗子！）
 
 
-#### stinking
+### stinking
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1188,7 +1180,7 @@ adj | adv, / ˈfɪlθi /
   - "Get out of here, you stinking liar!"（滚出去，你这个该死的骗子！）
 
 
-#### bastard
+### bastard
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1206,7 +1198,7 @@ n | adj, / ˈbæstərd /
 
 - "You lucky bastard!"（你这个幸运的家伙！）
 
-#### whimpering
+### whimpering
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1225,7 +1217,7 @@ whimper: v | n, / ˈwɪmpər /
 - "She heard a whimpering sound coming from the dark room."（她听到黑暗的房间里传来一阵呜咽声。）
 
 
-#### cursing
+### cursing
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1241,7 +1233,7 @@ curse: v | n, / kɜːrs /
 
 - He swore when he dropped his phone.（他手机掉地上时骂了句脏话。）-> 这更可能只是一句发泄
 
-#### collar
+### collar
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1256,7 +1248,7 @@ curse: v | n, / kɜːrs /
 - "She grabbed the dog by the collar to stop it from running into the street."（她一把抓住狗的项圈，阻止它跑到街上去。）
 
 
-#### suppressed
+### suppressed
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1275,7 +1267,7 @@ suppress: v, / səˈpres /
 - "The government suppressed the news."（政府封锁了那条消息。）-> 在这里，意思是阻止消息被公开。
 
 
-#### rage
+### rage
 
 [⬆️ Paragraph 4](#Paragraph-4)
 
@@ -1294,7 +1286,7 @@ suppress: v, / səˈpres /
 
 ---
 
-#### lives off
+### lives off
 
 [⬆️ Paragraph 5](#Paragraph-5)
 
@@ -1309,7 +1301,7 @@ suppress: v, / səˈpres /
 - "She accused him of just wanting to live off her money."（她指责他只是想靠她的钱过日子。）
 
 
-#### warehouse guard
+### warehouse guard
 
 [⬆️ Paragraph 5](#Paragraph-5)
 
@@ -1345,7 +1337,7 @@ suppress: v, / səˈpres /
 
 - "He was hired as a guard for the famous singer."（他被雇来当那名著名歌手的保镖。）
 
-#### broad shoulders
+### broad shoulders
 
 [⬆️ Paragraph 5](#Paragraph-5)
 
@@ -1367,7 +1359,7 @@ suppress: v, / səˈpres /
 - "He was a tall man with broad shoulders."（他是个高个子，肩膀很宽。）
 
 
-#### on the short side
+### on the short side
 
 [⬆️ Paragraph 5](#Paragraph-5)
 
@@ -1386,7 +1378,7 @@ suppress: v, / səˈpres /
   - The price is on the high side.（价格有点高。）
   - The soup is on the salty side.（汤有点咸。）
 
-#### boxer's
+### boxer's
 
 [⬆️ Paragraph 5](#Paragraph-5)
 
@@ -1396,7 +1388,7 @@ suppress: v, / səˈpres /
 |:--:|:--:|
 
 
-#### sharp
+### sharp
 
 [⬆️ Paragraph 5](#Paragraph-5)
 
@@ -1418,7 +1410,7 @@ suppress: v, / səˈpres /
 ---
 
 
-#### blood sausage
+### blood sausage
 
 [⬆️ Paragraph 6](#Paragraph-6)
 [⬆️ Paragraph 12](#Paragraph-12)
@@ -1439,7 +1431,7 @@ suppress: v, / səˈpres /
 - "He packed a mouthwatering sausage sandwich for his lunch, layered with fresh veggies and a tangy mustard sauce."（他为午餐准备了一个令人垂涎的香肠三明治，夹有新鲜蔬菜和辛辣的芥末酱。）
 
 
-#### figured
+### figured
 
 [⬆️ Paragraph 6](#Paragraph-6)
 
@@ -1458,7 +1450,7 @@ n | v, `/ ˈfɪɡjər /`
 - "Can we leave early?" - "I figure so."（“我们能早点走吗？” - “我想可以。”）
 
 
-#### plaster angel
+### plaster angel
 
 [⬆️ Paragraph 6](#Paragraph-6)
 
@@ -1469,7 +1461,7 @@ n | v, `/ ˈfɪɡjər /`
 
 *Plaster（石膏） is a white powder（/ ˈpaʊdər / 粉末） that you mix with water to make a thick（粘稠的 / θɪk /） paste（糊状物 / peɪst /）. When it dries, it becomes very hard. People use it to make statues（雕像 / ˈstætʃuː /）, to cover walls, or to fix broken bones.*
 
-#### athletes
+### athletes
 
 [⬆️ Paragraph 6](#Paragraph-6)
 
@@ -1482,7 +1474,7 @@ n | v, `/ ˈfɪɡjər /`
 
 
 
-#### naked
+### naked
 
 [⬆️ Paragraph 6](#Paragraph-6)
 
@@ -1502,7 +1494,7 @@ n | v, `/ ˈfɪɡjər /`
 - "She felt naked without her phone."（没有手机，她感觉像赤身裸体一样。）-> 这是一个比喻，意思是感到脆弱、暴露。
 
 
-#### unmade
+### unmade
 
 [⬆️ Paragraph 6](#Paragraph-6)
 
@@ -1524,7 +1516,7 @@ n | v, `/ ˈfɪɡjər /`
 
 - "Her room was a mess, with an unmade bed and clothes on the floor."（她的房间一团糟，没整理的床，地上全是衣服。）
 
-#### paraffin lamp
+### paraffin lamp
 
 [⬆️ Paragraph 6](#Paragraph-6)
 
@@ -1537,7 +1529,7 @@ n | v, `/ ˈfɪɡjər /`
 *A paraffin lamp is a lamp that produces light by burning paraffin oil (kerosene, 煤油 `/ ˈkerəsiːn /`).*
 
 
-#### dubious-looking
+### dubious-looking
 
 [⬆️ Paragraph 6](#Paragraph-6)
 
@@ -1559,7 +1551,7 @@ n | v, `/ ˈfɪɡjər /`
 ---
 
 
-#### a short fuse
+### a short fuse
 
 [⬆️ Paragraph 7](#Paragraph-7)
 
@@ -1577,7 +1569,7 @@ n | v, `/ ˈfɪɡjər /`
 - "Her short fuse often gets her into trouble."（她的暴脾气经常给她惹麻烦。）
 
 
-#### bloody
+### bloody
 
 [⬆️ Paragraph 7](#Paragraph-7)
 
@@ -1602,7 +1594,7 @@ adj | adv | v, `/ ˈblʌdi /`
 - "The scene of the accident was bloody."（事故现场血淋淋的。）
 
 
-#### fiddling with
+### fiddling with
 
 [⬆️ Paragraph 7](#Paragraph-7)
 
@@ -1629,7 +1621,7 @@ fiddle: v | n, `/ ˈfɪdl /`
 - "She fiddled with her necklace while she was talking, a sign that she was nervous."（她说话时拨弄着她的项链，这是她紧张的一个迹象。）
 
 
-#### pals
+### pals
 
 [⬆️ Paragraph 7](#Paragraph-7)
 
@@ -1649,7 +1641,7 @@ fiddle: v | n, `/ ˈfɪdl /`
 - "They're not just colleagues; they're real pals."（他们不只是同事，他们是真正的哥们儿。）
 
 
-#### glasses
+### glasses
 
 [⬆️ Paragraph 7](#Paragraph-7)
 
@@ -1658,14 +1650,9 @@ fiddle: v | n, `/ ˈfɪdl /`
 | glass: v \| n, `/ ɡlæs /` | <img width="200" src="assets/2025-10-14-04-37-18.png" alt="glass" /> |
 |:--:|:--:|
 
-<img width="200" src="./assets/2025-10-14-04-37-18.png" alt="glass" />
-
-![](assets/2025-10-14-04-37-18.png)
-![](./assets/2025-10-14-04-37-18.png)
-
 *a container that is used for drinks and is made of glass*
 
-#### plates
+### plates
 
 [⬆️ Paragraph 7](#Paragraph-7)
 [⬆️ Paragraph 12](#Paragraph-12)
@@ -1678,7 +1665,7 @@ fiddle: v | n, `/ ˈfɪdl /`
 *a flat, typically round dish that we eat from or serve food on*
 
 
-#### hesitant
+### hesitant
 
 [⬆️ Paragraph 7](#Paragraph-7)
 
@@ -1697,7 +1684,7 @@ adj, `/ ˈhezɪtənt /`
 - "The dog was hesitant to approach the stranger."（那只狗迟疑着不敢靠近陌生人。）
 
 
-#### mistress
+### mistress
 
 [⬆️ Paragraph 7](#Paragraph-7)
 
@@ -1720,7 +1707,7 @@ n, `/ ˈmɪstrəs /`
 所以，在你的句子里，mistress 准确地描述了一种特定的、通常涉及金钱交易的婚外情关系。
 
 
-#### conscience
+### conscience
 
 [⬆️ Paragraph 7](#Paragraph-7)
 
@@ -1741,7 +1728,7 @@ n, `/ ˈkɑːnʃəns /`
 ---
 
 
-#### francs
+### francs
 
 [⬆️ Paragraph 8](#Paragraph-8)
 
@@ -1750,7 +1737,7 @@ n, `/ ˈkɑːnʃəns /`
 n, `/ fræŋk /`, 法郎
 
 
-#### stockings
+### stockings
 
 [⬆️ Paragraph 8](#Paragraph-8)
 
@@ -1762,7 +1749,7 @@ n, `/ fræŋk /`, 法郎
 *a tight-fitting women's garment（服装 `/ ˈɡɑːrmənt /`） made of nylon（`/ ˈnaɪlɑːn /` 尼龙） or silk（丝绸 `/ sɪlk /`）, covering the foot and leg, sometimes held up by suspenders（吊带 `/ səˈspendər /`）*
 
 
-#### Her Highness
+### Her Highness
 
 [⬆️ Paragraph 8](#Paragraph-8)
 
@@ -1775,7 +1762,7 @@ Her Highness：在第三人称提及时使用，意为“女王/公主/王妃殿
 核心规则是：当这些头衔（如 Highness, Majesty, President, Chairman 等）与所有人称代词（my, your, his, her, their 等）连用，并特指某个具体的人时，它们就变成了该人物专有名称的一部分，因此必须大写。
 
 
-#### outfit
+### outfit
 
 [⬆️ Paragraph 8](#Paragraph-8)
 
@@ -1795,7 +1782,7 @@ Her Highness：在第三人称提及时使用，意为“女王/公主/王妃殿
 - "That's a cute outfit!"（这身打扮真可爱！）
 
 
-#### purse
+### purse
 
 [⬆️ Paragraph 9](#Paragraph-9)
 
@@ -1807,7 +1794,7 @@ Her Highness：在第三人称提及时使用，意为“女王/公主/王妃殿
 *a small bag used, particularly by women, for <mark>carrying money</mark>*
 
 
-#### Mont-de-Piété(pawnshop)
+### Mont-de-Piété(pawnshop)
 
 [⬆️ Paragraph 9](#Paragraph-9)
 
@@ -1819,7 +1806,7 @@ Her Highness：在第三人称提及时使用，意为“女王/公主/王妃殿
 *Mont-de-Piété is the French name for a "pawnshop".*
 
 
-#### pawned
+### pawned
 
 [⬆️ Paragraph 9](#Paragraph-9)
 
@@ -1836,7 +1823,7 @@ n | v, `/ pɑːn /`
 - "My guitar is in pawn at the moment."（我的吉他目前押在当铺里。）
 
 
-#### bracelets
+### bracelets
 
 [⬆️ Paragraph 9](#Paragraph-9)
 
@@ -1851,7 +1838,7 @@ n | v, `/ pɑːn /`
 
 - "He bought her a diamond bracelet for her birthday."（他给她买了一个钻石手镯作为生日礼物。）
 
-#### smacked sb around
+### smacked sb around
 
 [⬆️ Paragraph 9](#Paragraph-9)
 
@@ -1875,7 +1862,7 @@ n | v, `/ pɑːn /`
 *`Smacked her around` is a casual（随意的 `/ ˈkæʒuəl /`） and brutal（残忍的 `/ ˈbruːt(ə)l /`） way to say that he hit her repeatedly.*
 
 
-#### the sack
+### the sack
 
 [⬆️ Paragraph 9](#Paragraph-9)
 
@@ -1893,7 +1880,7 @@ n | v, `/ pɑːn /`
 - "He's only interested in getting you into the sack."（他只想把你弄上床。）-> 这里有明确的性暗示。
 
 
-#### jealous
+### jealous
 
 [⬆️ Paragraph 9](#Paragraph-9)
 
@@ -1914,7 +1901,7 @@ n | v, `/ pɑːn /`
 
 ---
 
-#### till
+### till
 
 [⬆️ Paragraph 10](#Paragraph-10)
 
@@ -1933,7 +1920,7 @@ prep | conj | n | v, `/ tɪl /`
 - "Keep stirring the mixture till it gets thick."（不停地搅拌混合物，直到它变稠。）
 
 
-#### bled
+### bled
 
 [⬆️ Paragraph 10](#Paragraph-10)
 
@@ -1955,7 +1942,7 @@ prep | conj | n | v, `/ tɪl /`
 - "The soldiers bled for their country."（战士们为他们的国家流血牺牲。） -> 这是一个比喻用法。
 
 
-#### nice-like
+### nice-like
 
 [⬆️ Paragraph 10](#Paragraph-10)
 
@@ -1974,7 +1961,7 @@ prep | conj | n | v, `/ tɪl /`
 **nice-like 不是一个标准的英语单词，而是一个性格鲜明的口语表达。它的核心作用不是描述，而是揭示说话者试图美化其暴力行为的虚伪和扭曲心态。**
 
 
-#### shutters
+### shutters
 
 [⬆️ Paragraph 10](#Paragraph-10)
 
@@ -1993,7 +1980,7 @@ prep | conj | n | v, `/ tɪl /`
 ---
 
 
-#### wick
+### wick
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2010,7 +1997,7 @@ n | vt, `/ wɪk /`
 - "You need to trim(`/ trɪm /`) the wick for a cleaner burn."（你需要修剪一下灯芯，让它燃烧得更充分。）
 
 
-#### liter
+### liter
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2020,7 +2007,7 @@ n | vt, `/ wɪk /`
 |:--:|:--:|
 
 
-#### temples
+### temples
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2029,7 +2016,7 @@ n | vt, `/ wɪk /`
 | n, `/ ˈtemp(ə)l /`, 太阳穴 | <img width="200" src="assets/2025-10-16-10-14-30.png" alt="temple" /> |
 |:--:|:--:|
 
-#### going by
+### going by
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2044,7 +2031,7 @@ n | vt, `/ wɪk /`
 - "We sat on the bench(`/ bentʃ /`) and watched the people go by."（我们坐在长椅上，看着人来人往。）
 
 
-#### the now distant sounds
+### the now distant sounds
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2067,7 +2054,7 @@ The now + `[形容词]` + `[名词]`
 - She stared at the now silent phone, wondering why he hadn't called back.（她盯着此刻已沉寂无声的电话，想知道他为什么还没回电。）
 
 
-#### the vice squad
+### the vice squad
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2079,7 +2066,7 @@ squad: / skwɑːd /
 *`The vice squad`（缉捕队/风化组） is a special group of police officers whose job is to deal with crimes related to immoral（不道德的，伤风败俗的 `/ ɪˈmɔːrəl /`） activities.*
 
 
-#### cause
+### cause
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2101,7 +2088,7 @@ squad: / skwɑːd /
 
 - "I'm sorry if I caused any trouble."（如果我给你造成了任何麻烦，我很抱歉。）
 
-#### scandal
+### scandal
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2120,7 +2107,7 @@ n, / ˈskænd(ə)l /
 - "The company is involved(`/ ɪnˈvɑːlvd /`) in a financial(`/ faɪˈnænʃ(ə)l /`) scandal."（这家公司卷入了一桩财务丑闻。）
 
 
-#### prostitute
+### prostitute
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2131,7 +2118,7 @@ v | n | adj, / ˈprɑːstɪtuːt /
 *A prostitute is a person who has sex with someone in exchange for money.*
 
 
-#### underworld friends
+### underworld friends
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2140,7 +2127,7 @@ v | n | adj, / ˈprɑːstɪtuːt /
 Underworld: 黑社会，犯罪世界。这个词本身就描绘了一个隐藏在社会主流之下的、由罪犯组成的网络。
 
 
-#### come up with
+### come up with
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2165,7 +2152,7 @@ Underworld: 黑社会，犯罪世界。这个词本身就描绘了一个隐藏�
 - "How did you come up with the money for the trip?"（你是怎么凑到旅费的？）
 
 
-#### his wanting
+### his wanting
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2186,7 +2173,7 @@ Underworld: 黑社会，犯罪世界。这个词本身就描绘了一个隐藏�
   核心是 "We are excited about the event of coming"，而来的人是他，所以是 "his coming"。
 
 
-#### let me in on
+### let me in on
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2221,7 +2208,7 @@ Underworld: 黑社会，犯罪世界。这个词本身就描绘了一个隐藏�
 - B: "I'll let you in on it later, I promise." （我保证晚点告诉你内情。）
 
 
-#### punch
+### punch
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2268,7 +2255,7 @@ n | v, / pʌntʃ /
   - It's a plan with great potential. = It's a plan that has great potential.（这是一个极具潜力的计划。）
 
 
-#### came running back
+### came running back
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2309,7 +2296,7 @@ n | v, / pʌntʃ /
   例句：He came to the park to run. （他来公园是为了跑步。）-> 他来到公园，目的是进行跑步这项运动。
 
 
-#### right at
+### right at
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2334,7 +2321,7 @@ n | v, / pʌntʃ /
 - "Right at that moment, the phone rang."（恰恰在那一刻，电话响了。）
 
 
-#### spit
+### spit
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2353,8 +2340,7 @@ n | v, / pʌntʃ /
 
 - "He took one taste of the medicine and spat it out."（他尝了一口药，就把它吐了出来。）
 
-
-#### throw her out
+### throw her out
 
 [⬆️ Paragraph 11](#Paragraph-11)
 
@@ -2371,9 +2357,3 @@ n | v, / pʌntʃ /
 - "If you cause trouble again, I'll throw you out!"（如果你再惹麻烦，我就把你赶出去！）
 
 所以，throw someone out 是一个非常有力且常用的短语，专门描述以强硬、不客气的方式将某人驱逐出一个地方。
-
----
-
-
-
-## Chapter IV
