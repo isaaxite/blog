@@ -25,24 +25,20 @@ const createPrompt = ({
   selectOutputDirPath: async function() {
     const PREVIOUS = Symbol('previous');
     const USE_CURRENT = Symbol('use current');
-    const getPath = (node) => {
-      if (!node.parent) {
-        return '';
-      }
-      const sup = getPath(node.parent);
-      return sup ? `${sup}${path.sep}${node.value}` : node.value;
-    };
-
     let node = getDirTree();
+
     while (true) {
-      const choices = node.children.map(it => ({
-        title: it.value,
-        value: it
-      }));
+      const choices = node.children.map(it => {
+        const flag = it.children.length ? '/' : '';
+        return {
+          title: `${it.value}${flag}`,
+          value: it,
+        };
+      });
       const ret = await prompts({
         type: 'select',
         name: 'value',
-        message: `选择目标目录`,
+        message: `选择目标目录(${node.getPath().relative})`,
         choices: node.parent ? [
           { title: 'Previous', value: PREVIOUS },
           { title: 'Use Current', value: USE_CURRENT },
@@ -62,15 +58,8 @@ const createPrompt = ({
       if (!node.children.length) break;
     }
 
-    return getPath(node);
+    return node.getPath().absolute;
   },
-  // inputDir() {
-  //   return inquirer.createPromptModule()({
-  //     type: 'input',
-  //     name: 'dirpath',
-  //     message: '输入输出目录路径',
-  //   }).then(({ dirpath }) => dirpath);
-  // },
   selectTransferMode: async function() {
     const { value } = await prompts({
       type: 'select',

@@ -1,13 +1,12 @@
 const path = require('path');
 const { extractResourceLinks, classifyLinks, classifyLocalResources, readFrontMatterTitle, transferFiles } = require('./transfer');
 
-async function promptTransferFiles(baseDirPath, assetDirName, {
+async function promptTransferFiles(assetDirName, {
   prompt,
   hint,
 }) {
   const postPaths = await prompt.selectPosts();
-  let outputDirpath = await prompt.selectOutputDirPath();
-  outputDirpath = path.join(baseDirPath, outputDirpath);
+  const outputDirpath = await prompt.selectOutputDirPath();
 
   for (const mdFilepath of postPaths) {
     const { title } = readFrontMatterTitle(mdFilepath);
@@ -87,11 +86,11 @@ async function promptTransferFiles(baseDirPath, assetDirName, {
   }
 }
 
-async function main(baseDirPath, assetDirName, {
+async function main(assetDirName, {
   getPrompt,
   getHint,
 }) {
-  return await promptTransferFiles(baseDirPath, assetDirName, {
+  return await promptTransferFiles(assetDirName, {
     prompt: getPrompt(),
     hint: getHint(),
   });

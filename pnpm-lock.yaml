@@ -75,6 +75,9 @@ importers:
       isubo:
         specifier: 0.0.12-alpha.7
         version: 0.0.12-alpha.7
+      path-treeify:
+        specifier: ^1.2.0
+        version: 1.2.0
 
 packages:
 
@@ -1569,6 +1572,10 @@ packages:
 
   path-parse@1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
+
+  path-treeify@1.2.0:
+    resolution: {integrity: sha512-/kOs159EgDCaG8iKoUGJuFXcNYs0ekjk319nRGyEKrcXTQ2p9URTOdR5K0KJ0ylskkxMOt+5Ub8Y9O0QC7LHuw==}
+    engines: {node: '>=18.0.0'}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -3837,6 +3844,8 @@ snapshots:
   path-key@3.1.1: {}
 
   path-parse@1.0.7: {}
+
+  path-treeify@1.2.0: {}
 
   picocolors@1.1.1: {}
 
