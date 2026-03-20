@@ -365,7 +365,7 @@
 
 <h3 id="nvm-常用命令"><a href="#nvm-常用命令" class="headerlink" title="nvm 常用命令"></a>nvm 常用命令</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看本地node版本</span></span><br><span class="line">nvm ls</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看可安装node版本</span></span><br><span class="line">nvm ls-remote</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装</span></span><br><span class="line">nvm install &lt;node version&gt;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除</span></span><br><span class="line">nvm uninstall &lt;node version&gt;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换</span></span><br><span class="line">nvm use &lt;node version&gt;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置默认 nodejs 版本</span></span><br><span class="line">nvm alias default &lt;node version&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/WSL%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Snipaste_2023-07-10_12-18-35.png"></p>
+<p><img src="https://assets-amu.pages.dev/blog/Snipaste_2023-07-10_12-18-35.png" alt="nvm list 命令输出内容"></p>
 <h2 id="基础软件"><a href="#基础软件" class="headerlink" title="基础软件"></a>基础软件</h2><ul>
 <li><p><strong>git</strong>：分布式版本控制系统，用于管理和跟踪计算机文件的更改</p>
 </li>
@@ -424,12 +424,12 @@
       </categories>
       <tags>
         <tag>Linux</tag>
+        <tag>WSL</tag>
         <tag>环境配置</tag>
         <tag>NodeJS</tag>
         <tag>VSCode</tag>
         <tag>Debian</tag>
         <tag>Windows</tag>
-        <tag>WSL</tag>
         <tag>Windows Terminal</tag>
       </tags>
   </entry>
@@ -460,7 +460,7 @@
 
 <p><strong>注</strong>：<em>仅支持 Linux，详见 <a href="https://apps.gnome.org/EarTag/">App for GNOME</a></em> 。</p>
 <h2 id="安装-Rhythmbox"><a href="#安装-Rhythmbox" class="headerlink" title="安装 Rhythmbox"></a>安装 Rhythmbox</h2><p>Rhythmbox 是 LMDE 自带，无需安装。如果不是这样，可使用 apt 安装：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> install rhythmbox -y</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install rhythmbox -y</span><br></pre></td></tr></table></figure>
 
 <h2 id="下载音乐"><a href="#下载音乐" class="headerlink" title="下载音乐"></a>下载音乐</h2><p>Parabolic 是强大的视频和音频下载工具，它的下载能力覆盖上百个网站，比如 Bilibili。<a href="https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md">点击</a>查看官方提供的，它下载能力覆盖的网站列表。</p>
 <p>它支持将视频下载为：MP4，WEBM，MKV，MOV，AVI，MP3，M4A，OPUS，FLAC 和 WAV。</p>
@@ -4276,7 +4276,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm pkg set scripts.prepare=&quot;husky install&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 执行以上命令得到的结果是：</span></span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">+    &quot;prepare&quot;: &quot;husky install&quot; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>prepare (since <a href="mailto:&#110;&#112;&#x6d;&#64;&#52;&#x2e;&#48;&#46;&#x30;">&#110;&#112;&#x6d;&#64;&#52;&#x2e;&#48;&#46;&#x30;</a>)</strong></p>
+<p><strong>prepare (since <a href="mailto:&#x6e;&#x70;&#109;&#64;&#52;&#x2e;&#48;&#x2e;&#x30;">&#x6e;&#x70;&#109;&#64;&#52;&#x2e;&#48;&#x2e;&#x30;</a>)</strong></p>
 <p>Runs BEFORE the package is packed<br>Runs BEFORE the package is published<br><mark>Runs on local “npm install” without any arguments</mark><br>Run AFTER <code>prepublish</code>, but BEFORE <code>prepublishOnly</code><br>NOTE: If a package being installed through git contains a <code>prepare</code> script, its <code>dependencies</code> and <code>devDependencies</code> will be installed, and the prepare script will be run, before the package is packaged and installed.</p>
 <p>Refenrence: <a href="https://docs.npmjs.com/cli/v9/using-npm/scripts">How npm handles the “scripts” field</a></p>
 </blockquote>
@@ -5475,8 +5475,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 ]]></content>
       <categories>
         <category>Linux</category>
-        <category>WSL</category>
         <category>问题解决</category>
+        <category>WSL</category>
       </categories>
       <tags>
         <tag>WSL</tag>
@@ -6452,8 +6452,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
         <category>抽象封装</category>
       </categories>
       <tags>
-        <tag>装饰器</tag>
         <tag>TypeScript</tag>
+        <tag>装饰器</tag>
       </tags>
   </entry>
   <entry>
@@ -6512,8 +6512,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
         <category>抽象封装</category>
       </categories>
       <tags>
-        <tag>装饰器</tag>
         <tag>TypeScript</tag>
+        <tag>装饰器</tag>
       </tags>
   </entry>
   <entry>
@@ -8660,7 +8660,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <li>使用通配符，表示允许任何来源域名进行跨域；</li>
 <li>也可以指定来源域名，比如第二行。</li>
 </ul>
-<p><strong>ok，取消第一行注释，来实践一下：</strong><br><img src="/01.png"><br><img src="/02.png"></p>
+<p><strong>ok，取消第一行注释，来实践一下：</strong><br><img src="417e81c6/01.png"><br><img src="417e81c6/02.png"></p>
 <p><strong>这就这么简单，关键是服务端向响应报文的消息头中指定可进行跨域的源域名</strong></p>
 </li>
 </ul>
@@ -8691,8 +8691,8 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// header(&#x27;Access-Control-Allow-Origin: *&#x27;);</span></span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&#x27;Access-Control-Allow-Origin: http://dev.github.io&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$fn</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;fn&#x27;</span>] ? <span class="variable">$_GET</span>[<span class="string">&#x27;fn&#x27;</span>] : <span class="string">&#x27;getData&#x27;</span>;</span><br><span class="line"><span class="variable">$fn</span>();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">returnAjax</span>(<span class="params"><span class="variable">$arr</span></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="title function_ invoke__">json_encode</span>(<span class="variable">$arr</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="title function_ invoke__">header</span>(<span class="string">&quot;Access-Control-Allow-Credentials: true&quot;</span>); </span><br><span class="line"></span><br><span class="line">	<span class="title function_ invoke__">returnAjax</span>(<span class="keyword">array</span>(</span><br><span class="line">		<span class="string">&#x27;status&#x27;</span> =&gt; <span class="number">0</span>,</span><br><span class="line">		<span class="string">&#x27;msg&#x27;</span> =&gt; <span class="string">&quot;getData&quot;</span>,</span><br><span class="line">		<span class="string">&#x27;data&#x27;</span> =&gt; <span class="variable">$_SESSION</span>[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">	));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setSession</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="variable">$_SESSION</span>[<span class="string">&#x27;name&#x27;</span>] = <span class="string">&quot;isaac&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="title function_ invoke__">returnAjax</span>(<span class="keyword">array</span>(</span><br><span class="line">		<span class="string">&#x27;status&#x27;</span> =&gt; <span class="number">0</span>,</span><br><span class="line">		<span class="string">&#x27;msg&#x27;</span> =&gt; <span class="string">&#x27;setSession&#x27;</span></span><br><span class="line">	));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>ok，现在来执行一下</p>
-<p><img src="/03.png"></p>
-<p><img src="/04.png"></p>
+<p><img src="417e81c6/03.png"></p>
+<p><img src="417e81c6/04.png"></p>
 <p>如上，发送第一个请求php代码建立的一个session</p>
 <figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;name&#x27;</span>] = <span class="string">&quot;isaac&quot;</span>;</span><br></pre></td></tr></table></figure>
 

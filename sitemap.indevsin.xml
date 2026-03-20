@@ -2,36 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://isaaxite.indevs.in/blog/env-setup/wsl-nodejs/</loc>
+    
+    <lastmod>2026-03-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://isaaxite.indevs.in/blog/linux-daily-use/local-music-library-setup/</loc>
     
-    <lastmod>2026-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/algorithm-problem-solutions/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/elementui-scrollbar-component-analysis/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/source-code-reading/nest/decorator-route/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-16</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -40,7 +22,7 @@
   <url>
     <loc>https://isaaxite.indevs.in/blog/linux-wechat-flatpak-usage/</loc>
     
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-16</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -49,7 +31,7 @@
   <url>
     <loc>https://isaaxite.indevs.in/blog/debug/hexo-deploy/</loc>
     
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-16</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -58,16 +40,7 @@
   <url>
     <loc>https://isaaxite.indevs.in/blog/debug/wsl-hosts-file-reset/</loc>
     
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/security-frontend-eslint-plugin/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-16</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -76,7 +49,7 @@
   <url>
     <loc>https://isaaxite.indevs.in/blog/debug/docker-debian-chinese/</loc>
     
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-16</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -85,304 +58,7 @@
   <url>
     <loc>https://isaaxite.indevs.in/blog/cors-implementation-and-session-loss-solution/</loc>
     
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/quick-sort-js/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/large-number-addition/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/vnode/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/array-mutation/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/computed-properties/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/diff/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/filter/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/nextTick/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/v-for/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/set-del/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/guide/browser-extension-development/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/windows-adb-install/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/deep-dive/hash-table/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/binary-tree-traversal-js/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/binary-tree-js/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/graph-js/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/guide/github-action/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/ts-decorator-route-mounting/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/decorator-param-validation/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/license-selection-and-generation/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/rust-learning-notes/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/oauth2-learning-notes/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/static-code-analysis/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/automated-changelog-ci/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/git-hook-auto-deploy/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/js-throttle-debounce/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/canvas-circular-image-implementation/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/env-setup/wsl-nodejs/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/wsl2-intro/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/polyfill/scss-get-selector-function/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/nvm-installation-and-usage/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/usage/pm2-logrotate/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/intro/linux-terminal-tilix/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-16</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -391,7 +67,16 @@
   <url>
     <loc>https://isaaxite.indevs.in/blog/linux-package-manager-apt/</loc>
     
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/diff/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -400,43 +85,124 @@
   <url>
     <loc>https://isaaxite.indevs.in/blog/usage/tmux/</loc>
     
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://isaaxite.indevs.in/blog/js-object-creation-patterns/</loc>
+    <loc>https://isaaxite.indevs.in/blog/intro/linux-terminal-tilix/</loc>
     
-    <lastmod>2026-03-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.indevs.in/blog/js-hoisting/</loc>
-    
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://isaaxite.indevs.in/blog/js-inheritance-patterns/</loc>
+    <loc>https://isaaxite.indevs.in/blog/security-frontend-eslint-plugin/</loc>
     
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://isaaxite.indevs.in/blog/js-scope-chain/</loc>
+    <loc>https://isaaxite.indevs.in/blog/guide/github-action/</loc>
     
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/automated-changelog-ci/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/guide/browser-extension-development/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/license-selection-and-generation/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/wsl2-intro/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/nvm-installation-and-usage/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/rust-learning-notes/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/usage/pm2-logrotate/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/oauth2-learning-notes/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/windows-adb-install/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/git-hook-auto-deploy/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -445,7 +211,133 @@
   <url>
     <loc>https://isaaxite.indevs.in/blog/js-generator-intro/</loc>
     
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/ts-decorator-route-mounting/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/decorator-param-validation/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/elementui-scrollbar-component-analysis/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/algorithm-problem-solutions/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/js-object-creation-patterns/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/js-hoisting/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/js-scope-chain/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/deep-dive/hash-table/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/quick-sort-js/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/binary-tree-traversal-js/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/binary-tree-js/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/graph-js/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/js-throttle-debounce/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/js-inheritance-patterns/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -454,7 +346,115 @@
   <url>
     <loc>https://isaaxite.indevs.in/blog/js-new-operator-mechanism/</loc>
     
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/filter/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/vnode/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/nextTick/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/v-for/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/array-mutation/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/computed-properties/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/source-code-reading/vue/set-del/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/source-code-reading/nest/decorator-route/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/large-number-addition/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/canvas-circular-image-implementation/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/polyfill/scss-get-selector-function/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isaaxite.indevs.in/blog/static-code-analysis/</loc>
+    
+    <lastmod>2026-03-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -490,7 +490,7 @@
 
   <url>
     <loc>https://isaaxite.indevs.in/</loc>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-03-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
