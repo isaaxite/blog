@@ -268,7 +268,7 @@ nvm use <node version>
 nvm alias default <node version>
 ```
 
-![](WSL开发环境/Snipaste_2023-07-10_12-18-35.png)
+![nvm list 命令输出内容](https://assets-amu.pages.dev/blog/Snipaste_2023-07-10_12-18-35.png)
 
 ## 基础软件
 
