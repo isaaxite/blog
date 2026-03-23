@@ -100,9 +100,9 @@
     <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
-    
     <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
+    
+    <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
     
     <category term="tmux" scheme="https://isaaxite.pages.dev/tags/tmux/"/>
     
@@ -149,11 +149,11 @@
     <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
-    
     <category term="tilix" scheme="https://isaaxite.pages.dev/tags/tilix/"/>
     
     <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
+    
+    <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
     
   </entry>
   
@@ -169,9 +169,9 @@
     
     
     
-    <category term="前端工程化" scheme="https://isaaxite.pages.dev/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
-    
     <category term="网络安全" scheme="https://isaaxite.pages.dev/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="前端工程化" scheme="https://isaaxite.pages.dev/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
     
     
     <category term="eslint-plugin-security" scheme="https://isaaxite.pages.dev/tags/eslint-plugin-security/"/>
@@ -257,9 +257,9 @@
     
     
     
-    <category term="前端工程化" scheme="https://isaaxite.pages.dev/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
-    
     <category term="指南" scheme="https://isaaxite.pages.dev/categories/%E6%8C%87%E5%8D%97/"/>
+    
+    <category term="前端工程化" scheme="https://isaaxite.pages.dev/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
     
     <category term="CI/CD" scheme="https://isaaxite.pages.dev/categories/CI-CD/"/>
     
@@ -402,9 +402,9 @@
     <category term="问题解决" scheme="https://isaaxite.pages.dev/categories/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
     
     
-    <category term="hexo" scheme="https://isaaxite.pages.dev/tags/hexo/"/>
-    
     <category term="debian" scheme="https://isaaxite.pages.dev/tags/debian/"/>
+    
+    <category term="hexo" scheme="https://isaaxite.pages.dev/tags/hexo/"/>
     
     <category term="deploy" scheme="https://isaaxite.pages.dev/tags/deploy/"/>
     

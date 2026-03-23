@@ -1,3 +1,5 @@
+https://isaaxite.pages.dev/blog/guide/zhaoqing-motorcycle-license-e/
+https://isaaxite.pages.dev/blog/js-generator-intro/
 https://isaaxite.pages.dev/blog/env-setup/wsl-nodejs/
 https://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/
 https://isaaxite.pages.dev/blog/linux-wechat-flatpak-usage/
@@ -21,7 +23,6 @@ https://isaaxite.pages.dev/blog/usage/pm2-logrotate/
 https://isaaxite.pages.dev/blog/oauth2-learning-notes/
 https://isaaxite.pages.dev/blog/windows-adb-install/
 https://isaaxite.pages.dev/blog/git-hook-auto-deploy/
-https://isaaxite.pages.dev/blog/js-generator-intro/
 https://isaaxite.pages.dev/blog/ts-decorator-route-mounting/
 https://isaaxite.pages.dev/blog/decorator-param-validation/
 https://isaaxite.pages.dev/blog/elementui-scrollbar-component-analysis/
