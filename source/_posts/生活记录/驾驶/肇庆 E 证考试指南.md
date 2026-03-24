@@ -2,7 +2,7 @@
 title: 肇庆摩托 E 证考试指南
 excerpt: "肇庆摩托 E 证考试科目一到科目四全流程记录。考试需要准备体检表、驾驶证照片、光盘和身份证及其复印件，总花费 250 左右。科目一、四民乐桥考试地点路线、考场布局，图文清晰记录；科目二、三考试地点、考场路线详细图解每个步骤。"
 segment: guide/zhaoqing-motorcycle-license-e
-alisa:
+alias:
   - blog/438ddc82/
   - blog/resources/E证-摩托驾驶证/
 date: 2017-01-01 08:00:00
