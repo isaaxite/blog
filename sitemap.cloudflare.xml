@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://isaaxite.pages.dev/blog/env-setup/wsl-nodejs/</loc>
+    
+    <lastmod>2026-03-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://isaaxite.pages.dev/blog/guide/zhaoqing-motorcycle-license-e/</loc>
     
     <lastmod>2026-03-24</lastmod>
@@ -12,15 +21,6 @@
   
   <url>
     <loc>https://isaaxite.pages.dev/blog/js-generator-intro/</loc>
-    
-    <lastmod>2026-03-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isaaxite.pages.dev/blog/env-setup/wsl-nodejs/</loc>
     
     <lastmod>2026-03-20</lastmod>
     

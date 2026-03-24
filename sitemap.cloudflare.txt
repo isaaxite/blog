@@ -1,6 +1,6 @@
+https://isaaxite.pages.dev/blog/env-setup/wsl-nodejs/
 https://isaaxite.pages.dev/blog/guide/zhaoqing-motorcycle-license-e/
 https://isaaxite.pages.dev/blog/js-generator-intro/
-https://isaaxite.pages.dev/blog/env-setup/wsl-nodejs/
 https://isaaxite.pages.dev/blog/linux-daily-use/local-music-library-setup/
 https://isaaxite.pages.dev/blog/linux-wechat-flatpak-usage/
 https://isaaxite.pages.dev/blog/debug/hexo-deploy/
