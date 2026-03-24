@@ -1,7 +1,9 @@
 ---
 title: WSL - 前端开发环境搭建
 segment: env-setup/wsl-nodejs
-alias: blog/resources/WSL开发环境/
+alias:
+  - blog/resources/WSL开发环境/
+  - blog/5b4f948e3f22/
 tags:
   - 环境配置
   - NodeJS
