@@ -100,11 +100,11 @@
     <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
+    <category term="tmux" scheme="https://isaaxite.pages.dev/tags/tmux/"/>
+    
     <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
     
     <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
-    
-    <category term="tmux" scheme="https://isaaxite.pages.dev/tags/tmux/"/>
     
   </entry>
   
@@ -149,11 +149,11 @@
     <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="tilix" scheme="https://isaaxite.pages.dev/tags/tilix/"/>
-    
     <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
     
     <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
+    
+    <category term="tilix" scheme="https://isaaxite.pages.dev/tags/tilix/"/>
     
   </entry>
   
