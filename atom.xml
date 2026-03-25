@@ -6,7 +6,7 @@
   <link href="https://isaaxite.pages.dev/atom.xml" rel="self"/>
   
   <link href="https://isaaxite.pages.dev/"/>
-  <updated>2026-03-24T21:38:59.834Z</updated>
+  <updated>2026-03-25T08:23:46.914Z</updated>
   <id>https://isaaxite.pages.dev/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Typora 替换 Tab 为 Space 实践与方案探索</title>
+    <link href="https://isaaxite.pages.dev/blog/guide/typora-tab-to-space/"/>
+    <id>https://isaaxite.pages.dev/blog/guide/typora-tab-to-space/</id>
+    <published>2026-03-19T21:15:32.000Z</published>
+    <updated>2026-03-25T08:23:46.914Z</updated>
+    
+    
+    <summary type="html">Typora 已知不支持配置 Tab 为 Space，尝试以拦截替换的方式达到预期。全文记录使用 xremap 成功拦截 Tab，替换为可配置个数的空格，且仅对 Typora 生效。xremap 执行需要 sudo 权限以及它是个前台程序，基于这两个小问题，再做进一步探索，尝试让 xremap 更加优雅的方式达到目的。在探索的最后，由于储备知识有限，未尝试有可能解决的方案，而借助 tmux 做了临时性的处理。</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://isaaxite.pages.dev/categories/Linux/"/>
+    
+    <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux-%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="typora" scheme="https://isaaxite.pages.dev/tags/typora/"/>
+    
+    <category term="tab" scheme="https://isaaxite.pages.dev/tags/tab/"/>
+    
+    <category term="space" scheme="https://isaaxite.pages.dev/tags/space/"/>
+    
+    <category term="xremap" scheme="https://isaaxite.pages.dev/tags/xremap/"/>
+    
+    <category term="替换空格" scheme="https://isaaxite.pages.dev/tags/%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/"/>
+    
+    <category term="用户组" scheme="https://isaaxite.pages.dev/tags/%E7%94%A8%E6%88%B7%E7%BB%84/"/>
+    
+    <category term="服务" scheme="https://isaaxite.pages.dev/tags/%E6%9C%8D%E5%8A%A1/"/>
+    
+    <category term="systemctl" scheme="https://isaaxite.pages.dev/tags/systemctl/"/>
+    
+  </entry>
   
   <entry>
     <title>WSL - 前端开发环境搭建</title>
@@ -100,11 +135,11 @@
     <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="tmux" scheme="https://isaaxite.pages.dev/tags/tmux/"/>
-    
     <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
     
     <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
+    
+    <category term="tmux" scheme="https://isaaxite.pages.dev/tags/tmux/"/>
     
   </entry>
   
@@ -149,11 +184,11 @@
     <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
+    <category term="tilix" scheme="https://isaaxite.pages.dev/tags/tilix/"/>
+    
     <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
     
     <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
-    
-    <category term="tilix" scheme="https://isaaxite.pages.dev/tags/tilix/"/>
     
   </entry>
   
@@ -538,27 +573,6 @@
     <category term="PM2" scheme="https://isaaxite.pages.dev/tags/PM2/"/>
     
     <category term="NodeJS 日志" scheme="https://isaaxite.pages.dev/tags/NodeJS-%E6%97%A5%E5%BF%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>网络安全 - OAuth2 实践</title>
-    <link href="https://isaaxite.pages.dev/blog/oauth2-learning-notes/"/>
-    <id>https://isaaxite.pages.dev/blog/oauth2-learning-notes/</id>
-    <published>2022-10-17T23:03:02.000Z</published>
-    <updated>2026-03-13T12:28:11.387Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://assets-amu.pages.dev/blog/2022-10-07-03-23-41.png&quot; alt=&quot;OAuth2&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="https://isaaxite.pages.dev/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="网络安全" scheme="https://isaaxite.pages.dev/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="Aauth2" scheme="https://isaaxite.pages.dev/tags/Aauth2/"/>
     
   </entry>
   

@@ -167,6 +167,163 @@
       </tags>
   </entry>
   <entry>
+    <title>Typora 替换 Tab 为 Space 实践与方案探索</title>
+    <url>/blog/guide/typora-tab-to-space/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Typora 已知的情况是：它不支持配置 Tab 替换为空格。另辟蹊径的方案是：使用工具拦截 Tab 键，理想的情况是仅仅对 Typora 做拦截。拦截后，每次在 Typora 编辑器內按下 Tab 插入空格（2 或 4，可配置）。确实找到这么一个软件：</p>
+<blockquote>
+<p><a href="https://github.com/xremap/xremap">xremap &#x2F; xremap</a> - <code>xremap</code> is a key remapper for Linux. Unlike <code>xmodmap</code>, it supports app-specific remapping and Wayland.</p>
+</blockquote>
+<p>下文记录针对使用 xremap 替换 Tab 为空格的过程。结论是它确实有效拦截并插入空格（可配置），并且可配置仅对某个窗口生效，比如 Typora。功能性没有问题，但存在些不算问题的问题：</p>
+<ul>
+<li>需要 sudo 权限执行；</li>
+<li>执行后，运行的是前台程序。</li>
+</ul>
+<p>因此，除了解决 Tab 替换问题，下文还记录了关于以上两个问题的实践探索。最终没有完全达到预期，而是使用了临时性的折中方案。但主要因为知识储备不足，而未尝试可能有效的方案，才导致现在这么个情况。</p>
+<h2 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h2><ul>
+<li>OS: LMDE 6 (faye) x86_64</li>
+<li>Kernel: 6.1.0-42-amd64</li>
+<li>Typora: 1.12.4</li>
+</ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><strong>Step 1</strong> - Github Releases 页面，下载 <a href="https://github.com/xremap/xremap/releases">xremap &#x2F; xremap</a> 的 <a href="https://github.com/xremap/xremap/releases/download/v0.14.18/xremap-linux-x86_64-x11.zip">xremap-linux-x86_64-x11.zip</a></p>
+<p><strong>Step 2</strong> - 解压得到 <code>xremap</code> 文件。</p>
+<p><strong>Step 3</strong> - 将文件移动到 <code>/usr/local/bin/</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mv</span> ~/Downloads/xremap /usr/local/bin/</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p><strong>Step 1</strong> - 创建目录：<code>~/.config/xremap/</code></p>
+<p><strong>Step 2</strong> - 添加配置（<code>config.yml</code>）：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">keymap:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Typora</span> <span class="string">Tab</span> <span class="string">to</span> <span class="string">Space</span></span><br><span class="line">    <span class="attr">application:</span></span><br><span class="line">      <span class="attr">only:</span> [<span class="string">Typora</span>]</span><br><span class="line">    <span class="attr">remap:</span></span><br><span class="line">      <span class="attr">Tab:</span> [<span class="string">Space</span>, <span class="string">Space</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p><code>sudo</code> 启动 - <strong>Tab 替换成功</strong>。但 xremap 运行在<strong>前台进程</strong>，占用了终端的标准输入&#x2F;输出：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:04:58] </span></span><br><span class="line">$ <span class="built_in">sudo</span> xremap ~/.config/xremap/config.yml</span><br><span class="line">Selecting devices from the following list:</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">/dev/input/event0 : Sleep Button</span><br><span class="line">/dev/input/event1 : Power Button</span><br><span class="line">/dev/input/event10: HDA NVidia HDMI/DP,pcm=8</span><br><span class="line">/dev/input/event11: HDA NVidia HDMI/DP,pcm=9</span><br><span class="line">/dev/input/event12: HDA Intel PCH Rear Mic</span><br><span class="line">/dev/input/event13: HDA Intel PCH Front Mic</span><br><span class="line">/dev/input/event14: HDA Intel PCH Line</span><br><span class="line">/dev/input/event15: HDA Intel PCH Line Out</span><br><span class="line">/dev/input/event16: HDA Intel PCH Front Headphone</span><br><span class="line">/dev/input/event2 : Power Button</span><br><span class="line">/dev/input/event3 : Keychron Keychron K2</span><br><span class="line">/dev/input/event4 : Keychron Keychron K2</span><br><span class="line">/dev/input/event5 : Logitech G304</span><br><span class="line">/dev/input/event6 : PC Speaker</span><br><span class="line">/dev/input/event7 : Eee PC WMI hotkeys</span><br><span class="line">/dev/input/event8 : HDA NVidia HDMI/DP,pcm=3</span><br><span class="line">/dev/input/event9 : HDA NVidia HDMI/DP,pcm=7</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">Selected keyboards automatically since --device options weren<span class="string">&#x27;t specified:</span></span><br><span class="line"><span class="string">------------------------------------------------------------------------------</span></span><br><span class="line"><span class="string">/dev/input/event3 : Keychron Keychron K2</span></span><br><span class="line"><span class="string">/dev/input/event4 : Keychron Keychron K2</span></span><br><span class="line"><span class="string">/dev/input/event5 : Logitech G304</span></span><br><span class="line"><span class="string">------------------------------------------------------------------------------</span></span><br><span class="line"><span class="string">application-client: X11 (supported: true)</span></span><br><span class="line"><span class="string">application: xed.Xed</span></span><br><span class="line"><span class="string">^C	# Control + C 退出</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># isaac @ LMDE in ~/.config/xremap [5:04:47] C:130</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="服务化"><a href="#服务化" class="headerlink" title="服务化"></a>服务化</h3><p>xremap 运行在前台进程，尝试让它在后台以服务方式运行。</p>
+<p><strong>Step 1</strong> - 创建并配置服务文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:09:29] C:130</span></span><br><span class="line">$ <span class="built_in">mkdir</span> -p ~/.config/systemd/user</span><br><span class="line"></span><br><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:09:31] </span></span><br><span class="line">$ vim ~/.config/systemd/user/xremap.service</span><br></pre></td></tr></table></figure>
+
+<p><code>~/.config/systemd/user/xremap.service</code> 的内容：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/Workspace/path-treeify on git:main o [5:16:02] </span></span><br><span class="line">$ <span class="built_in">cat</span> ~/.config/systemd/user/xremap.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=xremap key remapper</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/local/bin/xremap /home/isaac/.config/xremap/config.yml</span><br><span class="line">Restart=on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=default.target</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 2</strong> - 让 systemd 读取新建的 service 文件：</p>
+<p><strong>注：以后修改了 .service 文件才需要重新执行</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:10:11] </span></span><br><span class="line">$ systemctl --user daemon-reload</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 3</strong> - 设置开机自动启动：</p>
+<p>只需执行一次，之后每次开机会自动生效。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:12:06] </span></span><br><span class="line">$ systemctl --user <span class="built_in">enable</span> xremap</span><br><span class="line">Created symlink /home/isaac/.config/systemd/user/default.target.wants/xremap.service → /home/isaac/.config/systemd/user/xremap.service.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 4</strong> - 立即启动：</p>
+<p><code>start</code> — 本次立即启动，<strong>只需执行一次</strong>，之后开机会由 enable 自动接管</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:12:13] </span></span><br><span class="line">$ systemctl --user start xremap</span><br></pre></td></tr></table></figure>
+
+<p>注：其他或将使用的命令：</p>
+<p>取消开机自启：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl --user <span class="built_in">disable</span> xremap</span><br></pre></td></tr></table></figure>
+
+<p>查看当前是否添加开机启动：</p>
+<p>输出 <code>enabled</code> 表示已开机自启，<code>disabled</code> 表示未开启。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl --user is-enabled xremap</span><br></pre></td></tr></table></figure>
+
+<p>列出当前用户所有已设置开机自启的服务：</p>
+<p>注：若要查看系统级（sudo 级别）的开机自启服务，则去掉 <code>--user</code>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl --user list-unit-files --state=enabled</span><br></pre></td></tr></table></figure>
+
+<p>停止当前正在运行的进程：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl --user stop xremap</span><br></pre></td></tr></table></figure>
+
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><h4 id="启动服务后，Tab-替换失败"><a href="#启动服务后，Tab-替换失败" class="headerlink" title="启动服务后，Tab 替换失败"></a>启动服务后，Tab 替换失败</h4><p>服务启动后（<code>systemctl --user start xremap</code>），无效。</p>
+<p><strong>Step 1</strong> - 检查状态：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:12:37] </span></span><br><span class="line">$ systemctl --user status xremap</span><br><span class="line">× xremap.service - xremap key remapper</span><br><span class="line">     Loaded: loaded (/home/isaac/.config/systemd/user/xremap.service; enabled; preset: enabled)</span><br><span class="line">     Active: failed (Result: exit-code) since Fri 2026-03-20 05:12:38 CST; 1min 52s ago</span><br><span class="line">   Duration: 3ms</span><br><span class="line">    Process: 3887383 ExecStart=/usr/local/bin/xremap /home/isaac/.config/xremap/config.yml (code=exited, status=1/FAILURE)</span><br><span class="line">   Main PID: 3887383 (code=exited, status=1/FAILURE)</span><br><span class="line">        CPU: 3ms</span><br><span class="line"></span><br><span class="line">Mar 20 05:12:38 LMDE systemd[1072]: xremap.service: Scheduled restart job, restart counter is at 5.</span><br><span class="line">Mar 20 05:12:38 LMDE systemd[1072]: Stopped xremap.service - xremap key remapper.</span><br><span class="line">Mar 20 05:12:38 LMDE systemd[1072]: xremap.service: Start request repeated too quickly.</span><br><span class="line">Mar 20 05:12:38 LMDE systemd[1072]: xremap.service: Failed with result <span class="string">&#x27;exit-code&#x27;</span>.</span><br><span class="line">Mar 20 05:12:38 LMDE systemd[1072]: Failed to start xremap.service - xremap key remapper.</span><br></pre></td></tr></table></figure>
+
+<p>服务已经是 <code>failed</code> 状态，没有在运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Mar 20 05:12:38 LMDE systemd[1072]: Failed to start xremap.service - xremap key remapper.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 2</strong> - 直接执行（无 <code>sudo</code>），查看输出：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:16:02] C:3</span></span><br><span class="line">$ /usr/local/bin/xremap ~/.config/xremap/config.yml</span><br><span class="line">Selecting devices from the following list:</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">Selected keyboards automatically since --device options weren<span class="string">&#x27;t specified:</span></span><br><span class="line"><span class="string">------------------------------------------------------------------------------</span></span><br><span class="line"><span class="string">Error: Failed to prepare input devices: No device was selected!</span></span><br></pre></td></tr></table></figure>
+
+<p>推论：<strong>xremap 找不到可用的输入设备。</strong>Linux 中 <code>/dev/input/</code> 下的设备文件（键盘、鼠标等）默认只有 <code>root</code> 和 <code>input</code> 组的成员才能读写。xremap 需要直接读取这些设备来拦截按键，若当前用户不在 <code>input</code> 组内，则报”No device was selected”。</p>
+<p><strong>验证 1</strong> - 执行 <code>xremap --list-devices</code> ：</p>
+<p>无 <code>sudo</code>情况下执行：无设备信息输出。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/Workspace/blog on git:main x [7:03:04] </span></span><br><span class="line">$ xremap --list-devices</span><br><span class="line">PATH NAME IS_KEYBOARD IS_MOUSE TYPE VENDOR PRODUCT </span><br><span class="line"></span><br><span class="line"><span class="comment"># isaac @ LMDE in ~/Workspace/blog on git:main x [7:03:09] </span></span><br><span class="line">$ <span class="built_in">sudo</span> xremap --list-devices</span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> isaac:              </span><br><span class="line">PATH               NAME                          IS_KEYBOARD IS_MOUSE TYPE    VENDOR PRODUCT </span><br><span class="line">/dev/input/event0  Sleep Button                  <span class="literal">false</span>       <span class="literal">false</span>    Host    0x0    0x3     </span><br><span class="line">/dev/input/event1  Power Button                  <span class="literal">false</span>       <span class="literal">false</span>    Host    0x0    0x1     </span><br><span class="line">/dev/input/event10 HDA NVidia HDMI/DP,pcm=8      <span class="literal">false</span>       <span class="literal">false</span>    Unknown 0x0    0x0     </span><br><span class="line">/dev/input/event11 HDA NVidia HDMI/DP,pcm=9      <span class="literal">false</span>       <span class="literal">false</span>    Unknown 0x0    0x0     </span><br><span class="line">/dev/input/event12 HDA Intel PCH Rear Mic        <span class="literal">false</span>       <span class="literal">false</span>    Unknown 0x0    0x0     </span><br><span class="line">/dev/input/event13 HDA Intel PCH Front Mic       <span class="literal">false</span>       <span class="literal">false</span>    Unknown 0x0    0x0     </span><br><span class="line">/dev/input/event14 HDA Intel PCH Line            <span class="literal">false</span>       <span class="literal">false</span>    Unknown 0x0    0x0     </span><br><span class="line">/dev/input/event15 HDA Intel PCH Line Out        <span class="literal">false</span>       <span class="literal">false</span>    Unknown 0x0    0x0     </span><br><span class="line">/dev/input/event16 HDA Intel PCH Front Headphone <span class="literal">false</span>       <span class="literal">false</span>    Unknown 0x0    0x0     </span><br><span class="line">/dev/input/event17 xremap                        <span class="literal">true</span>        <span class="literal">true</span>     USB     0x1234 0x5678  </span><br><span class="line">/dev/input/event2  Power Button                  <span class="literal">false</span>       <span class="literal">false</span>    Host    0x0    0x1     </span><br><span class="line">/dev/input/event3  Keychron Keychron K2          <span class="literal">true</span>        <span class="literal">false</span>    USB     0x5ac  0x24f   </span><br><span class="line">/dev/input/event4  Keychron Keychron K2          <span class="literal">true</span>        <span class="literal">false</span>    USB     0x5ac  0x24f   </span><br><span class="line">/dev/input/event5  Logitech G304                 <span class="literal">true</span>        <span class="literal">false</span>    USB     0x46d  0x4074  </span><br><span class="line">/dev/input/event6  PC Speaker                    <span class="literal">false</span>       <span class="literal">false</span>    ISA     0x1f   0x1     </span><br><span class="line">/dev/input/event7  Eee PC WMI hotkeys            <span class="literal">false</span>       <span class="literal">false</span>    Host    0x0    0x0     </span><br><span class="line">/dev/input/event8  HDA NVidia HDMI/DP,pcm=3      <span class="literal">false</span>       <span class="literal">false</span>    Unknown 0x0    0x0     </span><br><span class="line">/dev/input/event9  HDA NVidia HDMI/DP,pcm=7      <span class="literal">false</span>       <span class="literal">false</span>    Unknown 0x0    0x0</span><br></pre></td></tr></table></figure>
+
+<p><strong>验证 2</strong> - 查询用户 <code>isaac</code> 所属的所有用户组</p>
+<p>注：不加用户名则默认查询当前登录用户。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/Workspace/blog on git:main x [7:03:23] </span></span><br><span class="line">$ <span class="built_in">groups</span> isaac</span><br><span class="line">isaac : isaac adm dialout fax cdrom floppy tape <span class="built_in">sudo</span> audio dip video plugdev <span class="built_in">users</span> netdev lpadmin bluetooth scanner sambashare</span><br></pre></td></tr></table></figure>
+
+<p>输出列表中没有 <code>input</code>，说明 <code>isaac</code> 用户不在 <code>input</code> 组内。</p>
+<p><strong>Step 3</strong> - 将用户 <code>isaac</code> 添加到 <code>input</code> 用户组：</p>
+<p>用户态运行 xremap 需要有权限访问 <code>/dev/input/</code> 设备，当前用户不在 <code>input</code> 组里。使用 <code>usermod</code> ，将  <code>isaac</code> 添加到 <code>input</code> 用户组。</p>
+<p><code>usermod</code> 的两个选项组合含义：</p>
+<ul>
+<li><code>-G</code> — 指定要加入的附加组（supplementary group）；</li>
+<li><code>-a</code> — append，追加模式，在现有组的基础上新增，<strong>不会移除</strong>已有的组。</li>
+</ul>
+<p><em>注：如果只用 <code>-G</code> 不加 <code>-a</code>，会把用户的附加组替换为仅 <code>input</code> 一个，导致原本所属的其他组（如 <code>sudo</code>、<code>audio</code> 等）全部丢失，是危险操作。所以 <code>-a</code> 必须和 <code>-G</code> 一起用！</em></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> usermod -aG input isaac</span><br></pre></td></tr></table></figure>
+
+<p>然后<strong>重新登录</strong>（注销再登录，不是开新终端），让组权限生效。加入组后需要重新登录是因为组权限在登录时加载，新终端不够触发重新加载组权限，必须完整注销再登录才能生效。</p>
+<p><strong>异常</strong> - 将 issac 添加到 input 组，注销登录后查看，当前会话实际加载的组中（<code>groups</code>（不带用户名））仍未写入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~ [2:12:49] </span></span><br><span class="line">$ <span class="built_in">groups</span> isaac</span><br><span class="line">isaac : isaac adm dialout fax cdrom floppy tape <span class="built_in">sudo</span> audio dip video plugdev <span class="built_in">users</span> input netdev lpadmin bluetooth scanner sambashare</span><br><span class="line"></span><br><span class="line"><span class="comment"># isaac @ LMDE in ~ [2:12:54] </span></span><br><span class="line">$ <span class="built_in">groups</span>      </span><br><span class="line">isaac adm dialout fax cdrom floppy tape <span class="built_in">sudo</span> audio dip video plugdev <span class="built_in">users</span> netdev lpadmin bluetooth scanner sambashare</span><br></pre></td></tr></table></figure>
+
+<p>重启电脑后查看：</p>
+<p>当前会话中，isaac 用户确实已经在 input 组內。但服务启动仍然失败。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~ [2:20:11] </span></span><br><span class="line">$ <span class="built_in">groups</span>                            </span><br><span class="line">isaac adm dialout fax cdrom floppy tape <span class="built_in">sudo</span> audio dip video plugdev <span class="built_in">users</span> input netdev lpadmin bluetooth scanner sambashare</span><br><span class="line"></span><br><span class="line"><span class="comment"># isaac @ LMDE in ~ [2:20:19] </span></span><br><span class="line">$ <span class="built_in">groups</span> isaac                      </span><br><span class="line">isaac : isaac adm dialout fax cdrom floppy tape <span class="built_in">sudo</span> audio dip video plugdev <span class="built_in">users</span> input netdev lpadmin bluetooth scanner sambashare</span><br><span class="line"></span><br><span class="line"><span class="comment"># isaac @ LMDE in ~ [2:20:26] </span></span><br><span class="line">$ systemctl --user status xremap    </span><br><span class="line">× xremap.service - xremap key remapper</span><br><span class="line">     Loaded: loaded (/home/isaac/.config/systemd/user/xremap.service; enabled; preset: enabled)</span><br><span class="line">     Active: failed (Result: exit-code) since Sat 2026-03-21 02:20:10 CST; 31s ago</span><br><span class="line">   Duration: 916ms</span><br><span class="line">    Process: 1680 ExecStart=/usr/local/bin/xremap /home/isaac/.config/xremap/config.yml (code=exited, status=1/FAILURE)</span><br><span class="line">   Main PID: 1680 (code=exited, status=1/FAILURE)</span><br><span class="line">        CPU: 2ms</span><br><span class="line"></span><br><span class="line">Mar 21 02:20:10 LMDE systemd[1067]: xremap.service: Scheduled restart job, restart counter is at 5.</span><br><span class="line">Mar 21 02:20:10 LMDE systemd[1067]: Stopped xremap.service - xremap key remapper.</span><br><span class="line">Mar 21 02:20:10 LMDE systemd[1067]: xremap.service: Start request repeated too quickly.</span><br><span class="line">Mar 21 02:20:10 LMDE systemd[1067]: xremap.service: Failed with result <span class="string">&#x27;exit-code&#x27;</span>.</span><br><span class="line">Mar 21 02:20:10 LMDE systemd[1067]: Failed to start xremap.service - xremap key remapper.</span><br></pre></td></tr></table></figure>
+
+<p>无 <code>sudo</code> 执行 <code>xremap</code> 测试：</p>
+<p>用户态运行 xremap 已经有权限访问 <code>/dev/input/</code> 设备。当前错误显示：<strong>输出设备</strong>权限不足，需要加入 <code>uinput</code> 组。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~ [2:20:41] C:3</span></span><br><span class="line">$ /usr/local/bin/xremap ~/.config/xremap/config.yml</span><br><span class="line">Selecting devices from the following list:</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">/dev/input/event0 : Sleep Button</span><br><span class="line">/dev/input/event1 : Power Button</span><br><span class="line">/dev/input/event10: HDA NVidia HDMI/DP,pcm=8</span><br><span class="line">/dev/input/event11: HDA NVidia HDMI/DP,pcm=9</span><br><span class="line">/dev/input/event12: HDA Intel PCH Rear Mic</span><br><span class="line">/dev/input/event13: HDA Intel PCH Front Mic</span><br><span class="line">/dev/input/event14: HDA Intel PCH Line</span><br><span class="line">/dev/input/event15: HDA Intel PCH Line Out</span><br><span class="line">/dev/input/event16: HDA Intel PCH Front Headphone</span><br><span class="line">/dev/input/event2 : Power Button</span><br><span class="line">/dev/input/event3 : Keychron Keychron K2</span><br><span class="line">/dev/input/event4 : Keychron Keychron K2</span><br><span class="line">/dev/input/event5 : Logitech G304</span><br><span class="line">/dev/input/event6 : PC Speaker</span><br><span class="line">/dev/input/event7 : Eee PC WMI hotkeys</span><br><span class="line">/dev/input/event8 : HDA NVidia HDMI/DP,pcm=3</span><br><span class="line">/dev/input/event9 : HDA NVidia HDMI/DP,pcm=7</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">Selected keyboards automatically since --device options weren<span class="string">&#x27;t specified:</span></span><br><span class="line"><span class="string">------------------------------------------------------------------------------</span></span><br><span class="line"><span class="string">/dev/input/event3 : Keychron Keychron K2</span></span><br><span class="line"><span class="string">/dev/input/event4 : Keychron Keychron K2</span></span><br><span class="line"><span class="string">/dev/input/event5 : Logitech G304</span></span><br><span class="line"><span class="string">------------------------------------------------------------------------------</span></span><br><span class="line"><span class="string">Error: Failed to prepare an output device: Permission denied (os error 13)</span></span><br></pre></td></tr></table></figure>
+
+<p>查看组列表中是否有 uinput - <strong>没有</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~ [2:33:27] </span></span><br><span class="line">$ <span class="built_in">cat</span> /etc/group | grep uinput </span><br><span class="line"></span><br><span class="line"><span class="comment"># isaac @ LMDE in ~ [2:34:03] C:1</span></span><br></pre></td></tr></table></figure>
+
+<p>查看 uinput 设备权限：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~ [2:26:37] C:1</span></span><br><span class="line">$ <span class="built_in">ls</span> -la /dev/uinput</span><br><span class="line">crw------- 1 root root 10, 223 Mar 21 02:19 /dev/uinput</span><br></pre></td></tr></table></figure>
+
+<p>当前 <code>/dev/uinput</code> 只有 <code>root</code> 可读写，且没有分配给任何用户组（组也是 <code>root</code>）。</p>
+<hr>
+<p>可能有效当时还<strong>未尝试</strong>的方案：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 新增 uinput 用户组</span></span><br><span class="line"><span class="built_in">sudo</span> groupadd uinput</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将当前用户 isaac 添加到 uinput 用户组</span></span><br><span class="line"><span class="built_in">sudo</span> usermod -aG uinput isaac</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 /dev/uinput 所属的用户组从 root 改为 uinput</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> root:uinput /dev/uinput</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 /dev/uinput 文件的权限</span></span><br><span class="line"><span class="comment"># 660：所有者、所属用户组具有可读可写，不可执行的权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 660 /dev/uinput</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>所有者（Owner）</strong>：<strong>读（4） + 写（2）</strong> &#x3D; <strong>6</strong> （可读可写，不可执行）</li>
+<li><strong>用户组（Group）</strong>：<strong>读（4） + 写（2）</strong> &#x3D; <strong>6</strong> （可读可写，不可执行）</li>
+<li><strong>其他用户（Others）</strong>：<strong>0</strong> （无任何权限）</li>
+</ul>
+<p>并且， <code>chown</code> 和 <code>chmod</code> 的修改重启后会丢失，需要用 udev 规则持久化：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;KERNEL==&quot;uinput&quot;, GROUP=&quot;uinput&quot;, MODE=&quot;0660&quot;&#x27;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/udev/rules.d/99-uinput.rules</span><br></pre></td></tr></table></figure>
+
+<p>全部执行后注销重新登录再测试。</p>
+<hr>
+<p>当前临时使用的方案 - tmux session 与 client 分离：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tmux</span><br></pre></td></tr></table></figure>
+
+<p>将打开一个会话（session），执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/local/bin/xremap ~/.config/xremap/config.yml</span><br></pre></td></tr></table></figure>
+
+<p>然后，用 <code>ctrol-b</code> + <code>d</code>，将当前执行了 <code>xremap</code> 前台程序的 session 与 client 分离。</p>
+<p>可以使用 <code>ls</code> 命令查看会话：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/Workspace/path-treeify on git:main o [5:21:58] </span></span><br><span class="line">$ tmux <span class="built_in">ls</span></span><br><span class="line">0: 1 windows (created Sat Mar 21 03:22:49 2026)</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>attach</code> 将 session 重新附着到 client（查看前台程序执行状态）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/Workspace/path-treeify on git:main o [15:48:26] </span></span><br><span class="line">$ tmux attach -t 0</span><br></pre></td></tr></table></figure>
+
+<p>注：<code>0</code> - session 的序号，具体是多少根据 <code>ls</code> 输出判断。</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>Linux 工具</category>
+      </categories>
+      <tags>
+        <tag>typora</tag>
+        <tag>tab</tag>
+        <tag>space</tag>
+        <tag>xremap</tag>
+        <tag>替换空格</tag>
+        <tag>用户组</tag>
+        <tag>服务</tag>
+        <tag>systemctl</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>WSL - 前端开发环境搭建</title>
     <url>/blog/env-setup/wsl-nodejs/</url>
     <content><![CDATA[<p>本手册基于已经安装WSL2的前提编写，因此需要将windows系统升级到对应的版本，并已经安装WSL2。若未安装可参考 <a href="https://isaaxite.github.io/blog/resources/%E5%88%9D%E8%AF%86WSL2">初识WSL2</a>。</p>
@@ -1693,9 +1850,9 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
-        <tag>tmux</tag>
         <tag>terminal</tag>
         <tag>linux</tag>
+        <tag>tmux</tag>
       </tags>
   </entry>
   <entry>
@@ -2152,9 +2309,9 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
+        <tag>tilix</tag>
         <tag>terminal</tag>
         <tag>linux</tag>
-        <tag>tilix</tag>
       </tags>
   </entry>
   <entry>
@@ -4276,7 +4433,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm pkg set scripts.prepare=&quot;husky install&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 执行以上命令得到的结果是：</span></span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">+    &quot;prepare&quot;: &quot;husky install&quot; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>prepare (since <a href="mailto:&#110;&#112;&#x6d;&#x40;&#x34;&#46;&#x30;&#x2e;&#48;">&#110;&#112;&#x6d;&#x40;&#x34;&#46;&#x30;&#x2e;&#48;</a>)</strong></p>
+<p><strong>prepare (since <a href="mailto:&#110;&#x70;&#x6d;&#64;&#x34;&#46;&#x30;&#x2e;&#x30;">&#110;&#x70;&#x6d;&#64;&#x34;&#46;&#x30;&#x2e;&#x30;</a>)</strong></p>
 <p>Runs BEFORE the package is packed<br>Runs BEFORE the package is published<br><mark>Runs on local “npm install” without any arguments</mark><br>Run AFTER <code>prepublish</code>, but BEFORE <code>prepublishOnly</code><br>NOTE: If a package being installed through git contains a <code>prepare</code> script, its <code>dependencies</code> and <code>devDependencies</code> will be installed, and the prepare script will be run, before the package is packaged and installed.</p>
 <p>Refenrence: <a href="https://docs.npmjs.com/cli/v9/using-npm/scripts">How npm handles the “scripts” field</a></p>
 </blockquote>
