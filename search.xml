@@ -167,7 +167,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Typora 替换 Tab 为 Space 实践与方案探索</title>
+    <title>Typora 替换 Tab 为 Space 实践与方案</title>
     <url>/blog/guide/typora-tab-to-space/</url>
     <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Typora 已知的情况是：它不支持配置 Tab 替换为空格。另辟蹊径的方案是：使用工具拦截 Tab 键，理想的情况是仅仅对 Typora 做拦截。拦截后，每次在 Typora 编辑器內按下 Tab 插入空格（2 或 4，可配置）。确实找到这么一个软件：</p>
 <blockquote>
