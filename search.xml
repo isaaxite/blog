@@ -284,9 +284,9 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 新增 uinput 用户组</span></span><br><span class="line"><span class="built_in">sudo</span> groupadd uinput</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将当前用户 isaac 添加到 uinput 用户组</span></span><br><span class="line"><span class="built_in">sudo</span> usermod -aG uinput isaac</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 /dev/uinput 所属的用户组从 root 改为 uinput</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> root:uinput /dev/uinput</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 /dev/uinput 文件的权限</span></span><br><span class="line"><span class="comment"># 660：所有者、所属用户组具有可读可写，不可执行的权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 660 /dev/uinput</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>所有者（Owner）</strong>：<strong>读（4） + 写（2）</strong> &#x3D; <strong>6</strong> （可读可写，不可执行）</li>
-<li><strong>用户组（Group）</strong>：<strong>读（4） + 写（2）</strong> &#x3D; <strong>6</strong> （可读可写，不可执行）</li>
-<li><strong>其他用户（Others）</strong>：<strong>0</strong> （无任何权限）</li>
+<li>所有者（Owner）：读（4） + 写（2） &#x3D; 6 （可读可写，不可执行）；</li>
+<li>用户组（Group）：读（4） + 写（2） &#x3D; 6 （可读可写，不可执行）；</li>
+<li>其他用户（Others）：0 （无任何权限）。</li>
 </ul>
 <p>并且， <code>chown</code> 和 <code>chmod</code> 的修改重启后会丢失，需要用 udev 规则持久化：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;KERNEL==&quot;uinput&quot;, GROUP=&quot;uinput&quot;, MODE=&quot;0660&quot;&#x27;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/udev/rules.d/99-uinput.rules</span><br></pre></td></tr></table></figure>
@@ -297,9 +297,9 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tmux</span><br></pre></td></tr></table></figure>
 
 <p>将打开一个会话（session），执行：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/local/bin/xremap ~/.config/xremap/config.yml</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> xremap ~/.config/xremap/config.yml</span><br></pre></td></tr></table></figure>
 
-<p>然后，用 <code>ctrol-b</code> + <code>d</code>，将当前执行了 <code>xremap</code> 前台程序的 session 与 client 分离。</p>
+<p>然后，用 <code>ctrol-b</code> + <code>d</code>（关于 tmux 的更多使用，<a href="https://isaaxite.indevs.in/blog/usage/tmux/">点击查看</a>），将当前执行了 <code>xremap</code> 前台程序的 session 与 client 分离。</p>
 <p>可以使用 <code>ls</code> 命令查看会话：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/Workspace/path-treeify on git:main o [5:21:58] </span></span><br><span class="line">$ tmux <span class="built_in">ls</span></span><br><span class="line">0: 1 windows (created Sat Mar 21 03:22:49 2026)</span><br></pre></td></tr></table></figure>
 
