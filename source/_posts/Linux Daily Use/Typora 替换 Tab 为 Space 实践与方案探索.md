@@ -1,5 +1,5 @@
 ---
-title: Typora 替换 Tab 为 Space 实践与方案探索
+title: Typora 替换 Tab 为 Space 实践与方案
 segment: guide/typora-tab-to-space
 excerpt: Typora 已知不支持配置 Tab 为 Space，尝试以拦截替换的方式达到预期。全文记录使用 xremap 成功拦截 Tab，替换为可配置个数的空格，且仅对 Typora 生效。xremap 执行需要 sudo 权限以及它是个前台程序，基于这两个小问题，再做进一步探索，尝试让 xremap 更加优雅的方式达到目的。在探索的最后，由于储备知识有限，未尝试有可能解决的方案，而借助 tmux 做了临时性的处理。
 date: 2026-03-20 05:15:32
