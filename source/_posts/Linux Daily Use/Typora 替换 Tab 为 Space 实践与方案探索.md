@@ -36,7 +36,7 @@ Typora 已知的情况是：它不支持配置 Tab 替换为空格。另辟蹊�
 - Kernel: 6.1.0-42-amd64
 - Typora: 1.12.4
 
-### 安装
+## 安装
 
 **Step 1** - Github Releases 页面，下载 [xremap / xremap](https://github.com/xremap/xremap/releases) 的 [xremap-linux-x86_64-x11.zip](https://github.com/xremap/xremap/releases/download/v0.14.18/xremap-linux-x86_64-x11.zip)
 
@@ -48,7 +48,7 @@ Typora 已知的情况是：它不支持配置 Tab 替换为空格。另辟蹊�
 sudo mv ~/Downloads/xremap /usr/local/bin/
 ```
 
-### 配置
+## 配置
 
 **Step 1** - 创建目录：`~/.config/xremap/`
 
@@ -63,7 +63,7 @@ keymap:
       Tab: [Space, Space]
 ```
 
-### 启动
+## 启动
 
 `sudo` 启动 - **Tab 替换成功**。但 xremap 运行在**前台进程**，占用了终端的标准输入/输出：
 
@@ -103,7 +103,7 @@ application: xed.Xed
 # isaac @ LMDE in ~/.config/xremap [5:04:47] C:130
 ```
 
-### 服务化
+## 服务化
 
 xremap 运行在前台进程，尝试让它在后台以服务方式运行。
 
@@ -191,11 +191,11 @@ systemctl --user list-unit-files --state=enabled
 systemctl --user stop xremap
 ```
 
-### 异常
+## 服务化异常
 
-#### 启动服务后，Tab 替换失败
+服务启动后（`systemctl --user start xremap`），Tab 替换失败。
 
-服务启动后（`systemctl --user start xremap`），无效。
+### 异常归因
 
 **Step 1** - 检查状态：
 
@@ -283,7 +283,9 @@ isaac : isaac adm dialout fax cdrom floppy tape sudo audio dip video plugdev use
 
 输出列表中没有 `input`，说明 `isaac` 用户不在 `input` 组内。
 
-**Step 3** - 将用户 `isaac` 添加到 `input` 用户组：
+### 尝试方案：编辑用户组
+
+将用户 `isaac` 添加到 `input` 用户组：
 
 用户态运行 xremap 需要有权限访问 `/dev/input/` 设备，当前用户不在 `input` 组里。使用 `usermod` ，将  `isaac` 添加到 `input` 用户组。
 
@@ -428,7 +430,7 @@ echo 'KERNEL=="uinput", GROUP="uinput", MODE="0660"' | sudo tee /etc/udev/rules.
 
 全部执行后注销重新登录再测试。
 
----
+### 临时方案：tmux-session
 
 当前临时使用的方案 - tmux session 与 client 分离：
 
