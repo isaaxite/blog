@@ -6,7 +6,7 @@
   <link href="https://isaaxite.pages.dev/atom.xml" rel="self"/>
   
   <link href="https://isaaxite.pages.dev/"/>
-  <updated>2026-03-25T09:29:33.654Z</updated>
+  <updated>2026-03-26T08:29:49.368Z</updated>
   <id>https://isaaxite.pages.dev/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://isaaxite.pages.dev/blog/guide/typora-tab-to-space/"/>
     <id>https://isaaxite.pages.dev/blog/guide/typora-tab-to-space/</id>
     <published>2026-03-19T21:15:32.000Z</published>
-    <updated>2026-03-25T09:29:33.654Z</updated>
+    <updated>2026-03-26T08:29:49.368Z</updated>
     
     
     <summary type="html">已知 Typora 不支持改 Tab 为 Space，尝试以拦截替换的方式实现。全文记录使用 xremap 成功拦截 Tab，替换为可配置个数的空格，且仅对 Typora 生效。xremap 执行需要 sudo 权限和它是个前台程序，基于这两个小问题，再做进一步探索，尝试让 xremap 更加优雅的方式达到目的。探索的最后，因储备知识有限，未试可能解决的方案，而借助 tmux 做了临时的处理。</summary>
@@ -135,11 +135,11 @@
     <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
+    <category term="tmux" scheme="https://isaaxite.pages.dev/tags/tmux/"/>
+    
     <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
     
     <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
-    
-    <category term="tmux" scheme="https://isaaxite.pages.dev/tags/tmux/"/>
     
   </entry>
   
@@ -184,11 +184,11 @@
     <category term="Linux 工具" scheme="https://isaaxite.pages.dev/categories/Linux/Linux-%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="tilix" scheme="https://isaaxite.pages.dev/tags/tilix/"/>
-    
     <category term="terminal" scheme="https://isaaxite.pages.dev/tags/terminal/"/>
     
     <category term="linux" scheme="https://isaaxite.pages.dev/tags/linux/"/>
+    
+    <category term="tilix" scheme="https://isaaxite.pages.dev/tags/tilix/"/>
     
   </entry>
   

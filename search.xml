@@ -184,19 +184,19 @@
 <li>Kernel: 6.1.0-42-amd64</li>
 <li>Typora: 1.12.4</li>
 </ul>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><strong>Step 1</strong> - Github Releases 页面，下载 <a href="https://github.com/xremap/xremap/releases">xremap &#x2F; xremap</a> 的 <a href="https://github.com/xremap/xremap/releases/download/v0.14.18/xremap-linux-x86_64-x11.zip">xremap-linux-x86_64-x11.zip</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><strong>Step 1</strong> - Github Releases 页面，下载 <a href="https://github.com/xremap/xremap/releases">xremap &#x2F; xremap</a> 的 <a href="https://github.com/xremap/xremap/releases/download/v0.14.18/xremap-linux-x86_64-x11.zip">xremap-linux-x86_64-x11.zip</a></p>
 <p><strong>Step 2</strong> - 解压得到 <code>xremap</code> 文件。</p>
 <p><strong>Step 3</strong> - 将文件移动到 <code>/usr/local/bin/</code></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mv</span> ~/Downloads/xremap /usr/local/bin/</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p><strong>Step 1</strong> - 创建目录：<code>~/.config/xremap/</code></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p><strong>Step 1</strong> - 创建目录：<code>~/.config/xremap/</code></p>
 <p><strong>Step 2</strong> - 添加配置（<code>config.yml</code>）：</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">keymap:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Typora</span> <span class="string">Tab</span> <span class="string">to</span> <span class="string">Space</span></span><br><span class="line">    <span class="attr">application:</span></span><br><span class="line">      <span class="attr">only:</span> [<span class="string">Typora</span>]</span><br><span class="line">    <span class="attr">remap:</span></span><br><span class="line">      <span class="attr">Tab:</span> [<span class="string">Space</span>, <span class="string">Space</span>]</span><br></pre></td></tr></table></figure>
 
-<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p><code>sudo</code> 启动 - <strong>Tab 替换成功</strong>。但 xremap 运行在<strong>前台进程</strong>，占用了终端的标准输入&#x2F;输出：</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p><code>sudo</code> 启动 - <strong>Tab 替换成功</strong>。但 xremap 运行在<strong>前台进程</strong>，占用了终端的标准输入&#x2F;输出：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:04:58] </span></span><br><span class="line">$ <span class="built_in">sudo</span> xremap ~/.config/xremap/config.yml</span><br><span class="line">Selecting devices from the following list:</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">/dev/input/event0 : Sleep Button</span><br><span class="line">/dev/input/event1 : Power Button</span><br><span class="line">/dev/input/event10: HDA NVidia HDMI/DP,pcm=8</span><br><span class="line">/dev/input/event11: HDA NVidia HDMI/DP,pcm=9</span><br><span class="line">/dev/input/event12: HDA Intel PCH Rear Mic</span><br><span class="line">/dev/input/event13: HDA Intel PCH Front Mic</span><br><span class="line">/dev/input/event14: HDA Intel PCH Line</span><br><span class="line">/dev/input/event15: HDA Intel PCH Line Out</span><br><span class="line">/dev/input/event16: HDA Intel PCH Front Headphone</span><br><span class="line">/dev/input/event2 : Power Button</span><br><span class="line">/dev/input/event3 : Keychron Keychron K2</span><br><span class="line">/dev/input/event4 : Keychron Keychron K2</span><br><span class="line">/dev/input/event5 : Logitech G304</span><br><span class="line">/dev/input/event6 : PC Speaker</span><br><span class="line">/dev/input/event7 : Eee PC WMI hotkeys</span><br><span class="line">/dev/input/event8 : HDA NVidia HDMI/DP,pcm=3</span><br><span class="line">/dev/input/event9 : HDA NVidia HDMI/DP,pcm=7</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">Selected keyboards automatically since --device options weren<span class="string">&#x27;t specified:</span></span><br><span class="line"><span class="string">------------------------------------------------------------------------------</span></span><br><span class="line"><span class="string">/dev/input/event3 : Keychron Keychron K2</span></span><br><span class="line"><span class="string">/dev/input/event4 : Keychron Keychron K2</span></span><br><span class="line"><span class="string">/dev/input/event5 : Logitech G304</span></span><br><span class="line"><span class="string">------------------------------------------------------------------------------</span></span><br><span class="line"><span class="string">application-client: X11 (supported: true)</span></span><br><span class="line"><span class="string">application: xed.Xed</span></span><br><span class="line"><span class="string">^C	# Control + C 退出</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># isaac @ LMDE in ~/.config/xremap [5:04:47] C:130</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="服务化"><a href="#服务化" class="headerlink" title="服务化"></a>服务化</h3><p>xremap 运行在前台进程，尝试让它在后台以服务方式运行。</p>
+<h2 id="服务化"><a href="#服务化" class="headerlink" title="服务化"></a>服务化</h2><p>xremap 运行在前台进程，尝试让它在后台以服务方式运行。</p>
 <p><strong>Step 1</strong> - 创建并配置服务文件</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:09:29] C:130</span></span><br><span class="line">$ <span class="built_in">mkdir</span> -p ~/.config/systemd/user</span><br><span class="line"></span><br><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:09:31] </span></span><br><span class="line">$ vim ~/.config/systemd/user/xremap.service</span><br></pre></td></tr></table></figure>
 
@@ -230,8 +230,8 @@
 <p>停止当前正在运行的进程：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl --user stop xremap</span><br></pre></td></tr></table></figure>
 
-<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><h4 id="启动服务后，Tab-替换失败"><a href="#启动服务后，Tab-替换失败" class="headerlink" title="启动服务后，Tab 替换失败"></a>启动服务后，Tab 替换失败</h4><p>服务启动后（<code>systemctl --user start xremap</code>），无效。</p>
-<p><strong>Step 1</strong> - 检查状态：</p>
+<h2 id="服务化异常"><a href="#服务化异常" class="headerlink" title="服务化异常"></a>服务化异常</h2><p>服务启动后（<code>systemctl --user start xremap</code>），Tab 替换失败。</p>
+<h3 id="异常归因"><a href="#异常归因" class="headerlink" title="异常归因"></a>异常归因</h3><p><strong>Step 1</strong> - 检查状态：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/.config/xremap [5:12:37] </span></span><br><span class="line">$ systemctl --user status xremap</span><br><span class="line">× xremap.service - xremap key remapper</span><br><span class="line">     Loaded: loaded (/home/isaac/.config/systemd/user/xremap.service; enabled; preset: enabled)</span><br><span class="line">     Active: failed (Result: exit-code) since Fri 2026-03-20 05:12:38 CST; 1min 52s ago</span><br><span class="line">   Duration: 3ms</span><br><span class="line">    Process: 3887383 ExecStart=/usr/local/bin/xremap /home/isaac/.config/xremap/config.yml (code=exited, status=1/FAILURE)</span><br><span class="line">   Main PID: 3887383 (code=exited, status=1/FAILURE)</span><br><span class="line">        CPU: 3ms</span><br><span class="line"></span><br><span class="line">Mar 20 05:12:38 LMDE systemd[1072]: xremap.service: Scheduled restart job, restart counter is at 5.</span><br><span class="line">Mar 20 05:12:38 LMDE systemd[1072]: Stopped xremap.service - xremap key remapper.</span><br><span class="line">Mar 20 05:12:38 LMDE systemd[1072]: xremap.service: Start request repeated too quickly.</span><br><span class="line">Mar 20 05:12:38 LMDE systemd[1072]: xremap.service: Failed with result <span class="string">&#x27;exit-code&#x27;</span>.</span><br><span class="line">Mar 20 05:12:38 LMDE systemd[1072]: Failed to start xremap.service - xremap key remapper.</span><br></pre></td></tr></table></figure>
 
 <p>服务已经是 <code>failed</code> 状态，没有在运行：</p>
@@ -250,7 +250,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># isaac @ LMDE in ~/Workspace/blog on git:main x [7:03:23] </span></span><br><span class="line">$ <span class="built_in">groups</span> isaac</span><br><span class="line">isaac : isaac adm dialout fax cdrom floppy tape <span class="built_in">sudo</span> audio dip video plugdev <span class="built_in">users</span> netdev lpadmin bluetooth scanner sambashare</span><br></pre></td></tr></table></figure>
 
 <p>输出列表中没有 <code>input</code>，说明 <code>isaac</code> 用户不在 <code>input</code> 组内。</p>
-<p><strong>Step 3</strong> - 将用户 <code>isaac</code> 添加到 <code>input</code> 用户组：</p>
+<h3 id="尝试方案：编辑用户组"><a href="#尝试方案：编辑用户组" class="headerlink" title="尝试方案：编辑用户组"></a>尝试方案：编辑用户组</h3><p>将用户 <code>isaac</code> 添加到 <code>input</code> 用户组：</p>
 <p>用户态运行 xremap 需要有权限访问 <code>/dev/input/</code> 设备，当前用户不在 <code>input</code> 组里。使用 <code>usermod</code> ，将  <code>isaac</code> 添加到 <code>input</code> 用户组。</p>
 <p><code>usermod</code> 的两个选项组合含义：</p>
 <ul>
@@ -292,8 +292,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;KERNEL==&quot;uinput&quot;, GROUP=&quot;uinput&quot;, MODE=&quot;0660&quot;&#x27;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/udev/rules.d/99-uinput.rules</span><br></pre></td></tr></table></figure>
 
 <p>全部执行后注销重新登录再测试。</p>
-<hr>
-<p>当前临时使用的方案 - tmux session 与 client 分离：</p>
+<h3 id="临时方案：tmux-session"><a href="#临时方案：tmux-session" class="headerlink" title="临时方案：tmux-session"></a>临时方案：tmux-session</h3><p>当前临时使用的方案 - tmux session 与 client 分离：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tmux</span><br></pre></td></tr></table></figure>
 
 <p>将打开一个会话（session），执行：</p>
@@ -1850,9 +1849,9 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
+        <tag>tmux</tag>
         <tag>terminal</tag>
         <tag>linux</tag>
-        <tag>tmux</tag>
       </tags>
   </entry>
   <entry>
@@ -2309,9 +2308,9 @@
         <category>Linux 工具</category>
       </categories>
       <tags>
-        <tag>tilix</tag>
         <tag>terminal</tag>
         <tag>linux</tag>
+        <tag>tilix</tag>
       </tags>
   </entry>
   <entry>
@@ -4433,7 +4432,7 @@ render; <span class="hljs-comment">// "Hello Jack"</span>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm pkg set scripts.prepare=&quot;husky install&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 执行以上命令得到的结果是：</span></span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">+    &quot;prepare&quot;: &quot;husky install&quot; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>prepare (since <a href="mailto:&#110;&#x70;&#x6d;&#64;&#x34;&#46;&#x30;&#x2e;&#x30;">&#110;&#x70;&#x6d;&#64;&#x34;&#46;&#x30;&#x2e;&#x30;</a>)</strong></p>
+<p><strong>prepare (since <a href="mailto:&#x6e;&#112;&#x6d;&#64;&#x34;&#46;&#48;&#46;&#x30;">&#x6e;&#112;&#x6d;&#64;&#x34;&#46;&#48;&#46;&#x30;</a>)</strong></p>
 <p>Runs BEFORE the package is packed<br>Runs BEFORE the package is published<br><mark>Runs on local “npm install” without any arguments</mark><br>Run AFTER <code>prepublish</code>, but BEFORE <code>prepublishOnly</code><br>NOTE: If a package being installed through git contains a <code>prepare</code> script, its <code>dependencies</code> and <code>devDependencies</code> will be installed, and the prepare script will be run, before the package is packaged and installed.</p>
 <p>Refenrence: <a href="https://docs.npmjs.com/cli/v9/using-npm/scripts">How npm handles the “scripts” field</a></p>
 </blockquote>
