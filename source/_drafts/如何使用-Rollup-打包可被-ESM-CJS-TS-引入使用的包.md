@@ -100,13 +100,13 @@ export default {
   input: 'src/index.ts',
   output: [
     {
-      dir: 'dist/esm',
+      dir: 'dist/',
       format: 'esm',
       entryFileNames: '[name].mjs',
       sourcemap: true
     },
     {
-      dir: 'dist/cjs',
+      dir: 'dist/',
       format: 'cjs',
       entryFileNames: '[name].cjs',
       sourcemap: true
@@ -171,7 +171,7 @@ Step 5 - `package.json` 配置模块引入：
 - 打包无异常；
 - 打包产物运行无异常；
 
-Step 1 - 构建
+**Step 1** - 构建
 
 ```bash
 # isaac @ LMDE in ~/Workspace/path-treeify on git:main o [8:28:31] 
@@ -209,7 +209,7 @@ $ tree
 
 注：标准输出中出现 `(!) Unresolved dependencies` 是因为没有安装 `@rollup/plugin-node-resolve`，它让 Rollup 能够找到并打包 node_modules 里的第三方模块并和源码一起打包。但当前 [isaaxite / path-treeify](https://github.com/isaaxite/path-treeify) 项目无生产环境的依赖。
 
-Step 2 - `pnpm link`
+**Step 2** - `pnpm link`
 
 ```bash
 # isaac @ LMDE in ~/Workspace/path-treeify on git:main o [22:50:08] 
@@ -230,6 +230,18 @@ No changes to the environment were made. Everything is already up to date.
 # isaac @ LMDE in ~/Workspace/path-treeify on git:main o [22:49:53] 
 $ source ~/.zshrc
 ```
+
+### 测试前
+
+做四类测试：
+
+- 测试 CommonJS - `.js` + 不设置 `package.json` 的 `type` 或设为 `commonjs`；
+- 测试 ES Module
+  - `.mjs` - 不设置 `package.json` 的 `type` 或设为 `module`；
+  - `.js` - 不设置 `package.json` 的 `type` 。需要打包；
+  - `.ts` - tsx 直接运行；
+
+注：不可忘记在测试目录下 `pnpm link path-treeify`。
 
 ### 测试 CommonJS
 
@@ -446,9 +458,11 @@ npm publish
 
 注：*特定 commit* - `fix:`、`feat:`、`feat!:` 、`fix!:` 和 `refactor!:`，以及包含 `!` 的 commit type。参考：[How should I write my commits?](https://github.com/marketplace/actions/release-please-action#how-should-i-write-my-commits)
 
-Setp 1 - 根目录下，创建 `.github/workflows/release-please.yml`
+[点击查看完整 release-please.yml](https://github.com/isaaxite/path-treeify/blob/v1.1.0/.github/workflows/release-please.yml)
 
-Setp 2 - 设置触发 workflow 的事件：
+**Setp 1** - 根目录下，创建 `.github/workflows/release-please.yml`
+
+**Setp 2** - 设置触发 workflow 的事件：
 
 推送 commit 到 main 分支，触发 workflow。
 
@@ -461,7 +475,7 @@ on:
       - main
 ```
 
-Step 3 - 添加 job（`release-please`）：
+**Step 3** - 添加 job（`release-please`）：
 
 使用 `googleapis/release-please-action@v4`。配置它需要的 3 个权限。使用它必须包含：`token: ${{ secrets.GITHUB_TOKEN }}` 和 `release-type: node`。
 
@@ -487,7 +501,7 @@ jobs:
           release-type: node
 ```
 
-Step 4 - 添加 job （`publish-beta`），设置触发 Beta 发布的条件：
+**Step 4** - 添加 job （`publish-beta`），设置触发 Beta 发布的条件：
 
 ```yml
 # jobs:
@@ -500,7 +514,7 @@ publish-beta:
     needs.release-please.outputs.release_created != 'true'
 ```
 
-Step 5 - Beta 版号生成：
+**Step 5** - Beta 版号生成：
 
 Beta 版号构成：当前版号 + 头部 commit 短哈希，如 [1.1.0-beta.94a5d17](https://www.npmjs.com/package/path-treeify/v/1.1.0-beta.94a5d17)。
 
@@ -518,9 +532,9 @@ Beta 版号构成：当前版号 + 头部 commit 短哈希，如 [1.1.0-beta.94a
   run: npm version "${{ steps.version.outputs.version }}" --no-git-tag-version
 ```
 
-Step 6 - 配置发布 Beta 包命令
+**Step 6** - 配置发布 Beta 包命令
 
-`NPM_TOKEN` 需自行配置，包含键名、键值皆是。配置位置：`<username>/repository` > `Setting` > `Secrets and variables` > `Actions` > `Repository secrets`
+`NPM_TOKEN` 需自行配置，包含键名、键值皆是。配置位置：`<username>/<repository>` > `Setting` > `Secrets and variables` > `Actions` > `Repository secrets`。
 
 ```yml
 # jobs:publish-beta:steps:
@@ -531,7 +545,7 @@ Step 6 - 配置发布 Beta 包命令
     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```
 
-显式指定 `regisitry-url` - 必须。
+注：必须显式指定 `regisitry-url` 。
 
 ```yml
 # jobs:publish-beta:steps:
@@ -545,7 +559,7 @@ Step 6 - 配置发布 Beta 包命令
 - name: Publish beta to npm
 ```
 
-Step 7 - 添加 job（`publish-latest`），设置仅合并 PR 后执行：
+**Step 7** - 添加 job（`publish-latest`），设置仅合并 PR 后执行：
 
 发布 Latest 包的配置与 Beta 大体相同：无需自行计算版号，但同样需要显式指定 `regisitry-url`。
 
@@ -564,6 +578,8 @@ publish-latest:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```
+
+
 
 ## 测试 CJS
 
