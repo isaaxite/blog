@@ -11,7 +11,7 @@
     "server+draft": "hexo clean && hexo server --draft",
     "new-daily": "node ./npm-scripts/new.js daily",
     "new-draft": "hexo new draft",
-    "migrate-posts": "node ./npm-scripts/migrate-assets/index.js",
+    "migrate-drafts": "node ./npm-scripts/migrate-posts.js --input-dir=_drafts --output-dir=_posts",
     "find-unreferenced-assets": "node ./npm-scripts/find-unreferenced-assets.js"
   },
   "hexo": {
@@ -37,11 +37,13 @@
     "hexo-renderer-swig": "^2.0.0",
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^0.0.3",
-    "object-assign": "^4.1.1",
-    "prompts": "^2.4.2"
+    "object-assign": "^4.1.1"
   },
   "devDependencies": {
     "isubo": "0.0.12-alpha.7",
-    "path-treeify": "^1.2.0"
+    "minimist": "^1.2.8",
+    "path-treeify": "^1.4.0",
+    "prompts": "^2.4.2",
+    "signale": "^1.4.0"
   }
 }

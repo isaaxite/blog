@@ -1,5 +1,5 @@
-const path = require('path');
 const prompts = require('prompts');
+const { clearLine } = require('./utils');
 
 const createPrompt = ({
   getPostPaths,
@@ -9,7 +9,7 @@ const createPrompt = ({
     const { value } = await prompts({
       type: 'autocompleteMultiselect',
       name: 'value',
-      message: '选择文章',
+      message: 'Select posts to migrate',
       instructions: false,
       choices: () => {
         const ret = [];
@@ -20,6 +20,17 @@ const createPrompt = ({
       },
       hint: '- Space to select. Return to submit'
     });
+
+    if (typeof value === 'undefined') {
+      clearLine();
+      process.exit(0);
+    }
+
+    if (!value.length) {
+      clearLine();
+      return await this.selectPosts();
+    }
+
     return value;
   },
   selectOutputDirPath: async function() {
@@ -28,26 +39,43 @@ const createPrompt = ({
     let node = getDirTree();
 
     while (true) {
-      const choices = node.children.map(it => {
+      const choices = [{
+        title: 'Current',
+        value: USE_CURRENT,
+        description: 'Use current directory',
+      }];
+
+      node.children.reduce((choices, it) => {
         const flag = it.children.length ? '/' : '';
-        return {
+        choices.push({
           title: `${it.value}${flag}`,
           value: it,
-        };
-      });
+        });
+        return choices;
+      }, choices);
+
+      const relative = node.getPath().relative;
+      let message = 'Select directory to migrate to';
+      message = relative ? `${message}(${relative})` : message;
+
       const ret = await prompts({
         type: 'select',
         name: 'value',
-        message: `选择目标目录(${node.getPath().relative})`,
+        message,
         choices: node.parent ? [
-          { title: 'Previous', value: PREVIOUS },
-          { title: 'Use Current', value: USE_CURRENT },
+          { title: 'Previous', value: PREVIOUS, description: 'Return to parent directory' },
           ...choices,
         ] : choices,
       });
 
+      if (typeof ret.value === 'undefined') {
+        clearLine();
+        process.exit(0);
+      }
+
       if (ret.value === PREVIOUS) {
         node = node.parent;
+        clearLine();
         continue;
       }
 
@@ -56,6 +84,8 @@ const createPrompt = ({
       node = ret.value;
       
       if (!node.children.length) break;
+
+      clearLine();
     }
 
     return node.getPath().absolute;
@@ -64,21 +94,32 @@ const createPrompt = ({
     const { value } = await prompts({
       type: 'select',
       name: 'value',
-      message: '选择转移非资源目录资源的方式',
+      message: 'Choose how to handle non-assets',
       choices: [
-        { title: '复制', value: 'copy' },
-        { title: '剪切', value: 'cut' },
+        { title: 'Copy', value: 'copy' },
+        { title: 'Cut', value: 'cut' },
       ],
     });
+
+    if (typeof value === 'undefined') {
+      clearLine();
+      process.exit(0);
+    }
+
     return value;
   },
   confirm: async function(text) {
     const { value } = await prompts({
       type: 'confirm',
       name: 'value',
-      message: text || '是否继续？',
+      message: text || 'Continue?',
       initial: true
     });
+
+    if (typeof value === 'undefined') {
+      clearLine();
+      process.exit(0);
+    }
 
     return value;
   },

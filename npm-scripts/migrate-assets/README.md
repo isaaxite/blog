@@ -1,6 +1,9 @@
 ## 依赖
 
-- "inquirer": "8.2.7"
-- "inquirer-tree-prompt": "^1.1.2"
+```bash
+"path-treeify": "^1.4.0",
+"prompts": "^2.4.2",
+"signale": "^1.4.0"
+```
 
-这 2 个依赖当前仅仅用于 migrate-assets，若分离此脚本可移除 2 个依赖。
+- signale: log 库

@@ -6,29 +6,23 @@ const { collectMdMeta } = require('./src/transfer');
 const { PathTreeify } = require('path-treeify');
 const assetDirName = 'assets';
 
-(async () => {
+const migrate = async ({ inputDir, outputDir }) => {
   const getPostPaths = () => {
-    const post = collectMdMeta('source/_posts');
-    const draft = collectMdMeta('source/_drafts');
-    const data = Object.entries(post.title2mdFilepath).map(([title, postPath]) => ({
-      title: `${title} [post]`,
+    const post = collectMdMeta(path.join('source', inputDir));
+    const data = Object.entries(post.title2mdFilepath).map(([title, postPath], idx) => ({
+      title: `No.${idx+1} ${title}`,
       postPath,
     }));
-
-    Object.entries(draft.title2mdFilepath).reduce((data, [title, postPath]) => {
-      data.push({ title: `${title} [draft]`, postPath });
-      return data;
-    }, data);
 
     return data;
   };
   const getDirTree = () => {
     const ptf = new PathTreeify({
-      base: path.resolve('source'),
+      base: path.resolve('source', outputDir),
       filter: ({ name }) => name !== assetDirName,
     });
 
-    return ptf.buildBy(['_posts', '_drafts']);
+    return ptf.build();
   };
 
   main(assetDirName, {
@@ -38,4 +32,6 @@ const assetDirName = 'assets';
       getDirTree,
     }),
   });
-})()
+};
+
+module.exports = { migrate };

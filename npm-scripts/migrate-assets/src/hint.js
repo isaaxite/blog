@@ -1,12 +1,14 @@
+const signale = require('signale');
+
 const createHint = () => ({
   warn: (text) => {
-    console.warn(text);
+    signale.warn(text);
   },
   warnList: (textList) => {
-    textList.forEach(console.warn);
+    textList.forEach((it) => signale.warn(it));
   },
   error: (text) => {
-    console.error(text);
+    signale.error(text);
   }
 });
 
