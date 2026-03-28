@@ -1,3 +1,4 @@
+https://isaaxite.pages.dev/blog/usage/tmux/
 https://isaaxite.pages.dev/blog/guide/typora-tab-to-space/
 https://isaaxite.pages.dev/blog/env-setup/wsl-nodejs/
 https://isaaxite.pages.dev/blog/guide/zhaoqing-motorcycle-license-e/
@@ -10,7 +11,6 @@ https://isaaxite.pages.dev/blog/debug/docker-debian-chinese/
 https://isaaxite.pages.dev/blog/cors-implementation-and-session-loss-solution/
 https://isaaxite.pages.dev/blog/linux-package-manager-apt/
 https://isaaxite.pages.dev/blog/source-code-reading/vue/diff/
-https://isaaxite.pages.dev/blog/usage/tmux/
 https://isaaxite.pages.dev/blog/intro/linux-terminal-tilix/
 https://isaaxite.pages.dev/blog/security-frontend-eslint-plugin/
 https://isaaxite.pages.dev/blog/guide/github-action/
