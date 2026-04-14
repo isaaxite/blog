@@ -72,12 +72,15 @@ importers:
       isubo:
         specifier: 0.0.12-alpha.7
         version: 0.0.12-alpha.7
+      link-harvester:
+        specifier: ^2.0.0
+        version: 2.0.0
       minimist:
         specifier: ^1.2.8
         version: 1.2.8
       path-treeify:
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.4.1
+        version: 1.4.1
       prompts:
         specifier: ^2.4.2
         version: 2.4.2
@@ -1231,6 +1234,10 @@ packages:
     resolution: {integrity: sha512-7vp2Acd2+Kz4XkzxGxaB1FWOi8KjWIWsgdfD5MCb86DWvlLqhRPM+d6Pro3iNEL5VT9mstz5hKAlcd+QR6H3aA==}
     engines: {node: '>=0.10.0'}
 
+  link-harvester@2.0.0:
+    resolution: {integrity: sha512-W0NmFdptNFqiMpUJYI1ZRTZ5p+FZlGolwVjM6m8PoR9uZFENG17IndYqLg6/HfLeoEBTqJf7ZjvuqQaw41QgzQ==}
+    engines: {node: '>=18.0.0'}
+
   list-item@1.1.1:
     resolution: {integrity: sha512-S3D0WZ4J6hyM8o5SNKWaMYB1ALSacPZ2nHGEuCjmHZ+dc03gFeNZoNDcqfcnO4vDhTZmNrqrpYZCdXsRh22bzw==}
     engines: {node: '>=0.10.0'}
@@ -1624,8 +1631,8 @@ packages:
   path-parse@1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
 
-  path-treeify@1.4.0:
-    resolution: {integrity: sha512-BoDbVPviZLnrCHN8oskxG/GMe1NZBxrNUPNuganGVXR2FqVNJ1nvTu9GVtEVB2k5mhfR9f1ePgsolS22QSBzhw==}
+  path-treeify@1.4.1:
+    resolution: {integrity: sha512-1DinYQXZu03reIsKIOe4W7tJgMjJW3+9152lhnfRhafxXkNy1fiNrrzR3rQthLmNp79XN8pgSN4RAiKKj6iMtQ==}
     engines: {node: '>=18.0.0'}
 
   picocolors@1.1.1:
@@ -3475,6 +3482,10 @@ snapshots:
     dependencies:
       set-getter: 0.1.1
 
+  link-harvester@2.0.0:
+    dependencies:
+      fast-glob: 3.3.3
+
   list-item@1.1.1:
     dependencies:
       expand-range: 1.8.2
@@ -3957,7 +3968,7 @@ snapshots:
 
   path-parse@1.0.7: {}
 
-  path-treeify@1.4.0: {}
+  path-treeify@1.4.1: {}
 
   picocolors@1.1.1: {}
 

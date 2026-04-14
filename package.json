@@ -12,6 +12,7 @@
     "new-daily": "node ./npm-scripts/new.js daily",
     "new-draft": "hexo new draft",
     "migrate-drafts": "node ./npm-scripts/migrate-posts.js --input-dir=_drafts --output-dir=_posts",
+    "migrate-posts": "node ./npm-scripts/migrate-posts.js --input-dir=_posts --output-dir=_drafts",
     "find-unreferenced-assets": "node ./npm-scripts/find-unreferenced-assets.js"
   },
   "hexo": {
@@ -41,8 +42,9 @@
   },
   "devDependencies": {
     "isubo": "0.0.12-alpha.7",
+    "link-harvester": "^2.0.0",
     "minimist": "^1.2.8",
-    "path-treeify": "^1.4.0",
+    "path-treeify": "^1.4.1",
     "prompts": "^2.4.2",
     "signale": "^1.4.0"
   }

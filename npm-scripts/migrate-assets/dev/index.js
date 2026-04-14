@@ -1,8 +1,12 @@
-const { createHint } = require('../src/hint');
+const { migrate } = require("../index");
+const path = require('path');
 
-const hint = createHint();
+// migrate({
+//   inputDir: path.resolve('source', '_drafts'),
+//   outputDir: path.resolve('source', '_posts'),
+// });
 
-hint.warn('warn text');
-hint.error('error text');
-
-hint.warnList(['warn text-1', 'warn text-2'])
+migrate({
+  inputDir: path.resolve('source', '_posts'),
+  outputDir: path.resolve('source', '_drafts'),
+});
