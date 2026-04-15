@@ -164,9 +164,32 @@ function collectMdMeta(dirpath) {
   return { titles, title2mdFilepath: map };
 }
 
+function normalizeDestPaths(outputDir, pathsObj) {
+  if (!fs.existsSync(outputDir)) {
+    console.error(`${outputDir} is not exist!`)
+    process.exit(1);
+  }
+
+  const output = path.resolve(outputDir);
+  const result = {};
+  for (const [key, arr] of Object.entries(pathsObj)) {
+    if (!result[key]) {
+      result[key] = [];
+    }
+
+    for (const it of arr) {
+      const dest = path.resolve(output, it);
+      result[key].push({ src: it, dest });
+    }
+  }
+
+  return result;
+}
+
 module.exports = {
   transferFiles,
   findMdFiles,
   readFrontMatterTitle,
   collectMdMeta,
+  normalizeDestPaths,
 };

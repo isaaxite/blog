@@ -8,8 +8,23 @@ const createHint = () => ({
   warn: (text) => {
     signale.warn(text);
   },
-  warnList: (textList) => {
-    textList.forEach((it) => signale.warn(it));
+  /**
+   * 
+   * @param { main: { label: string, text: string }, subs: string[]} list 
+   */
+  warnList: ({ main, subs }) => {
+    let signale = new Signale(genOpt('warn', main.label));
+    signale.warn(main.text);
+
+    if (!subs?.length) {
+      return;
+    }
+
+    signale = new Signale(genOpt('warn', ''));
+    for (const text of subs.slice(0, -1)) {
+      signale.warn(`  ├── ${text}`);
+    }
+    signale.warn(`  └── ${subs.slice(-1)[0]}`);
   },
   error: (text) => {
     signale.error(text);

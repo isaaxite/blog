@@ -11,8 +11,8 @@
     "server+draft": "hexo clean && hexo server --draft",
     "new-daily": "node ./npm-scripts/new.js daily",
     "new-draft": "hexo new draft",
-    "migrate-drafts": "node ./npm-scripts/migrate-posts.js --input-dir=_drafts --output-dir=_posts",
-    "migrate-posts": "node ./npm-scripts/migrate-posts.js --input-dir=_posts --output-dir=_drafts",
+    "migrate-drafts": "node ./npm-scripts/migrate-posts.js --base=../ --input-dir=blog/source/_drafts --output-dir=blog/source/_posts",
+    "migrate-posts": "node ./npm-scripts/migrate-posts.js --base=../ --input-dir=blog/source/_posts --output-dir=blog/source/_drafts",
     "find-unreferenced-assets": "node ./npm-scripts/find-unreferenced-assets.js"
   },
   "hexo": {

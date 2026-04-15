@@ -3,7 +3,11 @@ const minimist = require('minimist');
 const { migrate } = require('./migrate-assets');
 
 const args = minimist(process.argv.slice(2), {
-  string: ['input-dir', 'output-dir'],
+  string: [
+    'base',       // relative path
+    'input-dir',  // relative to base
+    'output-dir', // relative to base
+  ],
   alias: {
     'inputDir': 'input-dir',
     'outputDir': 'output-dir',
@@ -11,7 +15,5 @@ const args = minimist(process.argv.slice(2), {
 });
 
 const { inputDir, outputDir } = args;
-migrate(Object.entries({ inputDir, outputDir }).reduce((props, [key, value]) => {
-  props[key] = path.resolve('source', value);
-  return props;
-}, {}));
+const base = path.resolve(args.base);
+migrate({ base, inputDir, outputDir });

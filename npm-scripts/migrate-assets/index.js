@@ -6,9 +6,15 @@ const { collectMdMeta } = require('./src/transfer');
 const { PathTreeify } = require('path-treeify');
 const assetDirName = 'assets';
 
-const migrate = async ({ inputDir, outputDir }) => {
+const migrate = async ({
+  base,       // abs path
+  inputDir,   // relative path - relative to base
+  outputDir,  // relative path - relative to base
+}) => {
+  const inputDirAbs = path.join(base, inputDir);
+  const outputDirAbs = path.join(base, outputDir);
   const getPostPaths = () => {
-    const post = collectMdMeta(inputDir);
+    const post = collectMdMeta(inputDirAbs);
     const data = Object.entries(post.title2mdFilepath).map(([title, postPath], idx) => ({
       title: `No.${idx+1} ${title}`,
       postPath,
@@ -18,14 +24,14 @@ const migrate = async ({ inputDir, outputDir }) => {
   };
   const getDirTree = () => {
     const ptf = new PathTreeify({
-      base: outputDir,
+      base: outputDirAbs,
       filter: ({ name }) => name !== assetDirName,
     });
 
     return ptf.build();
   };
 
-  await promptTransfer(inputDir, {
+  await promptTransfer(base, inputDir, {
     assetDirName,
     prompt: createPrompt({
       getPostPaths,

@@ -90,14 +90,15 @@ const createPrompt = ({
 
     return node.getPath().absolute;
   },
-  selectTransferMode: async function() {
+  selectTransferMode: async function(message) {
     const { value } = await prompts({
       type: 'select',
       name: 'value',
-      message: 'Choose how to handle non-assets',
+      message,
       choices: [
         { title: 'Copy', value: 'copy' },
-        { title: 'Cut', value: 'cut' },
+        { title: 'Replace', value: 'replace' },
+        { title: 'Skip', value: 'skip' },
       ],
     });
 
