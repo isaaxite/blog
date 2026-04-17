@@ -69,6 +69,9 @@ importers:
         specifier: ^4.1.1
         version: 4.1.1
     devDependencies:
+      '@transnail/migrate-cli':
+        specifier: ^1.0.0
+        version: 1.0.0
       isubo:
         specifier: 0.0.12-alpha.7
         version: 0.0.12-alpha.7
@@ -218,6 +221,11 @@ packages:
   '@tootallnate/once@2.0.0':
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
+
+  '@transnail/migrate-cli@1.0.0':
+    resolution: {integrity: sha512-pAxH8tWhxygAI5+EAferIvhJa2l6tq49MLEGXhxkllEo5ya/RaMIu8OuqOCrB+HeLX/Z/61nBIhXSlWfsmzV4w==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
 
   '@types/aws-lambda@8.10.147':
     resolution: {integrity: sha512-nD0Z9fNIZcxYX5Mai2CTmFD7wX7UldCkW2ezCF8D1T5hdiLsnTWDGRpfRYntU6VjTdLQjOvyszru7I1c1oCQew==}
@@ -2354,6 +2362,14 @@ snapshots:
       aggregate-error: 3.1.0
 
   '@tootallnate/once@2.0.0': {}
+
+  '@transnail/migrate-cli@1.0.0':
+    dependencies:
+      fast-glob: 3.3.3
+      minimist: 1.2.8
+      path-treeify: 1.4.1
+      prompts: 2.4.2
+      signale: 1.4.0
 
   '@types/aws-lambda@8.10.147': {}
 

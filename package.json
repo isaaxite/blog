@@ -11,8 +11,8 @@
     "server+draft": "hexo clean && hexo server --draft",
     "new-daily": "node ./npm-scripts/new.js daily",
     "new-draft": "hexo new draft",
-    "migrate-drafts": "node ./npm-scripts/migrate-posts.js --base=../ --input-dir=blog/source/_drafts --output-dir=blog/source/_posts",
-    "migrate-posts": "node ./npm-scripts/migrate-posts.js --base=../ --input-dir=blog/source/_posts --output-dir=blog/source/_drafts",
+    "migrate-drafts": "migrate-cli -a assets -b ../ -i blog/source/_drafts -o blog/source/_posts",
+    "migrate-posts": "migrate-cli  -a assets -b ../ -i blog/source/_posts -o blog/source/_drafts",
     "find-unreferenced-assets": "node ./npm-scripts/find-unreferenced-assets.js"
   },
   "hexo": {
@@ -41,6 +41,7 @@
     "object-assign": "^4.1.1"
   },
   "devDependencies": {
+    "@transnail/migrate-cli": "^1.0.0",
     "isubo": "0.0.12-alpha.7",
     "link-harvester": "^2.0.0",
     "minimist": "^1.2.8",
